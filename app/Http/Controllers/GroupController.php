@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\Country;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -14,7 +15,8 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        $groups = Group::all();
+        return view('groups.index',compact('groups'));
     }
 
     /**
@@ -44,9 +46,11 @@ class GroupController extends Controller
      * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show(Group $group)
+    public function show($id)
     {
-        //
+        $group = Group::find($id);
+        $countries = Country::orderBy('name')->get();
+        return view('groups.show',compact('group','countries'));
     }
 
     /**

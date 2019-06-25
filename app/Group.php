@@ -9,7 +9,7 @@ class Group extends Model
 
     public function dealerships()
     {
-        return $this->hasMany(Dealership::class);
+        return $this->hasMany(Dealership::class)->orderBy('name');
     }
 
 }

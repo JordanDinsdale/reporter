@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Manufacturer;
+use App\Region;
+use App\Group;
 use Illuminate\Http\Request;
+use Auth;
 
 class ManufacturerController extends Controller
 {
@@ -14,7 +17,8 @@ class ManufacturerController extends Controller
      */
     public function index()
     {
-        //
+        $manufacturers = Manufacturer::orderBy('name')->get();
+        return view('manufacturers.index',compact('manufacturers'));
     }
 
     /**
@@ -35,7 +39,19 @@ class ManufacturerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'manufacturer'=>'required',
+            'colour' => 'required'
+        ]);
+
+        $manufacturer = new Manufacturer([
+            'name' => $request->get('manufacturer'),
+            'colour' => $request->get('colour')
+        ]);
+
+        $manufacturer->save();
+
+        return redirect()->back()->with('success', 'Manufacturer Added');
     }
 
     /**
@@ -44,9 +60,27 @@ class ManufacturerController extends Controller
      * @param  \App\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function show(Manufacturer $manufacturer)
+    public function show($id)
     {
-        //
+        $manufacturer = Manufacturer::find($id);
+
+        if($manufacturer->dealerships) {
+
+            foreach($manufacturer->dealerships as $dealership) {
+
+                $dealership->region = Region::find($dealership->pivot->region_id);
+                
+                $group_ids[] = $dealership->group->id;
+
+            }
+
+        }
+
+        $group_ids = array_unique($group_ids);
+
+        $groups = Group::whereIn('id',$group_ids)->get();
+
+        return view('manufacturers.show',compact('manufacturer','groups'));
     }
 
     /**
@@ -81,5 +115,18 @@ class ManufacturerController extends Controller
     public function destroy(Manufacturer $manufacturer)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Manufacturer  $manufacturer
+     * @return \Illuminate\Http\Response
+     */
+    public function regionsApi($id)
+    {
+        $manufacturer = Manufacturer::find($id);
+
+        return $manufacturer->regions;
     }
 }

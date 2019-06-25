@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
 	            'email' => 'jordan.dinsdale@rhinogroup.co.uk',
 	            'password' => bcrypt('secret'),
 	            'level' => 'Admin',
-	            'country' => 'United Kingdom',
+	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ]

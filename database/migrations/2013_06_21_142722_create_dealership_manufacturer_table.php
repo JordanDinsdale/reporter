@@ -17,7 +17,7 @@ class CreateDealershipManufacturerTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('dealership_id')->unsigned();
             $table->bigInteger('manufacturer_id')->unsigned();
-            $table->bigInteger('region_id')->unsigned();
+            $table->bigInteger('region_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('dealership_id')->references('id')->on('dealerships');
             $table->foreign('manufacturer_id')->references('id')->on('manufacturers');

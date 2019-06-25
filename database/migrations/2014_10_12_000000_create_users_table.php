@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('level');
             $table->integer('dealership_id')->nullable();
             $table->integer('region_id')->nullable();
-            $table->string('country');
+            $table->string('country_id');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -19,15 +19,31 @@
 
                     <p>Your user level is {{ $user->level }}</p>
 
+                    @if($countries)
+
+                        <h2><a href="{{ route('countries') }}">Countries</a></h2>
+
+                        <ul>
+
+                            @foreach($countries as $country)
+
+                                <li><a href="{{ route('country',$country->id) }}">{{ $country->name }}</a></li>
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
                     @if($manufacturers)
 
-                        <h2>Manufacturers</h2>
+                        <h2><a href="{{ route('manufacturers') }}">Manufacturers</a></h2>
 
                         <ul>
 
                             @foreach($manufacturers as $manufacturer)
 
-                                <li>{{ $manufacturer->name }}</li>
+                                <li><a href="{{ route('manufacturer',$manufacturer->id) }}">{{ $manufacturer->name }}</a></li>
 
                                 @if($manufacturer->regions)
 
@@ -35,7 +51,7 @@
 
                                         @foreach($manufacturer->regions as $region)
 
-                                            <li>{{ $region->name }}</li>
+                                            <li><a href="{{ route('region',$region->id) }}">{{ $region->name }}</a></li>
 
                                         @endforeach
 
@@ -51,13 +67,13 @@
 
                     @if($groups)
 
-                        <h2>Groups</h2>
+                        <h2><a href="{{ route('groups') }}">Groups</a></h2>
 
                         <ul>
 
                             @foreach($groups as $group)
 
-                                <li>{{ $group->name }}</li>
+                                <li><h3><a href="{{ route('group', $group->id) }}">{{ $group->name }}</a></h3></li>
 
                                 @if($group->dealerships)
 
@@ -69,12 +85,21 @@
 
                                             <li>
                                                 
-                                                {{ $dealership->name }}<br />
-                                                {{ $dealership->country }}<br />
+                                                <h4><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></h4>
+                                                <h5><a href="{{ route('country', $dealership->country->id) }}">{{ $dealership->country->name }}</a></h5>
 
                                                 @if($dealership->manufacturers)
                                                     @foreach($dealership->manufacturers as $manufacturer)
-                                                        {{ $manufacturer->name }} - {{ $manufacturer->region->name }}
+                                                        @if($manufacturer->region)
+                                                            <p><a href="{{ route('region', $manufacturer->region->id) }}">
+                                                                {{ $manufacturer->name }}
+                                                                ({{ $manufacturer->region->name }})
+                                                            </a></p>
+                                                        @else 
+                                                            <p><a href="{{ route('manufacturer', $manufacturer->id) }}">
+                                                                {{ $manufacturer->name }}
+                                                            </a></p>
+                                                        @endif
                                                     @endforeach
                                                 @endif
 

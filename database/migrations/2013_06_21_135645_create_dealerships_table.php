@@ -17,9 +17,10 @@ class CreateDealershipsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('group_id')->unsigned();
-            $table->string('country');
+            $table->bigInteger('country_id')->unsigned();
             $table->timestamps();            
             $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 

@@ -83,134 +83,153 @@ class DealershipManufacturerTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-	        /*
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 2,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 3,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 4,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 5,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 6,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 7,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 8,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 10,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 12,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 13,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 14,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 16,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 17,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 18,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 19,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 21,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 23,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 24,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 25,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 26,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 11,
 	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-	        */
 	        [
 	            'dealership_id' => 12,
 	            'manufacturer_id' => 3,
@@ -239,68 +258,76 @@ class DealershipManufacturerTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-	        /*
 	        [
 	            'dealership_id' => 16,
 	            'manufacturer_id' => 1,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 16,
 	            'manufacturer_id' => 2,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 16,
 	            'manufacturer_id' => 3,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 16,
 	            'manufacturer_id' => 7,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 16,
 	            'manufacturer_id' => 12,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 16,
 	            'manufacturer_id' => 14,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 16,
 	            'manufacturer_id' => 16,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 16,
 	            'manufacturer_id' => 18,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 16,
 	            'manufacturer_id' => 26,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 16,
 	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ]
-	        */
 	    ]);
     }
 }

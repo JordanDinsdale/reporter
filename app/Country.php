@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Region extends Model
+class Country extends Model
 {
 
     /**
@@ -13,12 +13,11 @@ class Region extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'manufacturer_id'
+        'name'
     ];
 
-    public function manufacturer()
+    public function dealerships()
     {
-        return $this->belongsTo(Manufacturer::class)->orderBy('name');
+        return $this->hasMany(Dealership::class)->orderBy('name');
     }
-
 }

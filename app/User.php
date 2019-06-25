@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstname', 'surname', 'email', 'password',
     ];
 
     /**
@@ -39,7 +39,12 @@ class User extends Authenticatable
 
     public function dealership()
     {
-        return $this->belongsTo(Dealership::class);
+        return $this->belongsTo(Dealership::class)->orderBy('name');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class)->orderBy('name');
     }
 
 }

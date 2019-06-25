@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Country;
 use App\Manufacturer;
 use App\Group;
 use App\Region;
@@ -29,8 +30,11 @@ class HomeController extends Controller
     {
 
         $user = Auth::user();
+        $countries = Country::all();
         $manufacturers = Manufacturer::all();
         $groups = Group::all();
+
+        // Add region relationship to dealership->manufacturer
 
         if($groups) {
 
@@ -62,7 +66,7 @@ class HomeController extends Controller
 
         }
 
-        return view('home',compact('user','manufacturers','groups'));
+        return view('home',compact('user','countries','manufacturers','groups'));
 
     }
 }

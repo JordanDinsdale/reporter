@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Dealership;
+use App\Region;
+use App\Manufacturer;
 use Illuminate\Http\Request;
 
 class DealershipController extends Controller
@@ -35,7 +37,21 @@ class DealershipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'dealership'=>'required',
+            'group_id' => 'required',
+            'country_id' => 'required'
+        ]);
+
+        $dealership = new Dealership([
+            'name' => $request->get('dealership'),
+            'group_id' => $request->get('group_id'),
+            'country_id' => $request->get('country_id')
+        ]);
+
+        $dealership->save();
+
+        return redirect()->back()->with('success', 'Dealership Added');
     }
 
     /**
@@ -44,9 +60,27 @@ class DealershipController extends Controller
      * @param  \App\Dealership  $dealership
      * @return \Illuminate\Http\Response
      */
-    public function show(Dealership $dealership)
+    public function show($id)
     {
-        //
+        $dealership = Dealership::find($id);
+
+        if($dealership->manufacturers) {
+
+            foreach($dealership->manufacturers as $manufacturer) {
+
+                if($manufacturer->pivot->region_id) {
+
+                    $manufacturer->region = Region::find($manufacturer->pivot->region_id);
+
+                }
+
+            }
+
+        }
+
+        $manufacturers = Manufacturer::orderBy('name')->get();
+
+        return view('dealerships.show',compact('dealership','manufacturers'));
     }
 
     /**
@@ -81,5 +115,29 @@ class DealershipController extends Controller
     public function destroy(Dealership $dealership)
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function attachManufacturer(Request $request)
+    {
+        $request->validate([
+            'dealership_id'=>'required',
+            'manufacturer_id' => 'required'
+        ]);
+
+        $dealership_id = $request->get('dealership_id');
+        $manufacturer_id = $request->get('manufacturer_id');
+        $region_id = $request->get('region_id');
+
+        $dealership = Dealership::find($dealership_id);
+
+        $dealership->manufacturers()->attach($manufacturer_id, array('region_id' => $region_id));
+
+        return redirect()->back()->with('success', 'Manufacturer attached');
     }
 }
