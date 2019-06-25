@@ -17,6 +17,24 @@
 
                     <p>You are logged in!</p>
 
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (\Session::has('success'))
+                        <div class="alert alert-success">
+                            <ul>
+                                <li>{!! \Session::get('success') !!}</li>
+                            </ul>
+                        </div>
+                    @endif
+
                     <h1>{{ $dealership->name }}</h1>
 
                     <h2><a href="{{ route('country', $dealership->country->id) }}">{{ $dealership->country->name }}</a></h2>
@@ -42,17 +60,28 @@
                             </select>
                         </div>  
                         <input type="hidden" name="dealership_id" value="{{ $dealership->id }}" />           
-                        <button type="submit" class="btn btn-primary">Attach Manufacturer</button>
+                        <button type="submit" class="btn btn-primary">Add Manufacturer</button>
                     </form>
 
                     @if(count($dealership->manufacturers) > 0)
                         <ul>
                             @foreach($dealership->manufacturers as $manufacturer)
-                                @if($manufacturer->region)
-                                    <li><a href="{{ route('region', $manufacturer->region->id) }}">{{ $manufacturer->name }} ({{ $manufacturer->region->name }})</a></li>
-                                @else
-                                    <li><a href="{{ route('manufacturer', $manufacturer->id) }}">{{ $manufacturer->name }}</a></li>
-                                @endif
+                                <li>
+
+                                    @if($manufacturer->region)
+                                        <a href="{{ route('region', $manufacturer->region->id) }}">{{ $manufacturer->name }} ({{ $manufacturer->region->name }})</a>
+                                    @else
+                                        <a href="{{ route('manufacturer', $manufacturer->id) }}">{{ $manufacturer->name }}</a>
+                                    @endif
+
+                                    <form method="post" action="{{ route('detachManufacturer') }}">
+                                        @csrf
+                                        <input type="hidden" name="manufacturer_id" value="{{ $manufacturer->id }}" />     
+                                        <input type="hidden" name="dealership_id" value="{{ $dealership->id }}" />           
+                                        <button type="submit" class="btn btn-danger">Remove Manufacturer</button>
+                                    </form>
+
+                                </li>
                             @endforeach
                         </ul>
                     @endif
@@ -66,39 +95,6 @@
 
 @section('scripts')
 
-    <script>
-
-        $( document ).ready(function() {
-
-            $('select#manufacturers').on('change', function() {
-
-                let manufacturer_id = this.value;
-
-                let dropdown = $('select#regions');
-
-                dropdown.empty();
-
-                dropdown.append('<option selected="true" disabled>Select Region</option>');
-                dropdown.prop('selectedIndex', 0);
-
-                const url = '/api/manufacturers/' + manufacturer_id + '/regions';
-
-                // Populate dropdown with list of provinces
-                $.getJSON(url, function (data) {
-
-                    if(data.length > 0) {
-                        $('#regionContainer').removeClass('d-none');
-                    }
-
-                    $.each(data, function (key, entry) {
-                        dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
-                    })
-                });
-
-            });
-
-        });
-
-    </script>
+     <script src="/js/manufacturer-regions.js"></script> 
 
 @endsection

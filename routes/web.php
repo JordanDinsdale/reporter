@@ -11,13 +11,15 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/countries', 'CountryController@index')->name('countries');
 Route::get('/countries/{id}', 'CountryController@show')->name('country');
@@ -40,5 +42,10 @@ Route::get('/groups/{id}', 'GroupController@show')->name('group');
 Route::get('/dealerships/{id}', 'DealershipController@show')->name('dealership');
 Route::post('/dealerships/store', 'DealershipController@store')->name('dealershipStore');
 Route::post('/dealerships/attachManufacturer', 'DealershipController@attachManufacturer')->name('attachManufacturer');
+Route::post('/dealerships/detachManufacturer', 'DealershipController@detachManufacturer')->name('detachManufacturer');
+
+Route::get('/appointments', 'AppointmentController@index')->name('appointments');
+Route::get('/appointments/{id}', 'AppointmentController@show')->name('appointment');
+Route::post('/appointments/store', 'AppointmentController@store')->name('appointmentStore');
 
 Route::get('/api/manufacturers/{manufacturer_id}/regions', 'ManufacturerController@regionsApi')->name('regionsApi');

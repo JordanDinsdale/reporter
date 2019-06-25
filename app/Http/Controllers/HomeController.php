@@ -8,18 +8,11 @@ use App\Country;
 use App\Manufacturer;
 use App\Group;
 use App\Region;
+use App\User;
+
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -29,28 +22,33 @@ class HomeController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
-        $countries = Country::all();
-        $manufacturers = Manufacturer::all();
-        $groups = Group::all();
+        if(Auth::user()) {
 
-        // Add region relationship to dealership->manufacturer
+            $user = Auth::user();
+            $countries = Country::all();
+            $manufacturers = Manufacturer::all();
+            $groups = Group::all();
+            $sales_executives = User::where('level','Sales Executive')->get();
 
-        if($groups) {
+            // Add region relationship to dealership->manufacturer
 
-            foreach($groups as $group) {
+            if($groups) {
 
-                if($group->dealerships) {
+                foreach($groups as $group) {
 
-                    foreach($group->dealerships as $dealership) {
+                    if($group->dealerships) {
 
-                        if($dealership->manufacturers) {
+                        foreach($group->dealerships as $dealership) {
 
-                            foreach($dealership->manufacturers as $manufacturer) {
+                            if($dealership->manufacturers) {
 
-                                if($manufacturer->pivot->region_id) {
+                                foreach($dealership->manufacturers as $manufacturer) {
 
-                                    $manufacturer->region = Region::find($manufacturer->pivot->region_id);
+                                    if($manufacturer->pivot->region_id) {
+
+                                        $manufacturer->region = Region::find($manufacturer->pivot->region_id);
+
+                                    }
 
                                 }
 
@@ -64,9 +62,15 @@ class HomeController extends Controller
 
             }
 
+            return view('home',compact('user','countries','manufacturers','groups','sales_executives'));
+
         }
 
-        return view('home',compact('user','countries','manufacturers','groups'));
+        else {
+
+            return view('welcome');
+
+        }
 
     }
 }

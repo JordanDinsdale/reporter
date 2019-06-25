@@ -118,7 +118,7 @@ class DealershipController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Attach a manufacturer with region if one has been provided.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -138,6 +138,30 @@ class DealershipController extends Controller
 
         $dealership->manufacturers()->attach($manufacturer_id, array('region_id' => $region_id));
 
-        return redirect()->back()->with('success', 'Manufacturer attached');
+        return redirect()->back()->with('success', 'Manufacturer Added');
     }
+
+    /**
+     * Attach a manufacturer with region if one has been provided.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function detachManufacturer(Request $request)
+    {
+        $request->validate([
+            'dealership_id'=>'required',
+            'manufacturer_id' => 'required'
+        ]);
+
+        $dealership_id = $request->get('dealership_id');
+        $manufacturer_id = $request->get('manufacturer_id');
+
+        $dealership = Dealership::find($dealership_id);
+
+        $dealership->manufacturers()->detach($manufacturer_id);
+
+        return redirect()->back()->with('success', 'Manufacturer Removed');
+    }
+
 }
