@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
+use App\User;
 use App\Country;
-use App\Appointment;
+use App\Manufacturer;
 use Illuminate\Http\Request;
 
-class GroupController extends Controller
+class UserController extends Controller
 {
 
     public function __construct()
@@ -22,8 +22,10 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
-        return view('groups.index',compact('groups'));
+        $users = User::orderBy('surname')->get();
+        $countries = Country::orderBy('name')->get();
+        $manufacturers = Manufacturer::orderBy('name')->get();
+        return view('users.index',compact('users','countries','manufacturers'));
     }
 
     /**
@@ -44,7 +46,23 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'firstname' => 'required',
+            'surname' => 'required',
+            'email' => 'required|email',
+            'level' => 'required'
+        ]);
+
+        $user = new User([
+            'firstname' => $request->get('firstname'),
+            'surname' => $request->get('surname'),
+            'email' => $request->get('email'),
+            'level' => $request->get('level')
+        ]);
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'User Added');
     }
 
     /**
@@ -55,28 +73,8 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        $group = Group::find($id);
-        $countries = Country::orderBy('name')->get();
-
-        $appointment_ids = [];
-
-        foreach($group->dealerships as $dealership) {
-
-            foreach($dealership->users as $user) {
-
-                foreach($user->appointments as $appointment) {
-
-                    $appointment_ids[] = $appointment->id;
-
-                }
-
-            }
-
-        }
-
-        $appointments = Appointment::whereIn('id',$appointment_ids)->get();
-
-        return view('groups.show',compact('group','countries','appointments'));
+        $user = User::find($id);
+        return view('users.show',compact('user'));
     }
 
     /**
@@ -112,18 +110,4 @@ class GroupController extends Controller
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Manufacturer  $manufacturer
-     * @return \Illuminate\Http\Response
-     */
-    public function groupDealershipsApi($id)
-    {
-        $group = Group::find($id);
-
-        return $group->dealerships;
-    }
-
 }

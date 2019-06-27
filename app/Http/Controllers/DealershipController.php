@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Dealership;
 use App\Region;
 use App\Manufacturer;
+use App\Appointment;
 use Illuminate\Http\Request;
 
 class DealershipController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -80,7 +87,21 @@ class DealershipController extends Controller
 
         $manufacturers = Manufacturer::orderBy('name')->get();
 
-        return view('dealerships.show',compact('dealership','manufacturers'));
+        $user_ids = [];
+
+        if($dealership->users) {
+
+            foreach($dealership->users as $user) {
+
+                $user_ids[] = $user->id;
+
+            }
+
+        }
+
+        $appointments = Appointment::whereIn('sales_executive_id',$user_ids)->get();
+
+        return view('dealerships.show',compact('dealership','manufacturers','appointments'));
     }
 
     /**

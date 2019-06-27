@@ -31,4 +31,9 @@ class Dealership extends Model
         return $this->belongsTo(Country::class)->orderBy('name');
     }
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
 }

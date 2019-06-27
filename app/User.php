@@ -47,4 +47,9 @@ class User extends Authenticatable
         return $this->belongsTo(Country::class)->orderBy('name');
     }
 
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'sales_executive_id');
+    }
+
 }

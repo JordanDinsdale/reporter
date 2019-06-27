@@ -20,4 +20,9 @@ class Country extends Model
     {
         return $this->hasMany(Dealership::class)->orderBy('name');
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class)->orderBy('surname');
+    }
 }

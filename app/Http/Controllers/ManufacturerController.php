@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use App\Manufacturer;
 use App\Region;
 use App\Group;
+use App\User;
 use Illuminate\Http\Request;
 use Auth;
 
 class ManufacturerController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -123,10 +130,31 @@ class ManufacturerController extends Controller
      * @param  \App\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function regionsApi($id)
+    public function manufacturerRegionsApi($id)
     {
         $manufacturer = Manufacturer::find($id);
 
         return $manufacturer->regions;
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Manufacturer  $manufacturer
+     * @return \Illuminate\Http\Response
+     */
+    public function manufacturerUsersApi($id)
+    {
+        $manufacturer = Manufacturer::find($id);
+        $user_ids = [];
+        foreach($manufacturer->dealerships as $dealership) {
+            foreach($dealership->users as $user) {
+                $user_ids[] = $user->id;
+            }
+        }
+        $users = User::whereIn('id',$user_ids)->get();
+
+        return $users;
+    }
+
 }

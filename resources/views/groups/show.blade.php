@@ -37,36 +37,52 @@
 
                     <h2>{{ $group->name }}</h2>
 
-                    @if($group->dealerships)
+                    <h3>Add Dealership</h3>
+
+                    <form method="post" action="{{ route('dealershipStore') }}">
+                        @csrf
+                        <div class="form-group">    
+                            <label for="dealership">Name</label>
+                            <input type="text" class="form-control" name="dealership"/>
+                        </div>  
+                        <div class="form-group">    
+                            <label for="country_id">Country</label>
+                            <select class="form-control" name="country_id"/>
+                                <option value="">Select Country</option>
+                                @foreach($countries as $country)
+                                    <option value="{{ $country->id}}">{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>   
+                        <input type="hidden" name="group_id" value="{{ $group->id }}" />            
+                        <button type="submit" class="btn btn-primary">Add Dealership</button>
+                    </form>
+
+                    @if(count($group->dealerships) > 0)
 
                         <h3>Dealerships</h3>
-
-                        <h3>Add Dealership</h3>
-
-                        <form method="post" action="{{ route('dealershipStore') }}">
-                            @csrf
-                            <div class="form-group">    
-                                <label for="dealership">Name</label>
-                                <input type="text" class="form-control" name="dealership"/>
-                            </div>  
-                            <div class="form-group">    
-                                <label for="country_id">Country</label>
-                                <select class="form-control" name="country_id"/>
-                                    <option value="">Select Country</option>
-                                    @foreach($countries as $country)
-                                        <option value="{{ $country->id}}">{{ $country->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>   
-                            <input type="hidden" name="group_id" value="{{ $group->id }}" />            
-                            <button type="submit" class="btn btn-primary">Add Dealership</button>
-                        </form>
 
                         <ul>
 
                             @foreach($group->dealerships as $dealership)
 
                                 <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    @if(count($appointments) > 0)
+
+                        <h3>Appointments</h3>
+
+                        <ul>
+
+                            @foreach($appointments as $appointment)
+
+                                <li><a href="{{ route('appointment',$appointment->id) }}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
 
                             @endforeach
 

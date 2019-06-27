@@ -69,7 +69,7 @@
                                 <li>
 
                                     @if($manufacturer->region)
-                                        <a href="{{ route('region', $manufacturer->region->id) }}">{{ $manufacturer->name }} ({{ $manufacturer->region->name }})</a>
+                                        <a href="{{ route('manufacturer', $manufacturer->id) }}">{{ $manufacturer->name }}</a> <a href="{{ route('region', $manufacturer->region->id) }}">({{ $manufacturer->region->name }})</a>
                                     @else
                                         <a href="{{ route('manufacturer', $manufacturer->id) }}">{{ $manufacturer->name }}</a>
                                     @endif
@@ -84,6 +84,52 @@
                                 </li>
                             @endforeach
                         </ul>
+                    @endif
+
+                    @if(count($dealership->users) > 0)
+
+                        <h3>Users</h3>
+
+                        <ul>
+
+                            @foreach($dealership->users as $user)
+
+                                <li><a href="{{ route('user',$user->id )}}">{{ $user->firstname }} {{ $user->surname }}</a></li>
+
+                                @if(count($user->appointments) > 0)
+
+                                    <ul>
+
+                                        @foreach($user->appointments as $appointment)
+
+                                            <li><a href="{{ route('appointment',$appointment->id )}}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
+
+                                        @endforeach
+
+                                    </ul>
+
+                                @endif
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    @if(count($appointments) > 0)
+
+                        <h3>Appointments</h3>
+
+                        <ul>
+
+                            @foreach($appointments as $appointment)
+
+                                <li><a href="{{ route('appointment',$appointment->id) }}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
+
+                            @endforeach
+
+                        </ul>
+
                     @endif
 
                 </div>

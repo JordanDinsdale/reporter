@@ -17,11 +17,13 @@
 
                     <p>You are logged in!</p>
 
-                    <h1>{{ $region->manufacturer->name }}</h1>
+                    <h1><a href="{{ route('manufacturer',$region->manufacturer->id) }}">{{ $region->manufacturer->name }}</a></h1>
 
                     <h2>{{ $region->name }}</h2>
 
-                    @if($region->manufacturer->dealerships)
+                    @if(count($region->manufacturer->dealerships) > 0)
+
+                        <h3>Dealerships</h3>
 
                         <ul>
 
@@ -29,9 +31,25 @@
 
                                 @if($dealership->pivot->region_id == $region->id)
 
-                                    <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</li>
+                                    <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
 
                                 @endif
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    @if(count($region->appointments) > 0)
+
+                        <h3>Appointments</h3>
+
+                        <ul>
+
+                            @foreach($region->appointments as $appointment)
+
+                                    <li><a href="{{ route('appointment',$appointment->id) }}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
 
                             @endforeach
 

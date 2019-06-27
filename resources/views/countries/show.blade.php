@@ -19,15 +19,61 @@
 
                     <h1>{{ $country->name }}</h1>
 
-                    @if(count($country->dealerships) > 0)
+                    @if(count($groups) > 0)
 
-                        <h2>Dealerships</h2>
+                        <h2><a href="{{ route('groups') }}">Groups</a></h2>
 
                         <ul>
 
-                            @foreach($country->dealerships as $dealership)
+                            @foreach($groups as $group)
 
-                                <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+                                <li>
+
+                                    <a href="{{ route('group', $group->id) }}">{{ $group->name }}</a>
+
+                                    <ul>
+
+                                        @foreach($group->dealerships as $dealership)
+
+                                            <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                        @endforeach
+
+                                    </ul>
+
+                                </li>
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    @if(count($country->users) > 0)
+
+                        <h2><a href="{{ route('users') }}">Users</a></h2>
+
+                        <ul>
+
+                            @foreach($country->users as $user)
+
+                                <li><a href="{{ route('user', $user->id) }}">{{ $user->firstname }} {{ $user->surname }}</a></li>
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    @if(count($appointments) > 0)
+
+                        <h2><a href="{{ route('appointments') }}">Appointments</a></h2>
+
+                        <ul>
+
+                            @foreach($appointments as $appointment)
+
+                                <li><a href="{{ route('appointment', $appointment->id) }}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
 
                             @endforeach
 

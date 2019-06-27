@@ -25,9 +25,10 @@ class HomeController extends Controller
         if(Auth::user()) {
 
             $user = Auth::user();
-            $countries = Country::all();
-            $manufacturers = Manufacturer::all();
-            $groups = Group::all();
+            $users = User::orderBy('surname')->get();
+            $countries = Country::orderBy('name')->get();
+            $manufacturers = Manufacturer::orderBy('name')->get();
+            $groups = Group::orderBy('name')->get();
             $sales_executives = User::where('level','Sales Executive')->get();
 
             // Add region relationship to dealership->manufacturer
@@ -62,7 +63,7 @@ class HomeController extends Controller
 
             }
 
-            return view('home',compact('user','countries','manufacturers','groups','sales_executives'));
+            return view('home',compact('user','users','countries','manufacturers','groups','sales_executives'));
 
         }
 

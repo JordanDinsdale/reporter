@@ -26,4 +26,9 @@ class Manufacturer extends Model
         return $this->hasMany(Region::class)->orderBy('name');
     }
 
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
 }

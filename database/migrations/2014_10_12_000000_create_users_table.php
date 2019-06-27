@@ -21,9 +21,10 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('level');
-            $table->integer('dealership_id')->nullable();
-            $table->integer('region_id')->nullable();
-            $table->string('country_id');
+            $table->bigInteger('dealership_id')->nullable()->unsigned();
+            $table->bigInteger('group_id')->nullable()->unsigned();
+            $table->bigInteger('region_id')->nullable()->unsigned();
+            $table->bigInteger('country_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

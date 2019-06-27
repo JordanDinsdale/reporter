@@ -21,6 +21,10 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/users', 'UserController@index')->name('users');
+Route::get('/user/{id}', 'UserController@show')->name('user');
+Route::post('/user/store', 'UserController@store')->name('userStore');
+
 Route::get('/countries', 'CountryController@index')->name('countries');
 Route::get('/countries/{id}', 'CountryController@show')->name('country');
 Route::get('/countries/edit/{id}', 'CountryController@edit')->name('countryEdit');
@@ -48,4 +52,10 @@ Route::get('/appointments', 'AppointmentController@index')->name('appointments')
 Route::get('/appointments/{id}', 'AppointmentController@show')->name('appointment');
 Route::post('/appointments/store', 'AppointmentController@store')->name('appointmentStore');
 
-Route::get('/api/manufacturers/{manufacturer_id}/regions', 'ManufacturerController@regionsApi')->name('regionsApi');
+Route::get('/api/countries/{country_id}/groups', 'CountryController@countryGroupsApi')->name('countryGroupsApi');
+Route::get('/api/countries/{country_id}/manufacturers/{manufacturer_id}/regions', 'CountryController@countryManufacturerRegionsApi')->name('countryManufacturerRegionsApi');
+
+Route::get('/api/manufacturers/{manufacturer_id}/regions', 'ManufacturerController@manufacturerRegionsApi')->name('manufacturerRegionsApi');
+Route::get('/api/manufacturers/{manufacturer_id}/users', 'ManufacturerController@manufacturerUsersApi')->name('manufacturerUsersApi');
+
+Route::get('/api/groups/{group_id}/dealerships', 'GroupController@groupDealershipsApi')->name('groupDealershipsApi');

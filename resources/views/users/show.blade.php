@@ -35,15 +35,33 @@
                         </div>
                     @endif
 
-                    <h1>{{ $appointment->firstname }} {{ $appointment->surname }}</h1>
+                    <h2>{{ $user->firstname }} {{ $user->surname }}</h2>
 
-                    <h2><a href="{{ route('dealership', $appointment->sales_executive->dealership->id) }}">{{ $appointment->sales_executive->dealership->name }}</a></h2>
+                    <h3>{{ $user->level }}</h3>
 
-                    <h3><a href="{{ route('manufacturer', $appointment->manufacturer->id) }}">{{ $appointment->manufacturer->name }}</a> (<a href="{{ route('region', $appointment->region->id) }}">{{ $appointment->region->name }}</a>)</h3>
+                    <h4><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></h4>
 
-                    <h4><a href="{{ route('user', $appointment->sales_executive->id) }}">{{ $appointment->sales_executive->firstname }} {{ $appointment->sales_executive->surname }}</a></h4>
+                    @if($user->dealership)
 
-                    <p>Created By: {{ $appointment->created_by->firstname }} {{ $appointment->created_by->surname }}</p>
+                        <h5><a href="{{ route('dealership',$user->dealership->id) }}">{{ $user->dealership->name }}</a></h5>
+
+                    @endif
+
+                    @if(count($user->appointments) > 0)
+
+                        <h6>Appointments</h6>
+
+                        <ul>
+
+                            @foreach($user->appointments as $appointment)
+
+                                <li><a href="{{ route('appointment',$appointment->id) }}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
 
                 </div>
             </div>

@@ -81,7 +81,7 @@
 
                     @endif
 
-                    @if($manufacturer->dealerships)
+                    @if(count($manufacturer->dealerships) > 0)
 
                         <h3>Dealerships</h3>
 
@@ -89,7 +89,23 @@
 
                             @foreach($manufacturer->dealerships as $dealership)
 
-                                <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }} @if($dealership->region)({{ $dealership->region->name }})@endif</a></li>
+                                <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a> @if($dealership->region)(<a href="{{ route('region', $dealership->region->id) }}">{{ $dealership->region->name }}</a>)@endif</li>
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    @if(count($manufacturer->appointments) > 0)
+
+                        <h3>Appointments</h3>
+
+                        <ul>
+
+                            @foreach($manufacturer->appointments as $appointment)
+
+                                <li><a href="{{ route('appointment', $appointment->id) }}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
 
                             @endforeach
 

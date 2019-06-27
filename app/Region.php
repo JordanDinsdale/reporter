@@ -21,4 +21,9 @@ class Region extends Model
         return $this->belongsTo(Manufacturer::class)->orderBy('name');
     }
 
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
 }
