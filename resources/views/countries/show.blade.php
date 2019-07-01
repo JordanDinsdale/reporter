@@ -35,7 +35,15 @@
 
                                         @foreach($group->dealerships as $dealership)
 
-                                            <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+                                            @if(!empty($dealership_manufacturer_ids) && in_array($dealership->id,$dealership_manufacturer_ids))
+
+                                                <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                            @else
+
+                                                <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                            @endif
 
                                         @endforeach
 

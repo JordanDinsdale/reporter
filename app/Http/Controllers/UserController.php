@@ -57,7 +57,13 @@ class UserController extends Controller
             'firstname' => $request->get('firstname'),
             'surname' => $request->get('surname'),
             'email' => $request->get('email'),
-            'level' => $request->get('level')
+            'level' => $request->get('level'),
+            'password' => bcrypt('secret'),
+            'manufacturer_id' => $request->get('manufacturer_id'),
+            'country_id' => $request->get('country_id'),
+            'region_id' => $request->get('region_id'),
+            'group_id' => $request->get('group_id'),
+            'dealership_id' => $request->get('dealership_id')
         ]);
 
         $user->save();

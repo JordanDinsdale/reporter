@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
-    $('select#manufacturers').on('change', function() {
+    $('select#countries, select#manufacturers').on('change', function() {
 
         let country_id = $('select#countries').val();
-        let manufacturer_id = this.value;
+        let manufacturer_id = $('select#manufacturers').val();
 
         let dropdown = $('select#regions');
 

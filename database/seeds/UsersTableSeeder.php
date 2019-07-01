@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
 	            'group_id' => NULL,
 	            'region_id' => NULL,
 	            'country_id' => 5,
+	            'manufacturer_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],	        
@@ -36,6 +37,7 @@ class UsersTableSeeder extends Seeder
 	            'group_id' => 1,
 	            'region_id' => NULL,
 	            'country_id' => 5,
+	            'manufacturer_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],	            
@@ -49,6 +51,7 @@ class UsersTableSeeder extends Seeder
 	            'group_id' => 1,
 	            'region_id' => NULL,
 	            'country_id' => 5,
+	            'manufacturer_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],	            
@@ -62,6 +65,7 @@ class UsersTableSeeder extends Seeder
 	            'group_id' => 1,
 	            'region_id' => NULL,
 	            'country_id' => 5,
+	            'manufacturer_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ]

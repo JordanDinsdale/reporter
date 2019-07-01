@@ -53,49 +53,47 @@
                         </div>   
                         <div class="form-group">    
                             <label for="level">Level</label>
-                            <select class="form-control" name="level" required/>
+                            <select id="levels" class="form-control" name="level" required/>
                                 <option value="">Level</option>
                                 <option value="Sales Executive">Sales Executive</option>
                                 <option value="Dealership">Dealership</option>
                                 <option value="Group">Group</option>
                                 <option value="Regional">Regional</option>
-                                <option value="Manufacturer">Manufacturer</option>
                                 <option value="National">National</option>
-                                <option value="International">International</option>
+                                <option value="Manufacturer">Manufacturer</option>
                                 <option value="Admin">Admin</option>
                             </select>
                         </div>  
-                        <div class="form-group">    
+                        <div id="manufacturerContainer" class="form-group d-none">    
+                            <label for="manufacturer_id">Manufacturer</label>
+                            <select class="form-control" name="manufacturer_id" id="manufacturers" />
+                                <option value="">Manufacturer</option>@foreach($manufacturers as $manufacturer)
+                                    <option value="{{ $manufacturer->id}}">{{ $manufacturer->name }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+                        <div id="countryContainer" class="form-group d-none">    
                             <label for="country_id">Country</label>
                             <select class="form-control" name="country_id" id="countries" />
-                                <option value="">Country</option>                                
+                                <option value="">Country</option>
                                 @foreach($countries as $country)
                                     <option value="{{ $country->id}}">{{ $country->name }}</option>
                                 @endforeach
                             </select>
-                        </div>  
-                        <div class="form-group">    
-                            <label for="manufacturer_id">Manufacturer</label>
-                            <select class="form-control" name="manufacturer_id" id="manufacturers" />
-                                <option value="">Manufacturer</option>                                
-                                @foreach($manufacturers as $manufacturer)
-                                    <option value="{{ $manufacturer->id}}">{{ $manufacturer->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>  
-                        <div class="form-group">    
+                        </div>   
+                        <div id="regionContainer" class="form-group d-none">    
                             <label for="region_id">Region</label>
                             <select class="form-control" name="region_id" id="regions" />
                                 <option value="">Region</option>
                             </select>
                         </div>  
-                        <div class="form-group">    
+                        <div id="groupContainer" class="form-group d-none">    
                             <label for="group_id">Group</label>
                             <select class="form-control" name="group_id" id="groups" />
                                 <option value="">Group</option>
                             </select>
                         </div>  
-                        <div class="form-group">    
+                        <div id="dealershipContainer" class="form-group d-none">    
                             <label for="dealership_id">Dealership</label>
                             <select class="form-control" name="dealership_id" id="dealerships" />
                                 <option value="">Dealership</option>
@@ -132,5 +130,6 @@
      <script src="/js/country-groups.js"></script> 
      <script src="/js/country-manufacturer-regions.js"></script> 
      <script src="/js/group-dealerships.js"></script> 
+     <script src="/js/select-user-level.js"></script>
 
 @endsection

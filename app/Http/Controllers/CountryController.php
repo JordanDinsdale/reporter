@@ -70,6 +70,10 @@ class CountryController extends Controller
     {
         $country = Country::find($id);
 
+        if(Auth::user()->manufacturer_id !== 'NULL') {
+            $manufacturer_id = Auth::user()->manufacturer_id;
+        }
+
         $group_ids = [];
 
         $appoinments = [];
@@ -97,8 +101,6 @@ class CountryController extends Controller
             $appointments = Appointment::whereIn('id',$appointment_ids)->get();
 
         }
-
-
 
         return view('countries.show',compact('country','groups','appointments'));
     }

@@ -9,6 +9,7 @@ use App\Manufacturer;
 use App\Group;
 use App\Region;
 use App\User;
+use App\Appointment;
 
 
 class HomeController extends Controller
@@ -23,6 +24,72 @@ class HomeController extends Controller
     {
 
         if(Auth::user()) {
+
+            if(Auth::user()->level == 'Manufacturer') {
+
+                $manufacturer_id = Auth::user()->manufacturer_id;
+                $manufacturer = Manufacturer::find($manufacturer_id);
+
+                if($manufacturer->dealerships) {
+
+                    foreach($manufacturer->dealerships as $dealership) {
+
+                        $dealership->region = Region::find($dealership->pivot->region_id);
+                        
+                        $group_ids[] = $dealership->group->id;
+
+                    }
+
+                }
+
+                $group_ids = array_unique($group_ids);
+
+                $groups = Group::whereIn('id',$group_ids)->get();
+
+                return view('manufacturers.show',compact('manufacturer','groups'));
+            }
+
+            if(Auth::user()->level == 'National') {
+
+                $country_id = Auth::user()->country_id;
+                $country = Country::find($country_id);
+
+                $manufacturer_id = Auth::user()->manufacturer_id;
+                $manufacturer = Manufacturer::find($manufacturer_id);
+
+                $group_ids = [];
+
+                $appoinments = [];
+
+                if(count($manufacturer->dealerships) > 0) {
+
+                    $appointment_ids = [];
+
+                    foreach($manufacturer->dealerships as $dealership) {
+
+                        $group_ids[] = $dealership->group->id;
+
+                        foreach($dealership->users as $user) {
+
+                            foreach($user->appointments as $appointment) {
+
+                                $appointment_ids[] = $appointment->id;
+
+                            }
+
+                        }
+
+                    }
+
+                    $groups = Group::whereIn('id',$group_ids)->orderBy('name')->get();
+
+                    $appointments = Appointment::whereIn('id',$appointment_ids)->get();
+
+                }
+
+                return view('countries.show',compact('country','groups','appointments'));
+
+            }
 
             $user = Auth::user();
             $users = User::orderBy('surname')->get();
