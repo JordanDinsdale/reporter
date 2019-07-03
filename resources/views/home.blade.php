@@ -37,79 +37,15 @@
 
                     <p>Your user level is {{ $user->level }}</p>
 
-                    <h2><a href="{{ route('appointments') }}">Appointments</a></h2>
+                    @if($companies)
 
-                    <h3>Add Appointment</h3>
-
-                    <form method="post" action="{{ route('appointmentStore') }}">
-                        @csrf
-                        <div class="form-group">    
-                            <label for="firstname">First Name</label>
-                            <input type="text" class="form-control" name="firstname" required/>
-                        </div>   
-                        <div class="form-group">    
-                            <label for="surname">Surname</label>
-                            <input type="text" class="form-control" name="surname" required/>
-                        </div>          
-                        <div class="form-group">    
-                            <label for="manufacturer_id">Manufacturer</label>
-                            <select class="form-control" name="manufacturer_id" id="manufacturers" required/>
-                                <option value="">Choose Manufacturer</option>
-                                @foreach($manufacturers as $manufacturer)
-                                    <option value="{{ $manufacturer->id}}">{{ $manufacturer->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>  
-                        <!--
-                        <div class="form-group">    
-                            <label for="sale">Sale Type</label>
-                            <select class="form-control" name="sale" />
-                                <option value="">Select Sale Type</option>
-                                <option value="New">New</option>
-                                <option value="Used">Used</option>
-                                <option value="0km">0km</option>
-                                <option value="Demo">Demo</option>
-                                <option value="In Progress">In Progress</option>
-                            </select>
-                        </div> 
-                        -->
-                        <div class="form-group">    
-                            <label for="sales_executive_id">Sales Executive</label>
-                            <select class="form-control" name="sales_executive_id" id="users" required/>
-                                <option value="">Select Sales Executive</option>
-                                @foreach($sales_executives as $sales_executive)
-                                    <option value="{{ $sales_executive->id}}">{{ $sales_executive->firstname }} {{ $sales_executive->surname }}</option>
-                                @endforeach
-                            </select>
-                        </div>            
-                        <button type="submit" class="btn btn-primary">Add Appointment</button>
-                    </form>
-
-                    @if($users)
-
-                        <h2><a href="{{ route('users') }}">Users</a></h2>
+                        <h2><a href="{{ route('companies') }}">Companies</a></h2>
 
                         <ul>
 
-                            @foreach($users as $user)
+                            @foreach($companies as $company)
 
-                                <li><a href="{{ route('user',$user->id) }}">{{ $user->firstname }} {{ $user->surname }}</a></li>
-
-                            @endforeach
-
-                        </ul>
-
-                    @endif
-
-                    @if($countries)
-
-                        <h2><a href="{{ route('countries') }}">Countries</a></h2>
-
-                        <ul>
-
-                            @foreach($countries as $country)
-
-                                <li><a href="{{ route('country',$country->id) }}">{{ $country->name }}</a></li>
+                                <li><a href="{{ route('company',$company->id) }}">{{ $company->name }}</a></li>
 
                             @endforeach
 
@@ -140,6 +76,22 @@
                                     </ul>
 
                                 @endif
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    @if($countries)
+
+                        <h2><a href="{{ route('countries') }}">Countries</a></h2>
+
+                        <ul>
+
+                            @foreach($countries as $country)
+
+                                <li><a href="{{ route('country',$country->id) }}">{{ $country->name }}</a></li>
 
                             @endforeach
 
@@ -194,6 +146,22 @@
                                     </ul>
 
                                 @endif
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    @if($users)
+
+                        <h2><a href="{{ route('users') }}">Users</a></h2>
+
+                        <ul>
+
+                            @foreach($users as $user)
+
+                                <li><a href="{{ route('user',$user->id) }}">{{ $user->firstname }} {{ $user->surname }}</a></li>
 
                             @endforeach
 

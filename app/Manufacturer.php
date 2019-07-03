@@ -16,6 +16,11 @@ class Manufacturer extends Model
         'name', 'colour'
     ];
 
+    public function company()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     public function dealerships()
     {
         return $this->belongsToMany(Dealership::class)->withPivot('region_id')->orderBy('name');

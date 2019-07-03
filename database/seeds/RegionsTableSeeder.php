@@ -15,49 +15,49 @@ class RegionsTableSeeder extends Seeder
         DB::table('regions')->insert([
         	[
 	            'name' => 'North UK',
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'East UK',
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'South UK',
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'West UK',
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'North East UK',
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'South East UK',
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'South West UK',
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'North West UK',
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ]

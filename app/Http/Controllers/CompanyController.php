@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $companies = Company::orderBy('name')->get();
+        return view('companies.index',compact('companies'));
     }
 
     /**
@@ -35,7 +42,17 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'company'=>'required'
+        ]);
+
+        $company = new Company([
+            'name' => $request->get('company')
+        ]);
+
+        $company->save();
+
+        return redirect()->back()->with('success', 'Company Added');
     }
 
     /**
@@ -44,9 +61,11 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show($id)
     {
-        //
+        $company = Company::find($id);
+        return view('companies.show',compact('company'));
+
     }
 
     /**

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\Country;
+use App\Company;
 use App\Manufacturer;
+use App\Country;
 use App\Group;
 use App\Region;
 use App\User;
@@ -24,6 +25,8 @@ class HomeController extends Controller
     {
 
         if(Auth::user()) {
+
+            /*
 
             if(Auth::user()->level == 'Manufacturer') {
 
@@ -99,8 +102,11 @@ class HomeController extends Controller
 
             }
 
+            */
+
             $user = Auth::user();
             $users = User::orderBy('surname')->get();
+            $companies = Company::orderBy('name')->get();
             $countries = Country::orderBy('name')->get();
             $manufacturers = Manufacturer::orderBy('name')->get();
             $groups = Group::orderBy('name')->get();
@@ -138,7 +144,7 @@ class HomeController extends Controller
 
             }
 
-            return view('home',compact('user','users','countries','manufacturers','groups','sales_executives'));
+            return view('home',compact('user','companies','manufacturers','countries','groups','users',));
 
         }
 

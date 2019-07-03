@@ -25,16 +25,20 @@ Route::get('/users', 'UserController@index')->name('users');
 Route::get('/user/{id}', 'UserController@show')->name('user');
 Route::post('/user/store', 'UserController@store')->name('userStore');
 
+Route::get('/companies', 'CompanyController@index')->name('companies');
+Route::get('/companies/{id}', 'CompanyController@show')->name('company');
+Route::post('/companies/store', 'CompanyController@store')->name('companyStore');
+
+Route::get('/manufacturers', 'ManufacturerController@index')->name('manufacturers');
+Route::get('/manufacturers/{id}', 'ManufacturerController@show')->name('manufacturer');
+Route::post('/manufacturers/store', 'ManufacturerController@store')->name('manufacturerStore');
+
 Route::get('/countries', 'CountryController@index')->name('countries');
 Route::get('/countries/{id}', 'CountryController@show')->name('country');
 Route::get('/countries/edit/{id}', 'CountryController@edit')->name('countryEdit');
 Route::post('/countries/store', 'CountryController@store')->name('countryStore');
 Route::post('/countries/update/{id}', 'CountryController@update')->name('countryUpdate');
 Route::post('/countries/destroy/{id}', 'CountryController@destroy')->name('countryDestroy');
-
-Route::get('/manufacturers', 'ManufacturerController@index')->name('manufacturers');
-Route::get('/manufacturers/{id}', 'ManufacturerController@show')->name('manufacturer');
-Route::post('/manufacturers/store', 'ManufacturerController@store')->name('manufacturerStore');
 
 Route::get('/regions', 'RegionController@index')->name('regions');
 Route::get('/regions/{id}', 'RegionController@show')->name('region');

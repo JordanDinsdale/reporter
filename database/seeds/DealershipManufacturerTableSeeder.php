@@ -15,70 +15,70 @@ class DealershipManufacturerTableSeeder extends Seeder
         DB::table('dealership_manufacturer')->insert([
         	[
 	            'dealership_id' => 1,
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'region_id' => 1,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 2,
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'region_id' => 2,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 3,
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'region_id' => 3,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 4,
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'region_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 5,
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'region_id' => 1,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 6,
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'region_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 7,
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'region_id' => 6,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 8,
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'region_id' => 7,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 9,
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'region_id' => 8,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 10,
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'region_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
@@ -232,28 +232,28 @@ class DealershipManufacturerTableSeeder extends Seeder
 	        ],
 	        [
 	            'dealership_id' => 12,
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'region_id' => 1,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 13,
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'region_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 14,
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'region_id' => 1,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'dealership_id' => 15,
-	            'manufacturer_id' => 15,
+	            'manufacturer_id' => 20,
 	            'region_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
@@ -274,7 +274,7 @@ class DealershipManufacturerTableSeeder extends Seeder
 	        ],
 	        [
 	            'dealership_id' => 16,
-	            'manufacturer_id' => 3,
+	            'manufacturer_id' => 4,
 	            'region_id' => NULL,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
