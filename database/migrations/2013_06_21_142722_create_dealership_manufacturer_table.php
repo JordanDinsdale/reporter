@@ -19,9 +19,9 @@ class CreateDealershipManufacturerTable extends Migration
             $table->bigInteger('manufacturer_id')->unsigned();
             $table->bigInteger('region_id')->unsigned()->nullable();
             $table->timestamps();
-            $table->foreign('dealership_id')->references('id')->on('dealerships');
-            $table->foreign('manufacturer_id')->references('id')->on('manufacturers');
-            $table->foreign('region_id')->references('id')->on('regions');
+            $table->foreign('dealership_id')->references('id')->on('dealerships')->onDelete('cascade');
+            $table->foreign('manufacturer_id')->references('id')->on('manufacturers')->onDelete('cascade');
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
         });
     }
 

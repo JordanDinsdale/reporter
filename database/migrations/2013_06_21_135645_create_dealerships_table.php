@@ -19,8 +19,8 @@ class CreateDealershipsTable extends Migration
             $table->bigInteger('group_id')->unsigned();
             $table->bigInteger('country_id')->unsigned();
             $table->timestamps();            
-            $table->foreign('group_id')->references('id')->on('groups');
-            $table->foreign('country_id')->references('id')->on('countries');
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
     }
 

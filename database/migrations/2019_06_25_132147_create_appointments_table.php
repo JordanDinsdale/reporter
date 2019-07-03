@@ -23,10 +23,10 @@ class CreateAppointmentsTable extends Migration
             $table->bigInteger('region_id')->unsigned()->nullable();
             $table->bigInteger('created_by_id')->unsigned();
             $table->timestamps();
-            $table->foreign('sales_executive_id')->references('id')->on('users');
-            $table->foreign('manufacturer_id')->references('id')->on('manufacturers');
-            $table->foreign('region_id')->references('id')->on('regions');
-            $table->foreign('created_by_id')->references('id')->on('users');
+            $table->foreign('sales_executive_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('manufacturer_id')->references('id')->on('manufacturers')->onDelete('cascade');
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
+            $table->foreign('created_by_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

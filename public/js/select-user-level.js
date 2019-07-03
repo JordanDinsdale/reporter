@@ -10,24 +10,28 @@ $(document).ready(function() {
                 $('#countryContainer').addClass('d-none');
                 $('#regionContainer').addClass('d-none');
                 $('#groupContainer').addClass('d-none');
+                $('#dealershipContainer').addClass('d-none');
             break;
             case 'National':
                 $('#manufacturerContainer').removeClass('d-none');
                 $('#countryContainer').removeClass('d-none');
                 $('#regionContainer').addClass('d-none');
                 $('#groupContainer').addClass('d-none');
+                $('#dealershipContainer').addClass('d-none');
             break;
             case 'Regional':
                 $('#manufacturerContainer').removeClass('d-none');
                 $('#countryContainer').removeClass('d-none');
                 $('#regionContainer').removeClass('d-none');
                 $('#groupContainer').addClass('d-none');
+                $('#dealershipContainer').addClass('d-none');
             break;
             case 'Group':
                 $('#manufacturerContainer').addClass('d-none');
                 $('#countryContainer').removeClass('d-none');
                 $('#regionContainer').addClass('d-none');
                 $('#groupContainer').removeClass('d-none');
+                $('#dealershipContainer').addClass('d-none');
             break;
             case 'Dealership':
                 $('#manufacturerContainer').addClass('d-none');

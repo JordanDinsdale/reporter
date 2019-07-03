@@ -57,7 +57,13 @@
 
                             @foreach($manufacturer->regions as $region)
 
-                                <li><a href="{{ route('region', $region->id) }}">{{ $region->name }}</a></li>
+                                <li>
+                                    <a href="{{ route('region', $region->id) }}">{{ $region->name }}</a> | <a href="{{ route('regionEdit',$region->id) }}">Edit</a> |
+                                    <form action="{{ route('regionDestroy', $region->id)}}" method="post">
+                                        @csrf
+                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                    </form>
+                                </li>
 
                             @endforeach
 

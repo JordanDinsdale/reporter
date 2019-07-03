@@ -78,9 +78,10 @@ class RegionController extends Controller
      * @param  \App\Region  $region
      * @return \Illuminate\Http\Response
      */
-    public function edit(Region $region)
+    public function edit($id)
     {
-        //
+        $region = Region::find($id);
+        return view('regions.edit', compact('region'));
     }
 
     /**
@@ -90,9 +91,18 @@ class RegionController extends Controller
      * @param  \App\Region  $region
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Region $region)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'region'=>'required'
+        ]);
+
+        $region = Region::find($id);
+        $region->name = $request->get('region');
+
+        $region->save();
+
+        return redirect()->route('regions')->with('success', 'Region Updated');
     }
 
     /**
@@ -101,8 +111,11 @@ class RegionController extends Controller
      * @param  \App\Region  $region
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Region $region)
+    public function destroy($id)
     {
-        //
+        $region = Region::find($id);
+        $region->delete();
+
+        return redirect()->route('regions')->with('success', 'Region Deleted');
     }
 }

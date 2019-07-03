@@ -59,6 +59,8 @@ class HomeController extends Controller
 
                 $group_ids = [];
 
+                $user_ids = [];
+
                 $appoinments = [];
 
                 if(count($manufacturer->dealerships) > 0) {
@@ -71,6 +73,8 @@ class HomeController extends Controller
 
                         foreach($dealership->users as $user) {
 
+                            $user_ids[] = $user->id;
+
                             foreach($user->appointments as $appointment) {
 
                                 $appointment_ids[] = $appointment->id;
@@ -81,13 +85,17 @@ class HomeController extends Controller
 
                     }
 
+                    $dealerships = $manufacturer->dealerships;
+
                     $groups = Group::whereIn('id',$group_ids)->orderBy('name')->get();
 
                     $appointments = Appointment::whereIn('id',$appointment_ids)->get();
 
                 }
 
-                return view('countries.show',compact('country','groups','appointments'));
+                $users = User::where('manufacturer_id',$manufacturer_id)->orWhereIn('id',$user_ids)->orderBy('surname')->get();
+
+                return view('countries.show',compact('country','groups','dealerships','users','appointments'));
 
             }
 

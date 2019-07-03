@@ -38,10 +38,17 @@ Route::post('/manufacturers/store', 'ManufacturerController@store')->name('manuf
 
 Route::get('/regions', 'RegionController@index')->name('regions');
 Route::get('/regions/{id}', 'RegionController@show')->name('region');
+Route::get('/regions/edit/{id}', 'RegionController@edit')->name('regionEdit');
 Route::post('/regions/store', 'RegionController@store')->name('regionStore');
+Route::post('/regions/update/{id}', 'RegionController@update')->name('regionUpdate');
+Route::post('/regions/destroy/{id}', 'RegionController@destroy')->name('regionDestroy');
 
 Route::get('/groups', 'GroupController@index')->name('groups');
 Route::get('/groups/{id}', 'GroupController@show')->name('group');
+Route::get('/groups/edit/{id}', 'GroupController@edit')->name('groupEdit');
+Route::post('/groups/store', 'GroupController@store')->name('groupStore');
+Route::post('/groups/update/{id}', 'GroupController@update')->name('groupUpdate');
+Route::post('/groups/destroy/{id}', 'GroupController@destroy')->name('groupDestroy');
 
 Route::get('/dealerships/{id}', 'DealershipController@show')->name('dealership');
 Route::post('/dealerships/store', 'DealershipController@store')->name('dealershipStore');

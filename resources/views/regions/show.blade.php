@@ -17,9 +17,33 @@
 
                     <p>You are logged in!</p>
 
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (\Session::has('success'))
+                        <div class="alert alert-success">
+                            <ul>
+                                <li>{!! \Session::get('success') !!}</li>
+                            </ul>
+                        </div>
+                    @endif
+
                     <h1><a href="{{ route('manufacturer',$region->manufacturer->id) }}">{{ $region->manufacturer->name }}</a></h1>
 
-                    <h2>{{ $region->name }}</h2>
+                    <h2>
+                        {{ $region->name }} | <a href="{{ route('regionEdit',$region->id) }}">Edit</a> |
+                        <form action="{{ route('regionDestroy', $region->id)}}" method="post">
+                            @csrf
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </h2>
 
                     @if(count($region->manufacturer->dealerships) > 0)
 

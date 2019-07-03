@@ -17,6 +17,24 @@
 
                     <p>You are logged in!</p>
 
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (\Session::has('success'))
+                        <div class="alert alert-success">
+                            <ul>
+                                <li>{!! \Session::get('success') !!}</li>
+                            </ul>
+                        </div>
+                    @endif
+
                     @if($regions)
 
                         <h2>Regions</h2>
@@ -33,7 +51,13 @@
 
                                         @foreach($manufacturer->regions as $region)
 
-                                            <li><a href="{{ route('region',$region->id) }}">{{ $region->name }}</a></li>
+                                            <li>
+                                                <a href="{{ route('region',$region->id) }}">{{ $region->name }}</a> | <a href="{{ route('regionEdit',$region->id) }}">Edit</a> |
+                                                <form action="{{ route('regionDestroy', $region->id)}}" method="post">
+                                                    @csrf
+                                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                                </form>
+                                            </li>
 
                                         @endforeach
 

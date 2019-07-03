@@ -33,13 +33,9 @@
 
                                     <ul>
 
-                                        @foreach($group->dealerships as $dealership)
+                                        @foreach($dealerships as $dealership)
 
-                                            @if(!empty($dealership_manufacturer_ids) && in_array($dealership->id,$dealership_manufacturer_ids))
-
-                                                <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
-
-                                            @else
+                                            @if($dealership->group->id == $group->id)
 
                                                 <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
 
@@ -57,13 +53,13 @@
 
                     @endif
 
-                    @if(count($country->users) > 0)
+                    @if(count($users) > 0)
 
                         <h2><a href="{{ route('users') }}">Users</a></h2>
 
                         <ul>
 
-                            @foreach($country->users as $user)
+                            @foreach($users as $user)
 
                                 <li><a href="{{ route('user', $user->id) }}">{{ $user->firstname }} {{ $user->surname }}</a></li>
 

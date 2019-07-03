@@ -17,7 +17,9 @@ class CreateManufacturersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('colour');
-            $table->timestamps();
+            $table->bigInteger('company_id')->unsigned()->nullable();
+            $table->timestamps();         
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 

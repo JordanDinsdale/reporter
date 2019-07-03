@@ -35,36 +35,14 @@
                         </div>
                     @endif
 
-                    <form method="post" action="{{ route('groupStore') }}">
+                    <form method="post" action="{{ route('groupUpdate', $group->id) }}">    
                         @csrf
                         <div class="form-group">    
-                            <label for="group">Add Group</label>
-                            <input type="text" class="form-control" name="group"/>
+                            <label for="group">Edit Group</label>
+                            <input type="text" class="form-control" name="group" value="{{ $group->name }}" />
                         </div>   
-                        <button type="submit" class="btn btn-primary">Add Group</button>
+                        <button type="submit" class="btn btn-primary">Edit Group</button>
                     </form>
-
-                    @if($groups)
-
-                        <h2>Groups</h2>
-
-                        <ul>
-
-                            @foreach($groups as $group)
-
-                                <li>
-                                    <a href="{{ route('group',$group->id) }}">{{ $group->name }}</a> | <a href="{{ route('groupEdit',$group->id) }}">Edit</a> |
-                                     <form action="{{ route('groupDestroy', $group->id)}}" method="post">
-                                        @csrf
-                                        <button class="btn btn-danger" type="submit">Delete</button>
-                                    </form>
-                                </li>
-
-                            @endforeach
-
-                        </ul>
-
-                    @endif
 
                 </div>
             </div>
