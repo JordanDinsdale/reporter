@@ -16,48 +16,63 @@ class RegionsTableSeeder extends Seeder
         	[
 	            'name' => 'North UK',
 	            'manufacturer_id' => 4,
+	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'East UK',
 	            'manufacturer_id' => 4,
+	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'South UK',
 	            'manufacturer_id' => 4,
+	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'West UK',
 	            'manufacturer_id' => 4,
+	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'North East UK',
 	            'manufacturer_id' => 20,
+	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'South East UK',
 	            'manufacturer_id' => 20,
+	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'South West UK',
 	            'manufacturer_id' => 20,
+	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
 	            'name' => 'North West UK',
 	            'manufacturer_id' => 20,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Northern France',
+	            'manufacturer_id' => 4,
+	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ]

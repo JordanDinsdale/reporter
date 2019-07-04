@@ -47,11 +47,13 @@ class RegionController extends Controller
     {
         $request->validate([
             'region'=>'required',
+            'country_id' => 'required',
             'manufacturer_id' => 'required'
         ]);
 
         $region = new Region([
             'name' => $request->get('region'),
+            'country_id' => $request->get('country_id'),
             'manufacturer_id' => $request->get('manufacturer_id')
         ]);
 
@@ -116,6 +118,6 @@ class RegionController extends Controller
         $region = Region::find($id);
         $region->delete();
 
-        return redirect()->route('regions')->with('success', 'Region Deleted');
+        return redirect()->back()->with('success', 'Region Deleted');
     }
 }

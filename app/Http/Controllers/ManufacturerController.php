@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Manufacturer;
+use App\Country;
 use App\Region;
 use App\Group;
 use App\User;
@@ -71,6 +72,8 @@ class ManufacturerController extends Controller
     {
         $manufacturer = Manufacturer::find($id);
 
+        $countries = Country::orderBy('name')->get();
+
         if($manufacturer->dealerships) {
 
             foreach($manufacturer->dealerships as $dealership) {
@@ -87,7 +90,7 @@ class ManufacturerController extends Controller
 
         $groups = Group::whereIn('id',$group_ids)->get();
 
-        return view('manufacturers.show',compact('manufacturer','groups'));
+        return view('manufacturers.show',compact('manufacturer','countries','groups'));
     }
 
     /**

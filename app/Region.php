@@ -13,13 +13,19 @@ class Region extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'manufacturer_id'
+        'name', 'country_id', 'manufacturer_id'
     ];
 
     public function manufacturer()
     {
-        return $this->belongsTo(Manufacturer::class)->orderBy('name');
+        return $this->belongsTo(Manufacturer::class);
     }
+
+    public function countries()
+    {
+        return $this->belongsToMany(Country::class);
+    }
+
 
     public function appointments()
     {

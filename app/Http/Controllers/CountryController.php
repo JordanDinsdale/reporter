@@ -79,7 +79,7 @@ class CountryController extends Controller
 
         $group_ids = [];
 
-        $appoinment_ids = [];
+        $appointment_ids = [];
 
         if(count($country->dealerships) > 0) {
 

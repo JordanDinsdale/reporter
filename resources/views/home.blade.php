@@ -37,7 +37,7 @@
 
                     <p>Your user level is {{ $user->level }}</p>
 
-                    @if($companies)
+                    @if(count($companies) > 0)
 
                         <h2><a href="{{ route('companies') }}">Companies</a></h2>
 
@@ -45,31 +45,51 @@
 
                             @foreach($companies as $company)
 
-                                <li><a href="{{ route('company',$company->id) }}">{{ $company->name }}</a></li>
+                                <li>
+                                    <a href="{{ route('company',$company->id) }}">{{ $company->name }}</a>
+                                </li>
 
-                            @endforeach
-
-                        </ul>
-
-                    @endif
-
-                    @if($manufacturers)
-
-                        <h2><a href="{{ route('manufacturers') }}">Manufacturers</a></h2>
-
-                        <ul>
-
-                            @foreach($manufacturers as $manufacturer)
-
-                                <li><a href="{{ route('manufacturer',$manufacturer->id) }}">{{ $manufacturer->name }}</a></li>
-
-                                @if($manufacturer->regions)
+                                @if(count($company->manufacturers) > 0)
 
                                     <ul>
 
-                                        @foreach($manufacturer->regions as $region)
+                                        @foreach($company->manufacturers as $manufacturer)
 
-                                            <li><a href="{{ route('region',$region->id) }}">{{ $region->name }}</a></li>
+                                            <li>
+                                                <a href="{{ route('manufacturer',$manufacturer->id) }}">{{ $manufacturer->name }}</a>
+                                            </li>
+
+                                            @if(count($manufacturer->countries) > 0)
+
+                                                <ul>
+
+                                                    @foreach($manufacturer->countries->unique('name') as $country)
+
+                                                        <li>
+                                                            <a href="{{ route('country',$country->id) }}">{{ $country->name }}</a>
+                                                        </li>
+
+                                                        <ul>
+
+                                                            @foreach($manufacturer->countries as $region)
+
+                                                                @if($region->id == $country->id)
+
+                                                                    <li>
+                                                                        <a href="{{ route('region', $region->pivot->id) }}">{{ $region->pivot->name }}</a>
+                                                                    </li>
+
+                                                                @endif
+
+                                                            @endforeach
+
+                                                        </ul>
+
+                                                    @endforeach
+
+                                                </ul>
+
+                                            @endif
 
                                         @endforeach
 
@@ -83,7 +103,71 @@
 
                     @endif
 
-                    @if($countries)
+                    @if(count($manufacturers) > 0)
+
+                        <h2><a href="{{ route('manufacturers') }}">Manufacturers</a></h2>
+
+                        <ul>
+
+                            @foreach($manufacturers as $manufacturer)
+
+                                <li><a href="{{ route('manufacturer',$manufacturer->id) }}">{{ $manufacturer->name }}</a></li>
+
+                                @if($manufacturer->countries)
+
+                                    <ul>
+
+                                        @foreach($manufacturer->countries->unique('name') as $country)
+
+                                            <li><a href="{{ route('country',$country->id) }}">{{ $country->name }}</a></li>
+
+                                            <ul>
+
+                                                @foreach($manufacturer->countries as $region)
+
+                                                    @if($region->id == $country->id)
+
+                                                        <li>
+                                                            <a href="{{ route('region', $region->pivot->id) }}">{{ $region->pivot->name }}</a>
+                                                        </li>
+
+                                                        @if(count($manufacturer->dealerships) > 0)
+
+                                                            <ul>
+
+                                                                @foreach($manufacturer->dealerships as $dealership)
+
+                                                                    @if($dealership->pivot->region_id == $region->pivot->id)
+
+                                                                        <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                                                    @endif
+
+                                                                @endforeach
+
+                                                            </ul>
+
+                                                        @endif
+
+                                                    @endif
+
+                                                @endforeach
+
+                                            </ul>
+
+                                        @endforeach
+
+                                    </ul>
+
+                                @endif
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    @if(count($countries) > 0)
 
                         <h2><a href="{{ route('countries') }}">Countries</a></h2>
 
@@ -93,13 +177,61 @@
 
                                 <li><a href="{{ route('country',$country->id) }}">{{ $country->name }}</a></li>
 
+                                @if(count($country->manufacturers) > 0)
+
+                                    <ul>
+
+                                        @foreach($country->manufacturers->unique('name') as $manufacturer)
+
+                                            <li><a href="{{ route('manufacturer',$manufacturer->id) }}">{{ $manufacturer->name }}</a></li>
+
+                                            <ul>
+                                                
+                                                @foreach($country->manufacturers as $region)
+
+                                                    @if($region->id == $manufacturer->id)
+
+                                                        <li>
+                                                            <a href="{{ route('region', $region->pivot->id) }}">{{ $region->pivot->name }}</a>
+                                                        </li>
+
+                                                        @if(count($manufacturer->dealerships) > 0)
+
+                                                            <ul>
+
+                                                                @foreach($manufacturer->dealerships as $dealership)
+
+                                                                    @if($dealership->pivot->region_id == $region->pivot->id)
+
+                                                                        <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                                                    @endif
+
+                                                                @endforeach
+
+                                                            </ul>
+
+                                                        @endif
+
+                                                    @endif
+
+                                                @endforeach
+
+                                            </ul>
+
+                                        @endforeach
+
+                                    </ul>
+
+                                @endif
+
                             @endforeach
 
                         </ul>
 
                     @endif
 
-                    @if($groups)
+                    @if(count($groups) > 0)
 
                         <h2><a href="{{ route('groups') }}">Groups</a></h2>
 
@@ -153,7 +285,7 @@
 
                     @endif
 
-                    @if($users)
+                    @if(count($users) > 0)
 
                         <h2><a href="{{ route('users') }}">Users</a></h2>
 

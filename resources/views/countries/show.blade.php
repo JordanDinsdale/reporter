@@ -19,6 +19,26 @@
 
                     <h1>{{ $country->name }}</h1>
 
+                    @if(count($country->regions) > 0)
+
+                        <h2><a href="{{ route('regions') }}">Regions</a></h2>
+
+                        <ul>
+
+                            @foreach($country->regions as $region)
+
+                                <li>
+
+                                    <a href="{{ route('region', $region->id) }}">{{ $region->name }}</a>
+
+                                </li>
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
                     @if(count($groups) > 0)
 
                         <h2><a href="{{ route('groups') }}">Groups</a></h2>

@@ -25,4 +25,15 @@ class Country extends Model
     {
         return $this->hasMany(User::class)->orderBy('surname');
     }
+
+    public function manufacturers()
+    {
+        return $this->belongsToMany(Manufacturer::class,'regions')->withPivot('id','name');
+    }
+
+    public function regions()
+    {
+        return $this->hasMany(Region::class)->orderBy('name');
+    }
+
 }

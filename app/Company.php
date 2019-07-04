@@ -20,4 +20,5 @@ class Company extends Model
     {
         return $this->hasMany(Manufacturer::class)->orderBy('name');
     }
+
 }
