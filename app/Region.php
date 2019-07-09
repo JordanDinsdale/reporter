@@ -21,15 +21,9 @@ class Region extends Model
         return $this->belongsTo(Manufacturer::class);
     }
 
-    public function countries()
+    public function country()
     {
-        return $this->belongsToMany(Country::class);
-    }
-
-
-    public function appointments()
-    {
-        return $this->hasMany(Appointment::class);
+        return $this->belongsTo(Country::class);
     }
 
 }

@@ -39,7 +39,81 @@
 
                     <p><a href="{{ route('company', $manufacturer->company->id) }}">{{ $manufacturer->company->name }}</a></p>
 
-                    @if(count($manufacturer->countries->unique('name')) > 0)
+                    @if(count($manufacturer->countries) > 0)
+
+                        <ul>
+
+                            @foreach($manufacturer->countries->unique('name') as $country)
+
+                                <li>
+
+                                    <a href="{{ route('manufacturerCountry',[$manufacturer->id,$country->id]) }}">{{ $country->name }}</a>
+
+                                </li>
+
+                                <ul>
+
+                                    @foreach($manufacturer->countries as $region)
+
+                                        @if($region->id == $country->id)
+
+                                            <li>
+                                                <a href="{{ route('region', $region->pivot->id) }}">{{ $region->pivot->name }}</a>
+                                            </li>
+
+                                            @if(count($manufacturer->dealerships) > 0)
+
+                                                @php($noregion = [])
+
+                                                <ul>
+
+                                                    @foreach($manufacturer->dealerships as $dealership)
+
+                                                        @if(!$dealership->pivot->region_id && $dealership->country_id == $region->id)
+
+                                                            @php($noregion[] = $dealership)
+
+                                                        @elseif($dealership->pivot->region_id == $region->pivot->id)
+
+                                                            <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                                        @endif
+
+                                                    @endforeach
+
+                                                </ul>
+
+                                            @endif
+
+                                        @endif
+
+                                    @endforeach
+
+                                    @if(count($noregion) > 0)
+
+                                        <li>No Region</li>
+
+                                        <ul>
+
+                                            @foreach($noregion as $dealership)
+
+                                                <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                            @endforeach
+
+                                        </ul>
+
+                                    @endif
+
+                                </ul>
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    @if(count($manufacturer->countries) > 0)
 
                         <h3>Countries & Regions</h3>
 
@@ -92,7 +166,7 @@
                         <button type="submit" class="btn btn-primary">Add Region</button>
                     </form>
 
-                    @if($groups)
+                    @if(count($groups) > 0)
 
                         <h3>Groups</h3>
 
@@ -117,22 +191,6 @@
                             @foreach($manufacturer->dealerships as $dealership)
 
                                 <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a> @if($dealership->region)(<a href="{{ route('region', $dealership->region->id) }}">{{ $dealership->region->name }}</a>)@endif</li>
-
-                            @endforeach
-
-                        </ul>
-
-                    @endif
-
-                    @if(count($manufacturer->appointments) > 0)
-
-                        <h3>Appointments</h3>
-
-                        <ul>
-
-                            @foreach($manufacturer->appointments as $appointment)
-
-                                <li><a href="{{ route('appointment', $appointment->id) }}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
 
                             @endforeach
 

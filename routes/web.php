@@ -32,6 +32,7 @@ Route::post('/companies/store', 'CompanyController@store')->name('companyStore')
 Route::get('/manufacturers', 'ManufacturerController@index')->name('manufacturers');
 Route::get('/manufacturers/{id}', 'ManufacturerController@show')->name('manufacturer');
 Route::post('/manufacturers/store', 'ManufacturerController@store')->name('manufacturerStore');
+Route::get('/manufacturers/{manufacturer_id}/country/{country_id}', 'ManufacturerController@country')->name('manufacturerCountry');
 
 Route::get('/countries', 'CountryController@index')->name('countries');
 Route::get('/countries/{id}', 'CountryController@show')->name('country');
@@ -58,10 +59,6 @@ Route::get('/dealerships/{id}', 'DealershipController@show')->name('dealership')
 Route::post('/dealerships/store', 'DealershipController@store')->name('dealershipStore');
 Route::post('/dealerships/attachManufacturer', 'DealershipController@attachManufacturer')->name('attachManufacturer');
 Route::post('/dealerships/detachManufacturer', 'DealershipController@detachManufacturer')->name('detachManufacturer');
-
-Route::get('/appointments', 'AppointmentController@index')->name('appointments');
-Route::get('/appointments/{id}', 'AppointmentController@show')->name('appointment');
-Route::post('/appointments/store', 'AppointmentController@store')->name('appointmentStore');
 
 Route::get('/api/countries/{country_id}/groups', 'CountryController@countryGroupsApi')->name('countryGroupsApi');
 Route::get('/api/countries/{country_id}/manufacturers/{manufacturer_id}/regions', 'CountryController@countryManufacturerRegionsApi')->name('countryManufacturerRegionsApi');

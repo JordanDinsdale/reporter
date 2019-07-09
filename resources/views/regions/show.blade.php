@@ -35,19 +35,17 @@
                         </div>
                     @endif
 
-                    <h1><a href="{{ route('manufacturer',$region->manufacturer->id) }}">{{ $region->manufacturer->name }}</a></h1>
+                    <h2><a href="{{ route('manufacturerCountry',[$region->manufacturer->id,$region->country->id]) }}">{{ $region->manufacturer->name }} {{ $region->country->name }}</a></h2>
 
-                    <h2>
-                        {{ $region->name }} | <a href="{{ route('regionEdit',$region->id) }}">Edit</a> |
-                        <form action="{{ route('regionDestroy', $region->id)}}" method="post">
-                            @csrf
-                            <button class="btn btn-danger" type="submit">Delete</button>
-                        </form>
-                    </h2>
+                    <h3>{{ $region->name }}</h3>
+                    <a href="{{ route('regionEdit',$region->id) }}">Edit</a>
+                    <form action="{{ route('regionDestroy', $region->id)}}" method="post">
+                        @csrf
+                        <button type="submit">Delete</button>
+                    </form>
+                    
 
                     @if(count($region->manufacturer->dealerships) > 0)
-
-                        <h3>Dealerships</h3>
 
                         <ul>
 
@@ -58,22 +56,6 @@
                                     <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
 
                                 @endif
-
-                            @endforeach
-
-                        </ul>
-
-                    @endif
-
-                    @if(count($region->appointments) > 0)
-
-                        <h3>Appointments</h3>
-
-                        <ul>
-
-                            @foreach($region->appointments as $appointment)
-
-                                    <li><a href="{{ route('appointment',$appointment->id) }}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
 
                             @endforeach
 

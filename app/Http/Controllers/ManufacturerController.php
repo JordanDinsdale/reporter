@@ -74,6 +74,8 @@ class ManufacturerController extends Controller
 
         $countries = Country::orderBy('name')->get();
 
+        $group_ids = [];
+
         if($manufacturer->dealerships) {
 
             foreach($manufacturer->dealerships as $dealership) {
@@ -125,6 +127,21 @@ class ManufacturerController extends Controller
     public function destroy(Manufacturer $manufacturer)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Manufacturer  $manufacturer
+     * @return \Illuminate\Http\Response
+     */
+    public function country($manufacturer_id,$country_id)
+    {
+        $manufacturer = Manufacturer::find($manufacturer_id);
+
+        $country = Country::find($country_id);
+
+        return view('manufacturers.country',compact('manufacturer','country'));
     }
 
     /**

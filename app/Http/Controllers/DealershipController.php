@@ -87,21 +87,7 @@ class DealershipController extends Controller
 
         $manufacturers = Manufacturer::orderBy('name')->get();
 
-        $user_ids = [];
-
-        if($dealership->users) {
-
-            foreach($dealership->users as $user) {
-
-                $user_ids[] = $user->id;
-
-            }
-
-        }
-
-        $appointments = Appointment::whereIn('sales_executive_id',$user_ids)->get();
-
-        return view('dealerships.show',compact('dealership','manufacturers','appointments'));
+        return view('dealerships.show',compact('dealership','manufacturers'));
     }
 
     /**

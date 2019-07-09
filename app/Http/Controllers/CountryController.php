@@ -7,7 +7,6 @@ use App\Region;
 use App\Group;
 use App\Dealership;
 use App\User;
-use App\Appointment;
 use Illuminate\Http\Request;
 use DB;
 
@@ -75,11 +74,7 @@ class CountryController extends Controller
 
         $dealerships = [];
 
-        $appointments = [];
-
         $group_ids = [];
-
-        $appointment_ids = [];
 
         if(count($country->dealerships) > 0) {
 
@@ -87,29 +82,17 @@ class CountryController extends Controller
 
                 $group_ids[] = $dealership->group->id;
 
-                foreach($dealership->users as $user) {
-
-                    foreach($user->appointments as $appointment) {
-
-                        $appointment_ids[] = $appointment->id;
-
-                    }
-
-                }
-
             }
 
             $dealerships = $country->dealerships;
 
             $groups = Group::whereIn('id',$group_ids)->orderBy('name')->get();
 
-            $appointments = Appointment::whereIn('id',$appointment_ids)->get();
-
         }
 
         $users = $country->users;
 
-        return view('countries.show',compact('country','groups','dealerships','users','appointments'));
+        return view('countries.show',compact('country','groups','dealerships','users'));
     }
 
     /**

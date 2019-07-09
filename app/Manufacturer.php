@@ -36,9 +36,4 @@ class Manufacturer extends Model
         return $this->belongsToMany(Dealership::class)->withPivot('region_id')->orderBy('name');
     }
 
-    public function appointments()
-    {
-        return $this->hasMany(Appointment::class);
-    }
-
 }

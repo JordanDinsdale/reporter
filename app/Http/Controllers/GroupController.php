@@ -68,25 +68,7 @@ class GroupController extends Controller
         $group = Group::find($id);
         $countries = Country::orderBy('name')->get();
 
-        $appointment_ids = [];
-
-        foreach($group->dealerships as $dealership) {
-
-            foreach($dealership->users as $user) {
-
-                foreach($user->appointments as $appointment) {
-
-                    $appointment_ids[] = $appointment->id;
-
-                }
-
-            }
-
-        }
-
-        $appointments = Appointment::whereIn('id',$appointment_ids)->get();
-
-        return view('groups.show',compact('group','countries','appointments'));
+        return view('groups.show',compact('group','countries'));
     }
 
     /**

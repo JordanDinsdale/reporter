@@ -35,18 +35,14 @@
                         </div>
                     @endif
 
-                    <h1>{{ $dealership->name }}</h1>
+                    <h2>{{ $dealership->name }}</h2>
 
-                    <h2><a href="{{ route('country', $dealership->country->id) }}">{{ $dealership->country->name }}</a></h2>
-                    
-                    <h3>Manufacturers</h3>
-
-                    <h3>Add Manufacturer</h3>
+                    <h2><a href="{{ route('group', $dealership->group->id) }}">{{ $dealership->group->name }}</h2>
 
                     <form method="post" action="{{ route('attachManufacturer') }}">
                         @csrf
                         <div class="form-group">    
-                            <label for="manufacturer_id">Manufacturer</label>
+                            <label for="manufacturer_id">Add Manufacturer</label>
                             <select class="form-control" name="manufacturer_id" id="manufacturers" required/>
                                 <option value="">Select Manufacturer</option>
                                 @foreach($manufacturers as $manufacturer)
@@ -78,58 +74,12 @@
                                         @csrf
                                         <input type="hidden" name="manufacturer_id" value="{{ $manufacturer->id }}" />     
                                         <input type="hidden" name="dealership_id" value="{{ $dealership->id }}" />           
-                                        <button type="submit" class="btn btn-danger">Remove Manufacturer</button>
+                                        <button type="submit">Remove Manufacturer</button>
                                     </form>
 
                                 </li>
                             @endforeach
                         </ul>
-                    @endif
-
-                    @if(count($dealership->users) > 0)
-
-                        <h3>Users</h3>
-
-                        <ul>
-
-                            @foreach($dealership->users as $user)
-
-                                <li><a href="{{ route('user',$user->id )}}">{{ $user->firstname }} {{ $user->surname }}</a></li>
-
-                                @if(count($user->appointments) > 0)
-
-                                    <ul>
-
-                                        @foreach($user->appointments as $appointment)
-
-                                            <li><a href="{{ route('appointment',$appointment->id )}}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
-
-                                        @endforeach
-
-                                    </ul>
-
-                                @endif
-
-                            @endforeach
-
-                        </ul>
-
-                    @endif
-
-                    @if(count($appointments) > 0)
-
-                        <h3>Appointments</h3>
-
-                        <ul>
-
-                            @foreach($appointments as $appointment)
-
-                                <li><a href="{{ route('appointment',$appointment->id) }}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
-
-                            @endforeach
-
-                        </ul>
-
                     @endif
 
                 </div>

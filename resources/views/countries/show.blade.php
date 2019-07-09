@@ -89,22 +89,6 @@
 
                     @endif
 
-                    @if(count($appointments) > 0)
-
-                        <h2><a href="{{ route('appointments') }}">Appointments</a></h2>
-
-                        <ul>
-
-                            @foreach($appointments as $appointment)
-
-                                <li><a href="{{ route('appointment', $appointment->id) }}">{{ $appointment->firstname }} {{ $appointment->surname }}</a></li>
-
-                            @endforeach
-
-                        </ul>
-
-                    @endif
-
                 </div>
             </div>
         </div>
