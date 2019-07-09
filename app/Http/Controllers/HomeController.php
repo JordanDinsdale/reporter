@@ -144,7 +144,7 @@ class HomeController extends Controller
 
             }
 
-            return view('home',compact('user','companies','manufacturers','countries','groups','users',));
+            return view('home',compact('user','companies','manufacturers','countries','groups','users'));
 
         }
 
