@@ -33,6 +33,7 @@ Route::get('/manufacturers', 'ManufacturerController@index')->name('manufacturer
 Route::get('/manufacturers/{id}', 'ManufacturerController@show')->name('manufacturer');
 Route::post('/manufacturers/store', 'ManufacturerController@store')->name('manufacturerStore');
 Route::get('/manufacturers/{manufacturer_id}/country/{country_id}', 'ManufacturerController@country')->name('manufacturerCountry');
+Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/regionless', 'ManufacturerController@regionless')->name('manufacturerRegionless');
 
 Route::get('/countries', 'CountryController@index')->name('countries');
 Route::get('/countries/{id}', 'CountryController@show')->name('country');

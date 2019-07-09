@@ -109,7 +109,7 @@
 
                                                             @if(count($noregion) > 0)
 
-                                                                <li>No Region</li>
+                                                                <li><a href="{{ route('manufacturerRegionless', [$manufacturer->id,$country->id]) }}">No Region</a></li>
 
                                                                 <ul>
 
@@ -200,7 +200,7 @@
 
                                                 @if(count($noregion) > 0)
 
-                                                    <li>No Region</li>
+                                                    <li><a href="{{ route('manufacturerRegionless', [$manufacturer->id,$country->id]) }}">No Region</a></li>
 
                                                     <ul>
 
@@ -286,7 +286,7 @@
 
                                                 @if(count($noregion) > 0)
 
-                                                    <li>No Region</li>
+                                                    <li><a href="{{ route('manufacturerRegionless', [$manufacturer->id,$country->id]) }}">No Region</a></li>
 
                                                     <ul>
 

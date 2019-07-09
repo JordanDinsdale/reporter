@@ -150,6 +150,21 @@ class ManufacturerController extends Controller
      * @param  \App\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
+    public function regionless($manufacturer_id,$country_id)
+    {
+        $manufacturer = Manufacturer::find($manufacturer_id);
+
+        $country = Country::find($country_id);
+
+        return view('manufacturers.regionless',compact('manufacturer','country'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Manufacturer  $manufacturer
+     * @return \Illuminate\Http\Response
+     */
     public function manufacturerRegionsApi($id)
     {
         $manufacturer = Manufacturer::find($id);
