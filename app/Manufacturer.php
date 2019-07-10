@@ -36,4 +36,9 @@ class Manufacturer extends Model
         return $this->belongsToMany(Dealership::class)->withPivot('region_id')->orderBy('name');
     }
 
+    public function events()
+    {
+        return $this->belongsToMany(Event::class)->withPivot('data_count','appointments','new','used','zero_km','demo','inprogress');
+    }
+
 }

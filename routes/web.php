@@ -61,6 +61,11 @@ Route::post('/dealerships/store', 'DealershipController@store')->name('dealershi
 Route::post('/dealerships/attachManufacturer', 'DealershipController@attachManufacturer')->name('attachManufacturer');
 Route::post('/dealerships/detachManufacturer', 'DealershipController@detachManufacturer')->name('detachManufacturer');
 
+Route::get('/events/{id}', 'EventController@show')->name('event');
+Route::post('/events/store', 'EventController@store')->name('eventStore');
+Route::post('/events/update/{id}', 'EventController@update')->name('eventUpdate');
+Route::post('/events/update/{event_id}/{manufacturer_id}', 'EventController@updateSync')->name('eventUpdateSync');
+
 Route::get('/api/countries/{country_id}/groups', 'CountryController@countryGroupsApi')->name('countryGroupsApi');
 Route::get('/api/countries/{country_id}/manufacturers/{manufacturer_id}/regions', 'CountryController@countryManufacturerRegionsApi')->name('countryManufacturerRegionsApi');
 

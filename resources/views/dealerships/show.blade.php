@@ -37,7 +37,7 @@
 
                     <h2>{{ $dealership->name }}</h2>
 
-                    <h2><a href="{{ route('group', $dealership->group->id) }}">{{ $dealership->group->name }}</h2>
+                    <h2><a href="{{ route('group', $dealership->group->id) }}">{{ $dealership->group->name }}</a></h2>
 
                     <form method="post" action="{{ route('attachManufacturer') }}">
                         @csrf
@@ -81,6 +81,42 @@
                             @endforeach
                         </ul>
                     @endif
+
+                    @if(count($dealership->events) > 0)
+
+                        <h3>Events</h3>
+
+                        <ul>
+
+                            @foreach($dealership->events as $event)
+
+                                <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
+                    <h3>Add Event</h3>
+
+                    <form method="post" action="{{ route('eventStore') }}">
+                        @csrf
+                        <div class="form-group">    
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" name="name" required />
+                        </div>     
+                        <div class="form-group">        
+                            <label for="manufacturer_ids">Manufacturers</label>
+                            <select multiple class="form-control" name="manufacturer_ids[]" id="manufacturer_ids" required/>
+                                @foreach($dealership->manufacturers as $manufacturer)
+                                    <option value="{{ $manufacturer->id}}">{{ $manufacturer->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <input type="hidden" class="form-control" name="dealership_id" value="{{ $dealership->id }}" />
+                        <button type="submit" class="btn btn-primary">Add Event</button>
+                    </form>
 
                 </div>
             </div>

@@ -16,14 +16,9 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->bigInteger('data_count');
-            $table->bigInteger('appointments');
-            $table->bigInteger('sale_new');
-            $table->bigInteger('sale_used');
-            $table->bigInteger('sale_0km');
-            $table->bigInteger('sale_demo');
-            $table->bigInteger('sale_inprogress');
+            $table->bigInteger('dealership_id')->unsigned();
             $table->timestamps();
+            $table->foreign('dealership_id')->references('id')->on('dealerships')->onDelete('cascade');
         });
     }
 
