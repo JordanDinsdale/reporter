@@ -39,6 +39,19 @@
 
                     <p><a href="{{ route('company', $manufacturer->company->id) }}">{{ $manufacturer->company->name }}</a></p>
 
+                    <h3>Add Region</h3>
+
+                    <form method="post" action="{{ route('regionStore') }}">    
+                        @csrf
+                        <div class="form-group">    
+                            <label for="region">Name</label>
+                            <input type="text" class="form-control" name="region" />
+                        </div>   
+                        <input type="hidden" name="manufacturer_id" value="{{ $manufacturer->id }}" />
+                        <input type="hidden" name="country_id" value="{{ $country->id }}" />
+                        <button type="submit" class="btn btn-primary">Add Region</button>
+                    </form>
+
                     <ul>
 
                         @foreach($manufacturer->countries as $region)
@@ -46,7 +59,11 @@
                             @if($region->id == $country->id)
 
                                 <li>
-                                    <a href="{{ route('region', $region->pivot->id) }}">{{ $region->pivot->name }}</a>
+                                    <a href="{{ route('region', $region->pivot->id) }}">{{ $region->pivot->name }}</a> | <a href="{{ route('regionEdit',$region->pivot->id) }}">Edit</a>
+                                    <form action="{{ route('regionDestroy', $region->pivot->id)}}" method="post">
+                                        @csrf
+                                        <button type="submit">Delete</button>
+                                    </form>
                                 </li>
 
                                 @if(count($manufacturer->dealerships) > 0)
@@ -65,6 +82,20 @@
 
                                                 <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
 
+                                                @if(count($dealership->events) > 0)
+
+                                                    <ul>
+
+                                                        @foreach($dealership->events as $event)
+
+                                                            <li><a href="{{ route('event',$event->id) }}">{{ $event->name }}</a></li>
+
+                                                        @endforeach
+
+                                                    </ul>
+
+                                                @endif
+
                                             @endif
 
                                         @endforeach
@@ -77,19 +108,45 @@
 
                         @endforeach
 
-                        @if(count($noregion) > 0)
+                        @if(isset($noregion))
 
-                            <li><a href="{{ route('manufacturerRegionless', [$manufacturer->id,$country->id]) }}">No Region</a></li>
+                            @if(count($noregion) > 0)
 
-                            <ul>
+                                <li><a href="{{ route('manufacturerRegionless', [$manufacturer->id,$country->id]) }}">No Region</a></li>
 
-                                @foreach($noregion as $dealership)
+                                <ul>
 
-                                    <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+                                    @foreach($noregion as $dealership)
 
-                                @endforeach
+                                        <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
 
-                            </ul>
+                                        @if(count($dealership->events) > 0)
+
+                                            <ul>
+
+                                                @foreach($dealership->events as $event)
+
+                                                    @foreach($event->manufacturers as $eventManufacturer)
+
+                                                        @if($manufacturer->id == $eventManufacturer->id)
+
+                                                            <li><a href="{{ route('event',$event->id) }}">{{ $event->name }}</a></li>
+
+                                                        @endif
+
+                                                    @endforeach
+
+                                                @endforeach
+
+                                            </ul>
+
+                                        @endif
+
+                                    @endforeach
+
+                                </ul>
+
+                            @endif
 
                         @endif
 

@@ -37,6 +37,8 @@
 
                     <p>Your user level is {{ $user->level }}</p>
 
+                    <!-- COMPANIES -->
+
                     @if(count($companies) > 0)
 
                         <h2><a href="{{ route('companies') }}">Companies</a></h2>
@@ -95,6 +97,28 @@
 
                                                                                     <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
 
+                                                                                    @if(count($dealership->events) > 0)
+
+                                                                                        <ul>
+
+                                                                                            @foreach($dealership->events as $event)
+
+                                                                                                @foreach($event->manufacturers as $eventManufacturer)
+
+                                                                                                    @if($manufacturer->id == $eventManufacturer->id)
+
+                                                                                                        <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
+
+                                                                                                    @endif
+
+                                                                                                @endforeach
+
+                                                                                            @endforeach
+
+                                                                                        </ul>
+
+                                                                                    @endif
+
                                                                                 @endif
 
                                                                             @endforeach
@@ -117,6 +141,28 @@
 
                                                                         <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
 
+                                                                        @if(count($dealership->events) > 0)
+
+                                                                            <ul>
+
+                                                                                @foreach($dealership->events as $event)
+
+                                                                                    @foreach($event->manufacturers as $eventManufacturer)
+
+                                                                                        @if($manufacturer->id == $eventManufacturer->id)
+
+                                                                                            <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
+
+                                                                                        @endif
+
+                                                                                    @endforeach
+
+                                                                                @endforeach
+
+                                                                            </ul>
+
+                                                                        @endif
+
                                                                     @endforeach
 
                                                                 </ul>
@@ -124,6 +170,76 @@
                                                             @endif
 
                                                         </ul>
+
+                                                    @endforeach
+
+                                                </ul>
+
+                                            @elseif(count($manufacturer->dealerships) > 0)
+
+                                                <ul>
+
+                                                    @foreach($manufacturer->dealerships->unique('country_id') as $dealership)
+
+                                                        <li><a href="{{ route('manufacturerCountry',[$manufacturer->id,$country->id]) }}">{{ $dealership->country->name }}</a></li>
+
+                                                        @foreach($manufacturer->dealerships->unique('country_id') as $manufacturerDealership)
+
+                                                            @if($manufacturerDealership->country->id == $dealership->country->id)
+
+                                                                <ul>
+
+                                                                    @if($manufacturerDealership->region)
+
+                                                                        <li><a href="{{ route('region', $manufacturerDealership->region->id) }}">{{ $manufacturerDealership->region->name }}</a></li>
+
+                                                                    @else
+
+                                                                        <li><a href="{{ route('manufacturerRegionless', [$manufacturer->id,$country->id]) }}">No Region</a></li>
+
+                                                                    @endif
+
+                                                                    <ul>
+
+                                                                        @foreach($manufacturer->dealerships as $manufacturerDealership)
+
+                                                                            @if($dealership->id == $manufacturerDealership->id)
+
+                                                                                <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                                                                @if(count($dealership->events) > 0)
+
+                                                                                    <ul>
+
+                                                                                        @foreach($dealership->events as $event)
+
+                                                                                            @foreach($event->manufacturers as $eventManufacturer)
+
+                                                                                                @if($manufacturer->id == $eventManufacturer->id)
+
+                                                                                                    <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
+
+                                                                                                @endif
+
+                                                                                            @endforeach
+
+                                                                                        @endforeach
+
+                                                                                    </ul>
+
+                                                                                @endif
+
+                                                                            @endif
+
+                                                                        @endforeach
+
+                                                                    </ul>
+
+                                                                </ul>
+
+                                                            @endif
+
+                                                        @endforeach
 
                                                     @endforeach
 
@@ -143,6 +259,8 @@
 
                     @endif
 
+                    <!-- MANUFACTURERS -->
+
                     @if(count($manufacturers) > 0)
 
                         <h2><a href="{{ route('manufacturers') }}">Manufacturers</a></h2>
@@ -153,7 +271,7 @@
 
                                 <li><a href="{{ route('manufacturer',$manufacturer->id) }}">{{ $manufacturer->name }}</a></li>
 
-                                @if($manufacturer->countries)
+                                @if(count($manufacturer->countries) > 0)
 
                                     <ul>
 
@@ -186,6 +304,28 @@
 
                                                                         <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
 
+                                                                        @if(count($dealership->events) > 0)
+
+                                                                            <ul>
+
+                                                                                @foreach($dealership->events as $event)
+
+                                                                                    @foreach($event->manufacturers as $eventManufacturer)
+
+                                                                                        @if($manufacturer->id == $eventManufacturer->id)
+
+                                                                                            <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
+
+                                                                                        @endif
+
+                                                                                    @endforeach
+
+                                                                                @endforeach
+
+                                                                            </ul>
+
+                                                                        @endif
+
                                                                     @endif
 
                                                                 @endforeach
@@ -208,6 +348,28 @@
 
                                                             <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
 
+                                                            @if(count($dealership->events) > 0)
+
+                                                                <ul>
+
+                                                                    @foreach($dealership->events as $event)
+
+                                                                        @foreach($event->manufacturers as $eventManufacturer)
+
+                                                                            @if($manufacturer->id == $eventManufacturer->id)
+
+                                                                                <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
+
+                                                                            @endif
+
+                                                                        @endforeach
+
+                                                                    @endforeach
+
+                                                                </ul>
+
+                                                            @endif
+
                                                         @endforeach
 
                                                     </ul>
@@ -220,6 +382,40 @@
 
                                     </ul>
 
+                                @elseif(count($manufacturer->dealerships) > 0)
+
+                                    <ul>
+
+                                        @foreach($manufacturer->dealerships as $dealership)
+
+                                            <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                            @if(count($dealership->events) > 0)
+
+                                                <ul>
+
+                                                    @foreach($dealership->events as $event)
+
+                                                        @foreach($event->manufacturers as $eventManufacturer)
+
+                                                            @if($manufacturer->id == $eventManufacturer->id)
+
+                                                                <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
+
+                                                            @endif
+
+                                                        @endforeach
+
+                                                    @endforeach
+
+                                                </ul>
+
+                                            @endif
+
+                                        @endforeach
+
+                                    </ul>
+
                                 @endif
 
                             @endforeach
@@ -227,6 +423,8 @@
                         </ul>
 
                     @endif
+
+                    <!-- COUNTRIES -->
 
                     @if(count($countries) > 0)
 
@@ -314,6 +512,8 @@
 
                     @endif
 
+                    <!-- GROUPS -->
+
                     @if(count($groups) > 0)
 
                         <h2><a href="{{ route('groups') }}">Groups</a></h2>
@@ -371,6 +571,8 @@
                         </ul>
 
                     @endif
+
+                    <!-- USERS -->
 
                     @if(count($users) > 0)
 

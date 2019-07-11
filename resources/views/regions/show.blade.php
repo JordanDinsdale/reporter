@@ -38,11 +38,6 @@
                     <h2><a href="{{ route('manufacturerCountry',[$region->manufacturer->id,$region->country->id]) }}">{{ $region->manufacturer->name }} {{ $region->country->name }}</a></h2>
 
                     <h3>{{ $region->name }}</h3>
-                    <a href="{{ route('regionEdit',$region->id) }}">Edit</a>
-                    <form action="{{ route('regionDestroy', $region->id)}}" method="post">
-                        @csrf
-                        <button type="submit">Delete</button>
-                    </form>
                     
 
                     @if(count($region->manufacturer->dealerships) > 0)
@@ -54,6 +49,20 @@
                                 @if($dealership->pivot->region_id == $region->id)
 
                                     <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                    @if(count($dealership->events) > 0)
+
+                                        <ul>
+
+                                            @foreach($dealership->events as $event)
+
+                                                <li><a href="{{ route('event',$event->id) }}">{{ $event->name }}</a></li>event
+
+                                            @endforeach
+
+                                        </ul>
+
+                                    @endif
 
                                 @endif
 
