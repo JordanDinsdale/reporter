@@ -57,7 +57,10 @@ Route::post('/groups/update/{id}', 'GroupController@update')->name('groupUpdate'
 Route::post('/groups/destroy/{id}', 'GroupController@destroy')->name('groupDestroy');
 
 Route::get('/dealerships/{id}', 'DealershipController@show')->name('dealership');
+Route::get('/dealerships/edit/{id}', 'DealershipController@edit')->name('dealershipEdit');
 Route::post('/dealerships/store', 'DealershipController@store')->name('dealershipStore');
+Route::post('/dealerships/update/{id}', 'DealershipController@update')->name('dealershipUpdate');
+Route::post('/dealerships/destroy/{id}', 'DealershipController@destroy')->name('dealershipDestroy');
 Route::post('/dealerships/attachManufacturer', 'DealershipController@attachManufacturer')->name('attachManufacturer');
 Route::post('/dealerships/detachManufacturer', 'DealershipController@detachManufacturer')->name('detachManufacturer');
 

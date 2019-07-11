@@ -101,7 +101,7 @@ class GroupController extends Controller
 
         $group->save();
 
-        return redirect()->route('groups')->with('success', 'Group Updated');
+        return redirect()->back()->with('success', 'Group Updated');
     }
 
     /**
@@ -115,7 +115,7 @@ class GroupController extends Controller
         $group = Group::find($id);
         $group->delete();
 
-        return redirect()->route('groups')->with('success', 'Group Deleted');
+        return redirect()->back()->with('success', 'Group Deleted');
     }
 
     /**

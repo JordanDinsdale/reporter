@@ -66,7 +66,25 @@
 
                             @foreach($group->dealerships as $dealership)
 
-                                <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
+                                <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a> | <a href="{{ route('dealershipEdit',$dealership->id) }}">Edit</a> |
+                                <form action="{{ route('dealershipDestroy', $dealership->id)}}" method="post">
+                                    @csrf
+                                    <button type="submit">Delete</button>
+                                </form></li>
+
+                                @if(count($dealership->events) > 0)
+
+                                    <ul>
+
+                                        @foreach($dealership->events as $event)
+
+                                            <li><a href="{{ route('event',$event->id) }}">{{ $event->name }}</a></li>
+
+                                        @endforeach
+
+                                    </ul>
+
+                                @endif
 
                             @endforeach
 

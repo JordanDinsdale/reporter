@@ -35,42 +35,14 @@
                         </div>
                     @endif
 
-                    <h2><a href="{{ route('manufacturerCountry',[$region->manufacturer->id,$region->country->id]) }}">{{ $region->manufacturer->name }} {{ $region->country->name }}</a></h2>
-
-                    <h3>{{ $region->name }}</h3>
-                    
-
-                    @if(count($region->manufacturer->dealerships) > 0)
-
-                        <ul>
-
-                            @foreach($region->manufacturer->dealerships as $dealership)
-
-                                @if($dealership->pivot->region_id == $region->id)
-
-                                    <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
-
-                                    @if(count($dealership->events) > 0)
-
-                                        <ul>
-
-                                            @foreach($dealership->events as $event)
-
-                                                <li><a href="{{ route('event',$event->id) }}">{{ $event->name }}</a></li>
-
-                                            @endforeach
-
-                                        </ul>
-
-                                    @endif
-
-                                @endif
-
-                            @endforeach
-
-                        </ul>
-
-                    @endif
+                    <form method="post" action="{{ route('dealershipUpdate', $dealership->id) }}">    
+                        @csrf
+                        <div class="form-group">    
+                            <label for="dealership">Edit Dealership</label>
+                            <input type="text" class="form-control" name="dealership" value="{{ $dealership->name }}" />
+                        </div>   
+                        <button type="submit" class="btn btn-primary">Edit Dealership</button>
+                    </form>
 
                 </div>
             </div>

@@ -96,9 +96,10 @@ class DealershipController extends Controller
      * @param  \App\Dealership  $dealership
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dealership $dealership)
+    public function edit($id)
     {
-        //
+        $dealership = Dealership::find($id);
+        return view('dealerships.edit', compact('dealership'));
     }
 
     /**
@@ -108,9 +109,18 @@ class DealershipController extends Controller
      * @param  \App\Dealership  $dealership
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dealership $dealership)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'dealership'=>'required'
+        ]);
+
+        $dealership = Dealership::find($id);
+        $dealership->name = $request->get('dealership');
+
+        $dealership->save();
+
+        return redirect()->back()->with('success', 'Dealership Updated');
     }
 
     /**
@@ -119,9 +129,12 @@ class DealershipController extends Controller
      * @param  \App\Dealership  $dealership
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dealership $dealership)
+    public function destroy($id)
     {
-        //
+        $dealership = Dealership::find($id);
+        $dealership->delete();
+
+        return redirect()->back()->with('success', 'Dealership Deleted');
     }
 
     /**
