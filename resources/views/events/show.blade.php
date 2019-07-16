@@ -55,11 +55,9 @@
                         </div>     
                         <div class="form-group">        
                             <label for="manufacturer_ids">Manufacturers</label>
-                            <select multiple class="form-control" name="manufacturer_ids[]" id="manufacturer_ids" required/>
-                                @foreach($event->dealership->manufacturers as $manufacturer)
-                                    <option value="{{ $manufacturer->id}}" @if(in_array($manufacturer->id,$event_manufacturer_ids)) selected @endif>{{ $manufacturer->name }}</option>
-                                @endforeach
-                            </select>
+                            @foreach($event->dealership->manufacturers as $manufacturer)
+                                <label><input type='checkbox' name='manufacturer_ids[]' value='{{ $manufacturer->id }}'  @if(in_array($manufacturer->id,$event_manufacturer_ids)) checked @endif />{{ $manufacturer->name }}</label>
+                            @endforeach
                         </div>
                         <input type="hidden" class="form-control" name="dealership_id" value="{{ $event->dealership->id }}" />
                         <button type="submit" class="btn btn-primary">Update Event</button>
