@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('region_id')->nullable()->unsigned();
             $table->bigInteger('country_id')->nullable()->unsigned();
             $table->bigInteger('manufacturer_id')->nullable()->unsigned();
+            $table->bigInteger('company_id')->nullable()->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

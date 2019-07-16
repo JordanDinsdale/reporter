@@ -66,6 +66,35 @@
 
                     @endif
 
+                    <h3>Add Dealership</h3>
+
+                    <form method="post" action="{{ route('dealershipStore') }}">
+                        @csrf
+                        <div class="form-group">    
+                            <label for="dealership">Name</label>
+                            <input type="text" class="form-control" name="dealership"/>
+                        </div>  
+                        <div class="form-group">    
+                            <label for="country_id">Country</label>
+                            <select class="form-control" name="country_id"/>
+                                <option value="">Select Country</option>
+                                @foreach($countries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>       
+                        <div class="form-group">
+                            <label for="group_id">Group</label>
+                            <select class="form-control" name="group_id"/>
+                                <option value="">Select Group</option>
+                                @foreach($groups as $group)
+                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>             
+                        <button type="submit" class="btn btn-primary">Add Dealership</button>
+                    </form>
+
                 </div>
             </div>
         </div>

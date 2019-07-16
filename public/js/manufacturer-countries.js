@@ -4,14 +4,14 @@ $(document).ready(function() {
 
         let manufacturer_id = this.value;
 
-        let dropdown = $('select#regions');
+        let dropdown = $('select#countries');
 
         dropdown.empty();
 
-        dropdown.append('<option selected="true" value="">Select Region</option>');
+        dropdown.append('<option selected="true" value="">Select Country</option>');
         dropdown.prop('selectedIndex', 0);
 
-        const url = '/api/manufacturers/' + manufacturer_id + '/regions';
+        const url = '/api/manufacturers/' + manufacturer_id + '/countries';
 
         // Populate dropdown with list of provinces
         $.getJSON(url, function (data) {
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
             else {
 
-                dropdown.append($('<option disabled="true"></option>').attr('value', '').text('No regions currently available'));
+                dropdown.append($('<option disabled="true"></option>').attr('value', '').text('No countries currently available'));
 
             }
 

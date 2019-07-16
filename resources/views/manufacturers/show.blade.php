@@ -111,7 +111,7 @@
 
                                     @endforeach
 
-                                    @if(count($noregion) > 0)
+                                    @if(isset($noregion) && count($noregion) > 0)
 
                                         <li><a href="{{ route('manufacturerRegionless', [$manufacturer->id,$country->id]) }}">No Region</a></li>
 

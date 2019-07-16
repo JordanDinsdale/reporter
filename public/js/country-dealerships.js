@@ -4,14 +4,14 @@ $(document).ready(function() {
 
         let country_id = this.value;
 
-        let dropdown = $('select#groups');
+        let dropdown = $('select#dealerships');
 
         dropdown.empty();
 
-        dropdown.append('<option selected="true" value="">Select Group</option>');
+        dropdown.append('<option selected="true" value="">Select Dealership</option>');
         dropdown.prop('selectedIndex', 0);
 
-        const url = '/api/countries/' + country_id + '/groups';
+        const url = '/api/countries/' + country_id + '/dealerships';
 
         // Populate dropdown with list of groups
         $.getJSON(url, function (data) {
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
             else {
 
-                dropdown.append($('<option disabled="true"></option>').attr('value', '').text('No groups currently available'));
+                dropdown.append($('<option disabled="true"></option>').attr('value', '').text('No dealerships currently available'));
 
             }
 

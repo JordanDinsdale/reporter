@@ -16,7 +16,7 @@ class CreateDealershipsTable extends Migration
         Schema::create('dealerships', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->bigInteger('group_id')->unsigned();
+            $table->bigInteger('group_id')->unsigned()->nullable();
             $table->bigInteger('country_id')->unsigned();
             $table->timestamps();            
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');

@@ -80,7 +80,11 @@ class CountryController extends Controller
 
             foreach($country->dealerships as $dealership) {
 
-                $group_ids[] = $dealership->group->id;
+                if($dealership->group) {
+
+                    $group_ids[] = $dealership->group->id;
+
+                }
 
             }
 
@@ -148,6 +152,21 @@ class CountryController extends Controller
      * @param  \App\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
+    public function countryManufacturerRegionsApi($country_id,$manufacturer_id)
+    {
+
+        $regions = Region::where('country_id',$country_id)->where('manufacturer_id',$manufacturer_id)->get();
+
+        return $regions;
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Manufacturer  $manufacturer
+     * @return \Illuminate\Http\Response
+     */
     public function countryGroupsApi($id)
     {
         $country = Country::find($id);
@@ -177,28 +196,11 @@ class CountryController extends Controller
      * @param  \App\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function countryManufacturerRegionsApi($country_id,$manufacturer_id)
+    public function countryDealershipsApi($id)
     {
-        $country = Country::find($country_id);
+        $country = Country::find($id);
 
-        $dealership_ids = [];
-
-        if(count($country->dealerships) > 0) {
-
-            foreach($country->dealerships as $dealership) {
-
-                $dealership_ids[] = $dealership->id;
-
-            }
-
-        }
-
-        $region_ids = DB::table('dealership_manufacturer')->where('manufacturer_id',$manufacturer_id)->whereIn('dealership_id',$dealership_ids)->pluck('region_id');
-
-        $regions = Region::whereIn('id',$region_ids)->get();
-
-        return $regions;
-
+        return $country->dealerships;
     }
 
 

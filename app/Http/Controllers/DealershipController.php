@@ -46,7 +46,6 @@ class DealershipController extends Controller
     {
         $request->validate([
             'dealership'=>'required',
-            'group_id' => 'required',
             'country_id' => 'required'
         ]);
 
@@ -182,6 +181,36 @@ class DealershipController extends Controller
         $dealership->manufacturers()->detach($manufacturer_id);
 
         return redirect()->back()->with('success', 'Manufacturer Removed');
+    }
+
+    /**
+     * Attach a manufacturer with region if one has been provided.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateRegion(Request $request)
+    {
+        $request->validate([
+            'dealership_id'=>'required',
+            'manufacturer_id' => 'required'
+        ]);
+
+        $dealership_id = $request->get('dealership_id');
+        $manufacturer_id = $request->get('manufacturer_id');
+        $region_id = $request->get('region_id');
+
+        $dealership = Dealership::find($dealership_id);
+
+        $dealership->manufacturers()->sync(
+            [
+                $manufacturer_id => [
+                    'region_id' => $region_id
+                ]
+            ],false
+        );
+
+        return redirect()->back()->with('success', 'Region Updated');
     }
 
 }

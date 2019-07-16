@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Manufacturer;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -101,4 +102,30 @@ class CompanyController extends Controller
     {
         //
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Company  $company
+     * @return \Illuminate\Http\Response
+     */
+    public function companyManufacturersApi($id)
+    {
+
+        if($id !== 'NULL') {
+
+            $company = Company::find($id);
+            return $company->manufacturers;
+
+        }
+
+        else {
+
+            $manufacturers = Manufacturer::orderby('name')->get();
+            return $manufacturers;
+
+        }
+
+    }
+
 }

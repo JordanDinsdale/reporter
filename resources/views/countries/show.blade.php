@@ -55,7 +55,7 @@
 
                                         @foreach($dealerships as $dealership)
 
-                                            @if($dealership->group->id == $group->id)
+                                            @if(isset($dealership->group) && $dealership->group->id == $group->id)
 
                                                 <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
 

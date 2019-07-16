@@ -63,16 +63,21 @@ Route::post('/dealerships/update/{id}', 'DealershipController@update')->name('de
 Route::post('/dealerships/destroy/{id}', 'DealershipController@destroy')->name('dealershipDestroy');
 Route::post('/dealerships/attachManufacturer', 'DealershipController@attachManufacturer')->name('attachManufacturer');
 Route::post('/dealerships/detachManufacturer', 'DealershipController@detachManufacturer')->name('detachManufacturer');
+Route::post('/dealerships/updateRegion', 'DealershipController@updateRegion')->name('updateRegion');
 
 Route::get('/events/{id}', 'EventController@show')->name('event');
 Route::post('/events/store', 'EventController@store')->name('eventStore');
 Route::post('/events/update/{id}', 'EventController@update')->name('eventUpdate');
 Route::post('/events/update/{event_id}/{manufacturer_id}', 'EventController@updateSync')->name('eventUpdateSync');
 
-Route::get('/api/countries/{country_id}/groups', 'CountryController@countryGroupsApi')->name('countryGroupsApi');
-Route::get('/api/countries/{country_id}/manufacturers/{manufacturer_id}/regions', 'CountryController@countryManufacturerRegionsApi')->name('countryManufacturerRegionsApi');
+Route::get('/api/companies/{company_id}/manufacturers', 'CompanyController@companyManufacturersApi')->name('companyManufacturersApi');
 
+
+Route::get('/api/manufacturers/{manufacturer_id}/countries', 'ManufacturerController@manufacturerCountriesApi')->name('manufacturerCountriesApi');
 Route::get('/api/manufacturers/{manufacturer_id}/regions', 'ManufacturerController@manufacturerRegionsApi')->name('manufacturerRegionsApi');
-Route::get('/api/manufacturers/{manufacturer_id}/users', 'ManufacturerController@manufacturerUsersApi')->name('manufacturerUsersApi');
+
+Route::get('/api/countries/{country_id}/manufacturers/{manufacturer_id}/regions', 'CountryController@countryManufacturerRegionsApi')->name('countryManufacturerRegionsApi');
+Route::get('/api/countries/{country_id}/groups', 'CountryController@countryGroupsApi')->name('countryGroupsApi');
+Route::get('/api/countries/{country_id}/dealerships', 'CountryController@countryDealershipsApi')->name('countryDealershipsApi');
 
 Route::get('/api/groups/{group_id}/dealerships', 'GroupController@groupDealershipsApi')->name('groupDealershipsApi');

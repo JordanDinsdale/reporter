@@ -39,7 +39,11 @@
 
                     <p><a href="{{ route('dealership', $event->dealership->id) }}">{{ $event->dealership->name }}</a></p>
 
-                    <p><a href="{{ route('group', $event->dealership->group->id) }}">{{ $event->dealership->group->name }}</a></p>
+                    @if($event->dealership->group)
+
+                        <p><a href="{{ route('group', $event->dealership->group->id) }}">{{ $event->dealership->group->name }}</a></p>
+
+                    @endif
 
                     <h3>Update Event</h3>
 
@@ -49,10 +53,19 @@
                             <label for="name">Name</label>
                             <input type="text" class="form-control" name="name" value="{{ $event->name }}" required />
                         </div>     
+                        <div class="form-group">        
+                            <label for="manufacturer_ids">Manufacturers</label>
+                            <select multiple class="form-control" name="manufacturer_ids[]" id="manufacturer_ids" required/>
+                                @foreach($event->dealership->manufacturers as $manufacturer)
+                                    <option value="{{ $manufacturer->id}}" @if(in_array($manufacturer->id,$event_manufacturer_ids)) selected @endif>{{ $manufacturer->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <input type="hidden" class="form-control" name="dealership_id" value="{{ $event->dealership->id }}" />
                         <button type="submit" class="btn btn-primary">Update Event</button>
                     </form>
 
-                    @foreach($event->manufacturers as $manufacturer)
+                    @foreach($event->manufacturers->sortBy('name') as $manufacturer)
 
                         <h4>{{ $manufacturer->name }}</h4>
 

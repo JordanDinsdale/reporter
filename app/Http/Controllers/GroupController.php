@@ -22,8 +22,9 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
-        return view('groups.index',compact('groups'));
+        $groups = Group::orderBy('name')->get();
+        $countries = Country::orderBy('name')->get();
+        return view('groups.index',compact('groups','countries'));
     }
 
     /**

@@ -37,7 +37,13 @@
 
                     <h2>{{ $dealership->name }}</h2>
 
-                    <h2><a href="{{ route('group', $dealership->group->id) }}">{{ $dealership->group->name }}</a></h2>
+                    <p><a href="{{ route('dealershipEdit', $dealership->id) }}">Edit</a></p>
+
+                    @if($dealership->group)
+
+                        <h2><a href="{{ route('group', $dealership->group->id) }}">{{ $dealership->group->name }}</a></h2>
+
+                    @endif
 
                     <form method="post" action="{{ route('attachManufacturer') }}">
                         @csrf
@@ -64,17 +70,42 @@
                             @foreach($dealership->manufacturers as $manufacturer)
                                 <li>
 
-                                    @if($manufacturer->region)
-                                        <a href="{{ route('manufacturer', $manufacturer->id) }}">{{ $manufacturer->name }}</a> <a href="{{ route('region', $manufacturer->region->id) }}">({{ $manufacturer->region->name }})</a>
-                                    @else
-                                        <a href="{{ route('manufacturer', $manufacturer->id) }}">{{ $manufacturer->name }}</a>
-                                    @endif
+                                    <a href="{{ route('manufacturer', $manufacturer->id) }}">{{ $manufacturer->name }}</a>
 
                                     <form method="post" action="{{ route('detachManufacturer') }}">
                                         @csrf
                                         <input type="hidden" name="manufacturer_id" value="{{ $manufacturer->id }}" />     
                                         <input type="hidden" name="dealership_id" value="{{ $dealership->id }}" />           
                                         <button type="submit">Remove Manufacturer</button>
+                                    </form>
+
+                                    <form method="post" action="{{ route('updateRegion') }}">
+                                        @csrf
+                                        <select class="form-control" name="region_id">
+
+                                            <option value="">No Region</option>
+                                
+                                            @if(count($manufacturer->regions) > 0)
+
+                                                @foreach($manufacturer->regions as $region)
+
+                                                    @if($region->country->id == $dealership->country->id)
+
+                                                        <option value="{{ $region->id }}" @if(isset($manufacturer->region->id) && $manufacturer->region->id == $region->id) selected @endif>{{ $region->name }}</option>
+
+                                                    @endif
+
+                                                @endforeach
+
+                                            @endif
+
+                                        </select>     
+
+                                        <input type="hidden" name="manufacturer_id" value="{{ $manufacturer->id }}" />     
+                                        <input type="hidden" name="dealership_id" value="{{ $dealership->id }}" />
+
+                                        <button type="submit">Change Region</button>
+
                                     </form>
 
                                 </li>

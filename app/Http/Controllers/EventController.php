@@ -79,7 +79,15 @@ class EventController extends Controller
     {
         $event = Event::find($id);
 
-        return view('events.show',compact('event'));
+        $event_manufacturer_ids = [];
+
+        if(count($event->manufacturers) > 0) {
+            foreach($event->manufacturers as $manufacturer) {
+                $event_manufacturer_ids[] = $manufacturer->id;
+            }
+        }
+
+        return view('events.show',compact('event','event_manufacturer_ids'));
     }
 
     /**
@@ -110,6 +118,56 @@ class EventController extends Controller
         $event->name = $request->get('name');
 
         $event->save();
+
+        $event_manufacturer_ids = [];
+
+        if(count($event->manufacturers) > 0) {
+            foreach($event->manufacturers as $manufacturer) {
+                $event_manufacturer_ids[] = $manufacturer->id;
+            }
+        }
+
+        $manufacturer_ids = $request->get('manufacturer_ids');
+
+        if(count($manufacturer_ids) > 0) {
+
+            foreach($manufacturer_ids as $manufacturer_id) {
+
+                if(!in_array($manufacturer_id,$event_manufacturer_ids)) {
+
+                    $event->manufacturers()->sync(
+                        [
+                            $manufacturer_id => [
+                                'data_count' => '0',
+                                'appointments' => '0',
+                                'new' => '0',
+                                'used' => '0',
+                                'zero_km' => '0',
+                                'demo' => '0',
+                                'inprogress' => '0'
+                            ]
+                        ],false
+                    );
+
+                }
+
+            }
+
+        }
+
+        if(count($event_manufacturer_ids) > 0) {
+
+            foreach($event_manufacturer_ids as $event_manufacturer_id) {
+
+                if(!in_array($event_manufacturer_id,$manufacturer_ids)) {
+
+                    $event->manufacturers()->detach($event_manufacturer_id);
+
+                }
+
+            }
+
+        }
 
         return redirect()->back()->with('success', 'Event Updated');
     }

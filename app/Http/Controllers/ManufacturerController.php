@@ -81,8 +81,12 @@ class ManufacturerController extends Controller
             foreach($manufacturer->dealerships as $dealership) {
 
                 $dealership->region = Region::find($dealership->pivot->region_id);
+
+                if($dealership->group) {
                 
-                $group_ids[] = $dealership->group->id;
+                    $group_ids[] = $dealership->group->id;
+
+                }
 
             }
 
@@ -165,11 +169,19 @@ class ManufacturerController extends Controller
      * @param  \App\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function manufacturerRegionsApi($id)
+    public function manufacturerCountriesApi($id)
     {
         $manufacturer = Manufacturer::find($id);
 
-        return $manufacturer->regions;
+        $country_ids = [];
+
+        foreach($manufacturer->dealerships as $dealership) {
+            $country_ids[] = $dealership->country->id;
+        }
+
+        $countries = Country::whereIn('id',$country_ids)->get();
+
+        return $countries;
     }
 
     /**
@@ -178,18 +190,11 @@ class ManufacturerController extends Controller
      * @param  \App\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function manufacturerUsersApi($id)
+    public function manufacturerRegionsApi($id)
     {
         $manufacturer = Manufacturer::find($id);
-        $user_ids = [];
-        foreach($manufacturer->dealerships as $dealership) {
-            foreach($dealership->users as $user) {
-                $user_ids[] = $user->id;
-            }
-        }
-        $users = User::whereIn('id',$user_ids)->get();
 
-        return $users;
+        return $manufacturer->regions;
     }
 
 }

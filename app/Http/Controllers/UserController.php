@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Country;
 use App\Manufacturer;
+use App\Company;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -25,7 +26,8 @@ class UserController extends Controller
         $users = User::orderBy('surname')->get();
         $countries = Country::orderBy('name')->get();
         $manufacturers = Manufacturer::orderBy('name')->get();
-        return view('users.index',compact('users','countries','manufacturers'));
+        $companies = Company::orderBy('name')->get();
+        return view('users.index',compact('users','countries','manufacturers','companies'));
     }
 
     /**
@@ -46,12 +48,136 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'firstname' => 'required',
-            'surname' => 'required',
-            'email' => 'required|email',
-            'level' => 'required'
-        ]);
+
+        $level = $request->get('level');
+
+        switch ($level) {
+
+            case 'Admin':
+
+                $request->validate([
+                    'firstname' => 'required',
+                    'surname' => 'required',
+                    'email' => 'required|email',
+                    'level' => 'required'
+                ]);
+
+            break;
+            
+            case 'Company':
+
+                $request->validate([
+                    'firstname' => 'required',
+                    'surname' => 'required',
+                    'email' => 'required|email',
+                    'level' => 'required',
+                    'company_id' => 'required'
+                ]);
+
+            break;
+            
+            case 'Manufacturer':
+
+                $request->validate([
+                    'firstname' => 'required',
+                    'surname' => 'required',
+                    'email' => 'required|email',
+                    'level' => 'required',
+                    'manufacturer_id' => 'required'
+                ]);
+
+            break;
+            
+            case 'Country':
+
+                $request->validate([
+                    'firstname' => 'required',
+                    'surname' => 'required',
+                    'email' => 'required|email',
+                    'level' => 'required',
+                    'manufacturer_id' => 'required',
+                    'country_id' => 'required'
+                ]);
+
+            break;
+            
+            case 'Region':
+
+                $request->validate([
+                    'firstname' => 'required',
+                    'surname' => 'required',
+                    'email' => 'required|email',
+                    'level' => 'required',
+                    'manufacturer_id' => 'required',
+                    'country_id' => 'required',
+                    'region_id' => 'required'
+                ]);
+
+            break;
+            
+            case 'Group':
+
+                $request->validate([
+                    'firstname' => 'required',
+                    'surname' => 'required',
+                    'email' => 'required|email',
+                    'level' => 'required',
+                    'group_id' => 'required'
+                ]);
+
+            break;
+            
+            case 'Group':
+
+                $request->validate([
+                    'firstname' => 'required',
+                    'surname' => 'required',
+                    'email' => 'required|email',
+                    'level' => 'required',
+                    'dealership_id' => 'required'
+                ]);
+
+            break;
+
+            default:
+                
+                $request->validate([
+                    'firstname' => 'required',
+                    'surname' => 'required',
+                    'email' => 'required|email',
+                    'level' => 'required'
+                ]);
+        } 
+
+        $company_id = $request->get('company_id');
+        if($company_id == 'NULL') {
+            $company_id = NULL;
+        }
+
+        $manufacturer_id = $request->get('manufacturer_id');
+        if($manufacturer_id == 'NULL') {
+            $manufacturer_id = NULL;
+        }
+
+        $country_id = $request->get('country_id');
+        if($country_id == 'NULL') {
+            $country_id = NULL;
+        }
+
+        $region_id = $request->get('region_id');
+        if($region_id == 'NULL') {
+            $region_id = NULL;
+        }
+
+        $group_id = $request->get('group_id');
+        if($group_id == 'NULL') {
+            $group_id = NULL;
+        }
+
+        $dealership_id = $request->get('dealership_id');
+        if($dealership_id == 'NULL') {
+            $dealership_id = NULL;
+        }
 
         $user = new User([
             'firstname' => $request->get('firstname'),
@@ -59,11 +185,12 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'level' => $request->get('level'),
             'password' => bcrypt('secret'),
-            'manufacturer_id' => $request->get('manufacturer_id'),
-            'country_id' => $request->get('country_id'),
-            'region_id' => $request->get('region_id'),
-            'group_id' => $request->get('group_id'),
-            'dealership_id' => $request->get('dealership_id')
+            'company_id' => $company_id,
+            'manufacturer_id' => $manufacturer_id,
+            'country_id' => $country_id,
+            'region_id' => $region_id,
+            'group_id' => $group_id,
+            'dealership_id' => $dealership_id
         ]);
 
         $user->save();
