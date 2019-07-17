@@ -26,4 +26,9 @@ class Region extends Model
         return $this->belongsTo(Country::class);
     }
 
+    public function dealerships()
+    {
+        return $this->belongsToMany(Dealership::class,'dealership_manufacturer');
+    }
+
 }

@@ -136,14 +136,22 @@
                         <div class="form-group">    
                             <label for="name">Name</label>
                             <input type="text" class="form-control" name="name" required />
+                        </div>    
+                        <div class="form-group">    
+                            <label for="start_date">Start Date</label>
+                            <input type="text" class="form-control start_date" required />
+                            <input type="hidden" class="alt_start_date" name="start_date" required />
+                        </div>    
+                        <div class="form-group">    
+                            <label for="end_date">End Date</label>
+                            <input type="text" class="form-control end_date" required />
+                            <input type="hidden" class="alt_end_date" name="end_date" required />
                         </div>     
                         <div class="form-group">        
-                            <label for="manufacturer_ids">Manufacturers</label>
-                            <select multiple class="form-control" name="manufacturer_ids[]" id="manufacturer_ids" required/>
-                                @foreach($dealership->manufacturers as $manufacturer)
-                                    <option value="{{ $manufacturer->id}}">{{ $manufacturer->name }}</option>
-                                @endforeach
-                            </select>
+                            <p>Manufacturers</p>
+                            @foreach($dealership->manufacturers as $manufacturer)
+                                <label><input type="checkbox" name="manufacturer_ids[]" value="{{ $manufacturer->id }}" />{{ $manufacturer->name }}</label>
+                            @endforeach
                         </div>
                         <input type="hidden" class="form-control" name="dealership_id" value="{{ $dealership->id }}" />
                         <button type="submit" class="btn btn-primary">Add Event</button>
@@ -158,6 +166,24 @@
 
 @section('scripts')
 
-     <script src="/js/manufacturer-regions.js"></script> 
+    <script src="/js/manufacturer-regions.js"></script> 
+
+    <script>
+        $( function() {
+
+            $( ".start_date" ).datepicker({
+                dateFormat: 'dd-mm-yy',
+                altFormat: "yy-mm-dd",
+                altField: ".alt_start_date"
+            });
+
+            $( ".end_date" ).datepicker({
+                dateFormat: 'dd-mm-yy',
+                altFormat: "yy-mm-dd",
+                altField: ".alt_end_date"
+            });
+
+        } );
+    </script>
 
 @endsection

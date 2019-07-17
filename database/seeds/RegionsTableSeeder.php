@@ -13,6 +13,9 @@ class RegionsTableSeeder extends Seeder
     public function run()
     {
         DB::table('regions')->insert([
+
+        	// BMW UK
+
         	[
 	            'name' => 'North UK',
 	            'manufacturer_id' => 4,
@@ -41,6 +44,9 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
+
+	        // MINI UK
+
 	        [
 	            'name' => 'North East UK',
 	            'manufacturer_id' => 20,
@@ -69,13 +75,51 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
+
+	        // MINI France
+
 	        [
 	            'name' => 'Northern France',
 	            'manufacturer_id' => 4,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Mercedes-Benz UK
+
+	        [
+	            'name' => 'North West',
+	            'manufacturer_id' => 19,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'East Midlands',
+	            'manufacturer_id' => 19,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Smart UK
+
+	        [
+	            'name' => 'North West',
+	            'manufacturer_id' => 28,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'East Midlands',
+	            'manufacturer_id' => 28,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
 	        ]
+
 	    ]);
     }
 }

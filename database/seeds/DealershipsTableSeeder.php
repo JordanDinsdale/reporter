@@ -13,6 +13,9 @@ class DealershipsTableSeeder extends Seeder
     public function run()
     {
         DB::table('dealerships')->insert([
+
+        	// Halliwell Jones
+
         	[
 	            'name' => 'Halliwell Jones Southport BMW',
 	            'group_id' => 1,
@@ -90,6 +93,9 @@ class DealershipsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
+
+	        // Bowker Motor Group
+
 	        [
 	            'name' => 'Bowker Preston BMW',
 	            'group_id' => 2,
@@ -124,7 +130,102 @@ class DealershipsTableSeeder extends Seeder
 	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
+	        ],
+
+	        // LSH
+
+	        [
+	            'name' => 'LSH Mercedes-Benz Birmingham Central',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Mercedes-Benz Erdington',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Mercedes-Benz Macclesfield',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Mercedes-Benz Manchester Central',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Mercedes-Benz Manchester Used',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Mercedes-Benz Solihull',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Mercedes-Benz Stockport',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Mercedes-Benz Tamworth',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Mercedes-Benz Whitefield',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Smart Birmingham Central',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Smart Macclesfield',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Smart Manchester Central',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH Smart Tamworth',
+	            'group_id' => 3,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
 	        ]
+
 	    ]);
     }
 }

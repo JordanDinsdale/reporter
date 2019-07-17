@@ -13,7 +13,7 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'dealership_id' 
+        'name', 'start_date' , 'end_date' , 'dealership_id' 
     ];
 
     public function dealership()

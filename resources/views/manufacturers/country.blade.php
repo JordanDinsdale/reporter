@@ -37,7 +37,11 @@
 
                     <h2><a href="{{ route('manufacturer', $manufacturer->id) }}">{{ $manufacturer->name }}</a> {{ $country->name }}</h2>
 
-                    <p><a href="{{ route('company', $manufacturer->company->id) }}">{{ $manufacturer->company->name }}</a></p>
+                    @if($manufacturer->company)
+
+                        <p><a href="{{ route('company', $manufacturer->company->id) }}">{{ $manufacturer->company->name }}</a></p>
+
+                    @endif
 
                     <h3>Add Region</h3>
 

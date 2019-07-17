@@ -36,11 +36,16 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' =>'required'
+            'name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'manufacturer_ids' => 'required'
         ]);
 
         $event = new Event([
             'name' => $request->get('name'),
+            'start_date' => $request->get('start_date'),
+            'end_date' => $request->get('end_date'),
             'dealership_id' => $request->get('dealership_id')
         ]);
 
@@ -111,11 +116,16 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'manufacturer_ids' => 'required'
         ]);
 
         $event = Event::find($id);
         $event->name = $request->get('name');
+        $event->start_date = $request->get('start_date');
+        $event->end_date = $request->get('end_date');
 
         $event->save();
 

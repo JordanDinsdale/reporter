@@ -57,61 +57,63 @@
 
                                         @foreach($company->manufacturers as $manufacturer)
 
-                                            <li>
-                                                <a href="{{ route('manufacturer',$manufacturer->id) }}">{{ $manufacturer->name }}</a>
-                                            </li>
+                                            <li><a href="{{ route('manufacturer',$manufacturer->id) }}">{{ $manufacturer->name }}</a></li>
+
+                                            @php($manufacturerCountries = [])
 
                                             @if(count($manufacturer->countries) > 0)
 
+                                                @foreach($manufacturer->countries->unique('name') as $country)
+
+                                                    @php($manufacturerCountries[] = $country)
+
+                                                @endforeach
+
+                                            @endif
+
+                                            @if(count($manufacturer->dealerships) > 0)
+
+                                                @foreach($manufacturer->dealerships->unique('country') as $dealership)
+
+                                                    @php($manufacturerCountries[] = $dealership->country)
+
+                                                @endforeach
+
+                                            @endif
+
+                                            @if(count($manufacturerCountries) > 0)
+
+                                                @php($country_ids = [])
+
                                                 <ul>
 
-                                                    @foreach($manufacturer->countries->unique('name') as $country)
+                                                    @foreach($countries as $country)
 
-                                                        <li>
-                                                            <a href="{{ route('manufacturerCountry',[$manufacturer->id,$country->id]) }}">{{ $country->name }}</a>
-                                                        </li>
+                                                        @foreach($manufacturerCountries as $manufacturerCountry)
 
-                                                        <ul>
+                                                            @if($country->id == $manufacturerCountry->id)
 
-                                                            @foreach($manufacturer->countries as $region)
+                                                                @if(!in_array($country->id,$country_ids))
 
-                                                                @if($region->id == $country->id)
+                                                                    <li><a href="{{ route('manufacturerCountry',[$manufacturer->id,$country->id]) }}">{{ $country->name }}</li>
 
-                                                                    <li>
-                                                                        <a href="{{ route('region', $region->pivot->id) }}">{{ $region->pivot->name }}</a>
-                                                                    </li>
-
-                                                                    @if(count($manufacturer->dealerships) > 0)
-
-                                                                        @php($noregion = [])
+                                                                    @if(count($country->regions) > 0)
 
                                                                         <ul>
 
-                                                                            @foreach($manufacturer->dealerships as $dealership)
+                                                                            @foreach($country->regions as $region)
 
-                                                                                @if(!$dealership->pivot->region_id && $dealership->country_id == $region->id)
+                                                                                @if($region->manufacturer->id == $manufacturer->id)
 
-                                                                                    @php($noregion[] = $dealership)
+                                                                                    <li><a href="{{ route('region',$region->id) }}">{{ $region->name }}</a></li>
 
-                                                                                @elseif($dealership->pivot->region_id == $region->pivot->id)
-
-                                                                                    <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
-
-                                                                                    @if(count($dealership->events) > 0)
+                                                                                    @if(count($region->dealerships) > 0)
 
                                                                                         <ul>
 
-                                                                                            @foreach($dealership->events as $event)
+                                                                                            @foreach($region->dealerships as $dealership)
 
-                                                                                                @foreach($event->manufacturers as $eventManufacturer)
-
-                                                                                                    @if($manufacturer->id == $eventManufacturer->id)
-
-                                                                                                        <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
-
-                                                                                                    @endif
-
-                                                                                                @endforeach
+                                                                                                <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
 
                                                                                             @endforeach
 
@@ -123,115 +125,45 @@
 
                                                                             @endforeach
 
+                                                                            @if(count($manufacturer->dealerships) > 0)
+
+                                                                                @php($noregion = [])
+
+                                                                                @foreach($manufacturer->dealerships->where('country_id',$country->id) as $dealership)
+
+                                                                                    @if(!$dealership->pivot->region_id && empty($noregion))
+
+                                                                                        <li><a href="{{ route('manufacturerRegionless',[$manufacturer->id,$country->id]) }}">No Region</a></li>
+
+                                                                                        @php($noregion[] = $dealership)
+
+                                                                                        <ul>
+
+                                                                                            @foreach($manufacturer->dealerships as $dealership)
+
+                                                                                                @if(!$dealership->pivot->region_id)
+
+                                                                                                    <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                                                                                @endif
+
+                                                                                            @endforeach
+
+                                                                                        </ul>
+
+                                                                                    @endif
+
+                                                                                @endforeach
+
+                                                                            @endif
+
                                                                         </ul>
 
                                                                     @endif
 
                                                                 @endif
 
-                                                            @endforeach
-
-                                                            @if(count($noregion) > 0)
-
-                                                                <li><a href="{{ route('manufacturerRegionless', [$manufacturer->id,$country->id]) }}">No Region</a></li>
-
-                                                                <ul>
-
-                                                                    @foreach($noregion as $dealership)
-
-                                                                        <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
-
-                                                                        @if(count($dealership->events) > 0)
-
-                                                                            <ul>
-
-                                                                                @foreach($dealership->events as $event)
-
-                                                                                    @foreach($event->manufacturers as $eventManufacturer)
-
-                                                                                        @if($manufacturer->id == $eventManufacturer->id)
-
-                                                                                            <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
-
-                                                                                        @endif
-
-                                                                                    @endforeach
-
-                                                                                @endforeach
-
-                                                                            </ul>
-
-                                                                        @endif
-
-                                                                    @endforeach
-
-                                                                </ul>
-
-                                                            @endif
-
-                                                        </ul>
-
-                                                    @endforeach
-
-                                                </ul>
-
-                                            @elseif(count($manufacturer->dealerships) > 0)
-
-                                                <ul>
-
-                                                    @foreach($manufacturer->dealerships->unique('country_id') as $dealership)
-
-                                                        <li><a href="{{ route('manufacturerCountry',[$manufacturer->id,$country->id]) }}">{{ $dealership->country->name }}</a></li>
-
-                                                        @foreach($manufacturer->dealerships->unique('country_id') as $manufacturerDealership)
-
-                                                            @if($manufacturerDealership->country->id == $dealership->country->id)
-
-                                                                <ul>
-
-                                                                    @if($manufacturerDealership->region)
-
-                                                                        <li><a href="{{ route('region', $manufacturerDealership->region->id) }}">{{ $manufacturerDealership->region->name }}</a></li>
-
-                                                                    @else
-
-                                                                        <li><a href="{{ route('manufacturerRegionless', [$manufacturer->id,$country->id]) }}">No Region</a></li>
-
-                                                                    @endif
-
-                                                                    <ul>
-
-                                                                        @foreach($manufacturer->dealerships as $manufacturerDealership)
-
-                                                                            <li><a href="{{ route('dealership', $manufacturerDealership->id) }}">{{ $manufacturerDealership->name }}</a></li>
-
-                                                                            @if(count($manufacturerDealership->events) > 0)
-
-                                                                                <ul>
-
-                                                                                    @foreach($manufacturerDealership->events as $event)
-
-                                                                                        @foreach($event->manufacturers as $eventManufacturer)
-
-                                                                                            @if($manufacturer->id == $eventManufacturer->id)
-
-                                                                                                <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
-
-                                                                                            @endif
-
-                                                                                        @endforeach
-
-                                                                                    @endforeach
-
-                                                                                </ul>
-
-                                                                            @endif
-
-                                                                        @endforeach
-
-                                                                    </ul>
-
-                                                                </ul>
+                                                                @php($country_ids[] = $country->id)
 
                                                             @endif
 
@@ -267,54 +199,61 @@
 
                                 <li><a href="{{ route('manufacturer',$manufacturer->id) }}">{{ $manufacturer->name }}</a></li>
 
+                                @php($manufacturerCountries = [])
+
                                 @if(count($manufacturer->countries) > 0)
+
+                                    @foreach($manufacturer->countries->unique('name') as $country)
+
+                                        @php($manufacturerCountries[] = $country)
+
+                                    @endforeach
+
+                                @endif
+
+                                @if(count($manufacturer->dealerships) > 0)
+
+                                    @foreach($manufacturer->dealerships->unique('country') as $dealership)
+
+                                        @php($manufacturerCountries[] = $dealership->country)
+
+                                    @endforeach
+
+                                @endif
+
+                                @if(count($manufacturerCountries) > 0)
+
+                                    @php($country_ids = [])
 
                                     <ul>
 
-                                        @foreach($manufacturer->countries->unique('name') as $country)
+                                        @foreach($countries as $country)
 
-                                            <li><a href="{{ route('manufacturerCountry',[$manufacturer->id,$country->id]) }}">{{ $country->name }}</a></li>
+                                            @foreach($manufacturerCountries as $manufacturerCountry)
 
-                                            <ul>
+                                                @if($country->id == $manufacturerCountry->id)
 
-                                                @foreach($manufacturer->countries as $region)
+                                                    @if(!in_array($country->id,$country_ids))
 
-                                                    @if($region->id == $country->id)
+                                                        <li><a href="{{ route('manufacturerCountry',[$manufacturer->id,$country->id]) }}">{{ $country->name }}</li>
 
-                                                        <li>
-                                                            <a href="{{ route('region', $region->pivot->id) }}">{{ $region->pivot->name }}</a>
-                                                        </li>
-
-                                                        @if(count($manufacturer->dealerships) > 0)
-
-                                                            @php($noregion = [])
+                                                        @if(count($country->regions) > 0)
 
                                                             <ul>
 
-                                                                @foreach($manufacturer->dealerships as $dealership)                                                                
-                                                                    @if(!$dealership->pivot->region_id && $dealership->country_id == $region->id)
+                                                                @foreach($country->regions as $region)
 
-                                                                        @php($noregion[] = $dealership)
+                                                                    @if($region->manufacturer->id == $manufacturer->id)
 
-                                                                    @elseif($dealership->pivot->region_id == $region->pivot->id)
+                                                                        <li><a href="{{ route('region',$region->id) }}">{{ $region->name }}</a></li>
 
-                                                                        <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
-
-                                                                        @if(count($dealership->events) > 0)
+                                                                        @if(count($region->dealerships) > 0)
 
                                                                             <ul>
 
-                                                                                @foreach($dealership->events as $event)
+                                                                                @foreach($region->dealerships as $dealership)
 
-                                                                                    @foreach($event->manufacturers as $eventManufacturer)
-
-                                                                                        @if($manufacturer->id == $eventManufacturer->id)
-
-                                                                                            <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
-
-                                                                                        @endif
-
-                                                                                    @endforeach
+                                                                                    <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
 
                                                                                 @endforeach
 
@@ -326,87 +265,49 @@
 
                                                                 @endforeach
 
+                                                                @if(count($manufacturer->dealerships) > 0)
+
+                                                                    @php($noregion = [])
+
+                                                                    @foreach($manufacturer->dealerships->where('country_id',$country->id) as $dealership)
+
+                                                                        @if(!$dealership->pivot->region_id && empty($noregion))
+
+                                                                            <li><a href="{{ route('manufacturerRegionless',[$manufacturer->id,$country->id]) }}">No Region</a></li>
+
+                                                                            @php($noregion[] = $dealership)
+
+                                                                            <ul>
+
+                                                                                @foreach($manufacturer->dealerships as $dealership)
+
+                                                                                    @if(!$dealership->pivot->region_id)
+
+                                                                                        <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                                                                                    @endif
+
+                                                                                @endforeach
+
+                                                                            </ul>
+
+                                                                        @endif
+
+                                                                    @endforeach
+
+                                                                @endif
+
                                                             </ul>
 
                                                         @endif
 
                                                     @endif
 
-                                                @endforeach
-
-                                                @if(count($noregion) > 0)
-
-                                                    <li><a href="{{ route('manufacturerRegionless', [$manufacturer->id,$country->id]) }}">No Region</a></li>
-
-                                                    <ul>
-
-                                                        @foreach($noregion as $dealership)
-
-                                                            <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
-
-                                                            @if(count($dealership->events) > 0)
-
-                                                                <ul>
-
-                                                                    @foreach($dealership->events as $event)
-
-                                                                        @foreach($event->manufacturers as $eventManufacturer)
-
-                                                                            @if($manufacturer->id == $eventManufacturer->id)
-
-                                                                                <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
-
-                                                                            @endif
-
-                                                                        @endforeach
-
-                                                                    @endforeach
-
-                                                                </ul>
-
-                                                            @endif
-
-                                                        @endforeach
-
-                                                    </ul>
+                                                    @php($country_ids[] = $country->id)
 
                                                 @endif
 
-                                            </ul>
-
-                                        @endforeach
-
-                                    </ul>
-
-                                @elseif(count($manufacturer->dealerships) > 0)
-
-                                    <ul>
-
-                                        @foreach($manufacturer->dealerships as $dealership)
-
-                                            <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
-
-                                            @if(count($dealership->events) > 0)
-
-                                                <ul>
-
-                                                    @foreach($dealership->events as $event)
-
-                                                        @foreach($event->manufacturers as $eventManufacturer)
-
-                                                            @if($manufacturer->id == $eventManufacturer->id)
-
-                                                                <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
-
-                                                            @endif
-
-                                                        @endforeach
-
-                                                    @endforeach
-
-                                                </ul>
-
-                                            @endif
+                                            @endforeach
 
                                         @endforeach
 

@@ -22,6 +22,11 @@ class GroupsTableSeeder extends Seeder
 	            'name' => 'Bowker Motor Group',
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'LSH',
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
 	        ]
 	    ]);
     }

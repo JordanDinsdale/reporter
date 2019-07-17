@@ -21,19 +21,19 @@ class Dealership extends Model
         return $this->belongsToMany(Manufacturer::class)->withPivot('region_id')->orderBy('name');
     }
 
-    public function group()
-    {
-        return $this->belongsTo(Group::class)->orderBy('name');
-    }
-
     public function country()
     {
-        return $this->belongsTo(Country::class)->orderBy('name');
+        return $this->belongsTo(Country::class);
     }
 
-    public function users()
+    public function regions()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(Region::class,'dealership_manufacturer');
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
     }
 
     public function events()

@@ -37,7 +37,11 @@
 
                     <h2>{{ $manufacturer->name }}</h2>
 
-                    <p><a href="{{ route('company', $manufacturer->company->id) }}">{{ $manufacturer->company->name }}</a></p>
+                    @if($manufacturer->company)
+
+                        <p><a href="{{ route('company', $manufacturer->company->id) }}">{{ $manufacturer->company->name }}</a></p>
+
+                    @endif
 
                     @if(count($manufacturer->countries) > 0)
 

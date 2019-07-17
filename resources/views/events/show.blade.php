@@ -52,11 +52,21 @@
                         <div class="form-group">    
                             <label for="name">Name</label>
                             <input type="text" class="form-control" name="name" value="{{ $event->name }}" required />
-                        </div>     
+                        </div>      
+                        <div class="form-group">    
+                            <label for="start_date">Start Date</label>
+                            <input type="text" class="form-control start_date" value="{{ date('d-m-Y', strtotime($event->start_date)) }}" required />
+                            <input type="hidden" class="alt_start_date" name="start_date" value="{{ $event->start_date }}" required />
+                        </div>    
+                        <div class="form-group">    
+                            <label for="end_date">End Date</label>
+                            <input type="text" class="form-control end_date" value="{{ date('d-m-Y', strtotime($event->end_date)) }}" required />
+                            <input type="hidden" class="alt_end_date" name="end_date" value="{{ $event->end_date }}" required />
+                        </div>  
                         <div class="form-group">        
                             <label for="manufacturer_ids">Manufacturers</label>
                             @foreach($event->dealership->manufacturers as $manufacturer)
-                                <label><input type='checkbox' name='manufacturer_ids[]' value='{{ $manufacturer->id }}'  @if(in_array($manufacturer->id,$event_manufacturer_ids)) checked @endif />{{ $manufacturer->name }}</label>
+                                <label><input type="checkbox" name="manufacturer_ids[]" value="{{ $manufacturer->id }}"  @if(in_array($manufacturer->id,$event_manufacturer_ids)) checked @endif />{{ $manufacturer->name }}</label>
                             @endforeach
                         </div>
                         <input type="hidden" class="form-control" name="dealership_id" value="{{ $event->dealership->id }}" />
@@ -112,5 +122,23 @@
 @section('scripts')
 
      <script src="/js/manufacturer-regions.js"></script> 
+
+    <script>
+        $( function() {
+
+            $( ".start_date" ).datepicker({
+                dateFormat: 'dd-mm-yy',
+                altFormat: "yy-mm-dd",
+                altField: ".alt_start_date"
+            });
+
+            $( ".end_date" ).datepicker({
+                dateFormat: 'dd-mm-yy',
+                altFormat: "yy-mm-dd",
+                altField: ".alt_end_date"
+            });
+
+        } );
+    </script>
 
 @endsection
