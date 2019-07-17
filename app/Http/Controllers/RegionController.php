@@ -104,7 +104,7 @@ class RegionController extends Controller
 
         $region->save();
 
-        return redirect()->route('regions')->with('success', 'Region Updated');
+        return redirect()->back()->with('success', 'Region Updated');
     }
 
     /**

@@ -38,6 +38,8 @@
                     <h2><a href="{{ route('manufacturerCountry',[$region->manufacturer->id,$region->country->id]) }}">{{ $region->manufacturer->name }} {{ $region->country->name }}</a></h2>
 
                     <h3>{{ $region->name }}</h3>
+
+                    <p><a href="{{ route('regionEdit',$region->id) }}">Edit</a></p>
                     
 
                     @if(count($region->manufacturer->dealerships) > 0)
