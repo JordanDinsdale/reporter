@@ -224,6 +224,160 @@ class DealershipsTableSeeder extends Seeder
 	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Independent UK Dealership',
+	            'group_id' => NULL,
+	            'country_id' => 5,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Gex',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Le Cannet',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Salon de Provence',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Rochefort',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Lille',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Dunkerque',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Saint-Quentin',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Fontaine-Les-Vervins',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Tourcoing',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Valenciennes',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Villeneuve d\'Ascq',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Laon',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Chartres',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Evreux',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Frejus',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Muret',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Soissons',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Vernon',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Orléans',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Tours',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Opel Rouen',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
 	        ]
 
 	    ]);

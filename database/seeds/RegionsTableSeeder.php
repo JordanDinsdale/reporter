@@ -118,6 +118,146 @@ class RegionsTableSeeder extends Seeder
 	            'country_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Abarth Switzerland
+
+	        [
+	            'name' => 'Central Swtizerland',
+	            'manufacturer_id' => 1,
+	            'country_id' => 3,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Ford Belgium
+
+	        [
+	            'name' => 'North',
+	            'manufacturer_id' => 9,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 1
+
+	        [
+	            'name' => '01',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 2
+
+	        [
+	            'name' => '02',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 3
+
+	        [
+	            'name' => '03',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 4
+
+	        [
+	            'name' => '04',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 5
+
+	        [
+	            'name' => '05',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 6
+
+	        [
+	            'name' => '06',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 7
+
+	        [
+	            'name' => '07',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 8
+
+	        [
+	            'name' => '08',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 9
+
+	        [
+	            'name' => '09',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 10
+
+	        [
+	            'name' => '10',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 11
+
+	        [
+	            'name' => '11',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel 12
+
+	        [
+	            'name' => '12',
+	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
 	        ]
 
 	    ]);

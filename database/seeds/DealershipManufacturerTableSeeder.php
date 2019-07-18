@@ -521,6 +521,247 @@ class DealershipManufacturerTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
 
+	        // Independent UK Dealership
+
+	        [
+	            'dealership_id' => 30,
+	            'manufacturer_id' => 1,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'dealership_id' => 30,
+	            'manufacturer_id' => 2,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'dealership_id' => 30,
+	            'manufacturer_id' => 8,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'dealership_id' => 30,
+	            'manufacturer_id' => 14,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Gex
+
+	        [
+	            'dealership_id' => 31,
+	            'manufacturer_id' => 22,
+	            'region_id' => 23,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Le Cannet
+
+	        [
+	            'dealership_id' => 32,
+	            'manufacturer_id' => 22,
+	            'region_id' => 24,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Salon de Provence
+
+	        [
+	            'dealership_id' => 33,
+	            'manufacturer_id' => 22,
+	            'region_id' => 24,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Rochefort
+
+	        [
+	            'dealership_id' => 34,
+	            'manufacturer_id' => 22,
+	            'region_id' => 27,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Lille
+
+	        [
+	            'dealership_id' => 35,
+	            'manufacturer_id' => 22,
+	            'region_id' => 17,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Dunkerque
+
+	        [
+	            'dealership_id' => 36,
+	            'manufacturer_id' => 22,
+	            'region_id' => 17,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Saint-Quentin
+
+	        [
+	            'dealership_id' => 37,
+	            'manufacturer_id' => 22,
+	            'region_id' => 16,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Fontaine-Les-Vervins
+
+	        [
+	            'dealership_id' => 38,
+	            'manufacturer_id' => 22,
+	            'region_id' => 16,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Tourcoing
+
+	        [
+	            'dealership_id' => 39,
+	            'manufacturer_id' => 22,
+	            'region_id' => 17,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Valenciennes
+
+	        [
+	            'dealership_id' => 40,
+	            'manufacturer_id' => 22,
+	            'region_id' => 17,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Villeneuve d'Ascq
+
+	        [
+	            'dealership_id' => 41,
+	            'manufacturer_id' => 22,
+	            'region_id' => 17,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Laon
+
+	        [
+	            'dealership_id' => 42,
+	            'manufacturer_id' => 22,
+	            'region_id' => 16,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Chartres
+
+	        [
+	            'dealership_id' => 43,
+	            'manufacturer_id' => 22,
+	            'region_id' => 18,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Evreux
+
+	        [
+	            'dealership_id' => 44,
+	            'manufacturer_id' => 22,
+	            'region_id' => 18,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Frejus
+
+	        [
+	            'dealership_id' => 45,
+	            'manufacturer_id' => 22,
+	            'region_id' => 24,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Muret
+
+	        [
+	            'dealership_id' => 46,
+	            'manufacturer_id' => 22,
+	            'region_id' => 26,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Soissons
+
+	        [
+	            'dealership_id' => 47,
+	            'manufacturer_id' => 22,
+	            'region_id' => 16,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Vernon
+
+	        [
+	            'dealership_id' => 48,
+	            'manufacturer_id' => 22,
+	            'region_id' => 18,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Orléans
+
+	        [
+	            'dealership_id' => 49,
+	            'manufacturer_id' => 22,
+	            'region_id' => 27,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Tours
+
+	        [
+	            'dealership_id' => 50,
+	            'manufacturer_id' => 22,
+	            'region_id' => 27,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Opel Rouen
+
+	        [
+	            'dealership_id' => 51,
+	            'manufacturer_id' => 22,
+	            'region_id' => 18,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ]
+
 	    ]);
     }
 }

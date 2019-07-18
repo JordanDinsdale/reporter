@@ -34,7 +34,37 @@ class HomeController extends Controller
             $dealerships = Dealership::where('group_id',NULL)->orderBy('name')->get();
             $users = User::orderBy('surname')->get();
 
-            return view('home',compact('user','companies','manufacturers','countries','groups','dealerships','users'));
+            switch (Auth::user()->level) {
+
+                case 'Admin':
+                    return view('home',compact('user','companies','manufacturers','countries','groups','dealerships','users'));
+                break;
+
+                case 'Company':
+                    return redirect('/companies/' . Auth::user()->company_id);
+                break;
+
+                case 'Manufacturer':
+                    return redirect('/manufacturers/' . Auth::user()->manufacturer_id);
+                break;
+
+                case 'Country':
+                    return redirect('/manufacturers/' . Auth::user()->manufacturer_id . '/country/' . Auth::user()->country_id);
+                break;
+
+                case 'Region':
+                    return redirect('/regions/' . Auth::user()->region_id);
+                break;
+
+                case 'Group':
+                    return redirect('/groups/' . Auth::user()->group_id);
+                break;
+
+                case 'Dealership':
+                    return redirect('/dealerships/' . Auth::user()->dealership_id);
+                break;
+
+            }
 
         }
 
