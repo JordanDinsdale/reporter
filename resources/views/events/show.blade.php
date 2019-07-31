@@ -121,8 +121,6 @@
 
 @section('scripts')
 
-     <script src="/js/manufacturer-regions.js"></script> 
-
     <script>
         $( function() {
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Manufacturer;
+use App\Country;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -65,7 +66,8 @@ class CompanyController extends Controller
     public function show($id)
     {
         $company = Company::find($id);
-        return view('companies.show',compact('company'));
+        $countries = Country::orderBy('name')->get();
+        return view('companies.show',compact('company','countries'));
 
     }
 

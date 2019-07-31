@@ -225,6 +225,9 @@ class DealershipsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
+
+	        // Indpendent UK Dealership
+
 	        [
 	            'name' => 'Independent UK Dealership',
 	            'group_id' => NULL,
@@ -232,6 +235,9 @@ class DealershipsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
+
+	        // Independent Opel Dealerships§
+
 	        [
 	            'name' => 'Opel Gex',
 	            'group_id' => NULL,
@@ -376,6 +382,233 @@ class DealershipsTableSeeder extends Seeder
 	            'name' => 'Opel Rouen',
 	            'group_id' => NULL,
 	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Independent Skoda Dealerships
+
+	        [
+	            'name' => 'MC Motors',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'L.Warsemann Auto 37',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Nouvelle Excel Auto',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Espace 3000',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Europe Garage Services',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Skoda Paris Est',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'NDS City Car',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Excel Motors',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Premium Picardie',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'WelcomCar',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Carlier Automobiles',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Nice Car SA',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Riviera Technic',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Peyo Automobiles',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'L.G.A.',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Saphir Automobiles',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Vega Automobile',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Espace Automobiles Nîmois',
+	            'group_id' => NULL,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Feyaerts',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Ciac',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Morren St Truiden',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Morren Diest',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'AB Automotive',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Driessen',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Hasselt Motor',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Van Hoye',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Matel Motors',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'De Doncker',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'SPIRLET Auto',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Centre Motor',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Colson',
+	            'group_id' => NULL,
+	            'country_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => 'Vanspringel',
+	            'group_id' => NULL,
+	            'country_id' => 1,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ]

@@ -300,6 +300,270 @@ class EventsTableSeeder extends Seeder
 	            'dealership_id' => 50,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'MC Motors VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 52,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'L.Warsemann Auto 37 VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 53,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Nouvelle Excel Auto VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 54,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Espace 3000 VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 55,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Europe Garage Services VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 56,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Skoda Paris Est VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 57,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'NDS City Car VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 58,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Excel Motors VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 59,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Premium Picardie VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 60,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'WelcomCar VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 61,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Carlier Automobiles VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 62,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Nice Car SA VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 63,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Riviera Technic VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 64,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Peyo Automobiles VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 65,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'L.G.A. VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 66,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Saphir Automobiles VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 67,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Vega Automobile VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 68,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Espace Automobiles Nîmois VIP Event',
+	            'start_date' => '2019-01-18',
+	            'end_date' => '2019-01-20',
+	            'dealership_id' => 69,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Feyaerts VIP Event',
+	            'start_date' => '2018-05-30',
+	            'end_date' => '2018-06-02',
+	            'dealership_id' => 70,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Ciac VIP Event',
+	            'start_date' => '2018-06-06',
+	            'end_date' => '2018-06-09',
+	            'dealership_id' => 71,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Morren St Truiden VIP Event',
+	            'start_date' => '2018-10-10',
+	            'end_date' => '2018-10-13',
+	            'dealership_id' => 72,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Morren Diest VIP Event',
+	            'start_date' => '2018-10-24',
+	            'end_date' => '2018-10-27',
+	            'dealership_id' => 73,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'AB Automotive VIP Event',
+	            'start_date' => '2018-10-10',
+	            'end_date' => '2018-10-13',
+	            'dealership_id' => 74,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Driessen VIP Event',
+	            'start_date' => '2018-12-06',
+	            'end_date' => '2018-12-09',
+	            'dealership_id' => 75,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Hasselt Motor VIP Event',
+	            'start_date' => '2018-12-13',
+	            'end_date' => '2018-12-16',
+	            'dealership_id' => 76,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Van Hoye VIP Event',
+	            'start_date' => '2018-12-20',
+	            'end_date' => '2018-12-23',
+	            'dealership_id' => 77,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Matel Motors VIP Event',
+	            'start_date' => '2018-05-23',
+	            'end_date' => '2018-05-26',
+	            'dealership_id' => 78,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'De Doncker VIP Event',
+	            'start_date' => '2018-06-06',
+	            'end_date' => '2018-06-09',
+	            'dealership_id' => 79,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'SPIRLET Auto VIP Event',
+	            'start_date' => '2018-06-06',
+	            'end_date' => '2018-06-09',
+	            'dealership_id' => 80,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Centre Motor VIP Event',
+	            'start_date' => '2018-12-06',
+	            'end_date' => '2018-12-08',
+	            'dealership_id' => 81,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Colson VIP Event',
+	            'start_date' => '2018-11-28',
+	            'end_date' => '2018-12-01',
+	            'dealership_id' => 82,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Vanspringel VIP Event',
+	            'start_date' => '2018-12-05',
+	            'end_date' => '2018-12-08',
+	            'dealership_id' => 83,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+        	[
+	            'name' => 'Premium Trade Cars All Brand Event',
+	            'start_date' => '2019-07-26',
+	            'end_date' => '2019-07-28',
+	            'dealership_id' => 11,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
 	        ]
 	    ]);
     }

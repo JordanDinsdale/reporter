@@ -760,6 +760,326 @@ class DealershipManufacturerTableSeeder extends Seeder
 	            'region_id' => 18,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
+	        ],
+
+	        // MC Motors
+
+	        [
+	            'dealership_id' => 52,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // L.Warsemann Auto 37
+
+	        [
+	            'dealership_id' => 53,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Nouvelle Excel Auto
+
+	        [
+	            'dealership_id' => 54,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Espace 3000
+
+	        [
+	            'dealership_id' => 55,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Europe Garage Services
+
+	        [
+	            'dealership_id' => 56,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Skoda Paris Est
+
+	        [
+	            'dealership_id' => 57,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // NDS City Car
+
+	        [
+	            'dealership_id' => 58,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Excel Motors
+
+	        [
+	            'dealership_id' => 59,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Premium Picardie
+
+	        [
+	            'dealership_id' => 60,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // WelcomCar
+
+	        [
+	            'dealership_id' => 61,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Carlier Automobiles
+
+	        [
+	            'dealership_id' => 62,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Nice Car SA
+
+	        [
+	            'dealership_id' => 63,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Riviera Technic
+
+	        [
+	            'dealership_id' => 64,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Peyo Automobiles
+
+	        [
+	            'dealership_id' => 65,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // L.G.A.
+
+	        [
+	            'dealership_id' => 66,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Saphir Automobiles
+
+	        [
+	            'dealership_id' => 67,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Vega Automobile
+
+	        [
+	            'dealership_id' => 68,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Espace Automobiles Nîmois
+
+	        [
+	            'dealership_id' => 69,
+	            'manufacturer_id' => 27,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Fayaerts
+
+	        [
+	            'dealership_id' => 70,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Ciac
+
+	        [
+	            'dealership_id' => 71,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Morren St Truiden
+
+	        [
+	            'dealership_id' => 72,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Morren Diest
+
+	        [
+	            'dealership_id' => 73,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // AB Automotive
+
+	        [
+	            'dealership_id' => 74,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Driessen
+
+	        [
+	            'dealership_id' => 75,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Hasselt Motor
+
+	        [
+	            'dealership_id' => 76,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Van Hoye
+
+	        [
+	            'dealership_id' => 77,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Matel Motors
+
+	        [
+	            'dealership_id' => 78,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // De Doncker
+
+	        [
+	            'dealership_id' => 79,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // SPIRLET Auto
+
+	        [
+	            'dealership_id' => 80,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Centre Motor
+
+	        [
+	            'dealership_id' => 81,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Colson
+
+	        [
+	            'dealership_id' => 82,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Vanspringel
+
+	        [
+	            'dealership_id' => 83,
+	            'manufacturer_id' => 9,
+	            'region_id' => NULL,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
 	        ]
 
 	    ]);

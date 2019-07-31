@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Company;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -93,6 +94,57 @@ class EventController extends Controller
         }
 
         return view('events.show',compact('event','event_manufacturer_ids'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Event  $event
+     * @return \Illuminate\Http\Response
+     */
+    public function company($event_id,$company_id)
+    {
+        $event = Event::find($event_id);
+        $company = Company::find($company_id);
+
+        $manufacturer_ids = [];
+
+        if(count($company->manufacturers) > 0) {
+            foreach($company->manufacturers as $manufacturer) {
+                $manufacturer_ids[] = $manufacturer->id;
+            }
+        }
+
+        $event_manufacturer_ids = [];
+
+        if(count($event->manufacturers) > 0) {
+            foreach($event->manufacturers as $manufacturer) {
+                $event_manufacturer_ids[] = $manufacturer->id;
+            }
+        }
+
+        return view('events.company',compact('event','event_manufacturer_ids','manufacturer_ids'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Event  $event
+     * @return \Illuminate\Http\Response
+     */
+    public function manufacturer($event_id,$manufacturer_id)
+    {
+        $event = Event::find($event_id);
+
+        $event_manufacturer_ids = [];
+
+        if(count($event->manufacturers) > 0) {
+            foreach($event->manufacturers as $manufacturer) {
+                $event_manufacturer_ids[] = $manufacturer->id;
+            }
+        }
+
+        return view('events.manufacturer',compact('event','event_manufacturer_ids','manufacturer_id'));
     }
 
     /**

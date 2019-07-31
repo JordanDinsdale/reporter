@@ -41,30 +41,33 @@
 
                     <p><a href="{{ route('regionEdit',$region->id) }}">Edit</a></p>
                     
-
-                    @if(count($region->manufacturer->dealerships) > 0)
+                    @if(count($region->dealerships) > 0)
 
                         <ul>
 
-                            @foreach($region->manufacturer->dealerships as $dealership)
+                            @foreach($region->dealerships as $dealership)
 
-                                @if($dealership->pivot->region_id == $region->id)
+                                <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
 
-                                    <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
+                                @if(count($dealership->events) > 0)
 
-                                    @if(count($dealership->events) > 0)
+                                    <ul>
 
-                                        <ul>
+                                        @foreach($dealership->events as $event)
 
-                                            @foreach($dealership->events as $event)
+                                            @foreach($event->manufacturers as $eventManufacturer)
 
-                                                <li><a href="{{ route('event',$event->id) }}">{{ $event->name }}</a></li>
+                                                @if($eventManufacturer->id == $region->manufacturer->id)
+
+                                                    <li><a href="{{ route('eventManufacturer',[$event->id,$region->manufacturer->id]) }}">{{ $event->name }}</a></li>
+
+                                                @endif
 
                                             @endforeach
 
-                                        </ul>
+                                        @endforeach
 
-                                    @endif
+                                    </ul>
 
                                 @endif
 

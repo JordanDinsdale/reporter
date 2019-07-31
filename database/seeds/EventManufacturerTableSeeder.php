@@ -592,7 +592,700 @@ class EventManufacturerTableSeeder extends Seeder
 	            'used' => 0,
 	            'zero_km' => 0,
 	            'demo' => 0,
-	            'inprogress' => 1
+	            'inprogress' => 11
+	        ],
+
+	        // MC Motors VIP Event
+
+        	[
+	            'event_id' => 37,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1239,
+	            'appointments' => 33,
+	            'new' => 17,
+	            'used' => 2,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // L.Warsemann Auto 37 VIP Event
+
+        	[
+	            'event_id' => 38,
+	            'manufacturer_id' => 27,
+	            'data_count' => 726,
+	            'appointments' => 35,
+	            'new' => 19,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 2,
+	            'inprogress' => 0
+	        ],
+
+	        // Nouvelle Excel Auto VIP Event
+
+        	[
+	            'event_id' => 39,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1974,
+	            'appointments' => 41,
+	            'new' => 8,
+	            'used' => 8,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Espace 3000 VIP Event
+
+        	[
+	            'event_id' => 40,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1984,
+	            'appointments' => 36,
+	            'new' => 7,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Europe Garage Services VIP Event
+
+        	[
+	            'event_id' => 41,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1210,
+	            'appointments' => 29,
+	            'new' => 7,
+	            'used' => 8,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Skoda Paris Est VIP Event
+
+        	[
+	            'event_id' => 42,
+	            'manufacturer_id' => 27,
+	            'data_count' => 5166,
+	            'appointments' => 28,
+	            'new' => 4,
+	            'used' => 4,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // NDS City Car VIP Event
+
+        	[
+	            'event_id' => 43,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1283,
+	            'appointments' => 26,
+	            'new' => 14,
+	            'used' => 3,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Excel Motors VIP Event
+
+        	[
+	            'event_id' => 44,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1093,
+	            'appointments' => 28,
+	            'new' => 11,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Premium Picardie VIP Event
+
+        	[
+	            'event_id' => 45,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1671,
+	            'appointments' => 21,
+	            'new' => 17,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // WelcomCar VIP Event
+
+        	[
+	            'event_id' => 46,
+	            'manufacturer_id' => 27,
+	            'data_count' => 798,
+	            'appointments' => 22,
+	            'new' => 16,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Carlier Automobiles VIP Event
+
+        	[
+	            'event_id' => 47,
+	            'manufacturer_id' => 27,
+	            'data_count' => 511,
+	            'appointments' => 15,
+	            'new' => 9,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Nice Car SA VIP Event
+
+        	[
+	            'event_id' => 48,
+	            'manufacturer_id' => 27,
+	            'data_count' => 2379,
+	            'appointments' => 16,
+	            'new' => 22,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Riviera Technic VIP Event
+
+        	[
+	            'event_id' => 49,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1998,
+	            'appointments' => 18,
+	            'new' => 13,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Peyo Automobiles VIP Event
+
+        	[
+	            'event_id' => 50,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1282,
+	            'appointments' => 19,
+	            'new' => 12,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // L.G.A. VIP Event
+
+        	[
+	            'event_id' => 51,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1259,
+	            'appointments' => 30,
+	            'new' => 12,
+	            'used' => 5,
+	            'zero_km' => 0,
+	            'demo' => 1,
+	            'inprogress' => 0
+	        ],
+
+	        // Saphir Automobiles VIP Event
+
+        	[
+	            'event_id' => 52,
+	            'manufacturer_id' => 27,
+	            'data_count' => 2777,
+	            'appointments' => 17,
+	            'new' => 8,
+	            'used' => 3,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Vega Automobile VIP Event
+
+        	[
+	            'event_id' => 53,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1493,
+	            'appointments' => 56,
+	            'new' => 5,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 18,
+	            'inprogress' => 0
+	        ],
+
+	        // Espace Automobiles Nîmois VIP Event
+
+        	[
+	            'event_id' => 54,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1388,
+	            'appointments' => 25,
+	            'new' => 21,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Feyaerts VIP Event
+
+        	[
+	            'event_id' => 55,
+	            'manufacturer_id' => 9,
+	            'data_count' => 4435,
+	            'appointments' => 70,
+	            'new' => 20,
+	            'used' => 15,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Ciac VIP Event
+
+        	[
+	            'event_id' => 56,
+	            'manufacturer_id' => 9,
+	            'data_count' => 2709,
+	            'appointments' => 55,
+	            'new' => 10,
+	            'used' => 12,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Morren St Truiden VIP Event
+
+        	[
+	            'event_id' => 57,
+	            'manufacturer_id' => 9,
+	            'data_count' => 5781,
+	            'appointments' => 130,
+	            'new' => 50,
+	            'used' => 42,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Morren Diest VIP Event
+
+        	[
+	            'event_id' => 58,
+	            'manufacturer_id' => 9,
+	            'data_count' => 5402,
+	            'appointments' => 95,
+	            'new' => 20,
+	            'used' => 40,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // AB Automotive VIP Event
+
+        	[
+	            'event_id' => 59,
+	            'manufacturer_id' => 9,
+	            'data_count' => 4401,
+	            'appointments' => 80,
+	            'new' => 20,
+	            'used' => 20,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Driessen VIP Event
+
+        	[
+	            'event_id' => 60,
+	            'manufacturer_id' => 9,
+	            'data_count' => 4999,
+	            'appointments' => 115,
+	            'new' => 35,
+	            'used' => 20,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Hasselt Motor VIP Event
+
+        	[
+	            'event_id' => 61,
+	            'manufacturer_id' => 9,
+	            'data_count' => 5324,
+	            'appointments' => 80,
+	            'new' => 20,
+	            'used' => 20,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Van Hoye VIP Event
+
+        	[
+	            'event_id' => 62,
+	            'manufacturer_id' => 9,
+	            'data_count' => 807,
+	            'appointments' => 32,
+	            'new' => 9,
+	            'used' => 7,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Matel Motors VIP Event
+
+        	[
+	            'event_id' => 63,
+	            'manufacturer_id' => 9,
+	            'data_count' => 4555,
+	            'appointments' => 70,
+	            'new' => 20,
+	            'used' => 15,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // De Doncker VIP Event
+
+        	[
+	            'event_id' => 64,
+	            'manufacturer_id' => 9,
+	            'data_count' => 4999,
+	            'appointments' => 61,
+	            'new' => 30,
+	            'used' => 23,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // SPIRLET Auto VIP Event
+
+        	[
+	            'event_id' => 65,
+	            'manufacturer_id' => 9,
+	            'data_count' => 4901,
+	            'appointments' => 30,
+	            'new' => 11,
+	            'used' => 11,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Centre Motor VIP Event
+
+        	[
+	            'event_id' => 66,
+	            'manufacturer_id' => 9,
+	            'data_count' => 5028,
+	            'appointments' => 60,
+	            'new' => 20,
+	            'used' => 13,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Colson VIP Event
+
+        	[
+	            'event_id' => 67,
+	            'manufacturer_id' => 9,
+	            'data_count' => 3605,
+	            'appointments' => 40,
+	            'new' => 13,
+	            'used' => 13,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Vanspringel VIP Event
+
+        	[
+	            'event_id' => 68,
+	            'manufacturer_id' => 9,
+	            'data_count' => 5147,
+	            'appointments' => 42,
+	            'new' => 14,
+	            'used' => 14,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Premium Trade Cars All Brand Event
+
+        	[
+	            'event_id' => 69,
+	            'manufacturer_id' => 2,
+	            'data_count' => 2137,
+	            'appointments' => 21,
+	            'new' => 7,
+	            'used' => 7,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 3,
+	            'data_count' => 1943,
+	            'appointments' => 19,
+	            'new' => 5,
+	            'used' => 7,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 4,
+	            'data_count' => 2567,
+	            'appointments' => 28,
+	            'new' => 8,
+	            'used' => 6,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 5,
+	            'data_count' => 2348,
+	            'appointments' => 16,
+	            'new' => 4,
+	            'used' => 6,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 6,
+	            'data_count' => 1746,
+	            'appointments' => 32,
+	            'new' => 9,
+	            'used' => 5,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 7,
+	            'data_count' => 1546,
+	            'appointments' => 16,
+	            'new' => 4,
+	            'used' => 2,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 8,
+	            'data_count' => 1324,
+	            'appointments' => 12,
+	            'new' => 1,
+	            'used' => 2,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 10,
+	            'data_count' => 1428,
+	            'appointments' => 20,
+	            'new' => 5,
+	            'used' => 2,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 12,
+	            'data_count' => 1875,
+	            'appointments' => 19,
+	            'new' => 4,
+	            'used' => 5,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 13,
+	            'data_count' => 1234,
+	            'appointments' => 12,
+	            'new' => 1,
+	            'used' => 3,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 14,
+	            'data_count' => 1684,
+	            'appointments' => 31,
+	            'new' => 15,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 16,
+	            'data_count' => 1721,
+	            'appointments' => 23,
+	            'new' => 3,
+	            'used' => 8,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 17,
+	            'data_count' => 1834,
+	            'appointments' => 30,
+	            'new' => 12,
+	            'used' => 8,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 18,
+	            'data_count' => 1324,
+	            'appointments' => 12,
+	            'new' => 0,
+	            'used' => 8,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 19,
+	            'data_count' => 1543,
+	            'appointments' => 19,
+	            'new' => 4,
+	            'used' => 6,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 20,
+	            'data_count' => 1629,
+	            'appointments' => 24,
+	            'new' => 5,
+	            'used' => 4,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 21,
+	            'data_count' => 2186,
+	            'appointments' => 32,
+	            'new' => 9,
+	            'used' => 3,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 23,
+	            'data_count' => 2423,
+	            'appointments' => 29,
+	            'new' => 12,
+	            'used' => 4,
+	            'zero_km' => 0,
+	            'demo' => 2,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 24,
+	            'data_count' => 2792,
+	            'appointments' => 28,
+	            'new' => 5,
+	            'used' => 2,
+	            'zero_km' => 0,
+	            'demo' => 2,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 25,
+	            'data_count' => 2192,
+	            'appointments' => 42,
+	            'new' => 15,
+	            'used' => 7,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 26,
+	            'data_count' => 1623,
+	            'appointments' => 42,
+	            'new' => 15,
+	            'used' => 7,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+	        [
+	            'event_id' => 69,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1829,
+	            'appointments' => 38,
+	            'new' => 14,
+	            'used' => 4,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
 	        ]
 
 	    ]);

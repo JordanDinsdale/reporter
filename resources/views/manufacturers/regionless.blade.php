@@ -62,7 +62,7 @@
 
                                                     @if($manufacturer->id == $eventManufacturer->id)
 
-                                                        <li><a href="{{ route('event',$event->id) }}">{{ $event->name }}</a></li>
+                                                        <li><a href="{{ route('eventManufacturer',[$event->id,$manufacturer->id]) }}">{{ $event->name }}</a></li>
 
                                                     @endif
 
