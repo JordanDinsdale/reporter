@@ -1,189 +1,263 @@
 @extends('layouts.app')
 
+@section('page_title')
+
+    Dashboard
+    
+@endsection
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
 
-                <div class="card-body">
+<div class="dashboard">
 
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+    <div class="container-fluid">
+
+        <div class="container main-content-container">
+
+            <div class="row">
+
+                <div class="col-md-2 sidebar">
+
+                    <div class="sidebar-inner">
+
+                        <div class="add-events">
+
+                            <h3>Missing Event data</h3>
+
+                            <div class="event-to-add">
+
+                                <div class="event-name">
+
+                                    <p>Add your latest event data here!</p>
+
+                                </div>
+
+                                <a href="{{ route('dealershipEvents',$dealership->id) }}" class="btn">Add Data</a>
+
+                            </div>
+
                         </div>
-                    @endif
 
-                    <p>You are logged in!</p>
-
-                    @if($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    @if (\Session::has('success'))
-                        <div class="alert alert-success">
-                            <ul>
-                                <li>{!! \Session::get('success') !!}</li>
-                            </ul>
-                        </div>
-                    @endif
-
-                    <h2>{{ $dealership->name }}</h2>
-
-                    <p><a href="{{ route('dealershipEdit', $dealership->id) }}">Edit</a></p>
-
-                    @if($dealership->group)
-
-                        <h2><a href="{{ route('group', $dealership->group->id) }}">{{ $dealership->group->name }}</a></h2>
-
-                    @endif
-
-                    <form method="post" action="{{ route('attachManufacturer') }}">
-                        @csrf
-                        <div class="form-group">    
-                            <label for="manufacturer_id">Add Manufacturer</label>
-                            <select class="form-control" name="manufacturer_id" id="manufacturers" required/>
-                                <option value="">Select Manufacturer</option>
-                                @foreach($manufacturers as $manufacturer)
-                                    <option value="{{ $manufacturer->id}}">{{ $manufacturer->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>  
-                        <div id="regionContainer" class="form-group d-none">    
-                            <label for="region_id">Region</label>
-                            <select class="form-control" name="region_id" id="regions"/>
-                            </select>
-                        </div>  
-                        <input type="hidden" name="dealership_id" value="{{ $dealership->id }}" />           
-                        <button type="submit" class="btn btn-primary">Add Manufacturer</button>
-                    </form>
-
-                    @if(count($dealership->manufacturers) > 0)
-                        <ul>
-                            @foreach($dealership->manufacturers as $manufacturer)
-                                <li>
-
-                                    <a href="{{ route('manufacturer', $manufacturer->id) }}">{{ $manufacturer->name }}</a>
-
-                                    <form method="post" action="{{ route('detachManufacturer') }}">
-                                        @csrf
-                                        <input type="hidden" name="manufacturer_id" value="{{ $manufacturer->id }}" />     
-                                        <input type="hidden" name="dealership_id" value="{{ $dealership->id }}" />           
-                                        <button type="submit">Remove Manufacturer</button>
-                                    </form>
-
-                                    <form method="post" action="{{ route('updateRegion') }}">
-                                        @csrf
-                                        <select class="form-control" name="region_id">
-
-                                            <option value="">No Region</option>
-                                
-                                            @if(count($manufacturer->regions) > 0)
-
-                                                @foreach($manufacturer->regions as $region)
-
-                                                    @if($region->country->id == $dealership->country->id)
-
-                                                        <option value="{{ $region->id }}" @if(isset($manufacturer->region->id) && $manufacturer->region->id == $region->id) selected @endif>{{ $region->name }}</option>
-
-                                                    @endif
-
-                                                @endforeach
-
-                                            @endif
-
-                                        </select>     
-
-                                        <input type="hidden" name="manufacturer_id" value="{{ $manufacturer->id }}" />     
-                                        <input type="hidden" name="dealership_id" value="{{ $dealership->id }}" />
-
-                                        <button type="submit">Change Region</button>
-
-                                    </form>
-
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
-
-                    @if(count($dealership->events) > 0)
-
-                        <h3>Events</h3>
-
-                        <ul>
-
-                            @foreach($dealership->events as $event)
-
-                                <li><a href="{{ route('event', $event->id) }}">{{ $event->name }}</a></li>
-
-                            @endforeach
-
-                        </ul>
-
-                    @endif
-
-                    <h3>Add Event</h3>
-
-                    <form method="post" action="{{ route('eventStore') }}">
-                        @csrf
-                        <div class="form-group">    
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" name="name" required />
-                        </div>    
-                        <div class="form-group">    
-                            <label for="start_date">Start Date</label>
-                            <input type="text" class="form-control start_date" required />
-                            <input type="hidden" class="alt_start_date" name="start_date" required />
-                        </div>    
-                        <div class="form-group">    
-                            <label for="end_date">End Date</label>
-                            <input type="text" class="form-control end_date" required />
-                            <input type="hidden" class="alt_end_date" name="end_date" required />
-                        </div>     
-                        <div class="form-group">        
-                            <p>Manufacturers</p>
-                            @foreach($dealership->manufacturers as $manufacturer)
-                                <label><input type="checkbox" name="manufacturer_ids[]" value="{{ $manufacturer->id }}" />{{ $manufacturer->name }}</label>
-                            @endforeach
-                        </div>
-                        <input type="hidden" class="form-control" name="dealership_id" value="{{ $dealership->id }}" />
-                        <button type="submit" class="btn btn-primary">Add Event</button>
-                    </form>
+                    </div>
 
                 </div>
+
+                <div class="col-md-10 main-content">
+
+                    <div class="row cardc">
+
+                        <div class="col-md-4 donut-1">
+
+                            <div class="donut1-content">
+
+                                <h3>Response Rate</h3>
+
+                                <canvas id="responseRate" class="responseRate" width="180" height="180"></canvas>
+                                
+                                <p>{{ $dealership->data_count }} Invites</p>
+                                <p>{{ $dealership->appointments }} Appointments</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 donut-2">
+
+                            <div class="donut2-content">
+
+                            <h3>Conversion Rate</h3>
+
+                            <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
+                            
+                            <p>{{ $dealership->appointments }} appointments</p>
+                            <p>{{ $dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress }} Sales</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <h3>Sales breakdown</h3>
+
+                            <canvas id="salesBreakdown" class="salesBreakdown" width="180" height="180"></canvas>
+                            
+                            <div class="camembert-slice-container">
+
+                                @if(number_format($dealership->new/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',') > 0)
+                                    <div class="camembert-slice">
+                                        <div class="circle circle-1"></div>
+                                        {{ number_format($dealership->new/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% New
+                                    </div>
+                                @endif
+
+                                @if(number_format($dealership->used/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',') > 0)
+                                    <div class="camembert-slice">
+                                        <div class="circle circle-2"></div>
+                                        {{ number_format($dealership->used/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% Used
+                                    </div>
+                                @endif
+
+                                @if(number_format($dealership->demo/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',') > 0)
+                                    <div class="camembert-slice">
+                                        <div class="circle circle-3"></div>
+                                        {{ number_format($dealership->demo/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% Demo
+                                    </div>
+                                @endif
+
+                                @if(number_format($dealership->zero_km/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',') > 0)
+                                    <div class="camembert-slice">
+                                        <div class="circle circle-4"></div>
+                                        {{ number_format($dealership->zero_km/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% 0KM
+                                    </div>
+                                @endif
+
+                                @if(number_format($dealership->inprogress/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',') > 0)
+                                    <div class="camembert-slice final">
+                                        <div class="circle circle-5"></div>
+                                        {{ number_format($dealership->inprogress/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% In progress
+                                    </div>
+                                @endif
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
+
 @endsection
 
 @section('scripts')
 
-    <script src="/js/manufacturer-regions.js"></script> 
+<script type="text/javascript">
 
-    <script>
-        $( function() {
+var ctx = document.getElementById('responseRate').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
 
-            $( ".start_date" ).datepicker({
-                dateFormat: 'dd-mm-yy',
-                altFormat: "yy-mm-dd",
-                altField: ".alt_start_date"
-            });
+    // The data for our dataset
+    data: {
+        datasets: [{
+            borderWidth: '0',
+            backgroundColor: [
+                "#8A9FAD",
+                "#333C42"
+            ],
+            data: [
+                {{ $dealership->appointments }}, 
+                {{ $dealership->data_count - $dealership->appointments }}
+            ]
+        }],
+        labels: [
+            "Appointments",
+            "No Appointment Made"
+        ]
+    },
 
-            $( ".end_date" ).datepicker({
-                dateFormat: 'dd-mm-yy',
-                altFormat: "yy-mm-dd",
-                altField: ".alt_end_date"
-            });
+    // Configuration options go here
+    options: {
+        legend: {
+            display: false,
+        },
+        cutoutPercentage: 90
+    }
+});
 
-        } );
-    </script>
+</script>
+
+
+<script type="text/javascript">
+var ctx = document.getElementById('conversionRate').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        datasets: [{
+            borderWidth: '0',
+            backgroundColor: [
+                "#8A9FAD",
+                "#333C42"
+            ],
+            data: [
+                {{ $dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress }}, 
+                {{ $dealership->appointments - $dealership->new - $dealership->used - $dealership->demo - $dealership->zero_km - $dealership->inprogress }}
+            ]
+        }],
+        labels: [
+            "Sales",
+            "No Sale Made"
+        ]
+    },
+
+    // Configuration options go here
+    options: {
+        legend: {
+            display: false,
+        },
+        cutoutPercentage: 90
+    }
+});
+
+</script>
+
+
+<script type="text/javascript">
+
+var ctx = document.getElementById('salesBreakdown').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        datasets: [{
+            borderWidth: '0',
+            backgroundColor: [
+                @if($dealership->new > 0)"#304651",@endif 
+                @if($dealership->used > 0)"#262E33",@endif 
+                @if($dealership->demo > 0)"#CDDEEA",@endif 
+                @if($dealership->zero_km > 0)"#667681",@endif 
+                @if($dealership->inprogress > 0)"#8A9FAD"@endif 
+            ],
+            data: [
+                @if($dealership->new > 0){{ $dealership->new }},@endif 
+                @if($dealership->used > 0){{ $dealership->used }},@endif 
+                @if($dealership->demo > 0){{ $dealership->demo }},@endif 
+                @if($dealership->zero_km > 0){{ $dealership->zero_km }},@endif 
+                @if($dealership->inprogress > 0){{ $dealership->inprogress }}@endif
+            ]
+        }],
+        labels: [
+            @if($dealership->new > 0)"New",@endif 
+            @if($dealership->used > 0)"Used",@endif 
+            @if($dealership->demo > 0)"Demo",@endif 
+            @if($dealership->zero_km > 0)"0km",@endif 
+            @if($dealership->inprogress > 0)"In Progress"@endif 
+        ]
+    },
+
+    // Configuration options go here
+    options: {
+        legend: {
+            display: false,
+        },
+        cutoutPercentage: 50
+    }
+});
+
+</script>
 
 @endsection

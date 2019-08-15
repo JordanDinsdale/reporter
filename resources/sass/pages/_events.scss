@@ -1,0 +1,116 @@
+.events {
+
+
+
+
+    .add-events {
+        padding: 25px 0;
+        text-align: left;
+        .event-to-add {
+            padding: 10px 0;
+
+
+            .event-name{
+
+                display: inline-block;
+
+                i {
+                    display: inline-block;
+
+                    @media only screen and (max-width: 491px) {
+                        display: none;
+                    }
+
+                }
+
+                p {
+                    display: inline-block;
+                    padding: 0 20px;
+
+                    @media only screen and (max-width: 800px) {
+                        padding:0 10px;
+                    }
+                }
+            }
+
+            .dates {
+
+                display: inline-block;
+                font-weight: bold;
+                @media only screen and (max-width: 800px) {
+                    padding:0 10px;
+                }
+            }
+
+            .btn {
+
+                display: inline-block;
+                margin: 0 20px;
+            }
+
+
+        }
+    }
+
+
+
+
+
+
+    .past-events {
+        padding: 25px 0;
+        text-align: left;
+        .event {
+            padding: 10px 0;
+
+            a {
+                &:hover {
+                    p, i {text-decoration: underline;}
+                }
+
+
+            .event-name{
+                color: $bright-purple;
+
+                display: inline-block;
+
+                i {
+                    display: inline-block;
+                    @media only screen and (max-width: 491px) {
+                        display: none;
+                    }
+
+                }
+
+                p {
+                    display: inline-block;
+                    padding: 0 20px;
+
+                    @media only screen and (max-width: 800px) {
+                        padding:0 10px;
+                    }
+                }
+            }
+
+            .dates {
+
+                display: inline-block;
+                font-weight: bold;
+
+                @media only screen and (max-width: 800px) {
+                    padding:0 10px;
+                }
+            }
+
+            .btn {
+
+                display: inline-block;
+                margin: 0 20px;
+            }
+
+          }
+
+        }
+    }
+
+}

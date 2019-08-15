@@ -1,0 +1,136 @@
+@import
+'core/variables',
+'core/typography',
+'modules/footer',
+'modules/menus',
+'modules/header',
+'pages/dashboard',
+'pages/login',
+'pages/add-data',
+'pages/reports',
+'pages/events';
+
+
+;
+
+
+
+body {
+
+  -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: antialiased;
+   background-color: #f0f0f0;
+
+}
+
+.image-test {
+  background: black;
+
+        .col-md-12 {
+
+            img {
+                width: 100%;
+
+
+            }
+        }
+
+        .full {
+            @media only screen and (max-width: 790px)  {
+                display: none
+            }
+        }
+
+        .mobile {
+
+            @media only screen and (min-width: 790px)  {
+                display: none
+            }
+
+        }
+}
+
+.cardc {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    background-color: $white;
+}
+
+
+
+
+.btn {
+    background: $dark-grey;
+    font-size: 11px;
+    color: $white;
+    letter-spacing: 1px;
+    padding: 6px 15px;
+    text-transform: uppercase;
+
+    i {
+        padding-right: 10px;
+    }
+
+    &:hover {
+        background-color: $black;
+        color: #f2d8ff;
+        box-shadow: 0 8px 17px 2px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12),0 5px 5px -3px rgba(0,0,0,0.2);
+
+    }
+}
+
+
+#reportForm {
+
+    transition: all 0.3s;
+    position: relative;
+z-index: 9999;
+left: 0;
+
+}
+
+.responseRate, .conversionRate, .salesBreakdown {
+
+    max-width: 200px;
+    max-height: 200px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+
+}
+
+
+
+
+/* The popup form - hidden by default */
+.form-popup {
+
+
+ bottom: 0;
+ right: 15px;
+ z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+
+ padding: 10px;
+ background-color: white;
+
+}
+
+input.datepicker-here {
+    font-family: "Font Awesome 5 Free", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #8100db;
+    opacity: 1;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}

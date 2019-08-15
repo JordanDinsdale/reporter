@@ -5,66 +5,76 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Reporter</title>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        
+        <link href="https://fonts.googleapis.com/css?family=Raleway:300,500,700,800" rel="stylesheet">
+  
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link href="/css/app.css" rel="stylesheet">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
     </head>
-    <body>
+
+    <body class="login-background">
+
+        <div class="login">
+
+            <div class="container-fluid">
+
+                <div class="container">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <img src="/images/logo-black.png" alt="">
+
+                            <form method="POST" action="{{ route('login') }}">
+
+                                {{ csrf_field() }}
+
+                                <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email address" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                                <input id="password" type="password" class="@error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                                <button type="submit" name="login-btn" class="btn">
+                                    {{ __('LOG IN') }}
+                                </button>
+
+                                @if (Route::has('password.request'))
+                                    <a class="card-text" href="{{ route('password.request') }}">
+                                        <small class="text-muted">{{ __('Forgotten your password?') }}</small>
+                                    </a>
+                                @endif
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            @include('includes/footer')
+
+        </div>
+
+        <!--
+
         <div class="flex-center position-ref full-height">
+
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -145,5 +155,9 @@
 
             </div>
         </div>
+
+        -->
+
     </body>
+
 </html>

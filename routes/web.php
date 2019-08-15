@@ -11,12 +11,6 @@
 |
 */
 
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
-
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -64,13 +58,21 @@ Route::post('/dealerships/destroy/{id}', 'DealershipController@destroy')->name('
 Route::post('/dealerships/attachManufacturer', 'DealershipController@attachManufacturer')->name('attachManufacturer');
 Route::post('/dealerships/detachManufacturer', 'DealershipController@detachManufacturer')->name('detachManufacturer');
 Route::post('/dealerships/updateRegion', 'DealershipController@updateRegion')->name('updateRegion');
+Route::get('/dealerships/{id}/events', 'DealershipController@events')->name('dealershipEvents');
+Route::get('/dealerships/{id}/reports', 'DealershipController@reports')->name('dealershipReports');
+Route::post('/dealerships/{id}/reports', 'DealershipController@reportDates')->name('dealershipReportDates');
+Route::get('/dealerships/{id}/{start_date}/{end_date}/download', 'DealershipController@download')->name('dealershipDownload');
+Route::get('/dealerships/{dealership_id}/{manufacturer_id}/{start_date}/{end_date}/download', 'DealershipController@downloadManufacturer')->name('dealershipDownloadManufacturer');
 
 Route::get('/events/{id}', 'EventController@show')->name('event');
+Route::get('/events/{id}/edit', 'EventController@edit')->name('eventEdit');
 Route::get('/events/{event_id}/company/{company_id}', 'EventController@company')->name('eventCompany');
 Route::get('/events/{event_id}/manufacturer/{manufacturer_id}', 'EventController@manufacturer')->name('eventManufacturer');
 Route::post('/events/store', 'EventController@store')->name('eventStore');
 Route::post('/events/update/{id}', 'EventController@update')->name('eventUpdate');
 Route::post('/events/update/{event_id}/{manufacturer_id}', 'EventController@updateSync')->name('eventUpdateSync');
+Route::get('/events/{id}/download', 'EventController@download')->name('eventDownload');
+Route::get('/events/{event_id}/manufacturer/{manufacturer_id}/download', 'EventController@downloadManufacturer')->name('eventManufacturerDownload');
 
 Route::get('/api/companies/{company_id}/manufacturers', 'CompanyController@companyManufacturersApi')->name('companyManufacturersApi');
 

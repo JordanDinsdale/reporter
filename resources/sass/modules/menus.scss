@@ -1,0 +1,310 @@
+#country-menu {
+
+.container {
+
+    @media only screen and (max-width: 992px) {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+
+ .events-list {
+     padding: 0 80px 20px 0;
+
+     border-right: 1px solid #E0E0E0;
+
+     @media only screen and (max-width: 500px) {
+         padding:0 20px;
+     }
+     @media only screen and (max-width: 992px) {
+         padding:0 30px;
+     }
+
+     .event-list-container {
+         padding:  30px 0;
+
+
+         @media only screen and (max-width: 500px) {
+             padding:10px 0 10px 0;
+         }
+
+         ul {
+             padding-left: 0;
+
+             li {
+                 list-style: none;
+                 padding: 0 0 10px 0;
+
+                 a {
+                     transition: all 0.3s;
+                     color: #8100db;
+                     font-size: 14px;
+
+
+                     &:hover {
+                         color: navy;
+                     }
+                 }
+
+
+             }
+         }
+     }
+ }
+
+ .date-picker {
+     padding: 0 20px 20px 80px;
+
+
+     @media only screen and (max-width: 500px) {
+         padding:0 20px;
+     }
+
+     @media only screen and (max-width: 992px) {
+         padding:0 30px;
+     }
+
+
+
+
+
+     .date-picker-form {
+         padding: 30px 0;
+
+         .from-date {
+             width: 100%;
+             display: inline-block;
+              padding-right: 20px;
+              margin-bottom: 10px;
+
+              input {
+                  width: 100%;
+                  padding: 8px;
+              }
+
+         }
+
+         .to-date {
+             width: 100%;
+             display: inline-block;
+              padding-right: 20px;
+
+              input {
+                  width: 100%;
+                  padding: 8px;
+              }
+         }
+
+         .btn {
+             margin: 20px 0 0 0;
+         }
+     }
+ }
+
+
+ .region-list {
+
+     padding: 0 0 20px 80px;
+
+     border-left: 1px solid #E0E0E0;
+
+     @media only screen and (max-width: 500px) {
+         padding:0 20px;
+     }
+
+     @media only screen and (max-width: 992px) {
+         padding:0 30px;
+     }
+
+     .region-list-container {
+         padding:  30px 0;
+         @media only screen and (max-width: 500px) {
+             padding:10px 0 10px 0;
+         }
+
+         ul {
+             padding-left: 0;
+
+             li {
+                 list-style: none;
+                 padding: 0 0 10px 0;
+
+                 a {
+                     transition: all 0.3s;
+                     color: $text-grey;
+                     //font-weight: bold;
+                     font-size: 15px;
+
+
+                     i {
+                         color: #8100db;
+                         margin-right: 5px;
+                         font-size: 13px;
+                     }
+
+                     &:hover {
+                         color: navy;
+                     }
+                 }
+
+
+             }
+         }
+     }
+
+ }
+
+ }
+
+
+}
+
+#manufacturer-menu {
+
+.container {
+
+    @media only screen and (max-width: 992px) {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+
+ .events-list {
+     padding: 0 80px 20px 0;
+
+     border-right: 1px solid #E0E0E0;
+
+     @media only screen and (max-width: 500px) {
+         padding:0 20px;
+     }
+     @media only screen and (max-width: 992px) {
+         padding:0 30px;
+     }
+
+     .event-list-container {
+         padding:  30px 0;
+
+
+         @media only screen and (max-width: 500px) {
+             padding:10px 0 10px 0;
+         }
+
+         ul {
+             padding-left: 0;
+
+             li {
+                 list-style: none;
+                 padding: 0 0 10px 0;
+
+                 a {
+                     transition: all 0.3s;
+                     color: #8100db;
+                     font-size: 14px;
+
+
+                     &:hover {
+                         color: navy;
+                     }
+                 }
+
+
+             }
+         }
+     }
+ }
+
+ .date-picker {
+     padding: 0 20px 20px 80px;
+
+
+     @media only screen and (max-width: 500px) {
+         padding:0 20px;
+     }
+
+     @media only screen and (max-width: 992px) {
+         padding:0 30px;
+     }
+
+
+
+
+
+     .date-picker-form {
+         padding: 30px 0;
+
+         .from-date {
+             width: 100%;
+             display: inline-block;
+              padding-right: 20px;
+              margin-bottom: 10px;
+
+              input {
+                  width: 100%;
+                  padding: 8px;
+              }
+
+         }
+
+         .to-date {
+             width: 100%;
+             display: inline-block;
+              padding-right: 20px;
+
+              input {
+                  width: 100%;
+                  padding: 8px;
+              }
+         }
+
+         .btn {
+             margin: 20px 0 0 0;
+         }
+     }
+ }
+
+
+ .region-list {
+
+     padding: 0 0 20px 80px;
+
+     border-left: 1px solid #E0E0E0;
+
+     @media only screen and (max-width: 500px) {
+         padding:0 20px;
+     }
+
+     @media only screen and (max-width: 992px) {
+         padding:0 30px;
+     }
+
+     .region-list-container {
+         padding:  30px 0;
+         @media only screen and (max-width: 500px) {
+             padding:10px 0 10px 0;
+         }
+
+         select {
+
+             width: 100%;
+             display: block;
+             margin-bottom: 10px;
+             padding: 10px;
+             font-family: "Font Awesome 5 Free", sans-serif;
+             background-image: none;
+             background: none;
+             border: none;
+             border: 1px solid #e0e0e0;
+
+         }
+
+         .btn {
+             margin-top: 10px;
+         }
+     }
+
+ }
+
+ }
+
+
+}

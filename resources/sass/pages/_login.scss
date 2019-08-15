@@ -1,0 +1,79 @@
+
+
+.login-background {
+
+    //background-color: $bright-purple;
+    background: #41295a;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2F0743, #41295a);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2F0743, #41295a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    @media only screen and (max-width: 550px) {
+        background: $white;
+    }
+
+        .login {
+
+
+
+
+
+            .container {
+                padding: 300px 0;
+
+                @media only screen and (max-width: 550px) {
+                    padding: 20px;
+                }
+
+
+
+
+                .card {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    border: none;
+                    @media only screen and (max-width: 550px) {
+                        padding: 20px;
+                    }
+
+
+
+
+                    .card-body {
+
+                        img {
+                            max-width: 100%;
+                        }
+
+                        text-align: center;
+
+
+
+
+
+
+                        input {
+                            width: 100%;
+                            background: none;
+                            border: 0;
+                            border-bottom: 1px solid #cecece;
+                            padding: 10px 3px;
+                        }
+
+                        .btn {
+                            margin: 30px 0 10px 0;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+
+            .footer-content {
+                background-color: none !important;
+            }
+
+        }
+
+
+
+    }

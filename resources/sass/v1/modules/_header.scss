@@ -1,0 +1,144 @@
+.header {
+    background-image: url('../images/header-background.jpg');
+    background-size: cover;
+    height: 40vh;
+
+    @media only screen and (max-width: 500px) {
+        padding: 0;
+    }
+
+    .nav-l1 {
+        padding: 20px 0 60px 0;
+
+        @media only screen and (max-width: 500px) {
+            padding: 20px 20px 60px 20px;
+        }
+
+
+        .logo {
+            float: left;
+
+            img {
+            @media only screen and (max-width: 400px) {
+                max-width: 200px;
+            }
+        }
+        }
+
+        .nav-l1-items {
+
+            float: right;
+
+            li {
+                display: inline-block;
+                padding-left: 30px;
+                margin-top: 10px;
+
+                @media only screen and (max-width: 991px) {
+                    padding-left: 0;
+                    text-align: center;
+
+
+                }
+
+                i {
+                    margin-right: 10px;
+                }
+
+
+                a {
+
+                    color: $white;
+
+                    @media only screen and (max-width: 991px) {
+
+                        text-align: center !important;
+
+                    }
+
+                }
+            }
+
+            .logout {
+
+
+                @media only screen and (max-width: 991px) {
+                    display: none;
+                  }
+
+
+            }
+        }
+
+    }
+
+    .nav-l2 {
+        padding-left: 0;
+        padding-right: 0;
+
+        .navbar {
+            width: 100%;
+            background-color: $dark-grey !important;
+            padding: 0;
+
+            @media only screen and (max-width: 991px)  {
+                padding: 10px;
+            }
+
+
+            .navbar-nav {
+                margin: 0 auto;
+
+                .nav-link {
+                    padding: 20px 70px;
+
+
+
+                    i {
+                        padding-right: 20px;
+                    }
+                }
+
+                .first, .second{
+                    border-right: 1px solid rgba(255, 255, 255, 0.2);
+                    @media only screen and (max-width: 991px) {
+                        border-right: none;
+                    }
+                }
+
+                .second, .third {
+                    border-left: 1px solid rgba(0, 0, 0, 0.8);
+                    @media only screen and (max-width: 991px) {
+                        border-left: none;
+                    }
+                }
+            }
+
+            .logout-mobile {
+                list-style: none !important;
+                margin: 0 auto;
+
+                @media only screen and (min-width: 992px) {
+                    display: none;
+                  }
+            }
+        }
+    }
+
+    .text {
+        padding: 100px 0;
+        text-align: center;
+
+        h1 {
+            text-transform:  uppercase;
+        }
+
+        i {
+            font-size: 22px;
+            padding-right: 15px;
+        }
+    }
+
+
+
+}

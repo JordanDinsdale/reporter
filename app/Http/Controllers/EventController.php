@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Region;
+use App\Manufacturer;
 use App\Company;
 use Illuminate\Http\Request;
 
@@ -87,10 +89,108 @@ class EventController extends Controller
 
         $event_manufacturer_ids = [];
 
+        $event->data_count = 0;
+        $event->appointments = 0;
+        $event->new = 0;
+        $event->used = 0;
+        $event->demo = 0;
+        $event->zero_km = 0;
+        $event->inprogress = 0;
+
         if(count($event->manufacturers) > 0) {
+
             foreach($event->manufacturers as $manufacturer) {
+
+                foreach($event->dealership->manufacturers as $dealershipManufacturer) {
+
+                    if($dealershipManufacturer->id == $manufacturer->id) {
+
+                        $manufacturer->region = Region::find($dealershipManufacturer->pivot->region_id);
+                        $manufacturer->region_data_count = 0;
+                        $manufacturer->region_appointments = 0;
+                        $manufacturer->region_new = 0;
+                        $manufacturer->region_used = 0;
+                        $manufacturer->region_demo = 0;
+                        $manufacturer->region_zero_km = 0;
+                        $manufacturer->region_inprogress = 0;
+
+                        $manufacturer->country = $event->dealership->country;
+                        $manufacturer->country_data_count = 0;
+                        $manufacturer->country_appointments = 0;
+                        $manufacturer->country_new = 0;
+                        $manufacturer->country_used = 0;
+                        $manufacturer->country_demo = 0;
+                        $manufacturer->country_zero_km = 0;
+                        $manufacturer->country_inprogress = 0;
+
+                        if($manufacturer->region) {
+
+                            foreach($manufacturer->region->dealerships as $dealership) {
+
+                                foreach($dealership->events as $dealershipEvent) {
+
+                                    foreach($dealershipEvent->manufacturers as $eventManufacturer) {
+
+                                        if($eventManufacturer->id == $manufacturer->id) {
+
+                                            $manufacturer->region_data_count += $eventManufacturer->pivot->data_count;
+                                            $manufacturer->region_appointments += $eventManufacturer->pivot->appointments;
+                                            $manufacturer->region_new += $eventManufacturer->pivot->new;
+                                            $manufacturer->region_used += $eventManufacturer->pivot->used;
+                                            $manufacturer->region_demo += $eventManufacturer->pivot->demo;
+                                            $manufacturer->region_zero_km += $eventManufacturer->pivot->zero_km;
+                                            $manufacturer->region_inprogress += $eventManufacturer->pivot->inprogress;
+
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                        foreach($manufacturer->country->dealerships as $dealership) {
+
+                            foreach($dealership->events as $dealershipEvent) {
+
+                                foreach($dealershipEvent->manufacturers as $eventManufacturer) {
+
+                                    if($eventManufacturer->id == $manufacturer->id) {
+
+                                        $manufacturer->country_data_count += $eventManufacturer->pivot->data_count;
+                                        $manufacturer->country_appointments += $eventManufacturer->pivot->appointments;
+                                        $manufacturer->country_new += $eventManufacturer->pivot->new;
+                                        $manufacturer->country_used += $eventManufacturer->pivot->used;
+                                        $manufacturer->country_demo += $eventManufacturer->pivot->demo;
+                                        $manufacturer->country_zero_km += $eventManufacturer->pivot->zero_km;
+                                        $manufacturer->country_inprogress += $eventManufacturer->pivot->inprogress;
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
                 $event_manufacturer_ids[] = $manufacturer->id;
+
+                $event->data_count += $manufacturer->pivot->data_count;
+                $event->appointments += $manufacturer->pivot->appointments;
+                $event->new += $manufacturer->pivot->new;
+                $event->used += $manufacturer->pivot->used;
+                $event->demo += $manufacturer->pivot->demo;
+                $event->zero_km += $manufacturer->pivot->zero_km;
+                $event->inprogress += $manufacturer->pivot->inprogress;
+
             }
+
         }
 
         return view('events.show',compact('event','event_manufacturer_ids'));
@@ -153,9 +253,11 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    public function edit($id)
     {
-        //
+        $event = Event::find($id);
+
+        return view('events.edit',compact('event'));
     }
 
     /**
@@ -263,7 +365,151 @@ class EventController extends Controller
             ],false
         );
 
-        return redirect()->back()->with('success', 'Event Updated');
+        return redirect()->back()->with([
+            'success' => 'Event Updated',
+            'manufacturer_id' => $manufacturer_id
+        ]);
+    }
+
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Event  $event
+     * @return \Illuminate\Http\Response
+     */
+    public function download($id){
+
+        $event = Event::find($id);
+        $filename = $event->name . '.csv';
+        $handle = fopen('csv/' . $filename, 'w+');
+
+        fputcsv($handle, 
+            array(
+                'Manufacturer', 
+                'Data Count', 
+                'Appointments', 
+                'New', 
+                'Used', 
+                'Demo', 
+                '0km', 
+                'In Progress'
+            )
+        );
+
+        $total_data_count = 0;
+        $total_appointments = 0;
+        $total_new = 0;
+        $total_used = 0;
+        $total_demo = 0;
+        $total_zero_km = 0;
+        $total_inprogress = 0;
+
+        foreach($event->manufacturers as $manufacturer) {
+
+            fputcsv($handle, 
+                array(
+                    $manufacturer->name, 
+                    $manufacturer->pivot->data_count, 
+                    $manufacturer->pivot->appointments, 
+                    $manufacturer->pivot->new, 
+                    $manufacturer->pivot->used, 
+                    $manufacturer->pivot->demo, 
+                    $manufacturer->pivot->zero_km, 
+                    $manufacturer->pivot->inprogress
+                )
+            );
+
+            $total_data_count += $manufacturer->pivot->data_count;
+            $total_appointments += $manufacturer->pivot->appointments;
+            $total_new += $manufacturer->pivot->new;
+            $total_used += $manufacturer->pivot->used;
+            $total_demo += $manufacturer->pivot->demo;
+            $total_zero_km += $manufacturer->pivot->zero_km;
+            $total_inprogress += $manufacturer->pivot->inprogress;
+
+        }
+
+        fputcsv($handle, 
+            array(
+                'Total', 
+                $total_data_count, 
+                $total_appointments, 
+                $total_new, 
+                $total_used, 
+                $total_demo, 
+                $total_zero_km, 
+                $total_inprogress
+            )
+        );
+
+        fclose($handle);
+
+        $headers = array(
+            'Content-Type' => 'text/csv',
+        );
+
+        return response()->download('csv/' . $filename, $filename, $headers);
+    }
+
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Event  $event
+     * @return \Illuminate\Http\Response
+     */
+    public function downloadManufacturer($event_id, $manufacturer_id){
+
+        $event = Event::find($event_id);
+        $manufacturer = Manufacturer::find($manufacturer_id);
+        $filename = $event->name . ' - ' . $manufacturer->name . '.csv';
+
+        $handle = fopen('csv/' . $filename, 'w+');
+
+        fputcsv($handle, 
+            array(
+                'Data Count', 
+                'Appointments', 
+                'New', 
+                'Used', 
+                'Demo', 
+                '0km', 
+                'In Progress'
+            )
+        );
+
+        foreach($event->manufacturers as $manufacturer) {
+
+            if($manufacturer->id == $manufacturer_id) {
+
+                fputcsv($handle, 
+                    array(
+                        $manufacturer->pivot->data_count, 
+                        $manufacturer->pivot->appointments, 
+                        $manufacturer->pivot->new, 
+                        $manufacturer->pivot->used, 
+                        $manufacturer->pivot->demo, 
+                        $manufacturer->pivot->zero_km, 
+                        $manufacturer->pivot->inprogress
+                    )
+                );
+
+            }
+
+        }
+
+        fclose($handle);
+
+        $headers = array(
+            'Content-Type' => 'text/csv',
+        );
+
+        return response()->download('csv/' . $filename, $filename, $headers);
     }
 
     /**

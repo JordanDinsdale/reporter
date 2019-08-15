@@ -62,9 +62,9 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Halliwell Jones Southport BMW VIP Event 2019',
-	            'start_date' => '2018-07-19',
-	            'end_date' => '2018-07-22',
+	            'name' => 'Halliwell Jones Southport BMW Q2 VIP Event 2019',
+	            'start_date' => '2019-07-19',
+	            'end_date' => '2019-07-22',
 	            'dealership_id' => 1,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
@@ -79,8 +79,8 @@ class EventsTableSeeder extends Seeder
 	        ],
         	[
 	            'name' => 'Halliwell Jones Wilmslow BMW VIP Event 2019',
-	            'start_date' => '2018-07-19',
-	            'end_date' => '2018-07-22',
+	            'start_date' => '2019-07-19',
+	            'end_date' => '2019-07-22',
 	            'dealership_id' => 5,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
@@ -95,8 +95,8 @@ class EventsTableSeeder extends Seeder
 	        ],
         	[
 	            'name' => 'Bowker Preston BMW VIP Event 2019',
-	            'start_date' => '2018-07-19',
-	            'end_date' => '2018-07-22',
+	            'start_date' => '2019-07-19',
+	            'end_date' => '2019-07-22',
 	            'dealership_id' => 12,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
@@ -564,7 +564,15 @@ class EventsTableSeeder extends Seeder
 	            'dealership_id' => 11,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
-	        ]
+	        ],
+        	[
+	            'name' => 'Halliwell Jones Southport BMW Q3 VIP Event 2019',
+	            'start_date' => '2019-10-31',
+	            'end_date' => '2019-11-02',
+	            'dealership_id' => 1,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
 	    ]);
     }
 }

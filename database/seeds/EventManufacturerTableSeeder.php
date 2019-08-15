@@ -203,7 +203,7 @@ class EventManufacturerTableSeeder extends Seeder
 	            'inprogress' => 2
 	        ],
 
-	        // Halliwell Jones Wilmslow BMW VIP Event 2019
+	        // Halliwell Jones Wilmslow BMW Q2 VIP Event 2019
 
         	[
 	            'event_id' => 9,
@@ -1286,7 +1286,21 @@ class EventManufacturerTableSeeder extends Seeder
 	            'zero_km' => 0,
 	            'demo' => 0,
 	            'inprogress' => 0
-	        ]
+	        ],
+
+	        // Halliwell Jones Wilmslow BMW Q3 VIP Event 2019
+
+        	[
+	            'event_id' => 70,
+	            'manufacturer_id' => 4,
+	            'data_count' => 0,
+	            'appointments' => 0,
+	            'new' => 0,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
 
 	    ]);
     }
