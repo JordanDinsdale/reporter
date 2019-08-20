@@ -324,7 +324,7 @@
                                             </div>
 
                                         </div>
-                                        
+
                                         <div class="col-md-12 download-table-btn">
                                             <a href="{{ route('eventDownload', $event->id) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
                                         </div>
@@ -496,6 +496,7 @@
                                                 </div>
 
                                             </div>
+                                            
                                             <div class="col-md-12 download-table-btn">
                                                 <a href="{{ route('eventManufacturerDownload', [$event->id,$manufacturer->id]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
                                             </div>

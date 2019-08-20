@@ -26,7 +26,8 @@ Route::post('/companies/store', 'CompanyController@store')->name('companyStore')
 Route::get('/manufacturers', 'ManufacturerController@index')->name('manufacturers');
 Route::get('/manufacturers/{id}', 'ManufacturerController@show')->name('manufacturer');
 Route::post('/manufacturers/store', 'ManufacturerController@store')->name('manufacturerStore');
-Route::get('/manufacturers/{manufacturer_id}/country/{country_id}', 'ManufacturerController@country')->name('manufacturerCountry');
+Route::get('/manufacturers/{manufacturer_id}/country/{country_id}', 'ManufacturerController@country')->name('manufacturerCountry'); 
+Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/events', 'ManufacturerController@countryEvents')->name('manufacturerCountryEvents');
 Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/regionless', 'ManufacturerController@regionless')->name('manufacturerRegionless');
 
 Route::get('/countries', 'CountryController@index')->name('countries');
@@ -42,6 +43,10 @@ Route::get('/regions/edit/{id}', 'RegionController@edit')->name('regionEdit');
 Route::post('/regions/store', 'RegionController@store')->name('regionStore');
 Route::post('/regions/update/{id}', 'RegionController@update')->name('regionUpdate');
 Route::post('/regions/destroy/{id}', 'RegionController@destroy')->name('regionDestroy');
+Route::get('/regions/{id}/events', 'RegionController@events')->name('regionEvents');
+Route::get('/regions/{id}/reports', 'RegionController@reports')->name('regionReports');
+Route::post('/regions/{id}/reports', 'RegionController@reportDates')->name('regionReportDates');
+Route::get('/regions/{id}/{start_date}/{end_date}/download', 'RegionController@download')->name('regionDownload');
 
 Route::get('/groups', 'GroupController@index')->name('groups');
 Route::get('/groups/{id}', 'GroupController@show')->name('group');
@@ -68,6 +73,7 @@ Route::get('/events/{id}', 'EventController@show')->name('event');
 Route::get('/events/{id}/edit', 'EventController@edit')->name('eventEdit');
 Route::get('/events/{event_id}/company/{company_id}', 'EventController@company')->name('eventCompany');
 Route::get('/events/{event_id}/manufacturer/{manufacturer_id}', 'EventController@manufacturer')->name('eventManufacturer');
+Route::get('/events/{event_id}/manufacturer/{manufacturer_id}', 'EventController@manufacturer')->name('eventManufacturerCountry');
 Route::post('/events/store', 'EventController@store')->name('eventStore');
 Route::post('/events/update/{id}', 'EventController@update')->name('eventUpdate');
 Route::post('/events/update/{event_id}/{manufacturer_id}', 'EventController@updateSync')->name('eventUpdateSync');

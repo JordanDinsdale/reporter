@@ -39,8 +39,8 @@ class EventsTableSeeder extends Seeder
 	        ],
         	[
 	            'name' => 'Bowker Blackburn BMW VIP Event 2019',
-	            'start_date' => '2018-07-19',
-	            'end_date' => '2018-07-22',
+	            'start_date' => '2019-07-19',
+	            'end_date' => '2019-07-22',
 	            'dealership_id' => 14,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()

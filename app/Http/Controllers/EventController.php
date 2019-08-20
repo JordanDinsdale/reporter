@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Dealership;
 use App\Region;
 use App\Manufacturer;
 use App\Company;
 use Illuminate\Http\Request;
+use DB;
 
 class EventController extends Controller
 {
@@ -236,15 +238,96 @@ class EventController extends Controller
     {
         $event = Event::find($event_id);
 
-        $event_manufacturer_ids = [];
+        $manufacturer = Manufacturer::find($manufacturer_id);
 
-        if(count($event->manufacturers) > 0) {
-            foreach($event->manufacturers as $manufacturer) {
-                $event_manufacturer_ids[] = $manufacturer->id;
+        $region_id = DB::table('dealership_manufacturer')->where('dealership_id',$event->dealership->id)->where('manufacturer_id',$manufacturer->id)->value('region_id');
+
+        $manufacturer->region = Region::find($region_id);
+        $manufacturer->region_data_count = 0;
+        $manufacturer->region_appointments = 0;
+        $manufacturer->region_new = 0;
+        $manufacturer->region_used = 0;
+        $manufacturer->region_demo = 0;
+        $manufacturer->region_zero_km = 0;
+        $manufacturer->region_inprogress = 0;
+
+        $region = Region::find($region_id);
+
+        if($region_id) {
+
+            $region_event_ids = [];
+
+            $region_dealership_ids = DB::table('dealership_manufacturer')->where('region_id',$region_id)->pluck('dealership_id');
+
+            foreach($region_dealership_ids as $region_dealership_id) {
+
+                $region_dealership = Dealership::find($region_dealership_id);
+
+                foreach($region_dealership->events as $regionEvent) {
+
+                    foreach($regionEvent->manufacturers as $regionEventManufacturer) {
+
+                        if($regionEventManufacturer->id == $manufacturer->id) {
+
+                            $region_event_ids[] = $regionEvent->id;
+
+                        }
+
+                    }
+
+                }
+
             }
+
+            $region->events = Event::whereIn('id',$region_event_ids)->get();
+
+            $manufacturer->region_data_count = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('data_count');
+
+            $manufacturer->region_appointments = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('appointments');
+
+            $manufacturer->region_new = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('new');
+
+            $manufacturer->region_used = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('used');
+
+            $manufacturer->region_demo = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('demo');
+
+            $manufacturer->region_zero_km = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('zero_km');
+
+            $manufacturer->region_inprogress = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('inprogress');
+
         }
 
-        return view('events.manufacturer',compact('event','event_manufacturer_ids','manufacturer_id'));
+        $country_event_ids = [];
+
+        $country_dealership_ids = Dealership::where('country_id',$event->dealership->country->id)->pluck('id');
+
+        foreach($country_dealership_ids as $country_dealership_id) {
+
+            $country_dealership = Dealership::find($country_dealership_id);
+
+            foreach($country_dealership->events as $countryEvent) {
+
+                $country_event_ids[] = $countryEvent->id;
+
+            }
+
+        }
+
+        $manufacturer->country_data_count = DB::table('event_manufacturer')->whereIn('event_id',$country_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('data_count');
+
+        $manufacturer->country_appointments = DB::table('event_manufacturer')->whereIn('event_id',$country_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('appointments');
+
+        $manufacturer->country_new = DB::table('event_manufacturer')->whereIn('event_id',$country_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('new');
+
+        $manufacturer->country_used = DB::table('event_manufacturer')->whereIn('event_id',$country_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('used');
+
+        $manufacturer->country_demo = DB::table('event_manufacturer')->whereIn('event_id',$country_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('demo');
+
+        $manufacturer->country_zero_km = DB::table('event_manufacturer')->whereIn('event_id',$country_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('zero_km');
+
+        $manufacturer->country_inprogress = DB::table('event_manufacturer')->whereIn('event_id',$country_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('inprogress');
+
+        return view('events.manufacturer',compact('region','manufacturer','event'));
     }
 
     /**

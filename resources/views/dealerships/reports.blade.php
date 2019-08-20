@@ -501,6 +501,8 @@
 
                                 <p>No information to display</p>
 
+                                <a href="{{ route('eventEdit', $event->id) }}" class="btn">Add Data</a>
+
                             @endif
 
                         </div>

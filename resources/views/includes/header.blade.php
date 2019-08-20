@@ -44,18 +44,18 @@
 
             <ul class="navbar-nav ml-auto">
 
-                @if(isset($event))
+                @if(isset($region))
 
                     <li class="nav-item active">
-                        <a class="nav-link first" href="{{ route('dealership',$event->dealership->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                        <a class="nav-link first" href="{{ route('region',$region->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link second" href="{{ route('dealershipEvents',$event->dealership->id) }}"><i class="fas fa-star"></i>Events</a>
+                        <a class="nav-link second" href="{{ route('regionEvents',$region->id) }}"><i class="fas fa-star"></i>Events</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link third" href="{{ route('dealershipReports',$event->dealership->id) }}"><i class="fas fa-chart-pie"></i>Your Reports</a>
+                        <a class="nav-link third" href="{{ route('regionReports',$region->id) }}"><i class="fas fa-star"></i>Reports</a>
                     </li>
 
                 @elseif(isset($dealership))
@@ -70,6 +70,20 @@
 
                     <li class="nav-item">
                         <a class="nav-link third" href="{{ route('dealershipReports',$dealership->id) }}"><i class="fas fa-chart-pie"></i>Your Reports</a>
+                    </li>
+
+                @elseif(isset($event))
+
+                    <li class="nav-item active">
+                        <a class="nav-link first" href="{{ route('dealership',$event->dealership->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link second" href="{{ route('dealershipEvents',$event->dealership->id) }}"><i class="fas fa-star"></i>Events</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link third" href="{{ route('dealershipReports',$event->dealership->id) }}"><i class="fas fa-chart-pie"></i>Your Reports</a>
                     </li>
 
                 @endif

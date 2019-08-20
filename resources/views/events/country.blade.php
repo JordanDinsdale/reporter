@@ -62,8 +62,8 @@
 
                                             <div class="event-list-container">
                                                 <ul>
-                                                    @foreach($region->events as $regionEvent)
-                                                        <li class="event-listing"><a href="{{ route('eventManufacturer',[$regionEvent->id,$manufacturer->id]) }}">{{ $regionEvent->name }}</a></li>
+                                                    @foreach($country->events as $countryEvent)
+                                                        <li class="event-listing"><a href="{{ route('eventManufacturerCountry',[$countryEvent->id,$manufacturer->id]) }}">{{ $countryEvent->name }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>
