@@ -21,13 +21,22 @@ Route::post('/user/store', 'UserController@store')->name('userStore');
 
 Route::get('/companies', 'CompanyController@index')->name('companies');
 Route::get('/companies/{id}', 'CompanyController@show')->name('company');
+Route::get('/companies/{id}/events', 'CompanyController@events')->name('companyEvents');
+Route::get('/companies/{id}/reports', 'CompanyController@reports')->name('companyReports');
 Route::post('/companies/store', 'CompanyController@store')->name('companyStore');
 
 Route::get('/manufacturers', 'ManufacturerController@index')->name('manufacturers');
 Route::get('/manufacturers/{id}', 'ManufacturerController@show')->name('manufacturer');
+Route::get('/manufacturers/{id}/events', 'ManufacturerController@events')->name('manufacturerEvents');
+Route::get('/manufacturers/{id}/reports', 'ManufacturerController@reports')->name('manufacturerReports');
+Route::post('/manufacturers/{id}/reportDates', 'ManufacturerController@reportDates')->name('manufacturerReportDates');
+Route::get('/manufacturers/{manufacturer_id}/{start_date}/{end_date}/download', 'ManufacturerController@reportDatesDownload')->name('manufacturerReportDatesDownload');
 Route::post('/manufacturers/store', 'ManufacturerController@store')->name('manufacturerStore');
 Route::get('/manufacturers/{manufacturer_id}/country/{country_id}', 'ManufacturerController@country')->name('manufacturerCountry'); 
 Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/events', 'ManufacturerController@countryEvents')->name('manufacturerCountryEvents');
+Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/reports', 'ManufacturerController@countryReports')->name('manufacturerCountryReports');
+Route::post('/manufacturers/{manufacturer_id}/country/{country_id}/reports', 'ManufacturerController@countryReportDates')->name('manufacturerCountryReportDates');
+Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/reports/{start_date}/{end_date}/download', 'ManufacturerController@countryReportDatesDownload')->name('manufacturerCountryReportDatesDownload');
 Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/regionless', 'ManufacturerController@regionless')->name('manufacturerRegionless');
 
 Route::get('/countries', 'CountryController@index')->name('countries');
@@ -73,12 +82,13 @@ Route::get('/events/{id}', 'EventController@show')->name('event');
 Route::get('/events/{id}/edit', 'EventController@edit')->name('eventEdit');
 Route::get('/events/{event_id}/company/{company_id}', 'EventController@company')->name('eventCompany');
 Route::get('/events/{event_id}/manufacturer/{manufacturer_id}', 'EventController@manufacturer')->name('eventManufacturer');
-Route::get('/events/{event_id}/manufacturer/{manufacturer_id}', 'EventController@manufacturer')->name('eventManufacturerCountry');
+Route::get('/events/{event_id}/manufacturer/{manufacturer_id}/country', 'EventController@manufacturerCountry')->name('eventManufacturerCountry');
 Route::post('/events/store', 'EventController@store')->name('eventStore');
 Route::post('/events/update/{id}', 'EventController@update')->name('eventUpdate');
 Route::post('/events/update/{event_id}/{manufacturer_id}', 'EventController@updateSync')->name('eventUpdateSync');
 Route::get('/events/{id}/download', 'EventController@download')->name('eventDownload');
 Route::get('/events/{event_id}/manufacturer/{manufacturer_id}/download', 'EventController@downloadManufacturer')->name('eventManufacturerDownload');
+Route::get('/events/{event_id}/company/{company_id}/download', 'EventController@downloadCompany')->name('eventCompanyDownload');
 
 Route::get('/api/companies/{company_id}/manufacturers', 'CompanyController@companyManufacturersApi')->name('companyManufacturersApi');
 

@@ -44,7 +44,49 @@
 
             <ul class="navbar-nav ml-auto">
 
-                @if(isset($region))
+                @if(isset($company))
+
+                    <li class="nav-item active">
+                        <a class="nav-link first" href="{{ route('company',$company->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link second" href="{{ route('companyEvents',$company->id) }}"><i class="fas fa-star"></i>Events</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link third" href="{{ route('companyReports',$company->id) }}"><i class="fas fa-chart-pie"></i>Reports</a>
+                    </li>
+
+                @elseif(isset($manufacturer))
+
+                    <li class="nav-item active">
+                        <a class="nav-link first" href="{{ route('manufacturer',$manufacturer->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link second" href="{{ route('manufacturerEvents',$manufacturer->id) }}"><i class="fas fa-star"></i>Events</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link third" href="{{ route('manufacturerReports',$manufacturer->id) }}"><i class="fas fa-chart-pie"></i>Reports</a>
+                    </li>
+
+                @elseif(isset($country))
+
+                    <li class="nav-item active">
+                        <a class="nav-link first" href="{{ route('manufacturerCountry',[$country->manufacturer->id,$country->id]) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link second" href="{{ route('manufacturerCountryEvents',[$country->manufacturer->id,$country->id]) }}"><i class="fas fa-star"></i>Events</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link third" href="{{ route('manufacturerCountryReports',[$country->manufacturer->id,$country->id]) }}"><i class="fas fa-chart-pie"></i>Reports</a>
+                    </li>
+
+                @elseif(isset($region))
 
                     <li class="nav-item active">
                         <a class="nav-link first" href="{{ route('region',$region->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
@@ -55,7 +97,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link third" href="{{ route('regionReports',$region->id) }}"><i class="fas fa-star"></i>Reports</a>
+                        <a class="nav-link third" href="{{ route('regionReports',$region->id) }}"><i class="fas fa-chart-pie"></i>Reports</a>
                     </li>
 
                 @elseif(isset($dealership))
