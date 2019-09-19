@@ -2,10 +2,11 @@
 'core/variables',
 'core/typography',
 'modules/footer',
-'modules/menu-dealer',
+'modules/menus',
 'modules/header',
 'pages/dashboard',
 'pages/login',
+'pages/add-data',
 'pages/reports',
 'pages/events';
 
@@ -18,7 +19,44 @@ body {
 
   -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: antialiased;
+   background-color: #f0f0f0;
 
+}
+
+.image-test {
+  background: black;
+
+        .col-md-12 {
+
+            img {
+                width: 100%;
+
+
+            }
+        }
+
+        .full {
+            @media only screen and (max-width: 790px)  {
+                display: none
+            }
+        }
+
+        .mobile {
+
+            @media only screen and (min-width: 790px)  {
+                display: none
+            }
+
+        }
+}
+
+.cardc {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    background-color: $white;
 }
 
 
@@ -63,9 +101,6 @@ left: 0;
 
 }
 
-.bg-custom {
-    background: white;
-}
 
 
 
@@ -93,4 +128,9 @@ input.datepicker-here {
     text-decoration: inherit;
     color: #8100db;
     opacity: 1;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
 }

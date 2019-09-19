@@ -9,6 +9,7 @@
 @section('content')
 
 <div class="reports">
+
     <div class="container-fluid">
 
         <div class="row">
@@ -21,25 +22,25 @@
 
                         <div class="current-results">
 
-                            Showing results for region - {{ $region->name }} 
+                            Showing results for no region - {{ $country->name }} 
 
-                            @if(\Carbon\Carbon::parse($region->start_date)->format('M') == \Carbon\Carbon::parse($region->end_date)->format('M'))
+                            @if(\Carbon\Carbon::parse($events->start_date)->format('M') == \Carbon\Carbon::parse($events->end_date)->format('M'))
 
-                                {{ \Carbon\Carbon::parse($region->start_date)->format('d') }}
+                                {{ \Carbon\Carbon::parse($events->start_date)->format('d') }}
 
                             @else
 
-                                {{ \Carbon\Carbon::parse($region->start_date)->format('d M') }}
+                                {{ \Carbon\Carbon::parse($events->start_date)->format('d M') }}
 
-                                @if(\Carbon\Carbon::parse($region->start_date)->format('Y') !== \Carbon\Carbon::parse($region->end_date)->format('Y'))
+                                @if(\Carbon\Carbon::parse($events->start_date)->format('Y') !== \Carbon\Carbon::parse($events->end_date)->format('Y'))
 
-                                    {{ \Carbon\Carbon::parse($region->start_date)->format('Y') }}
+                                    {{ \Carbon\Carbon::parse($events->start_date)->format('Y') }}
 
                                 @endif
 
                             @endif
 
-                                 - {{ \Carbon\Carbon::parse($region->end_date)->format('d M Y') }}
+                                 - {{ \Carbon\Carbon::parse($events->end_date)->format('d M Y') }}
 
                         </div>
 
@@ -67,8 +68,8 @@
 
                                             <div class="event-list-container">
                                                 <ul>
-                                                    @foreach($region->events as $regionEvent)
-                                                        <li class="event-listing"><a href="{{ route('eventManufacturerRegion',[$regionEvent->id,$region->manufacturer->id]) }}">{{ $regionEvent->name }}</a></li>
+                                                    @foreach($events as $event)
+                                                        <li class="event-listing"><a href="{{ route('eventManufacturerRegionless',[$event->id,$manufacturer->id]) }}">{{ $event->name }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -81,7 +82,7 @@
 
                                             <div class="date-picker-form">
 
-                                                <form method="post" action="{{ route('regionReportDates', [$region->id]) }}">
+                                                <form method="post" action="{{ route('manufacturerRegionlessReportDates',[$manufacturer->id,$country->id]) }}">
 
                                                     @csrf
 
@@ -135,7 +136,7 @@
 
                             <select name="brand-mobile">
 
-                                <option value="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}" selected>{{ $region->manufacturer->name }}</option>
+                                <option value="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" selected>{{ $manufacturer->name }}</option>
 
                             </select>
 
@@ -143,68 +144,68 @@
 
                     </div>
 
-                    <div id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}">
+                    <div id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}">
 
-                        @if($region->data_count > 0)
+                        @if($events->data_count > 0)
 
                             <div class="row results cardc">
 
                                 <div class="col-md-4 donut-1">
                                     <h3>Response Rate</h3>
-                                    <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-responseRate" class="responseRate" width="180" height="180"></canvas>
-                                    <p>{{ $region->data_count }} Invites</p>
-                                    <p>{{ $region->appointments }} Appointments</p>
+                                    <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-responseRate" class="responseRate" width="180" height="180"></canvas>
+                                    <p>{{ $events->data_count }} Invites</p>
+                                    <p>{{ $events->appointments }} Appointments</p>
                                 </div>
 
                                 <div class="col-md-4 donut-2">
                                     <h3>Conversion Rate</h3>
-                                    <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
-                                    <p>{{ $region->appointments }} appointments</p>
-                                    <p>{{ $region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress }} Sales</p>
+                                    <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
+                                    <p>{{ $events->appointments }} appointments</p>
+                                    <p>{{ $events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress }} Sales</p>
                                 </div>
 
                                 <div class="col-md-4">
                                     <h3>Sales breakdown</h3>
-                                    <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-salesBreakdown" class="salesBreakdown" width="180" height="180"></canvas>
+                                    <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-salesBreakdown" class="salesBreakdown" width="180" height="180"></canvas>
                                     <div class="camembert-slice-container">
 
-                                        @if(number_format($region->new/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') > 0)
+                                        @if(number_format($events->new/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
                                                 <div class="circle circle-1">
                                                 </div>
-                                                {{ number_format($region->new/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% New
+                                                {{ number_format($events->new/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',') }}% New
                                             </div>
                                         @endif
 
-                                        @if(number_format($region->used/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') > 0)
+                                        @if(number_format($events->used/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
                                                 <div class="circle circle-2">
                                                 </div>
-                                                {{ number_format($region->used/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% Used
+                                                {{ number_format($events->used/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',') }}% Used
                                             </div>
                                         @endif
 
-                                        @if(number_format($region->demo/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') > 0)
+                                        @if(number_format($events->demo/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
                                                 <div class="circle circle-3">
                                                 </div>
-                                                {{ number_format($region->demo/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% Demo
+                                                {{ number_format($events->demo/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',') }}% Demo
                                             </div>
                                         @endif
 
-                                        @if(number_format($region->zero_km/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') > 0)
+                                        @if(number_format($events->zero_km/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
                                                 <div class="circle circle-4">
                                                 </div>
-                                                {{ number_format($region->zero_km/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% 0KM
+                                                {{ number_format($events->zero_km/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',') }}% 0KM
                                             </div>
                                         @endif
 
-                                        @if(number_format($region->inprogress/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') > 0)
+                                        @if(number_format($events->inprogress/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice final">
                                                 <div class="circle circle-5">
                                                 </div>
-                                                {{ number_format($region->inprogress/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% In progress
+                                                {{ number_format($events->inprogress/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',') }}% In progress
                                             </div>
                                         @endif
 
@@ -217,7 +218,7 @@
 
                                 <div class="col-md-12 bar-chart">
                                     <div>
-                                        <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-bar-chart-response" width="800" height="450"></canvas>
+                                        <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-response" width="800" height="450"></canvas>
                                     </div>
                                 </div>
 
@@ -227,7 +228,7 @@
 
                                 <div class="col-md-12 bar-chart">
                                     <div>
-                                        <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-bar-chart-conversion" width="800" height="450"></canvas>
+                                        <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-conversion" width="800" height="450"></canvas>
                                     </div>
                                 </div>
 
@@ -236,7 +237,7 @@
                             <div class="row results cardc">
 
                                 <div class="col-md-12 bar-chart-2">
-                                    <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-bar-chart-breakdown" width="800" height="450"></canvas>
+                                    <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-breakdown" width="800" height="450"></canvas>
                                 </div>
 
                             </div>
@@ -254,7 +255,7 @@
                                                     Data Count
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $region->data_count }}
+                                                    {{ $events->data_count }}
                                                 </div>
                                             </div>
                                             <div class="data-line">
@@ -262,7 +263,7 @@
                                                     Appointments
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $region->appointments }}
+                                                    {{ $events->appointments }}
                                                 </div>
                                             </div>
                                             <div class="data-line">
@@ -270,7 +271,7 @@
                                                     New Vehicles
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $region->new }}
+                                                    {{ $events->new }}
                                                 </div>
                                             </div>
                                             <div class="data-line">
@@ -278,7 +279,7 @@
                                                     Used Vehicles
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $region->used }}
+                                                    {{ $events->used }}
                                                 </div>
                                             </div>
                                         </div>
@@ -288,7 +289,7 @@
                                                     Demo Vehicles
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $region->demo }}
+                                                    {{ $events->demo }}
                                                 </div>
                                             </div>
                                             <div class="data-line">
@@ -296,7 +297,7 @@
                                                     0km Vehicles
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $region->zero_km }}
+                                                    {{ $events->zero_km }}
                                                 </div>
                                             </div>
                                             <div class="data-line">
@@ -304,14 +305,14 @@
                                                     In Progress
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $region->inprogress }}
+                                                    {{ $events->inprogress }}
                                                 </div>
                                             </div>
 
                                         </div>
                                             
                                         <div class="col-md-12 download-table-btn">
-                                            <a href="{{ route('regionDownload', [$region->id,$region->start_date,$region->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                            <a href="{{ route('manufacturerRegionlessReportDatesDownload', [$manufacturer->id,$country->id,$events->start_date,$events->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
                                         </div>
 
                                     </div>
@@ -396,11 +397,11 @@
 </script>
 
 
-@if($region->data_count > 0)
+@if($events->data_count > 0)
 
     <script type="text/javascript">
 
-    var ctx = document.getElementById('{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-responseRate').getContext('2d');
+    var ctx = document.getElementById('{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-responseRate').getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'pie',
@@ -414,8 +415,8 @@
                     "#333C42"
                 ],
                 data: [
-                    {{ $region->appointments }}, 
-                    {{ $region->data_count - $region->appointments }}
+                    {{ $events->appointments }}, 
+                    {{ $events->data_count - $events->appointments }}
                 ]
             }],
             labels: [
@@ -437,7 +438,7 @@
 
     <script type="text/javascript">
 
-    var ctx = document.getElementById('{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-conversionRate').getContext('2d');
+    var ctx = document.getElementById('{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-conversionRate').getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'pie',
@@ -451,8 +452,8 @@
                     "#333C42"
                 ],
                 data: [
-                    {{ $region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress }}, 
-                    {{ $region->appointments - $region->new - $region->used - $region->demo - $region->zero_km - $region->inprogress }}
+                    {{ $events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress }}, 
+                    {{ $events->appointments - $events->new - $events->used - $events->demo - $events->zero_km - $events->inprogress }}
                 ]
             }],
             labels: [
@@ -475,7 +476,7 @@
 
     <script type="text/javascript">
 
-    var ctx = document.getElementById('{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-salesBreakdown').getContext('2d');
+    var ctx = document.getElementById('{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-salesBreakdown').getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'pie',
@@ -485,26 +486,26 @@
             datasets: [{
                 borderWidth: '0',
                 backgroundColor: [
-                    @if($region->new > 0)"#304651",@endif 
-                    @if($region->used > 0)"#262E33",@endif 
-                    @if($region->demo > 0)"#CDDEEA",@endif 
-                    @if($region->zero_km > 0)"#667681",@endif 
-                    @if($region->inprogress > 0)"#8A9FAD"@endif 
+                    @if($events->new > 0)"#304651",@endif 
+                    @if($events->used > 0)"#262E33",@endif 
+                    @if($events->demo > 0)"#CDDEEA",@endif 
+                    @if($events->zero_km > 0)"#667681",@endif 
+                    @if($events->inprogress > 0)"#8A9FAD"@endif 
                 ],
                 data: [
-                    @if($region->new > 0){{ $region->new }},@endif 
-                    @if($region->used > 0){{ $region->used }},@endif 
-                    @if($region->demo > 0){{ $region->demo }},@endif 
-                    @if($region->zero_km > 0){{ $region->zero_km }},@endif 
-                    @if($region->inprogress > 0){{ $region->inprogress }}@endif
+                    @if($events->new > 0){{ $events->new }},@endif 
+                    @if($events->used > 0){{ $events->used }},@endif 
+                    @if($events->demo > 0){{ $events->demo }},@endif 
+                    @if($events->zero_km > 0){{ $events->zero_km }},@endif 
+                    @if($events->inprogress > 0){{ $events->inprogress }}@endif
                 ]
             }],
             labels: [
-                @if($region->new > 0)"New",@endif 
-                @if($region->used > 0)"Used",@endif 
-                @if($region->demo > 0)"Demo",@endif 
-                @if($region->zero_km > 0)"0km",@endif 
-                @if($region->inprogress > 0)"In Progress"@endif 
+                @if($events->new > 0)"New",@endif 
+                @if($events->used > 0)"Used",@endif 
+                @if($events->demo > 0)"Demo",@endif 
+                @if($events->zero_km > 0)"0km",@endif 
+                @if($events->inprogress > 0)"In Progress"@endif 
             ]
         },
 
@@ -522,7 +523,7 @@
 
     <script type="text/javascript">
 
-    new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-bar-chart-response"), {
+    new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-response"), {
 
         type: 'bar',
 
@@ -530,12 +531,12 @@
             labels: ["Response"],
             datasets: [
 
-                @if($region->appointments > 0)
+                @if($events->appointments > 0)
                     {
                         label: "Region",
                         backgroundColor: "#333C42",
                         data: [
-                            {{ number_format($region->appointments/$region->data_count * 100, 1, '.', ',') }}
+                            {{ number_format($events->appointments/$events->data_count * 100, 1, '.', ',') }}
                         ]
                     }, 
                 @endif
@@ -544,7 +545,7 @@
                     label: "Country",
                     backgroundColor: "#6D497F",
                     data: [
-                        {{ number_format($region->country->appointments/$region->country->data_count * 100, 1, '.', ',') }}
+                        {{ number_format($country->appointments/$country->data_count * 100, 1, '.', ',') }}
                     ]
                 }
             ]
@@ -586,7 +587,7 @@
 
     <script type="text/javascript">
 
-    new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-bar-chart-conversion"), {
+    new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-conversion"), {
 
         type: 'bar',
 
@@ -594,12 +595,12 @@
             labels: ["Conversion"],
             datasets: [
 
-                @if($region->appointments > 0)
+                @if($events->appointments > 0)
                     {
                         label: "Region",
                         backgroundColor: "#333C42",
                         data: [
-                            {{ number_format(($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress)/$region->appointments * 100, 1, '.', ',') }}
+                            {{ number_format(($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress)/$events->appointments * 100, 1, '.', ',') }}
                         ]
                     }, 
                 @endif
@@ -608,7 +609,7 @@
                     label: "Country",
                     backgroundColor: "#6D497F",
                     data: [
-                        {{ number_format(($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress)/$region->country->appointments * 100, 1, '.', ',') }}
+                        {{ number_format(($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress)/$country->appointments * 100, 1, '.', ',') }}
                     ]
                 }
             ]
@@ -650,24 +651,24 @@
 
     <script type="text/javascript">
 
-    new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-bar-chart-breakdown"), {
+    new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-breakdown"), {
 
         type: 'bar',
 
         data: {
             labels: ["New", "Used", "Demo", "0KM", "In Progress"],
             datasets: [
-                @if($region->data_count > 0)
+                @if($events->data_count > 0)
                 {
                     label: "Region",
                     backgroundColor: "#333C42",
                     data: [
-                        @if($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress > 0)
-                            {{ number_format($region->new/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($region->used/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($region->demo/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($region->zero_km/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($region->inprogress/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}
+                        @if($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress > 0)
+                            {{ number_format($events->new/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',')}},
+                            {{ number_format($events->used/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',')}},
+                            {{ number_format($events->demo/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',')}},
+                            {{ number_format($events->zero_km/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',')}},
+                            {{ number_format($events->inprogress/($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress) * 100, 1, '.', ',')}}
                         @endif
                     ]
                 }, 
@@ -676,11 +677,11 @@
                     label: "Country",
                     backgroundColor: "#6D497F",
                     data: [
-                        {{ number_format($region->country->new/($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress) * 100, 1, '.', ',')}},
-                        {{ number_format($region->country->used/($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress) * 100, 1, '.', ',')}},
-                        {{ number_format($region->country->demo/($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress) * 100, 1, '.', ',')}},
-                        {{ number_format($region->country->zero_km/($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress) * 100, 1, '.', ',')}},
-                        {{ number_format($region->country->inprogress/($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress) * 100, 1, '.', ',')}}
+                        {{ number_format($country->new/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                        {{ number_format($country->used/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                        {{ number_format($country->demo/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                        {{ number_format($country->zero_km/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                        {{ number_format($country->inprogress/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}
                     ]
                 }
             ]

@@ -195,7 +195,9 @@ class EventController extends Controller
 
         }
 
-        return view('events.show',compact('event','event_manufacturer_ids'));
+        $dealership = $event->dealership;
+
+        return view('events.show',compact('event','event_manufacturer_ids','dealership'));
     }
 
     /**
@@ -464,6 +466,63 @@ class EventController extends Controller
 
         $manufacturer = Manufacturer::find($manufacturer_id);
 
+        $region_id = DB::table('dealership_manufacturer')->where('dealership_id',$event->dealership->id)->where('manufacturer_id',$manufacturer->id)->value('region_id');
+
+        $manufacturer->region = Region::find($region_id);
+        $manufacturer->region_data_count = 0;
+        $manufacturer->region_appointments = 0;
+        $manufacturer->region_new = 0;
+        $manufacturer->region_used = 0;
+        $manufacturer->region_demo = 0;
+        $manufacturer->region_zero_km = 0;
+        $manufacturer->region_inprogress = 0;
+
+        $region = Region::find($region_id);
+
+        if($region_id) {
+
+            $region_event_ids = [];
+
+            $region_dealership_ids = DB::table('dealership_manufacturer')->where('region_id',$region_id)->pluck('dealership_id');
+
+            foreach($region_dealership_ids as $region_dealership_id) {
+
+                $region_dealership = Dealership::find($region_dealership_id);
+
+                foreach($region_dealership->events as $regionEvent) {
+
+                    foreach($regionEvent->manufacturers as $regionEventManufacturer) {
+
+                        if($regionEventManufacturer->id == $manufacturer->id) {
+
+                            $region_event_ids[] = $regionEvent->id;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $region->events = Event::whereIn('id',$region_event_ids)->get();
+
+            $manufacturer->region_data_count = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('data_count');
+
+            $manufacturer->region_appointments = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('appointments');
+
+            $manufacturer->region_new = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('new');
+
+            $manufacturer->region_used = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('used');
+
+            $manufacturer->region_demo = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('demo');
+
+            $manufacturer->region_zero_km = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('zero_km');
+
+            $manufacturer->region_inprogress = DB::table('event_manufacturer')->whereIn('event_id',$region_event_ids)->where('manufacturer_id',$manufacturer->id)->sum('inprogress');
+
+        }
+
         $country = $event->dealership->country;
 
         $manufacturer->country = $country;
@@ -481,7 +540,104 @@ class EventController extends Controller
 
             foreach($countryDealership->events as $countryEvent) {
 
-                $event_ids[] = $countryEvent->id;
+                foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                    if($countryEventManufacturer->id == $manufacturer_id) {
+
+                        $event_ids[] = $countryEvent->id;
+
+                        $manufacturer->country_data_count += $countryEventManufacturer->pivot->data_count;
+                        $manufacturer->country_appointments += $countryEventManufacturer->pivot->appointments;
+                        $manufacturer->country_new += $countryEventManufacturer->pivot->new;
+                        $manufacturer->country_used += $countryEventManufacturer->pivot->used;
+                        $manufacturer->country_demo += $countryEventManufacturer->pivot->demo;
+                        $manufacturer->country_zero_km += $countryEventManufacturer->pivot->zero_km;
+                        $manufacturer->country_inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        $country->events = Event::whereIn('id',$event_ids)->get();
+
+        $country->manufacturer = $manufacturer;
+
+        return view('events.manufacturercountry',compact('country','manufacturer','event'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Event  $event
+     * @return \Illuminate\Http\Response
+     */
+    public function manufacturerRegion($event_id,$manufacturer_id)
+    {
+        $event = Event::find($event_id);
+
+        $manufacturer = Manufacturer::find($manufacturer_id);
+
+        $region_id = DB::table('dealership_manufacturer')->where('dealership_id',$event->dealership->id)->where('manufacturer_id',$manufacturer->id)->value('region_id');
+
+        $region = Region::find($region_id);
+
+        $manufacturer->region = $region;
+        $manufacturer->region_data_count = 0;
+        $manufacturer->region_appointments = 0;
+        $manufacturer->region_new = 0;
+        $manufacturer->region_used = 0;
+        $manufacturer->region_demo = 0;
+        $manufacturer->region_zero_km = 0;
+        $manufacturer->region_inprogress = 0;
+
+        $event_ids = [];
+
+        foreach($region->dealerships as $regionDealership) {
+
+            foreach($regionDealership->events as $regionEvent) {
+
+                foreach($regionEvent->manufacturers as $regionEventManufacturer) {
+
+                    if($regionEventManufacturer->id == $manufacturer_id) {
+
+                        $event_ids[] = $regionEvent->id;
+
+                        $manufacturer->region_data_count += $regionEventManufacturer->pivot->data_count;
+                        $manufacturer->region_appointments += $regionEventManufacturer->pivot->appointments;
+                        $manufacturer->region_new += $regionEventManufacturer->pivot->new;
+                        $manufacturer->region_used += $regionEventManufacturer->pivot->used;
+                        $manufacturer->region_demo += $regionEventManufacturer->pivot->demo;
+                        $manufacturer->region_zero_km += $regionEventManufacturer->pivot->zero_km;
+                        $manufacturer->region_inprogress += $regionEventManufacturer->pivot->inprogress;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        $region->events = Event::whereIn('id',$event_ids)->get();
+
+        $country = $event->dealership->country;
+
+        $manufacturer->country = $country;
+        $manufacturer->country_data_count = 0;
+        $manufacturer->country_appointments = 0;
+        $manufacturer->country_new = 0;
+        $manufacturer->country_used = 0;
+        $manufacturer->country_demo = 0;
+        $manufacturer->country_zero_km = 0;
+        $manufacturer->country_inprogress = 0;
+
+        foreach($country->dealerships as $countryDealership) {
+
+            foreach($countryDealership->events as $countryEvent) {
 
                 foreach($countryEvent->manufacturers as $countryEventManufacturer) {
 
@@ -503,9 +659,107 @@ class EventController extends Controller
 
         }
 
-        $country->events = Event::whereIn('id',$event_ids)->get();
+        return view('events.manufacturerregion',compact('region','manufacturer','event'));
+    }
 
-        return view('events.manufacturercountry',compact('country','manufacturer','event'));
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Event  $event
+     * @return \Illuminate\Http\Response
+     */
+    public function manufacturerRegionless($event_id,$manufacturer_id)
+    {
+        $event = Event::find($event_id);
+
+        $manufacturer = Manufacturer::find($manufacturer_id);
+
+        $countryDealership_ids = [];
+
+        foreach($event->dealership->country->dealerships as $countryDealership) {
+
+            $countryDealership_ids[] = $countryDealership->id;
+
+        }
+
+        $dealership_ids = DB::table('dealership_manufacturer')->whereIn('dealership_id',$countryDealership_ids)->where('manufacturer_id',$manufacturer->id)->where('region_id',NULL)->pluck('dealership_id');
+
+        $dealerships = Dealership::whereIn('id',$dealership_ids)->get();
+
+        $manufacturer->region_data_count = 0;
+        $manufacturer->region_appointments = 0;
+        $manufacturer->region_new = 0;
+        $manufacturer->region_used = 0;
+        $manufacturer->region_demo = 0;
+        $manufacturer->region_zero_km = 0;
+        $manufacturer->region_inprogress = 0;
+
+        $event_ids = [];
+
+        foreach($dealerships as $regionDealership) {
+
+            foreach($regionDealership->events as $regionEvent) {
+
+                foreach($regionEvent->manufacturers as $regionEventManufacturer) {
+
+                    if($regionEventManufacturer->id == $manufacturer_id) {
+
+                        $event_ids[] = $regionEvent->id;
+
+                        $manufacturer->region_data_count += $regionEventManufacturer->pivot->data_count;
+                        $manufacturer->region_appointments += $regionEventManufacturer->pivot->appointments;
+                        $manufacturer->region_new += $regionEventManufacturer->pivot->new;
+                        $manufacturer->region_used += $regionEventManufacturer->pivot->used;
+                        $manufacturer->region_demo += $regionEventManufacturer->pivot->demo;
+                        $manufacturer->region_zero_km += $regionEventManufacturer->pivot->zero_km;
+                        $manufacturer->region_inprogress += $regionEventManufacturer->pivot->inprogress;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        $events = Event::whereIn('id',$event_ids)->get();
+
+        $country = $event->dealership->country;
+
+        $manufacturer->country = $country;
+        $manufacturer->country_data_count = 0;
+        $manufacturer->country_appointments = 0;
+        $manufacturer->country_new = 0;
+        $manufacturer->country_used = 0;
+        $manufacturer->country_demo = 0;
+        $manufacturer->country_zero_km = 0;
+        $manufacturer->country_inprogress = 0;
+
+        foreach($country->dealerships as $countryDealership) {
+
+            foreach($countryDealership->events as $countryEvent) {
+
+                foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                    if($countryEventManufacturer->id == $manufacturer_id) {
+
+                        $manufacturer->country_data_count += $countryEventManufacturer->pivot->data_count;
+                        $manufacturer->country_appointments += $countryEventManufacturer->pivot->appointments;
+                        $manufacturer->country_new += $countryEventManufacturer->pivot->new;
+                        $manufacturer->country_used += $countryEventManufacturer->pivot->used;
+                        $manufacturer->country_demo += $countryEventManufacturer->pivot->demo;
+                        $manufacturer->country_zero_km += $countryEventManufacturer->pivot->zero_km;
+                        $manufacturer->country_inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return view('events.manufacturerregionless',compact('manufacturer','country','events','event'));
     }
 
     /**
@@ -644,8 +898,12 @@ class EventController extends Controller
     public function download($id){
 
         $event = Event::find($id);
+
         $filename = $event->name . '.csv';
+
         $handle = fopen('csv/' . $filename, 'w+');
+
+        fputs($handle, "\xEF\xBB\xBF" ); // UTF-8 BOM
 
         fputcsv($handle, 
             array(
@@ -709,7 +967,8 @@ class EventController extends Controller
         fclose($handle);
 
         $headers = array(
-            'Content-Type' => 'text/csv',
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Encoding' => 'UTF-8'
         );
 
         return response()->download('csv/' . $filename, $filename, $headers);
@@ -727,10 +986,14 @@ class EventController extends Controller
     public function downloadManufacturer($event_id, $manufacturer_id){
 
         $event = Event::find($event_id);
+
         $manufacturer = Manufacturer::find($manufacturer_id);
+        
         $filename = $event->name . ' - ' . $manufacturer->name . '.csv';
 
         $handle = fopen('csv/' . $filename, 'w+');
+
+        fputs($handle, "\xEF\xBB\xBF" ); // UTF-8 BOM
 
         fputcsv($handle, 
             array(
@@ -767,7 +1030,8 @@ class EventController extends Controller
         fclose($handle);
 
         $headers = array(
-            'Content-Type' => 'text/csv',
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Encoding' => 'UTF-8'
         );
 
         return response()->download('csv/' . $filename, $filename, $headers);
@@ -785,10 +1049,14 @@ class EventController extends Controller
     public function downloadCompany($event_id, $company_id){
 
         $event = Event::find($event_id);
+
         $company = Company::find($company_id);
+
         $filename = $event->name . ' - ' . $company->name . '.csv';
 
         $handle = fopen('csv/' . $filename, 'w+');
+
+        fputs($handle, "\xEF\xBB\xBF" ); // UTF-8 BOM
 
         fputcsv($handle, 
             array(
@@ -835,7 +1103,8 @@ class EventController extends Controller
         fclose($handle);
 
         $headers = array(
-            'Content-Type' => 'text/csv',
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Encoding' => 'UTF-8'
         );
 
         return response()->download('csv/' . $filename, $filename, $headers);

@@ -21,25 +21,25 @@
 
                         <div class="current-results">
 
-                            Showing results for dealership - {{ $dealership->name }} 
+                            Showing results for company - {{ $company->name }} 
 
-                            @if(\Carbon\Carbon::parse($dealership->start_date)->format('M') == \Carbon\Carbon::parse($dealership->end_date)->format('M'))
+                            @if(\Carbon\Carbon::parse($company->start_date)->format('M') == \Carbon\Carbon::parse($company->end_date)->format('M'))
 
-                                {{ \Carbon\Carbon::parse($dealership->start_date)->format('d') }}
+                                {{ \Carbon\Carbon::parse($company->start_date)->format('d') }}
 
                             @else
 
-                                {{ \Carbon\Carbon::parse($dealership->start_date)->format('d M') }}
+                                {{ \Carbon\Carbon::parse($company->start_date)->format('d M') }}
 
-                                @if(\Carbon\Carbon::parse($dealership->start_date)->format('Y') !== \Carbon\Carbon::parse($dealership->end_date)->format('Y'))
+                                @if(\Carbon\Carbon::parse($company->start_date)->format('Y') !== \Carbon\Carbon::parse($company->end_date)->format('Y'))
 
-                                    {{ \Carbon\Carbon::parse($dealership->start_date)->format('Y') }}
+                                    {{ \Carbon\Carbon::parse($company->start_date)->format('Y') }}
 
                                 @endif
 
                             @endif
 
-                                 - {{ \Carbon\Carbon::parse($dealership->end_date)->format('d M Y') }}
+                                 - {{ \Carbon\Carbon::parse($company->end_date)->format('d M Y') }}
 
                         </div>
 
@@ -67,8 +67,8 @@
 
                                             <div class="event-list-container">
                                                 <ul>
-                                                    @foreach($dealership->events as $dealershipEvent)
-                                                        <li class="event-listing"><a href="{{ route('event',$dealershipEvent->id) }}">{{ $dealershipEvent->name }}</a></li>
+                                                    @foreach($events as $companyEvent)
+                                                        <li class="event-listing"><a href="{{ route('eventCompany',[$companyEvent->id,$company->id]) }}">{{ $companyEvent->name }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -81,7 +81,7 @@
 
                                             <div class="date-picker-form">
 
-                                                <form method="post" action="{{ route('dealershipEvents', [$dealership->id]) }}">
+                                                <form method="post" action="{{ route('companyReportDates',$company->id) }}">
 
                                                     @csrf
 
@@ -137,16 +137,16 @@
 
                             <form id="brandSelect">
 
-                                @if(count($dealership->manufacturers) > 1)
+                                @if(count($company->manufacturers) > 1)
                                     <div class="checkbox">
                                         <input id="all" type="radio" name="brand" checked />
                                         <label for="all">All</label>
                                     </div>
                                 @endif
 
-                                @foreach($dealership->manufacturers as $manufacturer)
+                                @foreach($company->manufacturers as $manufacturer)
                                     <div class="checkbox">
-                                        <input id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" type="radio" name="brand"  @if(count($dealership->manufacturers) == 1) checked @endif/>
+                                        <input id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" type="radio" name="brand"  @if(count($company->manufacturers) == 1) checked @endif/>
                                         <label for="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}">{{ $manufacturer->name }}</label>
                                     </div>
                                 @endforeach
@@ -169,12 +169,12 @@
 
                             <select name="brand-mobile">
 
-                                @if(count($dealership->manufacturers) > 1)
+                                @if(count($company->manufacturers) > 1)
                                     <option value="all" selected>All</option>
                                 @endif
 
-                                @foreach($dealership->manufacturers as $manufacturer)
-                                    <option value="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" @if(count($dealership->manufacturers) == 1) selected @endif>{{ $manufacturer->name }}</option>
+                                @foreach($company->manufacturers as $manufacturer)
+                                    <option value="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" @if(count($company->manufacturers) == 1) selected @endif>{{ $manufacturer->name }}</option>
                                 @endforeach
 
                             </select>
@@ -183,72 +183,81 @@
 
                     </div>
 
-                    @if(count($dealership->manufacturers) > 1)
+                    @if(count($company->manufacturers) > 1)
 
                         <div id="all">
 
                             <div class="row results cardc">
 
                                 <div class="col-md-4 donut-1">
+
                                     <h3>Response Rate</h3>
+
                                     <canvas id="responseRate" class="responseRate" width="180" height="180"></canvas>
-                                    <p>{{ $dealership->data_count }} Invites</p>
-                                    <p>{{ $dealership->appointments }} Appointments</p>
+
+                                    <p>{{ $company->data_count }} Invites</p>
+
+                                    <p>{{ $company->appointments }} Appointments</p>
+                                    
                                 </div>
 
                                 <div class="col-md-4 donut-2">
+
                                     <h3>Conversion Rate</h3>
+
                                     <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
-                                    <p>{{ $dealership->appointments }} appointments</p>
-                                    <p>{{ $dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress }} Sales</p>
+
+                                    <p>{{ $company->appointments }} appointments</p>
+
+                                    <p>{{ $company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress }} Sales</p>
+
                                 </div>
 
                                 <div class="col-md-4">
+
                                     <h3>Sales breakdown</h3>
+
                                     <canvas id="salesBreakdown" class="salesBreakdown" width="180" height="180"></canvas>
+
                                     <div class="camembert-slice-container">
 
-                                        @if(number_format($dealership->new/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',') > 0)
+                                        @if(number_format($company->new/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
-                                                <div class="circle circle-1">
-                                                </div>
-                                                {{ number_format($dealership->new/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% New
+                                                <div class="circle circle-1"></div>
+                                                {{ number_format($company->new/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% New
                                             </div>
                                         @endif
 
-                                        @if(number_format($dealership->used/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',') > 0)
+                                        @if(number_format($company->used/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
-                                                <div class="circle circle-2">
-                                                </div>
-                                                {{ number_format($dealership->used/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% Used
+                                                <div class="circle circle-2"></div>
+                                                {{ number_format($company->used/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% Used
                                             </div>
                                         @endif
 
-                                        @if(number_format($dealership->demo/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',') > 0)
+                                        @if(number_format($company->demo/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
-                                                <div class="circle circle-3">
-                                                </div>
-                                                {{ number_format($dealership->demo/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% Demo
+                                                <div class="circle circle-3"></div>
+                                                {{ number_format($company->demo/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% Demo
                                             </div>
                                         @endif
 
-                                        @if(number_format($dealership->zero_km/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',') > 0)
+                                        @if(number_format($company->zero_km/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
-                                                <div class="circle circle-4">
-                                                </div>
-                                                {{ number_format($dealership->zero_km/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% 0KM
+                                                <div class="circle circle-4"></div>
+                                                {{ number_format($company->zero_km/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% 0KM
                                             </div>
                                         @endif
 
-                                        @if(number_format($dealership->inprogress/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',') > 0)
+                                        @if(number_format($company->inprogress/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice final">
-                                                <div class="circle circle-5">
-                                                </div>
-                                                {{ number_format($dealership->inprogress/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% In progress
+                                                <div class="circle circle-5"></div>
+                                                {{ number_format($company->inprogress/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% In progress
                                             </div>
                                         @endif
 
                                     </div>
+
                                 </div>
 
                             </div>
@@ -266,7 +275,7 @@
                                                     Data Count
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $dealership->data_count }}
+                                                    {{ $company->data_count }}
                                                 </div>
                                             </div>
                                             <div class="data-line">
@@ -274,7 +283,7 @@
                                                     Appointments
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $dealership->appointments }}
+                                                    {{ $company->appointments }}
                                                 </div>
                                             </div>
                                             <div class="data-line">
@@ -282,7 +291,7 @@
                                                     New Vehicles
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $dealership->new }}
+                                                    {{ $company->new }}
                                                 </div>
                                             </div>
                                             <div class="data-line">
@@ -290,7 +299,7 @@
                                                     Used Vehicles
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $dealership->used }}
+                                                    {{ $company->used }}
                                                 </div>
                                             </div>
                                         </div>
@@ -300,7 +309,7 @@
                                                     Demo Vehicles
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $dealership->demo }}
+                                                    {{ $company->demo }}
                                                 </div>
                                             </div>
                                             <div class="data-line">
@@ -308,7 +317,7 @@
                                                     0km Vehicles
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $dealership->zero_km }}
+                                                    {{ $company->zero_km }}
                                                 </div>
                                             </div>
                                             <div class="data-line">
@@ -316,14 +325,14 @@
                                                     In Progress
                                                 </div>
                                                 <div class="data-count">
-                                                    {{ $dealership->inprogress }}
+                                                    {{ $company->inprogress }}
                                                 </div>
                                             </div>
 
                                         </div>
-                                        
+                                            
                                         <div class="col-md-12 download-table-btn">
-                                            <a href="{{ route('dealershipDownload', [$dealership->id,$dealership->start_date,$dealership->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                            <a href="{{ route('companyReportDatesDownload', [$company->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
                                         </div>
 
                                     </div>
@@ -335,9 +344,9 @@
 
                     @endif
 
-                    @foreach($dealership->manufacturers as $manufacturer)
+                    @foreach($company->manufacturers as $manufacturer)
 
-                        <div id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" @if(count($dealership->manufacturers) > 1) style="display:none; @endif">
+                        <div id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" @if(count($company->manufacturers) > 1) style="display:none; @endif">
 
                             @if($manufacturer->data_count > 0)
 
@@ -403,34 +412,6 @@
                                             @endif
 
                                         </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row results cardc">
-
-                                    <div class="col-md-12 bar-chart">
-                                        <div>
-                                            <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-response" width="800" height="450"></canvas>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row results cardc">
-
-                                    <div class="col-md-12 bar-chart">
-                                        <div>
-                                            <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-conversion" width="800" height="450"></canvas>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row results cardc">
-
-                                    <div class="col-md-12 bar-chart-2">
-                                        <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-breakdown" width="800" height="450"></canvas>
                                     </div>
 
                                 </div>
@@ -503,9 +484,9 @@
                                                 </div>
 
                                             </div>
-                                        
+                                            
                                             <div class="col-md-12 download-table-btn">
-                                                <a href="{{ route('dealershipDownloadManufacturer', [$dealership->id,$manufacturer->id,$dealership->start_date,$dealership->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                <a href="{{ route('manufacturerReportDatesDownload', [$manufacturer->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
                                             </div>
 
                                         </div>
@@ -591,7 +572,6 @@
 
 </script>
 
-
 <script type="text/javascript">
 
 var ctx = document.getElementById('responseRate').getContext('2d');
@@ -608,8 +588,8 @@ var chart = new Chart(ctx, {
                 "#333C42"
             ],
             data: [
-                {{ $dealership->appointments }}, 
-                {{ $dealership->data_count - $dealership->appointments }}
+                {{ $company->appointments }}, 
+                {{ $company->data_count - $company->appointments }}
             ]
         }],
         labels: [
@@ -646,8 +626,8 @@ var chart = new Chart(ctx, {
                 "#333C42"
             ],
             data: [
-                {{ $dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress }}, 
-                {{ $dealership->appointments - $dealership->new - $dealership->used - $dealership->demo - $dealership->zero_km - $dealership->inprogress }}
+                {{ $company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress }}, 
+                {{ $company->appointments - $company->new - $company->used - $company->demo - $company->zero_km - $company->inprogress }}
             ]
         }],
         labels: [
@@ -680,26 +660,26 @@ var chart = new Chart(ctx, {
         datasets: [{
             borderWidth: '0',
             backgroundColor: [
-                @if($dealership->new > 0)"#304651",@endif
-                @if($dealership->used > 0)"#262E33",@endif
-                @if($dealership->demo > 0)"#CDDEEA",@endif
-                @if($dealership->zero_km > 0)"#667681",@endif
-                @if($dealership->inprogress > 0)"#8A9FAD"@endif
+                @if($company->new > 0)"#304651",@endif
+                @if($company->used > 0)"#262E33",@endif
+                @if($company->demo > 0)"#CDDEEA",@endif
+                @if($company->zero_km > 0)"#667681",@endif
+                @if($company->inprogress > 0)"#8A9FAD"@endif
             ],
             data: [
-                @if($dealership->new > 0){{ $dealership->new }},@endif 
-                @if($dealership->used > 0){{ $dealership->used }},@endif 
-                @if($dealership->demo > 0){{ $dealership->demo }},@endif 
-                @if($dealership->zero_km > 0){{ $dealership->zero_km }},@endif 
-                @if($dealership->inprogress > 0){{ $dealership->inprogress }}@endif
+                @if($company->new > 0){{ $company->new }},@endif 
+                @if($company->used > 0){{ $company->used }},@endif 
+                @if($company->demo > 0){{ $company->demo }},@endif 
+                @if($company->zero_km > 0){{ $company->zero_km }},@endif 
+                @if($company->inprogress > 0){{ $company->inprogress }}@endif
             ]
         }],
         labels: [
-            @if($dealership->new > 0)"New",@endif 
-            @if($dealership->used > 0)"Used",@endif 
-            @if($dealership->demo > 0)"Demo",@endif 
-            @if($dealership->zero_km > 0)"0km",@endif 
-            @if($dealership->inprogress > 0)"In Progress"@endif 
+            @if($company->new > 0)"New",@endif 
+            @if($company->used > 0)"Used",@endif 
+            @if($company->demo > 0)"Demo",@endif 
+            @if($company->zero_km > 0)"0km",@endif 
+            @if($company->inprogress > 0)"In Progress"@endif 
         ]
     },
 
@@ -714,8 +694,7 @@ var chart = new Chart(ctx, {
 
 </script>
 
-
-@foreach($dealership->manufacturers as $manufacturer)
+@foreach($company->manufacturers as $manufacturer)
 
     @if($manufacturer->data_count > 0)
 
@@ -836,230 +815,6 @@ var chart = new Chart(ctx, {
                 },
                 cutoutPercentage: 50
             }
-        });
-
-        </script>
-
-
-        <script type="text/javascript">
-
-        new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-response"), {
-
-            type: 'bar',
-
-            data: {
-                labels: ["Response"],
-                datasets: [
-
-                    @if($manufacturer->region_appointments > 0)
-                        {
-                            label: "Region",
-                            backgroundColor: "#333C42",
-                            data: [
-                                {{ number_format($manufacturer->region_appointments/$manufacturer->region_data_count * 100, 1, '.', ',') }}
-                            ]
-                        }, 
-                    @endif
-
-                    {
-                        label: "Country",
-                        backgroundColor: "#6D497F",
-                        data: [
-                            {{ number_format($manufacturer->country_appointments/$manufacturer->country_data_count * 100, 1, '.', ',') }}
-                        ]
-                    }, 
-                    {
-                        label: "You",
-                        backgroundColor: "#BA97CC",
-                        data: [
-                            {{ number_format($manufacturer->appointments/$manufacturer->data_count * 100, 1, '.', ',') }}
-                        ]
-                    }
-                ]
-            },
-
-            options: {
-                title: {
-                    display: true,
-                    text: 'Response Rate %'
-                },
-                scales: {
-                    yAxes: [{
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 10
-                        }
-                    }]
-                },
-                tooltips: {
-                    enabled: true,
-                    mode: 'single',
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            var allData = data.datasets[tooltipItem.datasetIndex].data;
-                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
-                            var tooltipData = allData[tooltipItem.index];
-                            return tooltipLabel + ": " + tooltipData + "%";
-                        }
-                    }
-                }
-
-            }
-
-        });
-
-        </script>
-
-
-        <script type="text/javascript">
-
-        new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-conversion"), {
-
-            type: 'bar',
-
-            data: {
-                labels: ["Conversion"],
-                datasets: [
-
-                    @if($manufacturer->region_appointments > 0)
-                        {
-                            label: "Region",
-                            backgroundColor: "#333C42",
-                            data: [
-                                {{ number_format(($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress)/$manufacturer->region_appointments * 100, 1, '.', ',') }}
-                            ]
-                        }, 
-                    @endif
-
-                    {
-                        label: "Country",
-                        backgroundColor: "#6D497F",
-                        data: [
-                            {{ number_format(($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress)/$manufacturer->country_appointments * 100, 1, '.', ',') }}
-                        ]
-                    }, 
-                    {
-                        label: "You",
-                        backgroundColor: "#BA97CC",
-                        data: [
-                            {{ number_format(($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress)/$manufacturer->appointments * 100, 1, '.', ',') }}
-                        ]
-                    }
-                ]
-            },
-
-            options: {
-                title: {
-                    display: true,
-                    text: 'Conversion Rate %'
-                },
-                scales: {
-                    yAxes: [{
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 100
-                        }
-                    }]
-                },
-                tooltips: {
-                    enabled: true,
-                    mode: 'single',
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            var allData = data.datasets[tooltipItem.datasetIndex].data;
-                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
-                            var tooltipData = allData[tooltipItem.index];
-                            return tooltipLabel + ": " + tooltipData + "%";
-                        }
-                    }
-                }
-
-            }
-
-        });
-
-        </script>
-
-
-        <script type="text/javascript">
-
-        new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-breakdown"), {
-
-            type: 'bar',
-
-            data: {
-                labels: ["New", "Used", "Demo", "0KM", "In Progress"],
-                datasets: [
-                    @if($manufacturer->region_data_count > 0)
-                    {
-                        label: "Region",
-                        backgroundColor: "#333C42",
-                        data: [
-                            @if($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress > 0)
-                                {{ number_format($manufacturer->region_new/($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress) * 100, 1, '.', ',')}},
-                                {{ number_format($manufacturer->region_used/($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress) * 100, 1, '.', ',')}},
-                                {{ number_format($manufacturer->region_demo/($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress) * 100, 1, '.', ',')}},
-                                {{ number_format($manufacturer->region_zero_km/($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress) * 100, 1, '.', ',')}},
-                                {{ number_format($manufacturer->region_inprogress/($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress) * 100, 1, '.', ',')}}
-                            @endif
-                        ]
-                    }, 
-                    @endif
-                    {
-                        label: "Country",
-                        backgroundColor: "#6D497F",
-                        data: [
-                            {{ number_format($manufacturer->country_new/($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($manufacturer->country_used/($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($manufacturer->country_demo/($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($manufacturer->country_zero_km/($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($manufacturer->country_inprogress/($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress) * 100, 1, '.', ',')}}
-                        ]
-                    }, 
-                    {
-                        label: "You",
-                        backgroundColor: "#BA97CC",
-                        data: [
-                            {{ number_format($manufacturer->new/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($manufacturer->used/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($manufacturer->demo/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($manufacturer->zero_km/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}},
-                            {{ number_format($manufacturer->inprogress/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}
-                        ]
-                    }
-                ]
-            },
-
-            options: {
-                title: {
-                    display: true,
-                    text: 'Sales Breakdown %'
-                },
-                scales: {
-                    yAxes: [{
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 100
-                        }
-                    }]
-                },
-                tooltips: {
-                    enabled: true,
-                    mode: 'single',
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            var allData = data.datasets[tooltipItem.datasetIndex].data;
-                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
-                            var tooltipData = allData[tooltipItem.index];
-                            return tooltipLabel + ": " + tooltipData + "%";
-                        }
-                    }
-                }
-            }
-
         });
 
         </script>

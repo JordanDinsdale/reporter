@@ -62,8 +62,8 @@
 
                                             <div class="event-list-container">
                                                 <ul>
-                                                    @foreach($region->events as $regionEvent)
-                                                        <li class="event-listing"><a href="{{ route('eventManufacturer',[$regionEvent->id,$manufacturer->id]) }}">{{ $regionEvent->name }}</a></li>
+                                                    @foreach($manufacturer->events as $manufacturerEvent)
+                                                        <li class="event-listing"><a href="{{ route('eventManufacturer',[$manufacturerEvent->id,$manufacturer->id]) }}">{{ $manufacturerEvent->name }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -241,7 +241,17 @@
 
                                         <div class="col-md-12 bar-chart">
                                             <div>
-                                                <canvas id="{{ str_replace(' ','-',strtolower($eventManufacturer->name)) }}-bar-chart-grouped" width="800" height="450"></canvas>
+                                                <canvas id="{{ str_replace(' ','-',strtolower($eventManufacturer->name)) }}-bar-chart-response" width="800" height="450"></canvas>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row results cardc">
+
+                                        <div class="col-md-12 bar-chart">
+                                            <div>
+                                                <canvas id="{{ str_replace(' ','-',strtolower($eventManufacturer->name)) }}-bar-chart-conversion" width="800" height="450"></canvas>
                                             </div>
                                         </div>
 
@@ -335,7 +345,11 @@
 
                                 @else
 
-                                    <p>No information to display</p>
+                                    <div class="row results cardc">
+
+                                        <p>No information to display</p>
+
+                                    </div>
 
                                 @endif
 
@@ -541,12 +555,12 @@
 
             <script type="text/javascript">
 
-            new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-grouped"), {
+            new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-response"), {
 
                 type: 'bar',
 
                 data: {
-                    labels: ["Response", "Conversion"],
+                    labels: ["Response"],
                     datasets: [
 
                         @if($manufacturer->region_appointments > 0)
@@ -554,7 +568,77 @@
                                 label: "Region",
                                 backgroundColor: "#333C42",
                                 data: [
-                                    {{ number_format($manufacturer->region_appointments/$manufacturer->region_data_count * 100, 1, '.', ',') }},
+                                    {{ number_format($manufacturer->region_appointments/$manufacturer->region_data_count * 100, 1, '.', ',') }}
+                                ]
+                            }, 
+                        @endif
+
+                        {
+                            label: "Country",
+                            backgroundColor: "#6D497F",
+                            data: [
+                                {{ number_format($manufacturer->country_appointments/$manufacturer->country_data_count * 100, 1, '.', ',') }}
+                            ]
+                        }, 
+                        {
+                            label: "You",
+                            backgroundColor: "#BA97CC",
+                            data: [
+                                {{ number_format($eventManufacturer->pivot->appointments/$eventManufacturer->pivot->data_count * 100, 1, '.', ',') }}
+                            ]
+                        }
+                    ]
+                },
+
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Response Rate'
+                    },
+                    scales: {
+                        yAxes: [{
+                            display: true,
+                            ticks: {
+                                min: 0,
+                                max: 10
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        enabled: true,
+                        mode: 'single',
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var allData = data.datasets[tooltipItem.datasetIndex].data;
+                                var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
+                                var tooltipData = allData[tooltipItem.index];
+                                return tooltipLabel + ": " + tooltipData + "%";
+                            }
+                        }
+                    }
+
+                }
+
+            });
+
+            </script>
+
+
+            <script type="text/javascript">
+
+            new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-bar-chart-conversion"), {
+
+                type: 'bar',
+
+                data: {
+                    labels: ["Conversion"],
+                    datasets: [
+
+                        @if($manufacturer->region_appointments > 0)
+                            {
+                                label: "Region",
+                                backgroundColor: "#333C42",
+                                data: [
                                     {{ number_format(($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress)/$manufacturer->region_appointments * 100, 1, '.', ',') }}
                                 ]
                             }, 
@@ -564,7 +648,6 @@
                             label: "Country",
                             backgroundColor: "#6D497F",
                             data: [
-                                {{ number_format($manufacturer->country_appointments/$manufacturer->country_data_count * 100, 1, '.', ',') }},
                                 {{ number_format(($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress)/$manufacturer->country_appointments * 100, 1, '.', ',') }}
                             ]
                         }, 
@@ -572,7 +655,6 @@
                             label: "You",
                             backgroundColor: "#BA97CC",
                             data: [
-                                {{ number_format($eventManufacturer->pivot->appointments/$eventManufacturer->pivot->data_count * 100, 1, '.', ',') }},
                                 {{ number_format(($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress)/$eventManufacturer->pivot->appointments * 100, 1, '.', ',') }}
                             ]
                         }
@@ -582,7 +664,7 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'Response and Conversion Rate'
+                        text: 'Conversion Rate'
                     },
                     scales: {
                         yAxes: [{

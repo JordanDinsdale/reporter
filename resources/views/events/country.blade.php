@@ -335,7 +335,11 @@
 
                                 @else
 
-                                    <p>No information to display</p>
+                                    <div class="row results cardc">
+
+                                        <p>No information to display</p>
+
+                                    </div>
 
                                 @endif
 

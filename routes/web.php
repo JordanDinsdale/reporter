@@ -23,6 +23,8 @@ Route::get('/companies', 'CompanyController@index')->name('companies');
 Route::get('/companies/{id}', 'CompanyController@show')->name('company');
 Route::get('/companies/{id}/events', 'CompanyController@events')->name('companyEvents');
 Route::get('/companies/{id}/reports', 'CompanyController@reports')->name('companyReports');
+Route::post('/companies/{id}/reportDates', 'CompanyController@reportDates')->name('companyReportDates');
+Route::get('/companies/{company_id}/{start_date}/{end_date}/download', 'CompanyController@reportDatesDownload')->name('companyReportDatesDownload');
 Route::post('/companies/store', 'CompanyController@store')->name('companyStore');
 
 Route::get('/manufacturers', 'ManufacturerController@index')->name('manufacturers');
@@ -38,6 +40,10 @@ Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/reports', 'Man
 Route::post('/manufacturers/{manufacturer_id}/country/{country_id}/reports', 'ManufacturerController@countryReportDates')->name('manufacturerCountryReportDates');
 Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/reports/{start_date}/{end_date}/download', 'ManufacturerController@countryReportDatesDownload')->name('manufacturerCountryReportDatesDownload');
 Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/regionless', 'ManufacturerController@regionless')->name('manufacturerRegionless');
+Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/regionless/events', 'ManufacturerController@regionlessEvents')->name('manufacturerRegionlessEvents');
+Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/regionless/reports', 'ManufacturerController@regionlessReports')->name('manufacturerRegionlessReports');
+Route::post('/manufacturers/{manufacturer_id}/country/{country_id}/regionless/reports', 'ManufacturerController@regionlessReportDates')->name('manufacturerRegionlessReportDates');
+Route::get('/manufacturers/{manufacturer_id}/country/{country_id}/regionless/reports/{start_date}/{end_date}/download', 'ManufacturerController@regionlessReportDatesDownload')->name('manufacturerRegionlessReportDatesDownload');
 
 Route::get('/countries', 'CountryController@index')->name('countries');
 Route::get('/countries/{id}', 'CountryController@show')->name('country');
@@ -83,6 +89,8 @@ Route::get('/events/{id}/edit', 'EventController@edit')->name('eventEdit');
 Route::get('/events/{event_id}/company/{company_id}', 'EventController@company')->name('eventCompany');
 Route::get('/events/{event_id}/manufacturer/{manufacturer_id}', 'EventController@manufacturer')->name('eventManufacturer');
 Route::get('/events/{event_id}/manufacturer/{manufacturer_id}/country', 'EventController@manufacturerCountry')->name('eventManufacturerCountry');
+Route::get('/events/{event_id}/manufacturer/{manufacturer_id}/region', 'EventController@manufacturerRegion')->name('eventManufacturerRegion');
+Route::get('/events/{event_id}/manufacturer/{manufacturer_id}/regionless', 'EventController@manufacturerRegionless')->name('eventManufacturerRegionless');
 Route::post('/events/store', 'EventController@store')->name('eventStore');
 Route::post('/events/update/{id}', 'EventController@update')->name('eventUpdate');
 Route::post('/events/update/{event_id}/{manufacturer_id}', 'EventController@updateSync')->name('eventUpdateSync');

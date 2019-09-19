@@ -44,88 +44,88 @@
 
             <ul class="navbar-nav ml-auto">
 
-                @if(isset($company))
+                @if(Route::is('company','companyEvents','companyReports','companyReportDates','eventCompany'))
 
-                    <li class="nav-item active">
+                    <li class="nav-item @if(Route::is('company')) active @endif">
                         <a class="nav-link first" href="{{ route('company',$company->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::is('companyEvents')) active @endif">
                         <a class="nav-link second" href="{{ route('companyEvents',$company->id) }}"><i class="fas fa-star"></i>Events</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::is('companyReports','companyReportDates','eventCompany')) active @endif">
                         <a class="nav-link third" href="{{ route('companyReports',$company->id) }}"><i class="fas fa-chart-pie"></i>Reports</a>
                     </li>
 
-                @elseif(isset($manufacturer))
+                @elseif(Route::is('manufacturer','manufacturerEvents','manufacturerReports','manufacturerReportDates','eventManufacturer'))
 
-                    <li class="nav-item active">
+                    <li class="nav-item @if(Route::is('manufacturer')) active @endif">
                         <a class="nav-link first" href="{{ route('manufacturer',$manufacturer->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::is('manufacturerEvents')) active @endif">
                         <a class="nav-link second" href="{{ route('manufacturerEvents',$manufacturer->id) }}"><i class="fas fa-star"></i>Events</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::is('manufacturerReports','manufacturerReportDates','eventManufacturer')) active @endif">
                         <a class="nav-link third" href="{{ route('manufacturerReports',$manufacturer->id) }}"><i class="fas fa-chart-pie"></i>Reports</a>
                     </li>
 
-                @elseif(isset($country))
+                @elseif(Route::is('manufacturerCountry','manufacturerCountryEvents','manufacturerCountryReports','manufacturerCountryReportDates','eventManufacturerCountry'))
 
-                    <li class="nav-item active">
+                    <li class="nav-item @if(Route::is('manufacturerCountry')) active @endif">
                         <a class="nav-link first" href="{{ route('manufacturerCountry',[$country->manufacturer->id,$country->id]) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::is('manufacturerCountryEvents')) active @endif">
                         <a class="nav-link second" href="{{ route('manufacturerCountryEvents',[$country->manufacturer->id,$country->id]) }}"><i class="fas fa-star"></i>Events</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::is('manufacturerCountryReports','manufacturerCountryReportDates','eventManufacturerCountry')) active @endif">
                         <a class="nav-link third" href="{{ route('manufacturerCountryReports',[$country->manufacturer->id,$country->id]) }}"><i class="fas fa-chart-pie"></i>Reports</a>
                     </li>
 
-                @elseif(isset($region))
+                @elseif(Route::is('region','regionEvents','regionReports','regionReportDates','eventManufacturerRegion'))
 
-                    <li class="nav-item active">
+                    <li class="nav-item @if(Route::is('region')) active @endif">
                         <a class="nav-link first" href="{{ route('region',$region->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::is('regionEvents')) active @endif">
                         <a class="nav-link second" href="{{ route('regionEvents',$region->id) }}"><i class="fas fa-star"></i>Events</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::is('regionReports','regionReportDates','eventManufacturerRegion')) active @endif">
                         <a class="nav-link third" href="{{ route('regionReports',$region->id) }}"><i class="fas fa-chart-pie"></i>Reports</a>
                     </li>
 
-                @elseif(isset($dealership))
+                @elseif(Route::is('manufacturerRegionless','manufacturerRegionlessEvents','manufacturerRegionlessReports','manufacturerRegionlessReportDates','eventManufacturerRegionless'))
 
-                    <li class="nav-item active">
+                    <li class="nav-item @if(Route::is('manufacturerRegionless')) active @endif">
+                        <a class="nav-link first" href="{{ route('manufacturerRegionless',[$manufacturer->id,$country->id]) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
+
+                    <li class="nav-item @if(Route::is('manufacturerRegionlessEvents')) active @endif">
+                        <a class="nav-link second" href="{{ route('manufacturerRegionlessEvents',[$manufacturer->id,$country->id]) }}"><i class="fas fa-star"></i>Events</a>
+                    </li>
+
+                    <li class="nav-item @if(Route::is('manufacturerRegionlessReports','manufacturerRegionlessReportDates','eventManufacturerRegionless')) active @endif">
+                        <a class="nav-link third" href="{{ route('manufacturerRegionlessReports',[$manufacturer->id,$country->id]) }}"><i class="fas fa-chart-pie"></i>Reports</a>
+                    </li>
+
+                @elseif(Route::is('dealership','dealershipEvents','dealershipReports','dealershipReportDates','event'))
+
+                    <li class="nav-item @if(Route::is('dealership')) active @endif">
                         <a class="nav-link first" href="{{ route('dealership',$dealership->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::is('dealershipEvents')) active @endif">
                         <a class="nav-link second" href="{{ route('dealershipEvents',$dealership->id) }}"><i class="fas fa-star"></i>Events</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link third" href="{{ route('dealershipReports',$dealership->id) }}"><i class="fas fa-chart-pie"></i>Your Reports</a>
-                    </li>
-
-                @elseif(isset($event))
-
-                    <li class="nav-item active">
-                        <a class="nav-link first" href="{{ route('dealership',$event->dealership->id) }}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link second" href="{{ route('dealershipEvents',$event->dealership->id) }}"><i class="fas fa-star"></i>Events</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link third" href="{{ route('dealershipReports',$event->dealership->id) }}"><i class="fas fa-chart-pie"></i>Your Reports</a>
+                    <li class="nav-item @if(Route::is('dealershipReports','dealershipReportDates','event')) active @endif">
+                        <a class="nav-link third" href="{{ route('dealershipReports',$dealership->id) }}"><i class="fas fa-chart-pie"></i>Reports</a>
                     </li>
 
                 @endif

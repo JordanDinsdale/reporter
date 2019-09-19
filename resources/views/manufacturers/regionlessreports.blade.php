@@ -49,8 +49,8 @@
 
                                             <div class="event-list-container">
                                                 <ul>
-                                                    @foreach($events as $companyEvent)
-                                                        <li class="event-listing"><a href="{{ route('eventCompany',[$companyEvent->id,$company->id]) }}">{{ $companyEvent->name }}</a></li>
+                                                    @foreach($events as $regionEvent)
+                                                        <li class="event-listing"><a href="{{ route('eventManufacturerRegionless',[$regionEvent->id,$manufacturer->id]) }}">{{ $regionEvent->name }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -63,7 +63,7 @@
 
                                             <div class="date-picker-form">
 
-                                                <form method="post" action="{{ route('companyReportDates', [$company->id]) }}">
+                                                <form method="post" action="{{ route('manufacturerRegionlessReportDates',[$manufacturer->id,$country->id]) }}">
 
                                                     @csrf
 
@@ -107,41 +107,7 @@
 
             <div class="row">
 
-                <div class="col-md-2 sidebar">
-
-                    <div class="sidebar-inner">
-
-                        <h3>Filter results</h3>
-
-                        <div class="filter-group">
-
-                            <h4>Brands</h4>
-
-                            <form id="brandSelect">
-
-                                @if(count($company->manufacturers) > 1)
-                                    <div class="checkbox">
-                                        <input id="all" type="radio" name="brand" checked />
-                                        <label for="all">All</label>
-                                    </div>
-                                @endif
-
-                                @foreach($company->manufacturers as $manufacturer)
-                                    <div class="checkbox">
-                                        <input id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" type="radio" name="brand"  @if(count($company->manufacturers) == 1) checked @endif/>
-                                        <label for="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}">{{ $manufacturer->name }}</label>
-                                    </div>
-                                @endforeach
-
-                            </form>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-10 main-content">
+                <div class="col-md-12 main-content">
 
                     <div class="row">
 
@@ -151,47 +117,23 @@
 
                             <select name="brand-mobile">
 
-                                @if(count($company->manufacturers) > 1)
-                                    <option value="all" selected>All</option>
-                                @endif
-
-                                @foreach($company->manufacturers as $manufacturer)
-                                    <option value="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" @if(count($company->manufacturers) == 1) selected @endif>{{ $manufacturer->name }}</option>
-                                @endforeach
+                                <option value="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" selected >{{ $manufacturer->name }}</option>
 
                             </select>
 
                         </div>
 
-                    </div>    
+                    </div>                    
 
-                    @if(count($company->manufacturers) > 1)                
+                    <div id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}">
 
-                        <div id="all">  
+                        <div class="row results cardc">
 
-                            <div class="row results cardc">   
-
-                                <p>No information to display</p>
-
-                            </div>
+                            <p>No information to display</p>
 
                         </div>
 
-                    @endif
-
-                    @foreach($company->manufacturers as $manufacturer)
-
-                        <div id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" @if(count($company->manufacturers) > 1) style="display:none; @endif">
-
-                            <div class="row results cardc">
-
-                                <p>No information to display</p>
-
-                            </div>
-
-                        </div>
-
-                    @endforeach
+                    </div>
 
                 </div>
 

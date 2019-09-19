@@ -8,6 +8,7 @@ use App\Country;
 use App\Event;
 use Illuminate\Http\Request;
 use DateTime;
+use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
@@ -190,6 +191,183 @@ class CompanyController extends Controller
         $events = Event::whereIn('id',$event_ids)->get();
 
         return view('companies.reports',compact('company','events'));
+    }
+
+    /**
+     * Show event data between the given dates
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function reportDates(Request $request, $company_id)
+    {
+
+        $company = Company::find($company_id);
+
+        $start_date = Carbon::createFromFormat('d/m/Y',$request->start_date);
+        $start_date = $start_date->format('Y-m-d');
+
+        $end_date = Carbon::createFromFormat('d/m/Y',$request->end_date);
+        $end_date = $end_date->format('Y-m-d');
+
+        $company->start_date = $start_date;
+        $company->end_date = $end_date;        
+        $company->data_count = 0;
+        $company->appointments = 0;
+        $company->new = 0;
+        $company->used = 0;
+        $company->demo = 0;
+        $company->zero_km = 0;
+        $company->inprogress = 0;     
+
+        foreach($company->manufacturers as $manufacturer) {
+
+            foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
+
+                $company->data_count += $manufacturerEvent->pivot->data_count;
+                $company->appointments += $manufacturerEvent->pivot->appointments;
+                $company->new += $manufacturerEvent->pivot->new;
+                $company->used += $manufacturerEvent->pivot->used;
+                $company->demo += $manufacturerEvent->pivot->demo;
+                $company->zero_km += $manufacturerEvent->pivot->zero_km;
+                $company->inprogress += $manufacturerEvent->pivot->inprogress;
+
+                $manufacturer->data_count += $manufacturerEvent->pivot->data_count;
+                $manufacturer->appointments += $manufacturerEvent->pivot->appointments;
+                $manufacturer->new += $manufacturerEvent->pivot->new;
+                $manufacturer->used += $manufacturerEvent->pivot->used;
+                $manufacturer->demo += $manufacturerEvent->pivot->demo;
+                $manufacturer->zero_km += $manufacturerEvent->pivot->zero_km;
+                $manufacturer->inprogress += $manufacturerEvent->pivot->inprogress;
+
+            }
+
+        }
+
+        $event_ids = [];
+
+        foreach($company->manufacturers as $manufacturer) {
+
+            foreach($manufacturer->events as $event) {
+
+                $event_ids[] = $event->id;
+
+            }
+
+        }
+
+        $events = Event::whereIn('id',$event_ids)->get();
+
+        return view('companies.reportsdate',compact('company','events'));
+    }
+
+    /**
+     * Show event data between the given dates
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function reportDatesDownload($company_id, $start_date, $end_date)
+    {
+
+        $company = Company::find($company_id);
+
+        $filename = $company->name . ' ' . $start_date . ' - ' . $end_date . '.csv';
+
+        $handle = fopen('csv/' . $filename, 'w+');
+
+        fputs($handle, "\xEF\xBB\xBF" ); // UTF-8 BOM
+
+        fputcsv($handle, 
+            array( 
+                'Manufacturer',
+                'Data Count', 
+                'Appointments', 
+                'New', 
+                'Used', 
+                'Demo', 
+                '0km', 
+                'In Progress'
+            )
+        );
+
+        $company->start_date = $start_date;
+        $company->end_date = $end_date;        
+        $company->data_count = 0;
+        $company->appointments = 0;
+        $company->new = 0;
+        $company->used = 0;
+        $company->demo = 0;
+        $company->zero_km = 0;
+        $company->inprogress = 0;  
+
+        foreach($company->manufacturers as $manufacturer) {  
+
+            $manufacturer->data_count = 0;
+            $manufacturer->appointments = 0;
+            $manufacturer->new = 0;
+            $manufacturer->used = 0;
+            $manufacturer->demo = 0;
+            $manufacturer->zero_km = 0;
+            $manufacturer->inprogress = 0;
+
+            foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
+
+                $company->data_count += $manufacturerEvent->pivot->data_count;
+                $company->appointments += $manufacturerEvent->pivot->appointments;
+                $company->new += $manufacturerEvent->pivot->new;
+                $company->used += $manufacturerEvent->pivot->used;
+                $company->demo += $manufacturerEvent->pivot->demo;
+                $company->zero_km += $manufacturerEvent->pivot->zero_km;
+                $company->inprogress += $manufacturerEvent->pivot->inprogress;
+
+                $manufacturer->data_count += $manufacturerEvent->pivot->data_count;
+                $manufacturer->appointments += $manufacturerEvent->pivot->appointments;
+                $manufacturer->new += $manufacturerEvent->pivot->new;
+                $manufacturer->used += $manufacturerEvent->pivot->used;
+                $manufacturer->demo += $manufacturerEvent->pivot->demo;
+                $manufacturer->zero_km += $manufacturerEvent->pivot->zero_km;
+                $manufacturer->inprogress += $manufacturerEvent->pivot->inprogress;
+
+            }
+
+            fputcsv($handle, 
+                array(
+                    $manufacturer->name,
+                    $manufacturer->data_count, 
+                    $manufacturer->appointments, 
+                    $manufacturer->new, 
+                    $manufacturer->used, 
+                    $manufacturer->demo, 
+                    $manufacturer->zero_km, 
+                    $manufacturer->inprogress
+                )
+            );
+
+        }
+
+        fputcsv($handle, 
+            array(
+                'Total',
+                $company->data_count, 
+                $company->appointments, 
+                $company->new, 
+                $company->used, 
+                $company->demo, 
+                $company->zero_km, 
+                $company->inprogress
+            )
+        );
+
+        fclose($handle);
+
+        $headers = array(
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Encoding' => 'UTF-8'
+        );
+
+        return response()->download('csv/' . $filename, $filename, $headers);
+
     }
 
     /**

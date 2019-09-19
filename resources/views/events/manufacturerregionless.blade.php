@@ -62,8 +62,8 @@
 
                                             <div class="event-list-container">
                                                 <ul>
-                                                    @foreach($country->events as $countryEvent)
-                                                        <li class="event-listing"><a href="{{ route('eventManufacturerCountry',[$countryEvent->id,$manufacturer->id]) }}">{{ $countryEvent->name }}</a></li>
+                                                    @foreach($events as $regionEvent)
+                                                        <li class="event-listing"><a href="{{ route('eventManufacturerRegionless',[$regionEvent->id,$manufacturer->id]) }}">{{ $regionEvent->name }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -76,7 +76,7 @@
 
                                             <div class="date-picker-form">
 
-                                                <form method="post" action="{{ route('manufacturerCountryReportDates', [$manufacturer->id,$country->id]) }}">
+                                                <form method="post" action="#">
 
                                                     @csrf
 
@@ -679,7 +679,7 @@
                 data: {
                     labels: ["New", "Used", "Demo", "0KM", "In Progress"],
                     datasets: [
-                        @if($manufacturer->region)
+                        @if($manufacturer->region_data_count > 0)
                         {
                             label: "Region",
                             backgroundColor: "#333C42",

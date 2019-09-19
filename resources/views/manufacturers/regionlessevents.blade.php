@@ -22,7 +22,7 @@
 
                         <h2>Missing Event data</h2>
 
-                        @foreach($region->events as $event)
+                        @foreach($events as $event)
 
                             @if($event->missing_data)
 
@@ -64,13 +64,13 @@
 
                         <h2>Past Event data</h2>
 
-                        @foreach($region->events as $event)
+                        @foreach($events as $event)
 
                             @if(!$event->missing_data)
 
                                 <div class="event">
 
-                                    <a href="{{ route('eventManufacturerRegion', [$event->id,$region->manufacturer->id]) }}">
+                                    <a href="{{ route('eventManufacturerRegionless', [$event->id,$manufacturer->id]) }}">
 
                                         <div class="event-name">
                                             <i class="fas fa-chart-line"></i><p>{{ $event->name }}</p>

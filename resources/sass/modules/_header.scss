@@ -1,7 +1,7 @@
 .header {
     background-image: url('../images/header-background.jpg');
     background-size: cover;
-    height: 40vh;
+
 
     @media only screen and (max-width: 500px) {
         padding: 0;
@@ -20,7 +20,7 @@
 
             img {
             @media only screen and (max-width: 400px) {
-                max-width: 200px;
+                max-width: 170px;
             }
         }
         }
@@ -128,6 +128,10 @@
     .text {
         padding: 100px 0;
         text-align: center;
+
+        @media only screen and (max-width: 992px) {
+            padding: 50px 0 ;
+        }
 
         h1 {
             text-transform:  uppercase;

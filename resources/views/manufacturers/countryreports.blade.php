@@ -63,7 +63,7 @@
 
                                             <div class="date-picker-form">
 
-                                                <form method="post" action="{{ route('manufacturerCountryReportDates',[$country->id,$country->manufacturer->id]) }}">
+                                                <form method="post" action="{{ route('manufacturerCountryReportDates',[$country->manufacturer->id,$country->id]) }}">
 
                                                     @csrf
 
@@ -107,32 +107,7 @@
 
             <div class="row">
 
-                <div class="col-md-2 sidebar">
-
-                    <div class="sidebar-inner">
-
-                        <h3>Filter results</h3>
-
-                        <div class="filter-group">
-
-                            <h4>Brands</h4>
-
-                            <form id="brandSelect">
-
-                                <div class="checkbox">
-                                    <input id="{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}" type="radio" name="brand" checked />
-                                    <label for="{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}">{{ $country->manufacturer->name }}</label>
-                                </div>
-
-                            </form>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-10 main-content">
+                <div class="col-md-12 main-content">
 
                     <div class="row">
 
@@ -150,8 +125,13 @@
 
                     </div>                    
 
-                    <div id="{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}">                      
-                        <p>No information to display</p>
+                    <div id="{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}">
+
+                        <div class="row results cardc">
+
+                            <p>No information to display</p>
+
+                        </div>
 
                     </div>
 

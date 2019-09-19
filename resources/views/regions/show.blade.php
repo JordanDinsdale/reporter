@@ -16,33 +16,7 @@
 
             <div class="row">
 
-                <div class="col-md-2 sidebar">
-
-                    <div class="sidebar-inner">
-
-                        <div class="add-events">
-
-                            <h3>Missing Event data</h3>
-
-                            <div class="event-to-add">
-
-                                <div class="event-name">
-
-                                    <p>Add your latest event data here!</p>
-
-                                </div>
-
-                                <a href="#" class="btn">Add Data</a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-10 main-content">
+                <div class="col-md-12 main-content">
 
                     <div class="row cardc">
 

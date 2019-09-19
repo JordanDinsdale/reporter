@@ -585,6 +585,8 @@ class DealershipController extends Controller
 
         $handle = fopen('csv/' . $filename, 'w+');
 
+        fputs($handle, "\xEF\xBB\xBF" ); // UTF-8 BOM
+
         fputcsv($handle, 
             array(
                 'Manufacturer', 
@@ -681,7 +683,8 @@ class DealershipController extends Controller
         fclose($handle);
 
         $headers = array(
-            'Content-Type' => 'text/csv',
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Encoding' => 'UTF-8'
         );
 
         return response()->download('csv/' . $filename, $filename, $headers);
@@ -708,6 +711,8 @@ class DealershipController extends Controller
         $filename = $dealership->name . ' - ' . $manufacturer->name . ' ' . $start_date . ' - ' . $end_date . '.csv';
 
         $handle = fopen('csv/' . $filename, 'w+');
+
+        fputs($handle, "\xEF\xBB\xBF" ); // UTF-8 BOM
 
         fputcsv($handle, 
             array(
@@ -756,7 +761,8 @@ class DealershipController extends Controller
         fclose($handle);
 
         $headers = array(
-            'Content-Type' => 'text/csv',
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Encoding' => 'UTF-8'
         );
 
         return response()->download('csv/' . $filename, $filename, $headers);

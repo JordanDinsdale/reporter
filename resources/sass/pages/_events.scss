@@ -27,6 +27,7 @@
                     display: inline-block;
                     padding: 0 20px;
 
+
                     @media only screen and (max-width: 800px) {
                         padding:0 10px;
                     }
@@ -46,6 +47,13 @@
 
                 display: inline-block;
                 margin: 0 20px;
+                background: #6811C5;
+
+                @media only screen and (max-width: 800px) {
+                    display: block;
+                    margin: 0 auto 0 0;
+                    width: 100px;
+                }
             }
 
 
@@ -70,7 +78,7 @@
 
 
             .event-name{
-                color: $bright-purple;
+                color: $dark-grey;
 
                 display: inline-block;
 
@@ -102,11 +110,21 @@
                 }
             }
 
-            .btn {
 
-                display: inline-block;
-                margin: 0 20px;
-            }
+
+          }
+
+          .btn {
+
+              display: inline-block;
+              margin: 0 20px;
+              margin-left: 20px;
+
+              @media only screen and (max-width: 800px) {
+                  display: block;
+                  margin: 0 auto 0 0;
+                  width: 100px;
+              }
 
           }
 

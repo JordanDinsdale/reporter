@@ -22,7 +22,7 @@
 
                         <div class="add-events">
 
-                            <h3>Missing Event data</h3>
+                            <h3>Update Data</h3>
 
                             <div class="event-to-add">
 

@@ -50,7 +50,7 @@
                                             <div class="event-list-container">
                                                 <ul>
                                                     @foreach($region->events as $regionEvent)
-                                                        <li class="event-listing"><a href="{{ route('eventManufacturer',[$regionEvent->id,$region->manufacturer->id]) }}">{{ $regionEvent->name }}</a></li>
+                                                        <li class="event-listing"><a href="{{ route('eventManufacturerRegion',[$regionEvent->id,$region->manufacturer->id]) }}">{{ $regionEvent->name }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -107,32 +107,7 @@
 
             <div class="row">
 
-                <div class="col-md-2 sidebar">
-
-                    <div class="sidebar-inner">
-
-                        <h3>Filter results</h3>
-
-                        <div class="filter-group">
-
-                            <h4>Brands</h4>
-
-                            <form id="brandSelect">
-
-                                <div class="checkbox">
-                                    <input id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}" type="radio" name="brand" checked />
-                                    <label for="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}">{{ $region->manufacturer->name }}</label>
-                                </div>
-
-                            </form>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-10 main-content">
+                <div class="col-md-12 main-content">
 
                     <div class="row">
 
@@ -150,8 +125,13 @@
 
                     </div>                    
 
-                    <div id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}">                      
-                        <p>No information to display</p>
+                    <div id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}">
+
+                        <div class="row results cardc">
+
+                            <p>No information to display</p>
+
+                        </div>
 
                     </div>
 
