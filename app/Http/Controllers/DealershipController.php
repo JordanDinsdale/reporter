@@ -576,16 +576,288 @@ class DealershipController extends Controller
 
         $dealership = Dealership::find($id);
 
-        $dealershipEvents = $dealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date);
+        //$dealershipEvents = $dealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date);
+
+        $formatted_start_date = Carbon::createFromFormat('Y-m-d',$start_date);
+        $formatted_start_date = $formatted_start_date->format('d-m-Y');
+
+        $formatted_end_date = Carbon::createFromFormat('Y-m-d',$end_date);
+        $formatted_end_date = $formatted_end_date->format('d-m-Y');
 
         $start_date = Carbon::parse($start_date)->format('d-m-Y');
         $end_date = Carbon::parse($end_date)->format('d-m-Y');
 
-        $filename = $dealership->name . ' ' . $start_date . ' - ' . $end_date . '.csv';
+        $filename = 'Rhino Events_' . $dealership->name . '_' . $formatted_start_date . ' - ' . $formatted_end_date . '.csv';
 
         $handle = fopen('csv/' . $filename, 'w+');
 
-        fputs($handle, "\xEF\xBB\xBF" ); // UTF-8 BOM
+        fputs($handle, "\xEF\xBB\xBF" ); // UTF-8 BOM  
+
+        $csv_headers = [''];
+        $csv_second_row = [''];
+        $csv_events = [''];
+
+        $manufacturer_ids = [];
+        $event_ids = [];
+
+        foreach($dealership->manufacturers as $manufacturer) {
+
+            $manufacturer_ids[] = $manufacturer->id;
+
+            $csv_headers[] = $manufacturer->name;
+            $csv_headers[] = $manufacturer->name;
+            $csv_headers[] = $manufacturer->name;
+            $csv_headers[] = $manufacturer->name;
+            $csv_headers[] = $manufacturer->name;
+            $csv_headers[] = $manufacturer->name;
+            $csv_headers[] = $manufacturer->name;
+            $csv_headers[] = $manufacturer->name;
+            $csv_headers[] = $manufacturer->name;
+
+            $csv_second_row[] = 'Data Count';
+            $csv_second_row[] = 'Appointments';
+            $csv_second_row[] = 'Response Rate';
+            $csv_second_row[] = 'New';
+            $csv_second_row[] = 'Used';
+            $csv_second_row[] = 'Demo';
+            $csv_second_row[] = '0km';
+            $csv_second_row[] = 'Coversion Rate';
+            $csv_second_row[] = 'In Progress';
+
+            foreach($dealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $event) {
+
+                $event_ids[] = $event->id;
+
+            }
+
+        }
+
+        $csv_headers[] = 'Total';
+        $csv_headers[] = 'Total';
+        $csv_headers[] = 'Total';
+        $csv_headers[] = 'Total';
+        $csv_headers[] = 'Total';
+        $csv_headers[] = 'Total';
+        $csv_headers[] = 'Total';
+        $csv_headers[] = 'Total';
+        $csv_headers[] = 'Total';
+
+        $csv_second_row[] = 'Data Count';
+        $csv_second_row[] = 'Appointments';
+        $csv_second_row[] = 'Response Rate';
+        $csv_second_row[] = 'New';
+        $csv_second_row[] = 'Used';
+        $csv_second_row[] = 'Demo';
+        $csv_second_row[] = '0km';
+        $csv_second_row[] = 'Coversion Rate';
+        $csv_second_row[] = 'In Progress';
+
+        fputcsv($handle,$csv_headers);
+        fputcsv($handle,$csv_second_row);
+
+        $total_event_data = ['Total'];
+
+        $events = Event::whereIn('id',$event_ids)->get();
+
+        foreach($dealership->manufacturers as $dealershipManufacturer) {
+
+            ${$dealershipManufacturer->name . '_total_data_count'} = 0;
+            ${$dealershipManufacturer->name . '_total_appointments'} = 0;
+            ${$dealershipManufacturer->name . '_total_new'} = 0;
+            ${$dealershipManufacturer->name . '_total_used'} = 0;
+            ${$dealershipManufacturer->name . '_total_demo'} = 0;
+            ${$dealershipManufacturer->name . '_total_zero_km'} = 0;
+            ${$dealershipManufacturer->name . '_total_inprogress'} = 0;
+
+        }
+
+        foreach($events as $event) {
+
+            $event_data = [$event->name];
+
+            $total_data_count = 0;
+            $total_appointments = 0;
+            $total_new = 0;
+            $total_used = 0;
+            $total_demo = 0;
+            $total_zero_km = 0;
+            $total_inprogress = 0;
+
+            foreach($dealership->manufacturers as $dealershipManufacturer) {
+
+                $manufacturer_data_count = '';
+                $manufacturer_appointments = '';
+                $manufacturer_response_rate = '';
+                $manufacturer_new = '';
+                $manufacturer_used = '';
+                $manufacturer_demo = '';
+                $manufacturer_zero_km = '';
+                $manufacturer_conversion_rate = '';
+                $manufacturer_inprogress = '';
+                
+                foreach($event->manufacturers as $manufacturer) {
+
+                    if($manufacturer->id == $dealershipManufacturer->id) {
+
+                        $manufacturer_data_count = $manufacturer->pivot->data_count;
+                        $manufacturer_appointments = $manufacturer->pivot->appointments;
+                        $manufacturer_response_rate = number_format($manufacturer->pivot->appointments/$manufacturer->pivot->data_count * 100, 2, '.', ',');
+                        $manufacturer_new = $manufacturer->pivot->new;
+                        $manufacturer_used = $manufacturer->pivot->used;
+                        $manufacturer_demo = $manufacturer->pivot->demo;
+                        $manufacturer_zero_km = $manufacturer->pivot->zero_km;
+                        $manufacturer_conversion_rate = number_format(($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km)/$manufacturer->pivot->appointments * 100, 2, '.', ',');
+                        $manufacturer_inprogress = $manufacturer->pivot->inprogress;
+
+                        ${$dealershipManufacturer->name . '_total_data_count'} += $manufacturer->pivot->data_count;
+                        ${$dealershipManufacturer->name . '_total_appointments'} += $manufacturer->pivot->appointments;
+                        ${$dealershipManufacturer->name . '_total_new'} += $manufacturer->pivot->new;
+                        ${$dealershipManufacturer->name . '_total_used'} += $manufacturer->pivot->used;
+                        ${$dealershipManufacturer->name . '_total_demo'} += $manufacturer->pivot->demo;
+                        ${$dealershipManufacturer->name . '_total_zero_km'} += $manufacturer->pivot->zero_km;
+                        ${$dealershipManufacturer->name . '_total_inprogress'} += $manufacturer->pivot->inprogress;
+
+                    }
+
+                }
+
+                $event_data[] = $manufacturer_data_count;
+                $event_data[] = $manufacturer_appointments;
+                if($manufacturer_response_rate > 0) {
+                    $event_data[] = $manufacturer_response_rate . '%';
+                }
+                else {
+                    $event_data[] = '';
+                }
+                $event_data[] = $manufacturer_new;
+                $event_data[] = $manufacturer_used;
+                $event_data[] = $manufacturer_demo;
+                $event_data[] = $manufacturer_zero_km;
+                if($manufacturer_conversion_rate > 0) {
+                    $event_data[] = $manufacturer_conversion_rate . '%';
+                }
+                else {
+                    $event_data[] = '';
+                }
+                $event_data[] = $manufacturer_inprogress;
+
+                if(is_numeric($manufacturer_data_count)) {
+                    $total_data_count += $manufacturer_data_count;
+                }
+
+                if(is_numeric($manufacturer_appointments)) {
+                    $total_appointments += $manufacturer_appointments;
+                }
+
+                if(is_numeric($manufacturer_new)) {
+                    $total_new += $manufacturer_new;
+                }
+
+                if(is_numeric($manufacturer_used)) {
+                    $total_used += $manufacturer_used;
+                }
+
+                if(is_numeric($manufacturer_demo)) {
+                    $total_demo += $manufacturer_demo;
+                }
+
+                if(is_numeric($manufacturer_zero_km)) {
+                    $total_zero_km += $manufacturer_zero_km;
+                }
+
+                if(is_numeric($manufacturer_inprogress)) {
+                    $total_inprogress += $manufacturer_inprogress;
+                }
+
+            }
+
+            $event_data[] = $total_data_count;
+            $event_data[] = $total_appointments;
+            if($total_data_count > 0) {
+                $event_data[] = number_format($total_appointments/$total_data_count * 100, 2, '.', ',') . '%';
+            }
+            else {
+                $event_data[] = '';
+            }
+            $event_data[] = $total_new;
+            $event_data[] = $total_used;
+            $event_data[] = $total_demo;
+            $event_data[] = $total_zero_km;
+            if($total_appointments > 0) {
+                $event_data[] = number_format(($total_new + $total_used + $total_demo + $total_zero_km)/$total_appointments * 100, 2, '.', ',') . '%';
+            }
+            else {
+                $event_data[] = '';
+            }
+            $event_data[] = $total_inprogress;
+
+            fputcsv($handle,$event_data);
+
+        }
+
+        $total_total_data_count = 0;
+        $total_total_appointments = 0;
+        $total_total_new = 0;
+        $total_total_used = 0;
+        $total_total_demo = 0;
+        $total_total_zero_km = 0;
+        $total_total_inprogress = 0;
+
+        foreach($dealership->manufacturers as $dealershipManufacturer) {
+
+            $total_event_data[] = ${$dealershipManufacturer->name . '_total_data_count'};
+            $total_event_data[] = ${$dealershipManufacturer->name . '_total_appointments'};
+            if(${$dealershipManufacturer->name . '_total_data_count'} > 0) {
+                $total_event_data[] = number_format(${$dealershipManufacturer->name . '_total_appointments'}/${$dealershipManufacturer->name . '_total_data_count'} * 100, 2, '.', ',') . '%';
+            }
+            else {
+                $total_event_data[] = '0%';
+            }
+            $total_event_data[] = ${$dealershipManufacturer->name . '_total_new'};
+            $total_event_data[] = ${$dealershipManufacturer->name . '_total_used'};
+            $total_event_data[] = ${$dealershipManufacturer->name . '_total_demo'};
+            $total_event_data[] = ${$dealershipManufacturer->name . '_total_zero_km'};
+            if(${$dealershipManufacturer->name . '_total_appointments'} > 0) {
+                $total_event_data[] = number_format((${$dealershipManufacturer->name . '_total_new'} + ${$dealershipManufacturer->name . '_total_used'} + ${$dealershipManufacturer->name . '_total_demo'} + ${$dealershipManufacturer->name . '_total_zero_km'})/${$dealershipManufacturer->name . '_total_appointments'} * 100, 2, '.', ',') . '%';
+            }
+            else {
+                $total_event_data[] = '0%';
+            }
+            $total_event_data[] = ${$dealershipManufacturer->name . '_total_inprogress'};
+
+            $total_total_data_count += ${$dealershipManufacturer->name . '_total_data_count'};
+            $total_total_appointments += ${$dealershipManufacturer->name . '_total_appointments'};
+            $total_total_new += ${$dealershipManufacturer->name . '_total_new'};
+            $total_total_used += ${$dealershipManufacturer->name . '_total_used'};
+            $total_total_demo += ${$dealershipManufacturer->name . '_total_demo'};
+            $total_total_zero_km += ${$dealershipManufacturer->name . '_total_zero_km'};
+            $total_total_inprogress += ${$dealershipManufacturer->name . '_total_inprogress'};
+
+        }
+
+        $total_event_data[] = $total_total_data_count;
+        $total_event_data[] = $total_total_appointments;
+        if($total_total_data_count > 0) {
+            $total_event_data[] = number_format($total_total_appointments/$total_total_data_count * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $total_total_new;
+        $total_event_data[] = $total_total_used;
+        $total_event_data[] = $total_total_demo;
+        $total_event_data[] = $total_total_zero_km;
+        if($total_total_appointments > 0) {
+            $total_event_data[] = number_format(($total_total_new + $total_total_used + $total_total_demo + $total_total_zero_km)/$total_total_appointments * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $total_total_inprogress;
+
+        fputcsv($handle,$total_event_data);
+
+        /*
 
         fputcsv($handle, 
             array(
@@ -680,6 +952,8 @@ class DealershipController extends Controller
             )
         );
 
+        */
+
         fclose($handle);
 
         $headers = array(
@@ -706,25 +980,109 @@ class DealershipController extends Controller
 
         $manufacturer = Manufacturer::find($manufacturer_id);
 
+        $formatted_start_date = Carbon::createFromFormat('Y-m-d',$start_date);
+        $formatted_start_date = $formatted_start_date->format('d-m-Y');
+
+        $formatted_end_date = Carbon::createFromFormat('Y-m-d',$end_date);
+        $formatted_end_date = $formatted_end_date->format('d-m-Y');
+
         $dealershipEvents = $dealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date);
 
-        $filename = $dealership->name . ' - ' . $manufacturer->name . ' ' . $start_date . ' - ' . $end_date . '.csv';
+        $filename = 'Rhino Events_' . $dealership->name . ' ' . $manufacturer->name . ' ' . $formatted_start_date . ' - ' . $formatted_end_date . '.csv';
 
         $handle = fopen('csv/' . $filename, 'w+');
 
         fputs($handle, "\xEF\xBB\xBF" ); // UTF-8 BOM
 
         fputcsv($handle, 
-            array(
+            array( 
+                '',
                 'Data Count', 
                 'Appointments', 
+                'Response Rate',
                 'New', 
                 'Used', 
                 'Demo', 
                 '0km', 
+                'Conversion Rate',
                 'In Progress'
             )
         );
+
+        $manufacturer->data_count = 0;
+        $manufacturer->appointments = 0;
+        $manufacturer->new = 0;
+        $manufacturer->used = 0;
+        $manufacturer->demo = 0;
+        $manufacturer->zero_km = 0;
+        $manufacturer->inprogress = 0; 
+
+        foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
+
+            if($manufacturerEvent->dealership->id == $dealership->id) {
+
+                $event_data = [];
+
+                $event_data[] = $manufacturerEvent->name;
+                $event_data[] = $manufacturerEvent->pivot->data_count;
+                $event_data[] = $manufacturerEvent->pivot->appointments;
+                if($manufacturerEvent->pivot->appointments > 0) {
+                    $event_data[] = number_format($manufacturerEvent->pivot->appointments/$manufacturerEvent->pivot->data_count * 100, 2, '.', ',') . '%';
+                }
+                else {
+                    $event_data[] = '0%';
+                }
+                $event_data[] = $manufacturerEvent->pivot->new;
+                $event_data[] = $manufacturerEvent->pivot->used;
+                $event_data[] = $manufacturerEvent->pivot->demo;
+                $event_data[] = $manufacturerEvent->pivot->zero_km;
+                if($manufacturerEvent->pivot->appointments > 0) {
+                    $event_data[] = number_format(($manufacturerEvent->pivot->new + $manufacturerEvent->pivot->used + $manufacturerEvent->pivot->demo + $manufacturerEvent->pivot->zero_km)/$manufacturerEvent->pivot->appointments * 100, 2, '.', ',') . '%';
+                }
+                else {
+                    $event_data[] = '0%';
+                }
+                $event_data[] = $manufacturerEvent->pivot->inprogress;
+
+                fputcsv($handle, $event_data);
+
+                $manufacturer->data_count += $manufacturerEvent->pivot->data_count;
+                $manufacturer->appointments += $manufacturerEvent->pivot->appointments;
+                $manufacturer->new += $manufacturerEvent->pivot->new;
+                $manufacturer->used += $manufacturerEvent->pivot->used;
+                $manufacturer->demo += $manufacturerEvent->pivot->demo;
+                $manufacturer->zero_km += $manufacturerEvent->pivot->zero_km;
+                $manufacturer->inprogress += $manufacturerEvent->pivot->inprogress;
+
+            }
+
+        }
+
+        $total_event_data = ['Total'];
+
+        $total_event_data[] = $manufacturer->data_count;
+        $total_event_data[] = $manufacturer->appointments;
+        if($manufacturer->appointments > 0) {
+            $total_event_data[] = number_format($manufacturer->appointments/$manufacturer->data_count * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $manufacturer->new;
+        $total_event_data[] = $manufacturer->used;
+        $total_event_data[] = $manufacturer->demo;
+        $total_event_data[] = $manufacturer->zero_km;
+        if($manufacturer->appointments > 0) {
+            $total_event_data[] = number_format(($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km)/$manufacturer->appointments * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $manufacturer->inprogress;
+
+        fputcsv($handle, $total_event_data);
+
+        /*
 
         foreach($dealershipEvents as $dealershipEvent) {
 
@@ -757,6 +1115,8 @@ class DealershipController extends Controller
                 $manufacturer->inprogress
             )
         );
+
+        */
 
         fclose($handle);
 

@@ -43,7 +43,7 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Change Results</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
 
@@ -154,13 +154,27 @@
                                     <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-responseRate" class="responseRate" width="180" height="180"></canvas>
                                     <p>{{ $region->data_count }} Invites</p>
                                     <p>{{ $region->appointments }} Appointments</p>
+
+                                    @if($region->data_count > 0)
+
+                                        <p>{{ number_format($region->appointments/$region->data_count * 100, 1, '.', ',') }}%</p>
+
+                                    @endif
+
                                 </div>
 
                                 <div class="col-md-4 donut-2">
                                     <h3>Conversion Rate</h3>
                                     <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     <p>{{ $region->appointments }} appointments</p>
-                                    <p>{{ $region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress }} Sales</p>
+                                    <p>{{ $region->new + $region->used + $region->demo + $region->zero_km }} Sales</p>
+
+                                    @if($region->appointments > 0)
+
+                                        <p>{{ number_format(($region->new + $region->used + $region->demo + $region->zero_km)/$region->appointments * 100, 1, '.', ',') }}%</p>
+
+                                    @endif
+
                                 </div>
 
                                 <div class="col-md-4">
@@ -451,8 +465,8 @@
                     "#333C42"
                 ],
                 data: [
-                    {{ $region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress }}, 
-                    {{ $region->appointments - $region->new - $region->used - $region->demo - $region->zero_km - $region->inprogress }}
+                    {{ $region->new + $region->used + $region->demo + $region->zero_km }}, 
+                    {{ $region->appointments - $region->new - $region->used - $region->demo - $region->zero_km }}
                 ]
             }],
             labels: [
@@ -560,7 +574,7 @@
                     display: true,
                     ticks: {
                         min: 0,
-                        max: 10
+                        max: 5
                     }
                 }]
             },
@@ -599,7 +613,7 @@
                         label: "Region",
                         backgroundColor: "#333C42",
                         data: [
-                            {{ number_format(($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress)/$region->appointments * 100, 1, '.', ',') }}
+                            {{ number_format(($region->new + $region->used + $region->demo + $region->zero_km)/$region->appointments * 100, 1, '.', ',') }}
                         ]
                     }, 
                 @endif
@@ -608,7 +622,7 @@
                     label: "Country",
                     backgroundColor: "#6D497F",
                     data: [
-                        {{ number_format(($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress)/$region->country->appointments * 100, 1, '.', ',') }}
+                        {{ number_format(($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km)/$region->country->appointments * 100, 1, '.', ',') }}
                     ]
                 }
             ]

@@ -53,7 +53,7 @@
                         </div>   
                         <div class="form-group">    
                             <label for="level">Level</label>
-                            <select id="levels" class="form-control" name="level" required/>
+                            <select id="levels" class="form-control" name="level" required>
                                 <option value="">Level</option>
                                 <option value="Admin" @if(old('level') == 'Admin') selected @endif>Admin</option>
                                 <option value="Company" @if(old('level') == 'Company') selected @endif>Company</option>
@@ -66,7 +66,7 @@
                         </div>  
                         <div id="companyContainer" class="form-group d-none">    
                             <label for="company_id">Company</label>
-                            <select class="form-control" name="company_id" id="companies" />
+                            <select class="form-control" name="company_id" id="companies">
                                 <option value="">Select Company</option>
                                 @foreach($companies as $company)
                                     <option value="{{ $company->id}}" @if(old('company_id') == $company->id) selected @endif>{{ $company->name }}</option>
@@ -75,7 +75,7 @@
                         </div> 
                         <div id="manufacturerContainer" class="form-group d-none">    
                             <label for="manufacturer_id">Manufacturer</label>
-                            <select class="form-control" name="manufacturer_id" id="manufacturers" />
+                            <select class="form-control" name="manufacturer_id" id="manufacturers">
                                 <option value="">Select Manufacturer</option>
                                 @foreach($manufacturers as $manufacturer)
                                     <option value="{{ $manufacturer->id}}" @if(old('manufacturer_id') == $manufacturer->id) selected @endif>{{ $manufacturer->name }}</option>
@@ -84,7 +84,7 @@
                         </div> 
                         <div id="countryContainer" class="form-group d-none">    
                             <label for="country_id">Country</label>
-                            <select class="form-control" name="country_id" id="countries" />
+                            <select class="form-control" name="country_id" id="countries">
                                 <option value="">Select Country</option>
                                 @foreach($countries as $country)
                                     <option value="{{ $country->id}}" @if(old('country_id') == $country->id) selected @endif>{{ $country->name }}</option>
@@ -93,21 +93,21 @@
                         </div>   
                         <div id="regionContainer" class="form-group d-none">    
                             <label for="region_id">Region</label>
-                            <select class="form-control" name="region_id" id="regions" />
+                            <select class="form-control" name="region_id" id="regions">
                                 <option value="" @if(isset($region) && old('region_id') == $region->id) selected @endif>Select Region</option>
                                 <option disabled="true" value="">No regions currently available</option>
                             </select>
                         </div>  
                         <div id="groupContainer" class="form-group d-none">    
                             <label for="group_id">Group</label>
-                            <select class="form-control" name="group_id" id="groups" />
+                            <select class="form-control" name="group_id" id="groups">
                                 <option value="">Select Group</option>
                                 <option disabled="true" value="">No groups currently available</option>
                             </select>
                         </div>  
                         <div id="dealershipContainer" class="form-group d-none">    
                             <label for="dealership_id">Dealership</label>
-                            <select class="form-control" name="dealership_id" id="dealerships" />
+                            <select class="form-control" name="dealership_id" id="dealerships">
                                 <option value="">Select Dealership</option>
                                 <option disabled="true" value="">No dealerships currently available</option>
                             </select>

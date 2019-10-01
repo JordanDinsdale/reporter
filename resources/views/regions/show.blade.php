@@ -32,6 +32,7 @@
                                     
                                     <p>{{ $region->data_count }} Invites</p>
                                     <p>{{ $region->appointments }} Appointments</p>
+                                    <p>{{ number_format($region->appointments/$region->data_count * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
@@ -54,7 +55,8 @@
                                     <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     
                                     <p>{{ $region->appointments }} appointments</p>
-                                    <p>{{ $region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress }} Sales</p>
+                                    <p>{{ $region->new + $region->used + $region->demo + $region->zero_km }} Sales</p>
+                                    <p>{{ number_format(($region->new + $region->used + $region->demo + $region->zero_km)/$region->appointments * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
@@ -190,8 +192,8 @@ var chart = new Chart(ctx, {
                 "#333C42"
             ],
             data: [
-                {{ $region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress }}, 
-                {{ $region->appointments - $region->new - $region->used - $region->demo - $region->zero_km - $region->inprogress }}
+                {{ $region->new + $region->used + $region->demo + $region->zero_km }}, 
+                {{ $region->appointments - $region->new - $region->used - $region->demo - $region->zero_km }}
             ]
         }],
         labels: [

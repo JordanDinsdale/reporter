@@ -99,6 +99,8 @@ Route::get('/events/{event_id}/manufacturer/{manufacturer_id}/download', 'EventC
 Route::get('/events/{event_id}/company/{company_id}/download', 'EventController@downloadCompany')->name('eventCompanyDownload');
 
 Route::get('/api/companies/{company_id}/manufacturers', 'CompanyController@companyManufacturersApi')->name('companyManufacturersApi');
+Route::get('/api/companies/{company_id}/countries', 'CompanyController@companyCountriesApi')->name('companyCountriesApi');
+Route::get('/api/companies/{company_id}/countries/{country_id}/dealerships', 'CompanyController@companyCountryDealershipsApi')->name('companyCountryDealershipsApi');
 
 Route::get('/api/manufacturers/{manufacturer_id}/countries', 'ManufacturerController@manufacturerCountriesApi')->name('manufacturerCountriesApi');
 Route::get('/api/manufacturers/{manufacturer_id}/regions', 'ManufacturerController@manufacturerRegionsApi')->name('manufacturerRegionsApi');

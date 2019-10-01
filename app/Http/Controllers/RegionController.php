@@ -348,9 +348,13 @@ class RegionController extends Controller
 
         $region = Region::find($id);
 
-        $event_ids = [];
+        $formatted_start_date = Carbon::createFromFormat('Y-m-d',$start_date);
+        $formatted_start_date = $formatted_start_date->format('d-m-Y');
 
-        $filename = $region->manufacturer->name . ' ' . $region->name . ' - ' . $start_date . ' - ' . $end_date . '.csv';
+        $formatted_end_date = Carbon::createFromFormat('Y-m-d',$end_date);
+        $formatted_end_date = $formatted_end_date->format('d-m-Y');
+
+        $filename = 'Rhino Events_' . $region->manufacturer->name . ' ' . $region->country->name . ' ' . $region->name . '_' . $formatted_start_date . ' - ' . $formatted_end_date . '.csv';
 
         $handle = fopen('csv/' . $filename, 'w+');
 
@@ -358,15 +362,20 @@ class RegionController extends Controller
 
         fputcsv($handle, 
             array(
+                '',
                 'Data Count', 
                 'Appointments', 
+                'Response Rate',
                 'New', 
                 'Used', 
                 'Demo', 
                 '0km', 
+                'Conversion Rate',
                 'In Progress'
             )
         );
+
+        $event_ids = [];
 
         foreach($region->dealerships as $dealership) {
 
@@ -408,6 +417,31 @@ class RegionController extends Controller
 
                     if($regionDealershipEventManufacturer->id == $region->manufacturer->id) {
 
+                        $event_data = [];
+
+                        $event_data[] = $regionDealershipEvent->name;
+                        $event_data[] = $regionDealershipEventManufacturer->pivot->data_count;
+                        $event_data[] = $regionDealershipEventManufacturer->pivot->appointments;
+                        if($regionDealershipEventManufacturer->pivot->appointments > 0) {
+                            $event_data[] = number_format($regionDealershipEventManufacturer->pivot->appointments/$regionDealershipEventManufacturer->pivot->data_count * 100, 2, '.', ',') . '%';
+                        }
+                        else {
+                            $event_data[] = '0%';
+                        }
+                        $event_data[] = $regionDealershipEventManufacturer->pivot->new;
+                        $event_data[] = $regionDealershipEventManufacturer->pivot->used;
+                        $event_data[] = $regionDealershipEventManufacturer->pivot->demo;
+                        $event_data[] = $regionDealershipEventManufacturer->pivot->zero_km;
+                        if($regionDealershipEventManufacturer->pivot->appointments > 0) {
+                            $event_data[] = number_format(($regionDealershipEventManufacturer->pivot->new + $regionDealershipEventManufacturer->pivot->used + $regionDealershipEventManufacturer->pivot->demo + $regionDealershipEventManufacturer->pivot->zero_km)/$regionDealershipEventManufacturer->pivot->appointments * 100, 2, '.', ',') . '%';
+                        }
+                        else {
+                            $event_data[] = '0%';
+                        }
+                        $event_data[] = $regionDealershipEventManufacturer->pivot->inprogress;
+
+                        fputcsv($handle, $event_data);
+
                         $region->data_count += $regionDealershipEventManufacturer->pivot->data_count;
                         $region->appointments += $regionDealershipEventManufacturer->pivot->appointments;
                         $region->new += $regionDealershipEventManufacturer->pivot->new;
@@ -424,17 +458,29 @@ class RegionController extends Controller
 
         }
 
-        fputcsv($handle, 
-            array(
-                $region->data_count, 
-                $region->appointments, 
-                $region->new, 
-                $region->used, 
-                $region->demo, 
-                $region->zero_km, 
-                $region->inprogress
-            )
-        );
+        $total_event_data = ['Total'];
+
+        $total_event_data[] = $region->data_count;
+        $total_event_data[] = $region->appointments;
+        if($region->appointments > 0) {
+            $total_event_data[] = number_format($region->appointments/$region->data_count * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $region->new;
+        $total_event_data[] = $region->used;
+        $total_event_data[] = $region->demo;
+        $total_event_data[] = $region->zero_km;
+        if($region->appointments > 0) {
+            $total_event_data[] = number_format(($region->new + $region->used + $region->demo + $region->zero_km)/$region->appointments * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $region->inprogress;
+
+        fputcsv($handle, $total_event_data);
 
         fclose($handle);
 

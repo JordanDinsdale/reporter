@@ -26,7 +26,7 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Change Results</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
 

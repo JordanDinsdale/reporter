@@ -38,7 +38,7 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Change Results</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
 
@@ -122,22 +122,6 @@
 
                 <div class="col-md-12 main-content">
 
-                    <div class="row">
-
-                        <div class="col-md-12 filter-mobile">
-
-                            Filter results
-
-                            <select name="brand-mobile">
-
-                                <option value="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" selected>{{ $manufacturer->name }}</option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
                     @foreach($event->manufacturers as $eventManufacturer)
 
                         @if($eventManufacturer->id == $manufacturer->id)
@@ -149,65 +133,99 @@
                                     <div class="row results cardc">
 
                                         <div class="col-md-4 donut-1">
+
                                             <h3>Response Rate</h3>
+
                                             <canvas id="{{ str_replace(' ','-',strtolower($eventManufacturer->name)) }}-responseRate" class="responseRate" width="180" height="180"></canvas>
+
                                             <p>{{ $eventManufacturer->pivot->data_count }} Invites</p>
+
                                             <p>{{ $eventManufacturer->pivot->appointments }} Appointments</p>
+                                    
+                                            <p>{{ number_format($eventManufacturer->pivot->appointments/$eventManufacturer->pivot->data_count * 100, 1, '.', ',') }}%</p>
+
                                         </div>
 
                                         <div class="col-md-4 donut-2">
+
                                             <h3>Conversion Rate</h3>
-                                            <canvas id="{{ str_replace(' ','-',strtolower($eventManufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
-                                            <p>{{ $eventManufacturer->pivot->appointments }} appointments</p>
-                                            <p>{{ $eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress }} Sales</p>
+
+                                            @if($eventManufacturer->pivot->appointments > 0)
+
+                                                <canvas id="{{ str_replace(' ','-',strtolower($eventManufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
+
+                                                <p>{{ $eventManufacturer->pivot->appointments }} appointments</p>
+
+                                                <p>{{ $eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km }} Sales</p>
+
+                                                <p>{{ number_format(($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km)/$eventManufacturer->pivot->appointments * 100, 1, '.', ',') }}%</p>
+
+                                            @else
+
+                                                <p>No information to display</p>
+
+                                            @endif
+
                                         </div>
 
                                         <div class="col-md-4">
+
                                             <h3>Sales breakdown</h3>
-                                            <canvas id="{{ str_replace(' ','-',strtolower($eventManufacturer->name)) }}-salesBreakdown" class="salesBreakdown" width="180" height="180"></canvas>
-                                            <div class="camembert-slice-container">
 
-                                                @if(number_format($eventManufacturer->pivot->new/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') > 0)
-                                                    <div class="camembert-slice">
-                                                        <div class="circle circle-1">
+                                            @if($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress > 0)
+
+                                                <canvas id="{{ str_replace(' ','-',strtolower($eventManufacturer->name)) }}-salesBreakdown" class="salesBreakdown" width="180" height="180"></canvas>
+
+                                                <div class="camembert-slice-container">
+
+                                                    @if(number_format($eventManufacturer->pivot->new/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') > 0)
+                                                        <div class="camembert-slice">
+                                                            <div class="circle circle-1">
+                                                            </div>
+                                                            {{ number_format($eventManufacturer->pivot->new/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% New
                                                         </div>
-                                                        {{ number_format($eventManufacturer->pivot->new/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% New
-                                                    </div>
-                                                @endif
+                                                    @endif
 
-                                                @if(number_format($eventManufacturer->pivot->used/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') > 0)
-                                                    <div class="camembert-slice">
-                                                        <div class="circle circle-2">
+                                                    @if(number_format($eventManufacturer->pivot->used/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') > 0)
+                                                        <div class="camembert-slice">
+                                                            <div class="circle circle-2">
+                                                            </div>
+                                                            {{ number_format($eventManufacturer->pivot->used/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% Used
                                                         </div>
-                                                        {{ number_format($eventManufacturer->pivot->used/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% Used
-                                                    </div>
-                                                @endif
+                                                    @endif
 
-                                                @if(number_format($eventManufacturer->pivot->demo/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') > 0)
-                                                    <div class="camembert-slice">
-                                                        <div class="circle circle-3">
+                                                    @if(number_format($eventManufacturer->pivot->demo/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') > 0)
+                                                        <div class="camembert-slice">
+                                                            <div class="circle circle-3">
+                                                            </div>
+                                                            {{ number_format($eventManufacturer->pivot->demo/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% Demo
                                                         </div>
-                                                        {{ number_format($eventManufacturer->pivot->demo/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% Demo
-                                                    </div>
-                                                @endif
+                                                    @endif
 
-                                                @if(number_format($eventManufacturer->pivot->zero_km/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') > 0)
-                                                    <div class="camembert-slice">
-                                                        <div class="circle circle-4">
+                                                    @if(number_format($eventManufacturer->pivot->zero_km/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') > 0)
+                                                        <div class="camembert-slice">
+                                                            <div class="circle circle-4">
+                                                            </div>
+                                                            {{ number_format($eventManufacturer->pivot->zero_km/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% 0KM
                                                         </div>
-                                                        {{ number_format($eventManufacturer->pivot->zero_km/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% 0KM
-                                                    </div>
-                                                @endif
+                                                    @endif
 
-                                                @if(number_format($eventManufacturer->pivot->inprogress/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') > 0)
-                                                    <div class="camembert-slice final">
-                                                        <div class="circle circle-5">
+                                                    @if(number_format($eventManufacturer->pivot->inprogress/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') > 0)
+                                                        <div class="camembert-slice final">
+                                                            <div class="circle circle-5">
+                                                            </div>
+                                                            {{ number_format($eventManufacturer->pivot->inprogress/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% In progress
                                                         </div>
-                                                        {{ number_format($eventManufacturer->pivot->inprogress/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% In progress
-                                                    </div>
-                                                @endif
+                                                    @endif
 
-                                            </div>
+                                                </div>
+
+                                            @else
+
+                                                <p>No information to display</p>
+
+                                            @endif
+                                            
                                         </div>
 
                                     </div>
@@ -459,8 +477,8 @@
                             "#333C42"
                         ],
                         data: [
-                            {{ $eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress }}, 
-                            {{ $eventManufacturer->pivot->appointments - $eventManufacturer->pivot->new - $eventManufacturer->pivot->used - $eventManufacturer->pivot->demo - $eventManufacturer->pivot->zero_km - $eventManufacturer->pivot->inprogress }}
+                            {{ $eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km }}, 
+                            {{ $eventManufacturer->pivot->appointments - $eventManufacturer->pivot->new - $eventManufacturer->pivot->used - $eventManufacturer->pivot->demo - $eventManufacturer->pivot->zero_km }}
                         ]
                     }],
                     labels: [
@@ -538,7 +556,7 @@
                     labels: ["Response"],
                     datasets: [
 
-                        @if($manufacturer->region_appointments > 0)
+                        @if($manufacturer->region_data_count > 0)
                             {
                                 label: "Region",
                                 backgroundColor: "#333C42",
@@ -568,14 +586,14 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'Response Rate'
+                        text: 'Response Rate %'
                     },
                     scales: {
                         yAxes: [{
                             display: true,
                             ticks: {
                                 min: 0,
-                                max: 10
+                                max: 5
                             }
                         }]
                     },
@@ -614,7 +632,7 @@
                                 label: "Region",
                                 backgroundColor: "#333C42",
                                 data: [
-                                    {{ number_format(($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress)/$manufacturer->region_appointments * 100, 1, '.', ',') }}
+                                    {{ number_format(($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km)/$manufacturer->region_appointments * 100, 1, '.', ',') }}
                                 ]
                             }, 
                         @endif
@@ -623,14 +641,14 @@
                             label: "Country",
                             backgroundColor: "#6D497F",
                             data: [
-                                {{ number_format(($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress)/$manufacturer->country_appointments * 100, 1, '.', ',') }}
+                                {{ number_format(($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km)/$manufacturer->country_appointments * 100, 1, '.', ',') }}
                             ]
                         }, 
                         {
                             label: "You",
                             backgroundColor: "#BA97CC",
                             data: [
-                                {{ number_format(($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress)/$eventManufacturer->pivot->appointments * 100, 1, '.', ',') }}
+                                {{ number_format(($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km)/$eventManufacturer->pivot->appointments * 100, 1, '.', ',') }}
                             ]
                         }
                     ]
@@ -639,7 +657,7 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'Conversion Rate'
+                        text: 'Conversion Rate %'
                     },
                     scales: {
                         yAxes: [{
@@ -722,7 +740,7 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'Sales Breakdown'
+                        text: 'Sales Breakdown %'
                     },
                     scales: {
                         yAxes: [{

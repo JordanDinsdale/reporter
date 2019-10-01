@@ -43,7 +43,7 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Change Results</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
 
@@ -85,12 +85,63 @@
 
                                                     @csrf
 
-                                                    <div class="from-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" />
-                                                    </div>
+                                                    <div class="row">
 
-                                                    <div class="to-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" />
+                                                        <div class="col-md-6">
+                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" />
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <select id="levels" class="form-control" name="level" required>
+                                                                <option value="">Select Level</option>
+                                                                <option value="Company">{{ $company->name }}</option>
+                                                                <option value="Manufacturer">Manufacturer</option>
+                                                                <option value="Country">Country</option>
+                                                                <option value="Region">Region</option>
+                                                                <option value="Dealership">Dealership</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="companyContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="company_id" id="companies">
+                                                                <option value="{{ $company->id }}" selected>{{ $company->name }}</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="manufacturerContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="manufacturer_id" id="manufacturers">
+                                                                <option value="">Select Manufacturer</option>
+                                                                @foreach($company->manufacturers as $manufacturer)
+                                                                    <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="countryContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="country_id" id="countries">
+                                                                <option value="">Select Country</option>
+                                                                <option disabled="true" value="">No countries currently available</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="regionContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="region_id" id="regions">
+                                                                <option value="">Select Region</option>
+                                                                <option disabled="true" value="">No regions currently available</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="dealershipContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="dealership_id" id="dealerships">
+                                                                <option value="">Select Dealership</option>
+                                                                <option disabled="true" value="">No dealerships currently available</option>
+                                                            </select>
+                                                        </div>
+
                                                     </div>
 
                                                     <button type="submit" class="btn">REPORT</button>
@@ -198,6 +249,12 @@
                                     <p>{{ $company->data_count }} Invites</p>
 
                                     <p>{{ $company->appointments }} Appointments</p>
+
+                                    @if($company->data_count > 0)
+
+                                        <p>{{ number_format($company->appointments/$company->data_count * 100, 1, '.', ',') }}%</p>
+
+                                    @endif
                                     
                                 </div>
 
@@ -209,7 +266,13 @@
 
                                     <p>{{ $company->appointments }} appointments</p>
 
-                                    <p>{{ $company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress }} Sales</p>
+                                    <p>{{ $company->new + $company->used + $company->demo + $company->zero_km }} Sales</p>
+
+                                    @if($company->appointments > 0)
+
+                                        <p>{{ number_format(($company->new + $company->used + $company->demo + $company->zero_km)/$company->appointments * 100, 1, '.', ',') }}%</p>
+
+                                    @endif
 
                                 </div>
 
@@ -363,7 +426,7 @@
                                         <h3>Conversion Rate</h3>
                                         <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                         <p>{{ $manufacturer->appointments }} appointments</p>
-                                        <p>{{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress }} Sales</p>
+                                        <p>{{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km }} Sales</p>
                                     </div>
 
                                     <div class="col-md-4">
@@ -626,8 +689,8 @@ var chart = new Chart(ctx, {
                 "#333C42"
             ],
             data: [
-                {{ $company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress }}, 
-                {{ $company->appointments - $company->new - $company->used - $company->demo - $company->zero_km - $company->inprogress }}
+                {{ $company->new + $company->used + $company->demo + $company->zero_km }}, 
+                {{ $company->appointments - $company->new - $company->used - $company->demo - $company->zero_km }}
             ]
         }],
         labels: [
@@ -751,8 +814,8 @@ var chart = new Chart(ctx, {
                         "#333C42"
                     ],
                     data: [
-                        {{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress }}, 
-                        {{ $manufacturer->appointments - $manufacturer->new - $manufacturer->used - $manufacturer->demo - $manufacturer->zero_km - $manufacturer->inprogress }}
+                        {{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km }}, 
+                        {{ $manufacturer->appointments - $manufacturer->new - $manufacturer->used - $manufacturer->demo - $manufacturer->zero_km }}
                     ]
                 }],
                 labels: [
@@ -822,5 +885,11 @@ var chart = new Chart(ctx, {
     @endif
 
 @endforeach
+
+<script src="/js/select-reporting-level.js"></script>
+<script src="/js/manufacturer-countries.js"></script> 
+<script src="/js/country-manufacturer-regions.js"></script> 
+<script src="/js/company-countries.js"></script> 
+<script src="/js/company-country-dealerships.js"></script> 
 
 @endsection

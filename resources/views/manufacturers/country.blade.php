@@ -32,6 +32,7 @@
                                     
                                     <p>{{ $country->data_count }} Invites</p>
                                     <p>{{ $country->appointments }} Appointments</p>
+                                    <p>{{ number_format($country->appointments/$country->data_count * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
@@ -54,7 +55,8 @@
                                     <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     
                                     <p>{{ $country->appointments }} appointments</p>
-                                    <p>{{ $country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress }} Sales</p>
+                                    <p>{{ $country->new + $country->used + $country->demo + $country->zero_km }} Sales</p>
+                                    <p>{{ number_format(($country->new + $country->used + $country->demo + $country->zero_km)/$country->appointments * 100, 1, '.', ',') }}%</p>
 
                                 @else
 

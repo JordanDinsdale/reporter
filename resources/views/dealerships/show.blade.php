@@ -57,7 +57,10 @@
                                     <canvas id="responseRate" class="responseRate" width="180" height="180"></canvas>
                                     
                                     <p>{{ $dealership->data_count }} Invites</p>
+
                                     <p>{{ $dealership->appointments }} Appointments</p>
+                                    
+                                    <p>{{ number_format($dealership->appointments/$dealership->data_count * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
@@ -80,7 +83,10 @@
                                     <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     
                                     <p>{{ $dealership->appointments }} appointments</p>
-                                    <p>{{ $dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress }} Sales</p>
+
+                                    <p>{{ $dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km }} Sales</p>
+
+                                    <p>{{ number_format(($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km)/$dealership->appointments * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
@@ -216,8 +222,8 @@ var chart = new Chart(ctx, {
                 "#333C42"
             ],
             data: [
-                {{ $dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress }}, 
-                {{ $dealership->appointments - $dealership->new - $dealership->used - $dealership->demo - $dealership->zero_km - $dealership->inprogress }}
+                {{ $dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km }}, 
+                {{ $dealership->appointments - $dealership->new - $dealership->used - $dealership->demo - $dealership->zero_km }}
             ]
         }],
         labels: [

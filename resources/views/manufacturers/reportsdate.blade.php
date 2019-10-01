@@ -44,7 +44,7 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Change Results</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
 
@@ -155,6 +155,13 @@
                                     <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-responseRate" class="responseRate" width="180" height="180"></canvas>
                                     <p>{{ $manufacturer->data_count }} Invites</p>
                                     <p>{{ $manufacturer->appointments }} Appointments</p>
+
+                                    @if($manufacturer->data_count > 0)
+
+                                        <p>{{ number_format($manufacturer->appointments/$manufacturer->data_count * 100, 1, '.', ',') }}%</p>
+
+                                    @endif
+
                                 </div>
 
                                 <div class="col-md-4 donut-2">
@@ -162,6 +169,13 @@
                                     <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     <p>{{ $manufacturer->appointments }} appointments</p>
                                     <p>{{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress }} Sales</p>
+
+                                    @if($manufacturer->appointments > 0)
+
+                                        <p>{{ number_format(($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km)/$manufacturer->appointments * 100, 1, '.', ',') }}%</p>
+
+                                    @endif
+
                                 </div>
 
                                 <div class="col-md-4">
@@ -424,8 +438,8 @@
                     "#333C42"
                 ],
                 data: [
-                    {{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress }}, 
-                    {{ $manufacturer->appointments - $manufacturer->new - $manufacturer->used - $manufacturer->demo - $manufacturer->zero_km - $manufacturer->inprogress }}
+                    {{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km }}, 
+                    {{ $manufacturer->appointments - $manufacturer->new - $manufacturer->used - $manufacturer->demo - $manufacturer->zero_km }}
                 ]
             }],
             labels: [

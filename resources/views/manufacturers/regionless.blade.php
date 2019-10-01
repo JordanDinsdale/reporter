@@ -32,6 +32,7 @@
                                     
                                     <p>{{ $manufacturer->region_data_count }} Invites</p>
                                     <p>{{ $manufacturer->region_appointments }} Appointments</p>
+                                    <p>{{ number_format($manufacturer->region_appointments/$manufacturer->region_data_count * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
@@ -54,7 +55,8 @@
                                     <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     
                                     <p>{{ $manufacturer->region_appointments }} appointments</p>
-                                    <p>{{ $manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress }} Sales</p>
+                                    <p>{{ $manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km }} Sales</p>
+                                    <p>{{ number_format(($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km)/$manufacturer->region_appointments * 100, 1, '.', ',') }}%</p>
 
                                 @else
 

@@ -44,7 +44,7 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Change Results</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
 
@@ -155,6 +155,13 @@
                                     <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-responseRate" class="responseRate" width="180" height="180"></canvas>
                                     <p>{{ $events->data_count }} Invites</p>
                                     <p>{{ $events->appointments }} Appointments</p>
+
+                                    @if($events->data_count > 0)
+
+                                        <p>{{ number_format($events->appointments/$events->data_count * 100, 1, '.', ',') }}%</p>
+
+                                    @endif
+
                                 </div>
 
                                 <div class="col-md-4 donut-2">
@@ -162,6 +169,13 @@
                                     <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     <p>{{ $events->appointments }} appointments</p>
                                     <p>{{ $events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress }} Sales</p>
+
+                                    @if($events->appointments > 0)
+
+                                        <p>{{ number_format(($events->new + $events->used + $events->demo + $events->zero_km)/$events->appointments * 100, 1, '.', ',') }}%</p>
+
+                                    @endif
+
                                 </div>
 
                                 <div class="col-md-4">
@@ -452,8 +466,8 @@
                     "#333C42"
                 ],
                 data: [
-                    {{ $events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress }}, 
-                    {{ $events->appointments - $events->new - $events->used - $events->demo - $events->zero_km - $events->inprogress }}
+                    {{ $events->new + $events->used + $events->demo + $events->zero_km }}, 
+                    {{ $events->appointments - $events->new - $events->used - $events->demo - $events->zero_km }}
                 ]
             }],
             labels: [
@@ -561,7 +575,7 @@
                     display: true,
                     ticks: {
                         min: 0,
-                        max: 10
+                        max: 5
                     }
                 }]
             },
@@ -600,7 +614,7 @@
                         label: "Region",
                         backgroundColor: "#333C42",
                         data: [
-                            {{ number_format(($events->new + $events->used + $events->demo + $events->zero_km + $events->inprogress)/$events->appointments * 100, 1, '.', ',') }}
+                            {{ number_format(($events->new + $events->used + $events->demo + $events->zero_km)/$events->appointments * 100, 1, '.', ',') }}
                         ]
                     }, 
                 @endif
@@ -609,7 +623,7 @@
                     label: "Country",
                     backgroundColor: "#6D497F",
                     data: [
-                        {{ number_format(($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress)/$country->appointments * 100, 1, '.', ',') }}
+                        {{ number_format(($country->new + $country->used + $country->demo + $country->zero_km)/$country->appointments * 100, 1, '.', ',') }}
                     ]
                 }
             ]

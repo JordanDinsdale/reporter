@@ -1,4 +1,13 @@
-Manufacturer,"Data Count",Appointments,New,Used,Demo,0km,"In Progress"
-BMW,22695,1646,225,227,23,44,16
-MINI,4629,424,35,24,3,5,2
-Total,27324,2070,260,251,26,49,18
+﻿,BMW,BMW,BMW,BMW,BMW,BMW,BMW,BMW,BMW,MINI,MINI,MINI,MINI,MINI,MINI,MINI,MINI,MINI,Total,Total,Total,Total,Total,Total,Total,Total,Total
+,"Data Count",Appointments,"Response Rate",New,Used,Demo,0km,"Coversion Rate","In Progress","Data Count",Appointments,"Response Rate",New,Used,Demo,0km,"Coversion Rate","In Progress","Data Count",Appointments,"Response Rate",New,Used,Demo,0km,"Coversion Rate","In Progress"
+"Premium Trade Cars BMW MINI Event",4000,500,12.5%,50,30,5,10,19.0%,3,3000,400,13.3%,30,20,3,5,14.5%,2,7000,900,12.9%,80,50,8,15,17.0%,5
+"Bowker Blackburn BMW VIP Event 2018",1800,120,6.7%,22,32,4,8,55.0%,4,,,,,,,,,,1800,120,6.7%,22,32,4,8,55.0%,4
+"Bowker Blackburn BMW VIP Event 2019",2200,140,6.4%,32,41,5,15,66.4%,2,,,,,,,,,,2200,140,6.4%,32,41,5,15,66.4%,2
+"Halliwell Jones Southport BMW VIP Event 2018",1270,106,8.3%,17,23,2,5,44.3%,2,,,,,,,,,,1270,106,8.3%,17,23,2,5,44.3%,2
+"Halliwell Jones Southport BMW Q2 VIP Event 2019",2780,143,5.1%,12,31,3,4,35.0%,2,,,,,,,,,,2780,143,5.1%,12,31,3,4,35.0%,2
+"Halliwell Jones Wilmslow BMW VIP Event 2018",1784,186,10.4%,23,19,0,0,22.6%,2,,,,,,,,,,1784,186,10.4%,23,19,0,0,22.6%,2
+"Halliwell Jones Wilmslow BMW VIP Event 2019",2180,93,4.3%,8,11,3,0,23.7%,1,,,,,,,,,,2180,93,4.3%,8,11,3,0,23.7%,1
+"Bowker Preston BMW VIP Event 2018",1894,126,6.7%,29,22,1,2,42.9%,0,,,,,,,,,,1894,126,6.7%,29,22,1,2,42.9%,0
+"Bowker Preston BMW VIP Event 2019",2220,204,9.2%,24,12,0,0,17.6%,0,,,,,,,,,,2220,204,9.2%,24,12,0,0,17.6%,0
+"Premium Trade Cars All Brand Event",2567,28,1.1%,8,6,0,0,50.0%,0,1629,24,1.5%,5,4,0,0,37.5%,0,4196,52,1.2%,13,10,0,0,44.2%,0
+Total,22695,1646,7.3%,225,227,23,44,31.5%,16,4629,424,9.2%,35,24,3,5,15.8%,2,27324,2070,7.6%,260,251,26,49,28.3%,18

@@ -43,7 +43,7 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Change Results</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
 
@@ -154,13 +154,27 @@
                                     <canvas id="{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-responseRate" class="responseRate" width="180" height="180"></canvas>
                                     <p>{{ $country->data_count }} Invites</p>
                                     <p>{{ $country->appointments }} Appointments</p>
+
+                                    @if($country->data_count > 0)
+
+                                        <p>{{ number_format($country->appointments/$country->data_count * 100, 1, '.', ',') }}%</p>
+
+                                    @endif
+
                                 </div>
 
                                 <div class="col-md-4 donut-2">
                                     <h3>Conversion Rate</h3>
                                     <canvas id="{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     <p>{{ $country->appointments }} appointments</p>
-                                    <p>{{ $country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress }} Sales</p>
+                                    <p>{{ $country->new + $country->used + $country->demo + $country->zero_km }} Sales</p>
+
+                                    @if($country->appointments > 0)
+
+                                        <p>{{ number_format(($country->new + $country->used + $country->demo + $country->zero_km)/$country->appointments * 100, 1, '.', ',') }}%</p>
+
+                                    @endif
+
                                 </div>
 
                                 <div class="col-md-4">
@@ -423,8 +437,8 @@
                     "#333C42"
                 ],
                 data: [
-                    {{ $country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress }}, 
-                    {{ $country->appointments - $country->new - $country->used - $country->demo - $country->zero_km - $country->inprogress }}
+                    {{ $country->new + $country->used + $country->demo + $country->zero_km }}, 
+                    {{ $country->appointments - $country->new - $country->used - $country->demo - $country->zero_km }}
                 ]
             }],
             labels: [

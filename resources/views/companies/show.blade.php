@@ -32,6 +32,7 @@
                                     
                                     <p>{{ $company->data_count }} Invites</p>
                                     <p>{{ $company->appointments }} Appointments</p>
+                                    <p>{{ number_format($company->appointments/$company->data_count * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
@@ -54,7 +55,8 @@
                                     <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     
                                     <p>{{ $company->appointments }} appointments</p>
-                                    <p>{{ $company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress }} Sales</p>
+                                    <p>{{ $company->new + $company->used + $company->demo + $company->zero_km }} Sales</p>
+                                    <p>{{ number_format(($company->new + $company->used + $company->demo + $company->zero_km)/$company->appointments * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
@@ -194,8 +196,8 @@ var chart = new Chart(ctx, {
                 "#333C42"
             ],
             data: [
-                {{ $company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress }}, 
-                {{ $company->appointments - $company->new - $company->used - $company->demo - $company->zero_km - $company->inprogress }}
+                {{ $company->new + $company->used + $company->demo + $company->zero_km }}, 
+                {{ $company->appointments - $company->new - $company->used - $company->demo - $company->zero_km }}
             ]
         }],
         labels: [

@@ -70,7 +70,7 @@
 
                                 <div class="event">
 
-                                    <a href="{{ route('eventManufacturerCountry', [$event->id,$manufacturer->id]) }}">
+                                    <a href="{{ route('eventManufacturer', [$event->id,$manufacturer->id]) }}">
 
                                         <div class="event-name">
                                             <i class="fas fa-chart-line"></i><p>{{ $event->name }}</p>

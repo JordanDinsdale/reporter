@@ -211,7 +211,13 @@ class ManufacturerController extends Controller
 
         $manufacturer = Manufacturer::find($manufacturer_id);
 
-        $filename = $manufacturer->name . ' ' . $start_date . ' - ' . $end_date . '.csv';
+        $formatted_start_date = Carbon::createFromFormat('Y-m-d',$start_date);
+        $formatted_start_date = $formatted_start_date->format('d-m-Y');
+
+        $formatted_end_date = Carbon::createFromFormat('Y-m-d',$end_date);
+        $formatted_end_date = $formatted_end_date->format('d-m-Y');
+
+        $filename = 'Rhino Events_' . $manufacturer->name . '_' . $formatted_start_date . ' - ' . $formatted_end_date . '.csv';
 
         $handle = fopen('csv/' . $filename, 'w+');
 
@@ -219,12 +225,15 @@ class ManufacturerController extends Controller
 
         fputcsv($handle, 
             array( 
+                '',
                 'Data Count', 
                 'Appointments', 
+                'Response Rate',
                 'New', 
                 'Used', 
                 'Demo', 
                 '0km', 
+                'Conversion Rate',
                 'In Progress'
             )
         );
@@ -241,6 +250,31 @@ class ManufacturerController extends Controller
 
         foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
 
+            $event_data = [];
+
+            $event_data[] = $manufacturerEvent->name;
+            $event_data[] = $manufacturerEvent->pivot->data_count;
+            $event_data[] = $manufacturerEvent->pivot->appointments;
+            if($manufacturerEvent->pivot->appointments > 0) {
+                $event_data[] = number_format($manufacturerEvent->pivot->appointments/$manufacturerEvent->pivot->data_count * 100, 2, '.', ',') . '%';
+            }
+            else {
+                $event_data[] = '0%';
+            }
+            $event_data[] = $manufacturerEvent->pivot->new;
+            $event_data[] = $manufacturerEvent->pivot->used;
+            $event_data[] = $manufacturerEvent->pivot->demo;
+            $event_data[] = $manufacturerEvent->pivot->zero_km;
+            if($manufacturerEvent->pivot->appointments > 0) {
+                $event_data[] = number_format(($manufacturerEvent->pivot->new + $manufacturerEvent->pivot->used + $manufacturerEvent->pivot->demo + $manufacturerEvent->pivot->zero_km)/$manufacturerEvent->pivot->appointments * 100, 2, '.', ',') . '%';
+            }
+            else {
+                $event_data[] = '0%';
+            }
+            $event_data[] = $manufacturerEvent->pivot->inprogress;
+
+            fputcsv($handle, $event_data);
+
             $manufacturer->data_count += $manufacturerEvent->pivot->data_count;
             $manufacturer->appointments += $manufacturerEvent->pivot->appointments;
             $manufacturer->new += $manufacturerEvent->pivot->new;
@@ -251,17 +285,29 @@ class ManufacturerController extends Controller
 
         }
 
-        fputcsv($handle, 
-            array(
-                $manufacturer->data_count, 
-                $manufacturer->appointments, 
-                $manufacturer->new, 
-                $manufacturer->used, 
-                $manufacturer->demo, 
-                $manufacturer->zero_km, 
-                $manufacturer->inprogress
-            )
-        );
+        $total_event_data = ['Total'];
+
+        $total_event_data[] = $manufacturer->data_count;
+        $total_event_data[] = $manufacturer->appointments;
+        if($manufacturer->appointments > 0) {
+            $total_event_data[] = number_format($manufacturer->appointments/$manufacturer->data_count * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $manufacturer->new;
+        $total_event_data[] = $manufacturer->used;
+        $total_event_data[] = $manufacturer->demo;
+        $total_event_data[] = $manufacturer->zero_km;
+        if($manufacturer->appointments > 0) {
+            $total_event_data[] = number_format(($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km)/$manufacturer->appointments * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $manufacturer->inprogress;
+
+        fputcsv($handle, $total_event_data);
 
         fclose($handle);
 
@@ -561,7 +607,13 @@ class ManufacturerController extends Controller
 
         $country->manufacturer = Manufacturer::find($manufacturer_id);
 
-        $filename = $country->manufacturer->name . ' ' . $country->name . ' ' . $start_date . ' - ' . $end_date . '.csv';
+        $formatted_start_date = Carbon::createFromFormat('Y-m-d',$start_date);
+        $formatted_start_date = $formatted_start_date->format('d-m-Y');
+
+        $formatted_end_date = Carbon::createFromFormat('Y-m-d',$end_date);
+        $formatted_end_date = $formatted_end_date->format('d-m-Y');
+
+        $filename = 'Rhino Events_' . $country->manufacturer->name . ' ' . $country->name . '_' . $formatted_start_date . ' - ' . $formatted_end_date . '.csv';
         
         $handle = fopen('csv/' . $filename, 'w+');
 
@@ -569,12 +621,15 @@ class ManufacturerController extends Controller
 
         fputcsv($handle, 
             array( 
+                '',
                 'Data Count', 
                 'Appointments', 
+                'Response Rate',
                 'New', 
                 'Used', 
                 'Demo', 
                 '0km', 
+                'Conversion Rate',
                 'In Progress'
             )
         );
@@ -617,6 +672,31 @@ class ManufacturerController extends Controller
 
                 if($countryEventManufacturer->id == $country->manufacturer->id) {
 
+                    $event_data = [];
+
+                    $event_data[] = $countryEvent->name;
+                    $event_data[] = $countryEventManufacturer->pivot->data_count;
+                    $event_data[] = $countryEventManufacturer->pivot->appointments;
+                    if($countryEventManufacturer->pivot->appointments > 0) {
+                        $event_data[] = number_format($countryEventManufacturer->pivot->appointments/$countryEventManufacturer->pivot->data_count * 100, 2, '.', ',') . '%';
+                    }
+                    else {
+                        $event_data[] = '0%';
+                    }
+                    $event_data[] = $countryEventManufacturer->pivot->new;
+                    $event_data[] = $countryEventManufacturer->pivot->used;
+                    $event_data[] = $countryEventManufacturer->pivot->demo;
+                    $event_data[] = $countryEventManufacturer->pivot->zero_km;
+                    if($countryEventManufacturer->pivot->appointments > 0) {
+                        $event_data[] = number_format(($countryEventManufacturer->pivot->new + $countryEventManufacturer->pivot->used + $countryEventManufacturer->pivot->demo + $countryEventManufacturer->pivot->zero_km)/$countryEventManufacturer->pivot->appointments * 100, 2, '.', ',') . '%';
+                    }
+                    else {
+                        $event_data[] = '0%';
+                    }
+                    $event_data[] = $countryEventManufacturer->pivot->inprogress;
+
+                    fputcsv($handle, $event_data);
+
                     $country->data_count += $countryEventManufacturer->pivot->data_count;
                     $country->appointments += $countryEventManufacturer->pivot->appointments;
                     $country->new += $countryEventManufacturer->pivot->new;
@@ -631,17 +711,29 @@ class ManufacturerController extends Controller
 
         }
 
-        fputcsv($handle, 
-            array(
-                $country->data_count, 
-                $country->appointments, 
-                $country->new, 
-                $country->used, 
-                $country->demo, 
-                $country->zero_km, 
-                $country->inprogress
-            )
-        );
+        $total_event_data = ['Total'];
+
+        $total_event_data[] = $country->data_count;
+        $total_event_data[] = $country->appointments;
+        if($country->appointments > 0) {
+            $total_event_data[] = number_format($country->appointments/$country->data_count * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $country->new;
+        $total_event_data[] = $country->used;
+        $total_event_data[] = $country->demo;
+        $total_event_data[] = $country->zero_km;
+        if($country->appointments > 0) {
+            $total_event_data[] = number_format(($country->new + $country->used + $country->demo + $country->zero_km)/$country->appointments * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $country->inprogress;
+
+        fputcsv($handle, $total_event_data);
 
         fclose($handle);
 
@@ -1005,7 +1097,13 @@ class ManufacturerController extends Controller
 
         $country = Country::find($country_id);
 
-        $filename = $manufacturer->name . ' ' . $country->name . ' No Region ' . $start_date . ' - ' . $end_date . '.csv';
+        $formatted_start_date = Carbon::createFromFormat('Y-m-d',$start_date);
+        $formatted_start_date = $formatted_start_date->format('d-m-Y');
+
+        $formatted_end_date = Carbon::createFromFormat('Y-m-d',$end_date);
+        $formatted_end_date = $formatted_end_date->format('d-m-Y');
+
+        $filename = 'Rhino Events_' . $manufacturer->name . ' ' . $country->name . ' No Region_' . $formatted_start_date . ' - ' . $formatted_end_date . '.csv';
         
         $handle = fopen('csv/' . $filename, 'w+');
 
@@ -1013,12 +1111,15 @@ class ManufacturerController extends Controller
 
         fputcsv($handle, 
             array( 
+                '',
                 'Data Count', 
                 'Appointments', 
+                'Response Rate',
                 'New', 
                 'Used', 
                 'Demo', 
                 '0km', 
+                'Conversion Rate',
                 'In Progress'
             )
         );
@@ -1073,6 +1174,31 @@ class ManufacturerController extends Controller
 
                 if($eventManufacturer->id == $manufacturer->id) {
 
+                    $event_data = [];
+
+                    $event_data[] = $event->name;
+                    $event_data[] = $eventManufacturer->pivot->data_count;
+                    $event_data[] = $eventManufacturer->pivot->appointments;
+                    if($eventManufacturer->pivot->appointments > 0) {
+                        $event_data[] = number_format($eventManufacturer->pivot->appointments/$eventManufacturer->pivot->data_count * 100, 2, '.', ',') . '%';
+                    }
+                    else {
+                        $event_data[] = '0%';
+                    }
+                    $event_data[] = $eventManufacturer->pivot->new;
+                    $event_data[] = $eventManufacturer->pivot->used;
+                    $event_data[] = $eventManufacturer->pivot->demo;
+                    $event_data[] = $eventManufacturer->pivot->zero_km;
+                    if($eventManufacturer->pivot->appointments > 0) {
+                        $event_data[] = number_format(($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km)/$eventManufacturer->pivot->appointments * 100, 2, '.', ',') . '%';
+                    }
+                    else {
+                        $event_data[] = '0%';
+                    }
+                    $event_data[] = $eventManufacturer->pivot->inprogress;
+
+                    fputcsv($handle, $event_data);
+
                     $events->data_count += $eventManufacturer->pivot->data_count;
                     $events->appointments += $eventManufacturer->pivot->appointments;
                     $events->new += $eventManufacturer->pivot->new;
@@ -1087,17 +1213,29 @@ class ManufacturerController extends Controller
 
         }
 
-        fputcsv($handle, 
-            array(
-                $events->data_count, 
-                $events->appointments, 
-                $events->new, 
-                $events->used, 
-                $events->demo, 
-                $events->zero_km, 
-                $events->inprogress
-            )
-        );
+        $total_event_data = ['Total'];
+
+        $total_event_data[] = $events->data_count;
+        $total_event_data[] = $events->appointments;
+        if($events->appointments > 0) {
+            $total_event_data[] = number_format($events->appointments/$events->data_count * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $events->new;
+        $total_event_data[] = $events->used;
+        $total_event_data[] = $events->demo;
+        $total_event_data[] = $events->zero_km;
+        if($events->appointments > 0) {
+            $total_event_data[] = number_format(($events->new + $events->used + $events->demo + $events->zero_km)/$events->appointments * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $total_event_data[] = '0%';
+        }
+        $total_event_data[] = $events->inprogress;
+
+        fputcsv($handle, $total_event_data);
 
         fclose($handle);
 

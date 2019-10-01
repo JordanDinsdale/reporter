@@ -209,6 +209,7 @@ class EventController extends Controller
     public function company($event_id,$company_id)
     {
         $event = Event::find($event_id);
+
         $company = Company::find($company_id);
 
         $company->data_count = 0;
@@ -223,21 +224,21 @@ class EventController extends Controller
 
         foreach($company->manufacturers as $manufacturer) {
 
-            foreach($manufacturer->events as $event) {
+            foreach($manufacturer->events as $manufacturerEvent) {
 
-                $event_ids[] = $event->id;
+                $event_ids[] = $manufacturerEvent->id;
 
-                if($event->id == $event_id) {
+                if($manufacturerEvent->id == $event_id) {
 
-                    $company->data_count += $event->pivot->data_count;
-                    $company->appointments += $event->pivot->appointments;
-                    $company->new += $event->pivot->new;
-                    $company->used += $event->pivot->used;
-                    $company->demo += $event->pivot->demo;
-                    $company->zero_km += $event->pivot->zero_km;
-                    $company->inprogress += $event->pivot->inprogress;
+                    $company->data_count += $manufacturerEvent->pivot->data_count;
+                    $company->appointments += $manufacturerEvent->pivot->appointments;
+                    $company->new += $manufacturerEvent->pivot->new;
+                    $company->used += $manufacturerEvent->pivot->used;
+                    $company->demo += $manufacturerEvent->pivot->demo;
+                    $company->zero_km += $manufacturerEvent->pivot->zero_km;
+                    $company->inprogress += $manufacturerEvent->pivot->inprogress;
 
-                    foreach($event->manufacturers as $eventManufacturer) {
+                    foreach($manufacturerEvent->manufacturers as $eventManufacturer) {
 
                         if($eventManufacturer->id == $manufacturer->id) {
 
@@ -989,7 +990,7 @@ class EventController extends Controller
 
         $manufacturer = Manufacturer::find($manufacturer_id);
         
-        $filename = $event->name . ' - ' . $manufacturer->name . '.csv';
+        $filename = 'Rhino Events_' . $event->name . '_' . $manufacturer->name . '.csv';
 
         $handle = fopen('csv/' . $filename, 'w+');
 
@@ -999,10 +1000,12 @@ class EventController extends Controller
             array(
                 'Data Count', 
                 'Appointments', 
+                'Response Rate',
                 'New', 
                 'Used', 
                 'Demo', 
                 '0km', 
+                'Conversion Rate',
                 'In Progress'
             )
         );
@@ -1011,17 +1014,29 @@ class EventController extends Controller
 
             if($manufacturer->id == $manufacturer_id) {
 
-                fputcsv($handle, 
-                    array(
-                        $manufacturer->pivot->data_count, 
-                        $manufacturer->pivot->appointments, 
-                        $manufacturer->pivot->new, 
-                        $manufacturer->pivot->used, 
-                        $manufacturer->pivot->demo, 
-                        $manufacturer->pivot->zero_km, 
-                        $manufacturer->pivot->inprogress
-                    )
-                );
+                $manufacturer_data = [];
+
+                $manufacturer_data[] = $manufacturer->pivot->data_count;
+                $manufacturer_data[] = $manufacturer->pivot->appointments;            
+                if($manufacturer->pivot->data_count > 0) {
+                    $manufacturer_data[] = number_format($manufacturer->pivot->appointments/$manufacturer->pivot->data_count * 100, 2, '.', ',') . '%';
+                }
+                else {
+                    $manufacturer_data[] = '0%';
+                }
+                $manufacturer_data[] = $manufacturer->pivot->new;
+                $manufacturer_data[] = $manufacturer->pivot->used;
+                $manufacturer_data[] = $manufacturer->pivot->demo;
+                $manufacturer_data[] = $manufacturer->pivot->zero_km;
+                if($manufacturer->pivot->appointments > 0) {
+                    $manufacturer_data[] = number_format(($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km)/$manufacturer->pivot->appointments * 100, 2, '.', ',') . '%';
+                }
+                else {
+                    $manufacturer_data[] = '0%';
+                }
+                $manufacturer_data[] = $manufacturer->pivot->inprogress;
+
+                fputcsv($handle, $manufacturer_data);
 
             }
 
@@ -1052,7 +1067,7 @@ class EventController extends Controller
 
         $company = Company::find($company_id);
 
-        $filename = $event->name . ' - ' . $company->name . '.csv';
+        $filename = 'Rhino Events_' . $event->name . '_' . $company->name . '.csv';
 
         $handle = fopen('csv/' . $filename, 'w+');
 
@@ -1060,13 +1075,15 @@ class EventController extends Controller
 
         fputcsv($handle, 
             array(
-                'Manufacturer',
+                '',
                 'Data Count', 
                 'Appointments', 
+                'Response Rate', 
                 'New', 
                 'Used', 
                 'Demo', 
                 '0km', 
+                'Conversion Rate', 
                 'In Progress'
             )
         );
@@ -1079,26 +1096,78 @@ class EventController extends Controller
 
         }
 
+        $company->data_count = 0;
+        $company->appointments = 0;
+        $company->new = 0;
+        $company->used = 0;
+        $company->demo = 0;
+        $company->zero_km = 0;
+        $company->inprogress = 0;
+
         foreach($event->manufacturers as $manufacturer) {
 
             if(in_array($manufacturer->id, $manufacturer_ids)) {
 
-                fputcsv($handle, 
-                    array(
-                        $manufacturer->name, 
-                        $manufacturer->pivot->data_count, 
-                        $manufacturer->pivot->appointments, 
-                        $manufacturer->pivot->new, 
-                        $manufacturer->pivot->used, 
-                        $manufacturer->pivot->demo, 
-                        $manufacturer->pivot->zero_km, 
-                        $manufacturer->pivot->inprogress
-                    )
-                );
+                $manufacturer_data = [];
+
+                $manufacturer_data[] = $manufacturer->name;
+                $manufacturer_data[] = $manufacturer->pivot->data_count;
+                $manufacturer_data[] = $manufacturer->pivot->appointments;                 
+                if($manufacturer->pivot->data_count > 0) {
+                    $manufacturer_data[] = number_format($manufacturer->pivot->appointments/$manufacturer->pivot->data_count * 100, 2, '.', ',') . '%';
+                }
+                else {
+                    $manufacturer_data[] = '0%';
+                }
+                $manufacturer_data[] = $manufacturer->pivot->new;
+                $manufacturer_data[] = $manufacturer->pivot->used;
+                $manufacturer_data[] = $manufacturer->pivot->demo;
+                $manufacturer_data[] = $manufacturer->pivot->zero_km;
+                if($manufacturer->pivot->appointments > 0) {
+                    $manufacturer_data[] = number_format(($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km)/$manufacturer->pivot->appointments * 100, 2, '.', ',') . '%';
+                }
+                else {
+                    $manufacturer_data[] = '0%';
+                }
+                $manufacturer_data[] = $manufacturer->pivot->inprogress;
+
+                $company->data_count += $manufacturer->pivot->data_count;
+                $company->appointments += $manufacturer->pivot->appointments;
+                $company->new += $manufacturer->pivot->new;
+                $company->used += $manufacturer->pivot->used;
+                $company->demo += $manufacturer->pivot->demo;
+                $company->zero_km += $manufacturer->pivot->zero_km;
+                $company->inprogress += $manufacturer->pivot->inprogress;
+
+                fputcsv($handle, $manufacturer_data);
 
             }
 
         }
+
+        $company_data = ['Total'];
+
+        $company_data[] = $company->data_count;
+        $company_data[] = $company->appointments;                
+        if($company->data_count > 0) {
+            $company_data[] = number_format($company->appointments/$company->data_count * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $company_data[] = '0%';
+        }
+        $company_data[] = $company->new;
+        $company_data[] = $company->used;
+        $company_data[] = $company->demo;
+        $company_data[] = $company->zero_km;
+        if($company->appointments > 0) {
+            $company_data[] = number_format(($company->new + $company->used + $company->demo + $company->zero_km)/$company->appointments * 100, 2, '.', ',') . '%';
+        }
+        else {
+            $company_data[] = '';
+        }
+        $company_data[] = $company->inprogress;
+
+        fputcsv($handle, $company_data);
 
         fclose($handle);
 
