@@ -10,7 +10,28 @@
 
         <ul>
 
-            <li><a href="#" class="language"><i class="fas fa-globe"></i>ENG</a></li>
+            <li>
+
+                <form method="POST" action="{{ route('changelocale') }}" class="form-inline navbar-select">
+
+                    {{ csrf_field() }}
+
+                    <div class="form-group @if($errors->first('locale')) has-error @endif">
+                        <i class="fas fa-globe"></i>
+                        <select class="form-control" name="locale" id="locale" onchange="this.form.submit()" required>
+                            <option value="en" @if(\App::getLocale() == 'en') selected @endif>EN</option>
+                            <option value="fr" @if(\App::getLocale() == 'fr') selected @endif>FR</option>
+                        </select>
+                        <small class="text-danger">{{ $errors->first('locale') }}</small>
+                    </div>
+
+                    <div class="btn-group pull-right sr-only">
+                        <button type="submit" class="btn btn-success">Change</button>
+                    </div>
+
+                </form>
+
+            </li>
 
             <li>
 

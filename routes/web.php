@@ -15,6 +15,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::post('/changelocale', 'TranslationController@changeLocale')->name('changelocale');
+
 Route::get('/users', 'UserController@index')->name('users');
 Route::get('/user/{id}', 'UserController@show')->name('user');
 Route::post('/user/store', 'UserController@store')->name('userStore');
@@ -82,7 +84,8 @@ Route::get('/dealerships/{id}/events', 'DealershipController@events')->name('dea
 Route::get('/dealerships/{id}/reports', 'DealershipController@reports')->name('dealershipReports');
 Route::post('/dealerships/{id}/reports', 'DealershipController@reportDates')->name('dealershipReportDates');
 Route::get('/dealerships/{id}/{start_date}/{end_date}/download', 'DealershipController@download')->name('dealershipDownload');
-Route::get('/dealerships/{dealership_id}/{manufacturer_id}/{start_date}/{end_date}/download', 'DealershipController@downloadManufacturer')->name('dealershipDownloadManufacturer');
+Route::get('/dealerships/{dealership_id}/manufacturer/{manufacturer_id}/{start_date}/{end_date}/download', 'DealershipController@downloadManufacturer')->name('dealershipDownloadManufacturer');
+Route::get('/dealerships/{dealership_id}/company/{company_id}/{start_date}/{end_date}/download', 'DealershipController@downloadCompany')->name('dealershipDownloadCompany');
 
 Route::get('/events/{id}', 'EventController@show')->name('event');
 Route::get('/events/{id}/edit', 'EventController@edit')->name('eventEdit');
@@ -104,9 +107,12 @@ Route::get('/api/companies/{company_id}/countries/{country_id}/dealerships', 'Co
 
 Route::get('/api/manufacturers/{manufacturer_id}/countries', 'ManufacturerController@manufacturerCountriesApi')->name('manufacturerCountriesApi');
 Route::get('/api/manufacturers/{manufacturer_id}/regions', 'ManufacturerController@manufacturerRegionsApi')->name('manufacturerRegionsApi');
+Route::get('/api/manufacturers/{manufacturer_id}/countries/{country_id}/dealerships', 'ManufacturerController@manufacturerCountryDealershipsApi')->name('manufacturerCountryDealershipsApi');
 
 Route::get('/api/countries/{country_id}/manufacturers/{manufacturer_id}/regions', 'CountryController@countryManufacturerRegionsApi')->name('countryManufacturerRegionsApi');
 Route::get('/api/countries/{country_id}/groups', 'CountryController@countryGroupsApi')->name('countryGroupsApi');
 Route::get('/api/countries/{country_id}/dealerships', 'CountryController@countryDealershipsApi')->name('countryDealershipsApi');
+
+Route::get('/api/regions/{region_id}/dealerships', 'RegionController@regionDealershipsApi')->name('regionDealershipsApi');
 
 Route::get('/api/groups/{group_id}/dealerships', 'GroupController@groupDealershipsApi')->name('groupDealershipsApi');

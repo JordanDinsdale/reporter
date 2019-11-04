@@ -386,134 +386,137 @@ class DealershipsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Independent Skoda Dealerships
+	        // Skoda France
 
 	        [
-	            'name' => 'MC Motors',
+	            'name' => 'MC Motors Avignon',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'L.Warsemann Auto 37',
+	            'name' => 'L.Warsemann Auto 37 Tours',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Nouvelle Excel Auto',
+	            'name' => 'Nouvelle Excel Auto Rennes',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Espace 3000',
+	            'name' => 'Espace 3000 Besançon',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Europe Garage Services',
+	            'name' => 'Europe Garage Services Bourg en Bresse',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Skoda Paris Est',
+	            'name' => 'Skoda Paris Est Villemonble',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'NDS City Car',
+	            'name' => 'NDS City Car Saint-Ouen l\'Aumone',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Excel Motors',
+	            'name' => 'Excel Motors Nancy',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Premium Picardie',
+	            'name' => 'Premium Picardie Amiens',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'WelcomCar',
+	            'name' => 'WelcomCar Orléans',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Carlier Automobiles',
+	            'name' => 'Carlier Automobiles Douai',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Nice Car SA',
+	            'name' => 'Nice Car SA Nice',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Riviera Technic',
+	            'name' => 'Riviera Technic Cannes',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Peyo Automobiles',
+	            'name' => 'Peyo Automobiles Bayonne',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'L.G.A.',
+	            'name' => 'L.G.A. La Rochelle',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Saphir Automobiles',
+	            'name' => 'Saphir Automobiles Montpellier',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Vega Automobile',
+	            'name' => 'Vega Automobile Brétigny sur Orge',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 	        [
-	            'name' => 'Espace Automobiles Nîmois',
+	            'name' => 'Espace Automobiles Nîmois Nîmes',
 	            'group_id' => NULL,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
+
+	        //Ford Belgium 
+
 	        [
 	            'name' => 'Feyaerts',
 	            'group_id' => NULL,

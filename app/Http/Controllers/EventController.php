@@ -900,7 +900,7 @@ class EventController extends Controller
 
         $event = Event::find($id);
 
-        $filename = $event->name . '.csv';
+        $filename = 'Rhino Events_' . $event->name . '.csv';
 
         $handle = fopen('csv/' . $filename, 'w+');
 

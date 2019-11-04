@@ -762,182 +762,182 @@ class DealershipManufacturerTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // MC Motors
+	        // MC Motors Avignon
 
 	        [
 	            'dealership_id' => 52,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' =>	33,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // L.Warsemann Auto 37
+	        // L.Warsemann Auto 37 Tours
 
 	        [
 	            'dealership_id' => 53,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 36,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Nouvelle Excel Auto
+	        // Nouvelle Excel Auto Rennes
 
 	        [
 	            'dealership_id' => 54,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 28,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Espace 3000
+	        // Espace 3000 Besançon
 
 	        [
 	            'dealership_id' => 55,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 31,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Europe Garage Services
+	        // Europe Garage Services Bourg en Bresse
 
 	        [
 	            'dealership_id' => 56,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 32,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Skoda Paris Est
+	        // Skoda Paris Est Villemonble
 
 	        [
 	            'dealership_id' => 57,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 37,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // NDS City Car
+	        // NDS City Car Saint-Ouen l'Aumone
 
 	        [
 	            'dealership_id' => 58,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 29,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Excel Motors
+	        // Excel Motors Nancy
 
 	        [
 	            'dealership_id' => 59,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 31,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Premium Picardie
+	        // Premium Picardie Amiens
 
 	        [
 	            'dealership_id' => 60,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 30,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // WelcomCar
+	        // WelcomCar Orléans
 
 	        [
 	            'dealership_id' => 61,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 	36,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Carlier Automobiles
+	        // Carlier Automobiles Douai
 
 	        [
 	            'dealership_id' => 62,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 30,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Nice Car SA
+	        // Nice Car SA Nice
 
 	        [
 	            'dealership_id' => 63,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 33,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Riviera Technic
+	        // Riviera Technic Cannes
 
 	        [
 	            'dealership_id' => 64,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 33,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Peyo Automobiles
+	        // Peyo Automobiles Bayonne
 
 	        [
 	            'dealership_id' => 65,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 35,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // L.G.A.
+	        // L.G.A. La Rochelle
 
 	        [
 	            'dealership_id' => 66,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 35,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Saphir Automobiles
+	        // Saphir Automobiles Montpellier
 
 	        [
 	            'dealership_id' => 67,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 34,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Vega Automobile
+	        // Vega Automobile Brétigny sur Orge
 
 	        [
 	            'dealership_id' => 68,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 37,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Espace Automobiles Nîmois
+	        // Espace Automobiles Nîmois Nîmes
 
 	        [
 	            'dealership_id' => 69,
 	            'manufacturer_id' => 27,
-	            'region_id' => NULL,
+	            'region_id' => 34,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],

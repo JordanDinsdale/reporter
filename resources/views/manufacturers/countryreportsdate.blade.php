@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <i class="fas fa-chart-pie"></i>Your Reports
+    <h1><i class="fas fa-chart-pie"></i>Your Reports</h1>
     
 @endsection
 
@@ -21,7 +21,26 @@
 
                         <div class="current-results">
 
-                            Showing results for country - {{ $country->name }} 
+                            Showing results for 
+
+                            @switch($level)
+
+                                @case('Country')
+                                    Country | {{ $country->manufacturer->name }} {{ $country->name }} | 
+                                    @break
+
+                                @case('Region')
+                                    Region | {{ $country->manufacturer->name }} {{ $country->name }} {{ $country->region->name }} | 
+                                    @break
+
+                                @case('Dealership')
+                                    Dealership | {{ $country->dealership->name }} | 
+                                    @break
+
+                                @default
+                                    Country | {{ $country->manufacturer->name }} {{ $country->name }} | 
+
+                            @endswitch
 
                             @if(\Carbon\Carbon::parse($country->start_date)->format('M') == \Carbon\Carbon::parse($country->end_date)->format('M'))
 
@@ -85,12 +104,49 @@
 
                                                     @csrf
 
-                                                    <div class="from-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" />
-                                                    </div>
+                                                    <div class="row">
 
-                                                    <div class="to-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" />
+                                                        <div class="col-md-6">
+                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" required />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" required />
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <select id="levels" class="form-control" name="level" required>
+                                                                <option value="">Select Level</option>
+                                                                <option value="Country">{{ $country->name }}</option>
+                                                                <option value="Region">Region</option>
+                                                                <option value="Dealership">Dealership</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <select class="form-control d-none" name="manufacturer_id" id="manufacturers">
+                                                            <option value="{{ $country->manufacturer->id }}" selected>{{ $country->manufacturer->name }}</option>
+                                                        </select>
+                                                        
+                                                        <select class="form-control d-none" name="country_id" id="countries">
+                                                            <option value="{{ $country->id }}" selected>{{ $country->name }}</option>
+                                                        </select>
+
+                                                        <div id="regionContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="region_id" id="regions">
+                                                                <option value="">Select Region</option>
+                                                                @foreach($country->regions as $region)
+                                                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="dealershipContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="dealership_id" id="dealerships">
+                                                                <option value="">Select Dealership</option>
+                                                                <option disabled="true" value="">No dealerships currently available</option>
+                                                            </select>
+                                                        </div>
+
                                                     </div>
 
                                                     <button type="submit" class="btn">REPORT</button>
@@ -227,6 +283,38 @@
 
                             </div>
 
+                            @if($level == 'Region' || $level == 'Dealership')
+
+                                <div class="row results cardc">
+
+                                    <div class="col-md-12 bar-chart">
+                                        <div>
+                                            <canvas id="{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-bar-chart-response" width="800" height="450"></canvas>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row results cardc">
+
+                                    <div class="col-md-12 bar-chart">
+                                        <div>
+                                            <canvas id="{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-bar-chart-conversion" width="800" height="450"></canvas>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row results cardc">
+
+                                    <div class="col-md-12 bar-chart-2">
+                                        <canvas id="{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-bar-chart-breakdown" width="800" height="450"></canvas>
+                                    </div>
+
+                                </div>
+
+                            @endif
+
                             <div class="row results cardc">
 
                                 <div class="col-md-12 sales-breakdown-table">
@@ -295,10 +383,26 @@
                                             </div>
 
                                         </div>
+
+                                        @if($level == 'Country')
                                             
-                                        <div class="col-md-12 download-table-btn">
-                                            <a href="{{ route('manufacturerCountryReportDatesDownload', [$country->manufacturer->id,$country->id,$country->start_date,$country->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
-                                        </div>
+                                            <div class="col-md-12 download-table-btn">
+                                                <a href="{{ route('manufacturerCountryReportDatesDownload', [$country->manufacturer->id,$country->id,$country->start_date,$country->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                            </div>
+
+                                        @elseif($level == 'Region')
+                                            
+                                            <div class="col-md-12 download-table-btn">
+                                                <a href="{{ route('regionDownload', [$country->region->id,$country->start_date,$country->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                            </div>
+
+                                        @elseif($level == 'Dealership')
+                                            
+                                            <div class="col-md-12 download-table-btn">
+                                                <a href="{{ route('dealershipDownloadManufacturer', [$country->dealership->id,$country->manufacturer->id,$country->start_date,$country->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                            </div>
+
+                                        @endif
 
                                     </div>
                                 </div>
@@ -505,6 +609,474 @@
 
     </script>
 
+
+    @if($level == 'Region')
+
+
+        <script type="text/javascript">
+
+        new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-bar-chart-response"), {
+
+            type: 'bar',
+
+            data: {
+                labels: ["Response"],
+                datasets: [
+
+                    @if($country->data_count > 0)
+                        {
+                            label: "Region",
+                            backgroundColor: "#333C42",
+                            data: [
+                                {{ number_format($country->appointments/$country->data_count * 100, 1, '.', ',') }}
+                            ]
+                        }, 
+                    @endif
+
+                    @if($country->country->data_count > 0)
+                        {
+                            label: "Country",
+                            backgroundColor: "#6D497F",
+                            data: [
+                                {{ number_format($country->country->appointments/$country->country->data_count * 100, 1, '.', ',') }}
+                            ]
+                        }
+                    @endif
+
+                ]
+            },
+
+            options: {
+                title: {
+                    display: true,
+                    text: 'Response Rate %'
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 5
+                        }
+                    }]
+                },
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var allData = data.datasets[tooltipItem.datasetIndex].data;
+                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
+                            var tooltipData = allData[tooltipItem.index];
+                            return tooltipLabel + ": " + tooltipData + "%";
+                        }
+                    }
+                }
+
+            }
+
+        });
+
+        </script>
+
+
+        <script type="text/javascript">
+
+        new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-bar-chart-conversion"), {
+
+            type: 'bar',
+
+            data: {
+                labels: ["Conversion"],
+                datasets: [
+
+                    @if($country->appointments > 0)
+                        {
+                            label: "Region",
+                            backgroundColor: "#333C42",
+                            data: [
+                                {{ number_format(($country->new + $country->used + $country->demo + $country->zero_km)/$country->appointments * 100, 1, '.', ',') }}
+                            ]
+                        }, 
+                    @endif
+
+                    @if($country->country->appointments > 0)
+                        {
+                            label: "Country",
+                            backgroundColor: "#6D497F",
+                            data: [
+                                {{ number_format(($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km)/$country->country->appointments * 100, 1, '.', ',') }}
+                            ]
+                        }
+                    @endif
+                ]
+            },
+
+            options: {
+                title: {
+                    display: true,
+                    text: 'Conversion Rate %'
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 100
+                        }
+                    }]
+                },
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var allData = data.datasets[tooltipItem.datasetIndex].data;
+                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
+                            var tooltipData = allData[tooltipItem.index];
+                            return tooltipLabel + ": " + tooltipData + "%";
+                        }
+                    }
+                }
+
+            }
+
+        });
+
+        </script>
+
+
+        <script type="text/javascript">
+
+        new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-bar-chart-breakdown"), {
+
+            type: 'bar',
+
+            data: {
+                labels: ["New", "Used", "Demo", "0KM", "In Progress"],
+                datasets: [
+
+                    @if($country->data_count > 0)
+                        {
+                            label: "Region",
+                            backgroundColor: "#333C42",
+                            data: [
+                                @if($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress > 0)
+                                    {{ number_format($country->new/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->used/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->demo/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->zero_km/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->inprogress/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}
+                                @endif
+                            ]
+                        }, 
+                    @endif
+
+                    @if($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress > 0)
+                        {
+                            label: "Country",
+                            backgroundColor: "#6D497F",
+                            data: [
+                                {{ number_format($country->country->new/($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress) * 100, 1, '.', ',')}},
+                                {{ number_format($country->country->used/($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress) * 100, 1, '.', ',')}},
+                                {{ number_format($country->country->demo/($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress) * 100, 1, '.', ',')}},
+                                {{ number_format($country->country->zero_km/($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress) * 100, 1, '.', ',')}},
+                                {{ number_format($country->country->inprogress/($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress) * 100, 1, '.', ',')}}
+                            ]
+                        }
+                    @endif
+                ]
+            },
+
+            options: {
+                title: {
+                    display: true,
+                    text: 'Sales Breakdown %'
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 100
+                        }
+                    }]
+                },
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var allData = data.datasets[tooltipItem.datasetIndex].data;
+                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
+                            var tooltipData = allData[tooltipItem.index];
+                            return tooltipLabel + ": " + tooltipData + "%";
+                        }
+                    }
+                }
+            }
+
+        });
+
+        </script>
+
+
+    @elseif($level == 'Dealership')
+
+
+        <script type="text/javascript">
+
+        new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-bar-chart-response"), {
+
+            type: 'bar',
+
+            data: {
+                labels: ["Response"],
+                datasets: [
+
+                    @if($country->country->data_count > 0)
+                        {
+                            label: "Country",
+                            backgroundColor: "#6D497F",
+                            data: [
+                                {{ number_format($country->country->appointments/$country->country->data_count * 100, 1, '.', ',') }}
+                            ]
+                        },
+                    @endif
+
+                    @if($country->data_count > 0)
+                        {
+                            label: "Dealership",
+                            backgroundColor: "#BA97CC",
+                            data: [
+                                {{ number_format($country->appointments/$country->data_count * 100, 1, '.', ',') }}
+                            ]
+                        },
+                    @endif
+
+                    @if($country->region->data_count > 0)
+                        {
+                            label: "Region",
+                            backgroundColor: "#333C42",
+                            data: [
+                                {{ number_format($country->region->appointments/$country->region->data_count * 100, 1, '.', ',') }}
+                            ]
+                        }
+                    @endif
+
+                ]
+            },
+
+            options: {
+                title: {
+                    display: true,
+                    text: 'Response Rate %'
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 5
+                        }
+                    }]
+                },
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var allData = data.datasets[tooltipItem.datasetIndex].data;
+                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
+                            var tooltipData = allData[tooltipItem.index];
+                            return tooltipLabel + ": " + tooltipData + "%";
+                        }
+                    }
+                }
+
+            }
+
+        });
+
+        </script>
+
+
+        <script type="text/javascript">
+
+        new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-bar-chart-conversion"), {
+
+            type: 'bar',
+
+            data: {
+                labels: ["Conversion"],
+                datasets: [
+
+                    @if($country->country->appointments > 0)
+                        {
+                            label: "Country",
+                            backgroundColor: "#6D497F",
+                            data: [
+                                {{ number_format(($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km)/$country->country->appointments * 100, 1, '.', ',') }}
+                            ]
+                        },
+                    @endif
+
+                    @if($country->appointments > 0)
+                        {
+                            label: "Dealership",
+                            backgroundColor: "#BA97CC",
+                            data: [
+                                {{ number_format(($country->new + $country->used + $country->demo + $country->zero_km)/$country->appointments * 100, 1, '.', ',') }}
+                            ]
+                        },
+                    @endif
+
+                    @if($country->region->appointments > 0)
+                        {
+                            label: "Region",
+                            backgroundColor: "#333C42",
+                            data: [
+                                {{ number_format(($country->region->new + $country->region->used + $country->region->demo + $country->region->zero_km)/$country->region->appointments * 100, 1, '.', ',') }}
+                            ]
+                        }
+                    @endif
+
+                ]
+            },
+
+            options: {
+                title: {
+                    display: true,
+                    text: 'Conversion Rate %'
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 100
+                        }
+                    }]
+                },
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var allData = data.datasets[tooltipItem.datasetIndex].data;
+                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
+                            var tooltipData = allData[tooltipItem.index];
+                            return tooltipLabel + ": " + tooltipData + "%";
+                        }
+                    }
+                }
+
+            }
+
+        });
+
+        </script>
+
+
+        <script type="text/javascript">
+
+        new Chart(document.getElementById("{{ str_replace(' ','-',strtolower($country->manufacturer->name)) }}-bar-chart-breakdown"), {
+
+            type: 'bar',
+
+            data: {
+                labels: ["New", "Used", "Demo", "0KM", "In Progress"],
+                datasets: [
+
+                    @if($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress > 0)
+                        {
+                            label: "Country",
+                            backgroundColor: "#6D497F",
+                            data: [
+                                {{ number_format($country->country->new/($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress) * 100, 1, '.', ',')}},
+                                {{ number_format($country->country->used/($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress) * 100, 1, '.', ',')}},
+                                {{ number_format($country->country->demo/($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress) * 100, 1, '.', ',')}},
+                                {{ number_format($country->country->zero_km/($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress) * 100, 1, '.', ',')}},
+                                {{ number_format($country->country->inprogress/($country->country->new + $country->country->used + $country->country->demo + $country->country->zero_km + $country->country->inprogress) * 100, 1, '.', ',')}}
+                            ]
+                        },
+                    @endif
+
+                    @if($country->data_count > 0)
+                        {
+                            label: "Dealership",
+                            backgroundColor: "#BA97CC",
+                            data: [
+                                @if($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress > 0)
+                                    {{ number_format($country->new/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->used/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->demo/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->zero_km/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->inprogress/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}
+                                @endif
+                            ]
+                        },
+                    @endif
+
+                    @if($country->region->data_count > 0)
+                        {
+                            label: "Region",
+                            backgroundColor: "#333C42",
+                            data: [
+                                @if($country->region->new + $country->region->used + $country->region->demo + $country->region->zero_km + $country->region->inprogress > 0)
+                                    {{ number_format($country->region->new/($country->region->new + $country->region->used + $country->region->demo + $country->region->zero_km + $country->region->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->region->used/($country->region->new + $country->region->used + $country->region->demo + $country->region->zero_km + $country->region->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->region->demo/($country->region->new + $country->region->used + $country->region->demo + $country->region->zero_km + $country->region->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->region->zero_km/($country->region->new + $country->region->used + $country->region->demo + $country->region->zero_km + $country->region->inprogress) * 100, 1, '.', ',')}},
+                                    {{ number_format($country->region->inprogress/($country->region->new + $country->region->used + $country->region->demo + $country->region->zero_km + $country->region->inprogress) * 100, 1, '.', ',')}}
+                                @endif
+                            ]
+                        }
+                    @endif
+
+                ]
+            },
+
+            options: {
+                title: {
+                    display: true,
+                    text: 'Sales Breakdown %'
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 100
+                        }
+                    }]
+                },
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var allData = data.datasets[tooltipItem.datasetIndex].data;
+                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
+                            var tooltipData = allData[tooltipItem.index];
+                            return tooltipLabel + ": " + tooltipData + "%";
+                        }
+                    }
+                }
+            }
+
+        });
+
+        </script>
+
+
+    @endif
+
+
 @endif
+
+<script src="/js/select-reporting-level.js"></script>
+<script src="/js/country-manufacturer-regions.js"></script> 
+<script src="/js/manufacturer-country-dealerships.js"></script> 
 
 @endsection

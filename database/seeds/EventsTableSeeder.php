@@ -302,7 +302,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'MC Motors VIP Event',
+	            'name' => 'MC Motors Avignon VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 52,
@@ -310,7 +310,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'L.Warsemann Auto 37 VIP Event',
+	            'name' => 'L.Warsemann Auto 37 Tours VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 53,
@@ -318,7 +318,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Nouvelle Excel Auto VIP Event',
+	            'name' => 'Nouvelle Excel Auto Rennes VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 54,
@@ -326,7 +326,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Espace 3000 VIP Event',
+	            'name' => 'Espace 3000 Besançon VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 55,
@@ -334,7 +334,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Europe Garage Services VIP Event',
+	            'name' => 'Europe Garage Services Bourg en Bresse VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 56,
@@ -342,7 +342,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Skoda Paris Est VIP Event',
+	            'name' => 'Skoda Paris Est Villemonble VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 57,
@@ -350,7 +350,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'NDS City Car VIP Event',
+	            'name' => 'NDS City Car Saint-Ouen l\'Aumone VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 58,
@@ -358,7 +358,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Excel Motors VIP Event',
+	            'name' => 'Excel Motors Nancy VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 59,
@@ -366,7 +366,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Premium Picardie VIP Event',
+	            'name' => 'Premium Picardie Amiens VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 60,
@@ -374,7 +374,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'WelcomCar VIP Event',
+	            'name' => 'WelcomCar Orléans VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 61,
@@ -382,7 +382,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Carlier Automobiles VIP Event',
+	            'name' => 'Carlier Automobiles Douai VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 62,
@@ -390,7 +390,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Nice Car SA VIP Event',
+	            'name' => 'Nice Car SA Nice VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 63,
@@ -398,7 +398,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Riviera Technic VIP Event',
+	            'name' => 'Riviera Technic Cannes VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 64,
@@ -406,7 +406,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Peyo Automobiles VIP Event',
+	            'name' => 'Peyo Automobiles Bayonne VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 65,
@@ -414,7 +414,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'L.G.A. VIP Event',
+	            'name' => 'L.G.A. La Rochelle VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 66,
@@ -422,7 +422,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Saphir Automobiles VIP Event',
+	            'name' => 'Saphir Automobiles Montpellier VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 67,
@@ -430,7 +430,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Vega Automobile VIP Event',
+	            'name' => 'Vega Automobile Brétigny sur Orge VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 68,
@@ -438,7 +438,7 @@ class EventsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
         	[
-	            'name' => 'Espace Automobiles Nîmois VIP Event',
+	            'name' => 'Espace Automobiles Nîmois Nîmes VIP Event',
 	            'start_date' => '2019-01-18',
 	            'end_date' => '2019-01-20',
 	            'dealership_id' => 69,

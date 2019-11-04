@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <i class="fas fa-chart-pie"></i>Your Reports
+    <h1><i class="fas fa-chart-pie"></i>Your Reports</h1>
     
 @endsection
 
@@ -81,11 +81,11 @@
                                                     @csrf
 
                                                     <div class="from-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" />
+                                                        <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" required />
                                                     </div>
 
                                                     <div class="to-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" />
+                                                        <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" required />
                                                     </div>
 
                                                     <button type="submit" class="btn">REPORT</button>

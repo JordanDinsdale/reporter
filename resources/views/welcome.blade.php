@@ -32,7 +32,7 @@
 
                                 {{ csrf_field() }}
 
-                                <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email address" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="{{ __('Email address') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -40,7 +40,7 @@
                                     </span>
                                 @enderror
 
-                                <input id="password" type="password" class="@error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
+                                <input id="password" type="password" class="@error('password') is-invalid @enderror" name="password" placeholder="{{ __('Password') }}" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -57,6 +57,25 @@
                                         <small class="text-muted">{{ __('Forgotten your password?') }}</small>
                                     </a>
                                 @endif
+
+                            </form>
+
+                            <form method="POST" action="{{ route('changelocale') }}" class="form-inline navbar-select">
+
+                                {{ csrf_field() }}
+
+                                <div class="form-group @if($errors->first('locale')) has-error @endif">
+                                    <span aria-hidden="true"><i class="fa fa-flag"></i></span>
+                                    <select class="form-control" name="locale" id="locale" onchange="this.form.submit()" required>
+                                        <option value="en" @if(\App::getLocale() == 'en') selected @endif>EN</option>
+                                        <option value="fr" @if(\App::getLocale() == 'fr') selected @endif>FR</option>
+                                    </select>
+                                    <small class="text-danger">{{ $errors->first('locale') }}</small>
+                                </div>
+
+                                <div class="btn-group pull-right sr-only">
+                                    <button type="submit" class="btn btn-success">Change</button>
+                                </div>
 
                             </form>
 

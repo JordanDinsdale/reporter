@@ -2,7 +2,9 @@
 
 @section('page_title')
 
-    Dashboard
+    <h1>Dashboard</h1>
+
+    <p>Year-to-Date Results</p>
     
 @endsection
 

@@ -2,13 +2,14 @@
 
 @section('page_title')
 
-    <i class="fas fa-chart-pie"></i>Your Reports
+    <h1><i class="fas fa-chart-pie"></i>Your Reports</h1>
     
 @endsection
 
 @section('content')
 
 <div class="reports">
+    
     <div class="container-fluid">
 
         <div class="row">
@@ -25,15 +26,15 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()" style="display: none;">Choose Report</button>
                         
-                        <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
+                        <button id="cancel" type="button" class="cancel" onclick="closeForm()"><i class="fas fa-times"></i></button>
 
                         <div class="clear"></div>
 
                     </div>
 
-                    <div class="report-dropdown">
+                    <div class="report-dropdown" style="display:block;">
 
                         <div class="form-popup" id="reportForm">
 
@@ -70,11 +71,11 @@
                                                     <div class="row">
 
                                                         <div class="col-md-6">
-                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" />
+                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" required />
                                                         </div>
 
                                                         <div class="col-md-6">
-                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" />
+                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" required />
                                                         </div>
 
                                                         <div class="col-md-12">
@@ -152,7 +153,7 @@
 
     </div>
 
-    <div id="main-content-container" class="container-fluid bg-custom">
+    <div id="main-content-container" class="container-fluid bg-custom" style="opacity:0.5;">
 
         <div class="container main-content-container">
 

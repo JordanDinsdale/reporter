@@ -437,6 +437,7 @@ p {
 
 .header .nav-l1 {
   padding: 20px 0 60px 0;
+  color: #FFF;
 }
 
 @media only screen and (max-width: 500px) {
@@ -567,11 +568,13 @@ p {
   }
 }
 
-.header .text h1 {
+.header .text h1,
+.header .text p {
   text-transform: uppercase;
 }
 
-.header .text h3 {
+.header .text h3,
+.header .text p {
   color: #ffffff;
 }
 

@@ -140,7 +140,7 @@ class RegionsTableSeeder extends Seeder
 	            'updated_at' => Carbon::now()
 	        ],
 
-	        // Opel 1
+	        // Opel France
 
 	        [
 	            'name' => '01',
@@ -149,9 +149,6 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 2
-
 	        [
 	            'name' => '02',
 	            'manufacturer_id' => 22,
@@ -159,9 +156,6 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 3
-
 	        [
 	            'name' => '03',
 	            'manufacturer_id' => 22,
@@ -169,9 +163,6 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 4
-
 	        [
 	            'name' => '04',
 	            'manufacturer_id' => 22,
@@ -179,9 +170,6 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 5
-
 	        [
 	            'name' => '05',
 	            'manufacturer_id' => 22,
@@ -189,9 +177,6 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 6
-
 	        [
 	            'name' => '06',
 	            'manufacturer_id' => 22,
@@ -199,9 +184,6 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 7
-
 	        [
 	            'name' => '07',
 	            'manufacturer_id' => 22,
@@ -209,9 +191,6 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 8
-
 	        [
 	            'name' => '08',
 	            'manufacturer_id' => 22,
@@ -219,9 +198,6 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 9
-
 	        [
 	            'name' => '09',
 	            'manufacturer_id' => 22,
@@ -229,9 +205,6 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 10
-
 	        [
 	            'name' => '10',
 	            'manufacturer_id' => 22,
@@ -239,9 +212,6 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 11
-
 	        [
 	            'name' => '11',
 	            'manufacturer_id' => 22,
@@ -249,12 +219,82 @@ class RegionsTableSeeder extends Seeder
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()
 	        ],
-
-	        // Opel 12
-
 	        [
 	            'name' => '12',
 	            'manufacturer_id' => 22,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+
+	        // Skoda France
+
+	        [
+	            'name' => '01',
+	            'manufacturer_id' => 27,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => '02',
+	            'manufacturer_id' => 27,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => '03',
+	            'manufacturer_id' => 27,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => '04',
+	            'manufacturer_id' => 27,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => '05',
+	            'manufacturer_id' => 27,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => '06',
+	            'manufacturer_id' => 27,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => '07',
+	            'manufacturer_id' => 27,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => '08',
+	            'manufacturer_id' => 27,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => '09',
+	            'manufacturer_id' => 27,
+	            'country_id' => 4,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	        ],
+	        [
+	            'name' => '10',
+	            'manufacturer_id' => 27,
 	            'country_id' => 4,
 	            'created_at' => Carbon::now(),
 	            'updated_at' => Carbon::now()

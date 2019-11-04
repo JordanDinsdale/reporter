@@ -155,6 +155,12 @@ class ManufacturerController extends Controller
 
         $manufacturer = Manufacturer::find($manufacturer_id);
 
+        foreach($manufacturer->dealerships as $dealership) {
+            $country_ids[] = $dealership->country->id;
+        }
+
+        $manufacturer->countries = Country::whereIn('id',$country_ids)->get();
+
         return view('manufacturers.reports',compact('manufacturer'));
     }
 
@@ -169,11 +175,21 @@ class ManufacturerController extends Controller
 
         $manufacturer = Manufacturer::find($manufacturer_id);
 
+        foreach($manufacturer->dealerships as $dealership) {
+            $country_ids[] = $dealership->country->id;
+        }
+
+        $manufacturer->countries = Country::whereIn('id',$country_ids)->get();
+
+        $manufacturer->country = Country::find($request->country_id);
+
         $start_date = Carbon::createFromFormat('d/m/Y',$request->start_date);
         $start_date = $start_date->format('Y-m-d');
 
         $end_date = Carbon::createFromFormat('d/m/Y',$request->end_date);
         $end_date = $end_date->format('Y-m-d');
+
+        $level = $request->level;
 
         $manufacturer->start_date = $start_date;
         $manufacturer->end_date = $end_date;        
@@ -183,21 +199,240 @@ class ManufacturerController extends Controller
         $manufacturer->used = 0;
         $manufacturer->demo = 0;
         $manufacturer->zero_km = 0;
-        $manufacturer->inprogress = 0;     
+        $manufacturer->inprogress = 0;
 
-        foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
+        if($level == 'Manufacturer') {     
 
-            $manufacturer->data_count += $manufacturerEvent->pivot->data_count;
-            $manufacturer->appointments += $manufacturerEvent->pivot->appointments;
-            $manufacturer->new += $manufacturerEvent->pivot->new;
-            $manufacturer->used += $manufacturerEvent->pivot->used;
-            $manufacturer->demo += $manufacturerEvent->pivot->demo;
-            $manufacturer->zero_km += $manufacturerEvent->pivot->zero_km;
-            $manufacturer->inprogress += $manufacturerEvent->pivot->inprogress;
+            foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
+
+                $manufacturer->data_count += $manufacturerEvent->pivot->data_count;
+                $manufacturer->appointments += $manufacturerEvent->pivot->appointments;
+                $manufacturer->new += $manufacturerEvent->pivot->new;
+                $manufacturer->used += $manufacturerEvent->pivot->used;
+                $manufacturer->demo += $manufacturerEvent->pivot->demo;
+                $manufacturer->zero_km += $manufacturerEvent->pivot->zero_km;
+                $manufacturer->inprogress += $manufacturerEvent->pivot->inprogress;
+
+            }
 
         }
 
-        return view('manufacturers.reportsdate',compact('manufacturer'));
+        if($level == 'Country') {
+
+            $manufacturer->country = Country::find($request->country_id);
+
+            foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
+
+                if($manufacturerEvent->dealership->country->id == $request->country_id) {
+
+                    $manufacturer->data_count += $manufacturerEvent->pivot->data_count;
+                    $manufacturer->appointments += $manufacturerEvent->pivot->appointments;
+                    $manufacturer->new += $manufacturerEvent->pivot->new;
+                    $manufacturer->used += $manufacturerEvent->pivot->used;
+                    $manufacturer->demo += $manufacturerEvent->pivot->demo;
+                    $manufacturer->zero_km += $manufacturerEvent->pivot->zero_km;
+                    $manufacturer->inprogress += $manufacturerEvent->pivot->inprogress;
+
+                }
+
+            }
+
+        }
+
+        if($level == 'Region') {
+
+            $manufacturer->region = Region::find($request->region_id);
+
+            foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
+
+                foreach($manufacturerEvent->dealership->regions as $region) {
+
+                    if($region->id == $request->region_id) {
+
+                        $manufacturer->data_count += $manufacturerEvent->pivot->data_count;
+                        $manufacturer->appointments += $manufacturerEvent->pivot->appointments;
+                        $manufacturer->new += $manufacturerEvent->pivot->new;
+                        $manufacturer->used += $manufacturerEvent->pivot->used;
+                        $manufacturer->demo += $manufacturerEvent->pivot->demo;
+                        $manufacturer->zero_km += $manufacturerEvent->pivot->zero_km;
+                        $manufacturer->inprogress += $manufacturerEvent->pivot->inprogress;
+
+                    }
+
+                }
+
+            }
+
+            $country = Country::find($manufacturer->region->country->id); 
+
+            $event_ids = [];
+
+            foreach($country->dealerships as $dealership) {
+
+                foreach($dealership->events as $dealershipEvent) {
+
+                    foreach($dealershipEvent->manufacturers as $dealershipEventManufacturer) {
+
+                        if($dealershipEventManufacturer->id == $manufacturer->id) {
+
+                            $event_ids[] = $dealershipEvent->id;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $country->events = Event::whereIn('id',$event_ids)->get();
+
+            $manufacturer->country = Country::find($manufacturer->region->country->id);     
+            $manufacturer->country->data_count = 0;
+            $manufacturer->country->appointments = 0;
+            $manufacturer->country->new = 0;
+            $manufacturer->country->used = 0;
+            $manufacturer->country->demo = 0;
+            $manufacturer->country->zero_km = 0;
+            $manufacturer->country->inprogress = 0;  
+
+            foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
+
+                foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                    if($countryEventManufacturer->id == $manufacturer->id) {
+
+                        $manufacturer->country->data_count += $countryEventManufacturer->pivot->data_count;
+                        $manufacturer->country->appointments += $countryEventManufacturer->pivot->appointments;
+                        $manufacturer->country->new += $countryEventManufacturer->pivot->new;
+                        $manufacturer->country->used += $countryEventManufacturer->pivot->used;
+                        $manufacturer->country->demo += $countryEventManufacturer->pivot->demo;
+                        $manufacturer->country->zero_km += $countryEventManufacturer->pivot->zero_km;
+                        $manufacturer->country->inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        if($level == 'Dealership') {
+
+            $manufacturer->dealership = Dealership::find($request->dealership_id);
+
+            foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
+
+                if($manufacturerEvent->dealership->id == $request->dealership_id) {
+
+                    $manufacturer->data_count += $manufacturerEvent->pivot->data_count;
+                    $manufacturer->appointments += $manufacturerEvent->pivot->appointments;
+                    $manufacturer->new += $manufacturerEvent->pivot->new;
+                    $manufacturer->used += $manufacturerEvent->pivot->used;
+                    $manufacturer->demo += $manufacturerEvent->pivot->demo;
+                    $manufacturer->zero_km += $manufacturerEvent->pivot->zero_km;
+                    $manufacturer->inprogress += $manufacturerEvent->pivot->inprogress;
+
+                }
+
+            }
+
+            $region_id = DB::table('dealership_manufacturer')->where('dealership_id',$manufacturer->dealership->id)->where('manufacturer_id',$manufacturer->id)->value('region_id');
+
+            $manufacturer->region = Region::find($region_id);   
+            $manufacturer->region->data_count = 0;
+            $manufacturer->region->appointments = 0;
+            $manufacturer->region->new = 0;
+            $manufacturer->region->used = 0;
+            $manufacturer->region->demo = 0;
+            $manufacturer->region->zero_km = 0;
+            $manufacturer->region->inprogress = 0;  
+
+            foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
+
+                foreach($manufacturerEvent->manufacturers as $manufacturerEventManufacturer) {
+
+                    if($manufacturerEventManufacturer->id == $manufacturer->id) {
+
+                        foreach($manufacturerEvent->dealership->regions as $manufacturerEventDealershipRegion) {
+
+                            if($manufacturerEventDealershipRegion->id == $manufacturer->region->id) {
+
+                                $manufacturer->region->data_count += $manufacturerEventManufacturer->pivot->data_count;
+                                $manufacturer->region->appointments += $manufacturerEventManufacturer->pivot->appointments;
+                                $manufacturer->region->new += $manufacturerEventManufacturer->pivot->new;
+                                $manufacturer->region->used += $manufacturerEventManufacturer->pivot->used;
+                                $manufacturer->region->demo += $manufacturerEventManufacturer->pivot->demo;
+                                $manufacturer->region->zero_km += $manufacturerEventManufacturer->pivot->zero_km;
+                                $manufacturer->region->inprogress += $manufacturerEventManufacturer->pivot->inprogress;
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $country = Country::find($manufacturer->dealership->country->id); 
+
+            $event_ids = [];
+
+            foreach($country->dealerships as $dealership) {
+
+                foreach($dealership->events as $dealershipEvent) {
+
+                    foreach($dealershipEvent->manufacturers as $dealershipEventManufacturer) {
+
+                        if($dealershipEventManufacturer->id == $manufacturer->id) {
+
+                            $event_ids[] = $dealershipEvent->id;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $country->events = Event::whereIn('id',$event_ids)->get();
+
+            $manufacturer->country = Country::find($manufacturer->dealership->country->id);     
+            $manufacturer->country->data_count = 0;
+            $manufacturer->country->appointments = 0;
+            $manufacturer->country->new = 0;
+            $manufacturer->country->used = 0;
+            $manufacturer->country->demo = 0;
+            $manufacturer->country->zero_km = 0;
+            $manufacturer->country->inprogress = 0;  
+
+            foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
+
+                foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                    if($countryEventManufacturer->id == $manufacturer->id) {
+
+                        $manufacturer->country->data_count += $countryEventManufacturer->pivot->data_count;
+                        $manufacturer->country->appointments += $countryEventManufacturer->pivot->appointments;
+                        $manufacturer->country->new += $countryEventManufacturer->pivot->new;
+                        $manufacturer->country->used += $countryEventManufacturer->pivot->used;
+                        $manufacturer->country->demo += $countryEventManufacturer->pivot->demo;
+                        $manufacturer->country->zero_km += $countryEventManufacturer->pivot->zero_km;
+                        $manufacturer->country->inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                    }
+
+                }
+
+            }         
+
+        }
+
+        return view('manufacturers.reportsdate',compact('manufacturer','level'));
     }
 
     /**
@@ -539,6 +774,8 @@ class ManufacturerController extends Controller
         $end_date = Carbon::createFromFormat('d/m/Y',$request->end_date);
         $end_date = $end_date->format('Y-m-d');
 
+        $level = $request->level;
+
         $event_ids = [];
 
         foreach($country->dealerships as $dealership) {
@@ -571,19 +808,23 @@ class ManufacturerController extends Controller
         $country->zero_km = 0;
         $country->inprogress = 0;     
 
-        foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
+        if($level == 'Country') {
 
-            foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+            foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
 
-                if($countryEventManufacturer->id == $country->manufacturer->id) {
+                foreach($countryEvent->manufacturers as $countryEventManufacturer) {
 
-                    $country->data_count += $countryEventManufacturer->pivot->data_count;
-                    $country->appointments += $countryEventManufacturer->pivot->appointments;
-                    $country->new += $countryEventManufacturer->pivot->new;
-                    $country->used += $countryEventManufacturer->pivot->used;
-                    $country->demo += $countryEventManufacturer->pivot->demo;
-                    $country->zero_km += $countryEventManufacturer->pivot->zero_km;
-                    $country->inprogress += $countryEventManufacturer->pivot->inprogress;
+                    if($countryEventManufacturer->id == $country->manufacturer->id) {
+
+                        $country->data_count += $countryEventManufacturer->pivot->data_count;
+                        $country->appointments += $countryEventManufacturer->pivot->appointments;
+                        $country->new += $countryEventManufacturer->pivot->new;
+                        $country->used += $countryEventManufacturer->pivot->used;
+                        $country->demo += $countryEventManufacturer->pivot->demo;
+                        $country->zero_km += $countryEventManufacturer->pivot->zero_km;
+                        $country->inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                    }
 
                 }
 
@@ -591,7 +832,168 @@ class ManufacturerController extends Controller
 
         }
 
-        return view('manufacturers.countryreportsdate',compact('country'));
+        if($level == 'Region') {
+
+            $country->region = Region::find($request->region_id);
+
+            foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
+
+                foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                    if($countryEventManufacturer->id == $country->manufacturer->id) {
+
+                        foreach($countryEvent->dealership->regions as $countryEventDealershipRegion) {
+
+                            if($countryEventDealershipRegion->id == $country->region->id) {
+
+                                $country->data_count += $countryEventManufacturer->pivot->data_count;
+                                $country->appointments += $countryEventManufacturer->pivot->appointments;
+                                $country->new += $countryEventManufacturer->pivot->new;
+                                $country->used += $countryEventManufacturer->pivot->used;
+                                $country->demo += $countryEventManufacturer->pivot->demo;
+                                $country->zero_km += $countryEventManufacturer->pivot->zero_km;
+                                $country->inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $country->country = Country::find($country_id);     
+            $country->country->data_count = 0;
+            $country->country->appointments = 0;
+            $country->country->new = 0;
+            $country->country->used = 0;
+            $country->country->demo = 0;
+            $country->country->zero_km = 0;
+            $country->country->inprogress = 0;  
+
+            foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
+
+                foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                    if($countryEventManufacturer->id == $country->manufacturer->id) {
+
+                        $country->country->data_count += $countryEventManufacturer->pivot->data_count;
+                        $country->country->appointments += $countryEventManufacturer->pivot->appointments;
+                        $country->country->new += $countryEventManufacturer->pivot->new;
+                        $country->country->used += $countryEventManufacturer->pivot->used;
+                        $country->country->demo += $countryEventManufacturer->pivot->demo;
+                        $country->country->zero_km += $countryEventManufacturer->pivot->zero_km;
+                        $country->country->inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        if($level == 'Dealership') {
+
+            $country->dealership = Dealership::find($request->dealership_id);
+
+            foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
+
+                foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                    if($countryEventManufacturer->id == $country->manufacturer->id) {
+
+                        if($countryEvent->dealership->id == $country->dealership->id) {
+
+                            $country->data_count += $countryEventManufacturer->pivot->data_count;
+                            $country->appointments += $countryEventManufacturer->pivot->appointments;
+                            $country->new += $countryEventManufacturer->pivot->new;
+                            $country->used += $countryEventManufacturer->pivot->used;
+                            $country->demo += $countryEventManufacturer->pivot->demo;
+                            $country->zero_km += $countryEventManufacturer->pivot->zero_km;
+                            $country->inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $region_id = DB::table('dealership_manufacturer')->where('dealership_id',$country->dealership->id)->where('manufacturer_id',$country->manufacturer->id)->value('region_id');
+
+            $country->region = Region::find($region_id);   
+            $country->region->data_count = 0;
+            $country->region->appointments = 0;
+            $country->region->new = 0;
+            $country->region->used = 0;
+            $country->region->demo = 0;
+            $country->region->zero_km = 0;
+            $country->region->inprogress = 0;  
+
+            foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
+
+                foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                    if($countryEventManufacturer->id == $country->manufacturer->id) {
+
+                        foreach($countryEvent->dealership->regions as $countryEventDealershipRegion) {
+
+                            if($countryEventDealershipRegion->id == $country->region->id) {
+
+                                $country->region->data_count += $countryEventManufacturer->pivot->data_count;
+                                $country->region->appointments += $countryEventManufacturer->pivot->appointments;
+                                $country->region->new += $countryEventManufacturer->pivot->new;
+                                $country->region->used += $countryEventManufacturer->pivot->used;
+                                $country->region->demo += $countryEventManufacturer->pivot->demo;
+                                $country->region->zero_km += $countryEventManufacturer->pivot->zero_km;
+                                $country->region->inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $country->country = Country::find($country_id);   
+            $country->country->data_count = 0;
+            $country->country->appointments = 0;
+            $country->country->new = 0;
+            $country->country->used = 0;
+            $country->country->demo = 0;
+            $country->country->zero_km = 0;
+            $country->country->inprogress = 0;  
+
+            foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
+
+                foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                    if($countryEventManufacturer->id == $country->manufacturer->id) {
+
+                        $country->country->data_count += $countryEventManufacturer->pivot->data_count;
+                        $country->country->appointments += $countryEventManufacturer->pivot->appointments;
+                        $country->country->new += $countryEventManufacturer->pivot->new;
+                        $country->country->used += $countryEventManufacturer->pivot->used;
+                        $country->country->demo += $countryEventManufacturer->pivot->demo;
+                        $country->country->zero_km += $countryEventManufacturer->pivot->zero_km;
+                        $country->country->inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return view('manufacturers.countryreportsdate',compact('country','level'));
     }
 
     /**
@@ -1280,6 +1682,24 @@ class ManufacturerController extends Controller
         $manufacturer = Manufacturer::find($id);
 
         return $manufacturer->regions;
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Company  $company
+     * @return \Illuminate\Http\Response
+     */
+    public function manufacturerCountryDealershipsApi($manufacturer_id,$country_id)
+    {
+
+        $manufacturer = Manufacturer::find($manufacturer_id);
+
+        $dealerships = $manufacturer->dealerships->where('country_id',$country_id);
+
+        return $dealerships;
+
     }
 
 }

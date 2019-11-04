@@ -35,7 +35,9 @@
         @include('includes/header')
 
         <div class="container text">
-            <h1>@yield('page_title')</h1>
+
+            @yield('page_title')
+            
         </div>
 
     </div>

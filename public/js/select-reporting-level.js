@@ -5,6 +5,18 @@ $(document).ready(function() {
         let level = this.value;
 
         switch(level) {
+            case 'Company':
+                $('#manufacturerContainer').addClass('d-none');
+                $('#manufacturerContainer select').prop('required',false);
+                $('#countryContainer').addClass('d-none');
+                $('#countryContainer select').prop('required',false);
+                $('#regionContainer').addClass('d-none');
+                $('#regionContainer select').prop('required',false);
+                $('#groupContainer').addClass('d-none');
+                $('#groupContainer select').prop('required',false);
+                $('#dealershipContainer').addClass('d-none');
+                $('#dealershipContainer select').prop('required',false);
+            break;
             case 'Manufacturer':
                 $('#manufacturerContainer').removeClass('d-none');
                 $('#manufacturerContainer select').prop('required',true);
@@ -54,6 +66,16 @@ $(document).ready(function() {
                 $('#dealershipContainer select').prop('required',true);
             break;
             default:
+                $('#manufacturerContainer').addClass('d-none');
+                $('#manufacturerContainer select').prop('required',false);
+                $('#countryContainer').addClass('d-none');
+                $('#countryContainer select').prop('required',false);
+                $('#regionContainer').addClass('d-none');
+                $('#regionContainer select').prop('required',false);
+                $('#groupContainer').addClass('d-none');
+                $('#groupContainer select').prop('required',false);
+                $('#dealershipContainer').addClass('d-none');
+                $('#dealershipContainer select').prop('required',false);
         }           
 
     });

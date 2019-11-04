@@ -50,7 +50,15 @@
                         <div class="form-group">    
                             <label for="email">Email</label>
                             <input type="email" class="form-control" name="email" value="{{ old('email') }}" required />
+                        </div>    
+                        <div class="form-group">    
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="password" value="" required />
                         </div>   
+                        <div class="form-group">    
+                            <label for="password_confirmation">Confirm Password</label>
+                            <input type="password" class="form-control" name="password_confirmation" value="" required />
+                        </div>  
                         <div class="form-group">    
                             <label for="level">Level</label>
                             <select id="levels" class="form-control" name="level" required>

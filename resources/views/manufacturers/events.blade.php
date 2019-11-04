@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    Events
+    <h1>Events</h1>
     
 @endsection
 

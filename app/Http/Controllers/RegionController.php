@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Region;
 use App\Manufacturer;
+use App\Dealership;
 use App\Event;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -240,6 +241,8 @@ class RegionController extends Controller
         $end_date = Carbon::createFromFormat('d/m/Y',$request->end_date);
         $end_date = $end_date->format('Y-m-d');
 
+        $level = $request->level;
+
         $event_ids = [];
 
         foreach($region->dealerships as $dealership) {
@@ -281,21 +284,51 @@ class RegionController extends Controller
 
         $regionDealerships = $region->dealerships;
 
-        foreach($regionDealerships as $regionDealership) {
+        if($level == 'Region') {
 
-            foreach($regionDealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $regionDealershipEvent) {
+            foreach($regionDealerships as $regionDealership) {
 
-                foreach($regionDealershipEvent->manufacturers as $regionDealershipEventManufacturer) {
+                foreach($regionDealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $regionDealershipEvent) {
 
-                    if($regionDealershipEventManufacturer->id == $region->manufacturer->id) {
+                    foreach($regionDealershipEvent->manufacturers as $regionDealershipEventManufacturer) {
 
-                        $region->data_count += $regionDealershipEventManufacturer->pivot->data_count;
-                        $region->appointments += $regionDealershipEventManufacturer->pivot->appointments;
-                        $region->new += $regionDealershipEventManufacturer->pivot->new;
-                        $region->used += $regionDealershipEventManufacturer->pivot->used;
-                        $region->demo += $regionDealershipEventManufacturer->pivot->demo;
-                        $region->zero_km += $regionDealershipEventManufacturer->pivot->zero_km;
-                        $region->inprogress += $regionDealershipEventManufacturer->pivot->inprogress;
+                        if($regionDealershipEventManufacturer->id == $region->manufacturer->id) {
+
+                            $region->data_count += $regionDealershipEventManufacturer->pivot->data_count;
+                            $region->appointments += $regionDealershipEventManufacturer->pivot->appointments;
+                            $region->new += $regionDealershipEventManufacturer->pivot->new;
+                            $region->used += $regionDealershipEventManufacturer->pivot->used;
+                            $region->demo += $regionDealershipEventManufacturer->pivot->demo;
+                            $region->zero_km += $regionDealershipEventManufacturer->pivot->zero_km;
+                            $region->inprogress += $regionDealershipEventManufacturer->pivot->inprogress;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $countryDealerships = $region->country->dealerships;
+
+            foreach($countryDealerships as $countryDealership) {
+
+                foreach($countryDealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryDealershipEvent) {
+
+                    foreach($countryDealershipEvent->manufacturers as $countryDealershipEventManufacturer) {
+
+                        if($countryDealershipEventManufacturer->id == $region->manufacturer->id) {
+
+                            $region->country->data_count += $countryDealershipEventManufacturer->pivot->data_count;
+                            $region->country->appointments += $countryDealershipEventManufacturer->pivot->appointments;
+                            $region->country->new += $countryDealershipEventManufacturer->pivot->new;
+                            $region->country->used += $countryDealershipEventManufacturer->pivot->used;
+                            $region->country->demo += $countryDealershipEventManufacturer->pivot->demo;
+                            $region->country->zero_km += $countryDealershipEventManufacturer->pivot->zero_km;
+                            $region->country->inprogress += $countryDealershipEventManufacturer->pivot->inprogress;
+
+                        }
 
                     }
 
@@ -305,23 +338,90 @@ class RegionController extends Controller
 
         }
 
-        $countryDealerships = $region->country->dealerships;
+        if($level == 'Dealership') {
 
-        foreach($countryDealerships as $countryDealership) {
+            $region->dealership = Dealership::find($request->dealership_id);
 
-            foreach($countryDealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryDealershipEvent) {
+            foreach($regionDealerships as $regionDealership) {
 
-                foreach($countryDealershipEvent->manufacturers as $countryDealershipEventManufacturer) {
+                foreach($regionDealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $regionDealershipEvent) {
 
-                    if($countryDealershipEventManufacturer->id == $region->manufacturer->id) {
+                    foreach($regionDealershipEvent->manufacturers as $regionDealershipEventManufacturer) {
 
-                        $region->country->data_count += $countryDealershipEventManufacturer->pivot->data_count;
-                        $region->country->appointments += $countryDealershipEventManufacturer->pivot->appointments;
-                        $region->country->new += $countryDealershipEventManufacturer->pivot->new;
-                        $region->country->used += $countryDealershipEventManufacturer->pivot->used;
-                        $region->country->demo += $countryDealershipEventManufacturer->pivot->demo;
-                        $region->country->zero_km += $countryDealershipEventManufacturer->pivot->zero_km;
-                        $region->country->inprogress += $countryDealershipEventManufacturer->pivot->inprogress;
+                        if($regionDealershipEventManufacturer->id == $region->manufacturer->id) {
+
+                            if($regionDealership->id == $region->dealership->id) {
+
+                                $region->data_count += $regionDealershipEventManufacturer->pivot->data_count;
+                                $region->appointments += $regionDealershipEventManufacturer->pivot->appointments;
+                                $region->new += $regionDealershipEventManufacturer->pivot->new;
+                                $region->used += $regionDealershipEventManufacturer->pivot->used;
+                                $region->demo += $regionDealershipEventManufacturer->pivot->demo;
+                                $region->zero_km += $regionDealershipEventManufacturer->pivot->zero_km;
+                                $region->inprogress += $regionDealershipEventManufacturer->pivot->inprogress;
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $countryDealerships = $region->country->dealerships;
+
+            foreach($countryDealerships as $countryDealership) {
+
+                foreach($countryDealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryDealershipEvent) {
+
+                    foreach($countryDealershipEvent->manufacturers as $countryDealershipEventManufacturer) {
+
+                        if($countryDealershipEventManufacturer->id == $region->manufacturer->id) {
+
+                            $region->country->data_count += $countryDealershipEventManufacturer->pivot->data_count;
+                            $region->country->appointments += $countryDealershipEventManufacturer->pivot->appointments;
+                            $region->country->new += $countryDealershipEventManufacturer->pivot->new;
+                            $region->country->used += $countryDealershipEventManufacturer->pivot->used;
+                            $region->country->demo += $countryDealershipEventManufacturer->pivot->demo;
+                            $region->country->zero_km += $countryDealershipEventManufacturer->pivot->zero_km;
+                            $region->country->inprogress += $countryDealershipEventManufacturer->pivot->inprogress;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $region->region = Region::find($id);
+            $region->region->data_count = 0;
+            $region->region->appointments = 0;
+            $region->region->new = 0;
+            $region->region->used = 0;
+            $region->region->demo = 0;
+            $region->region->zero_km = 0;
+            $region->region->inprogress = 0;
+
+            foreach($regionDealerships as $regionDealership) {
+
+                foreach($regionDealership->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $regionDealershipEvent) {
+
+                    foreach($regionDealershipEvent->manufacturers as $regionDealershipEventManufacturer) {
+
+                        if($regionDealershipEventManufacturer->id == $region->manufacturer->id) {
+
+                            $region->region->data_count += $regionDealershipEventManufacturer->pivot->data_count;
+                            $region->region->appointments += $regionDealershipEventManufacturer->pivot->appointments;
+                            $region->region->new += $regionDealershipEventManufacturer->pivot->new;
+                            $region->region->used += $regionDealershipEventManufacturer->pivot->used;
+                            $region->region->demo += $regionDealershipEventManufacturer->pivot->demo;
+                            $region->region->zero_km += $regionDealershipEventManufacturer->pivot->zero_km;
+                            $region->region->inprogress += $regionDealershipEventManufacturer->pivot->inprogress;
+
+                        }
 
                     }
 
@@ -331,7 +431,7 @@ class RegionController extends Controller
 
         }
 
-        return view('regions.reportsdate',compact('region'));
+        return view('regions.reportsdate',compact('region','level'));
 
     }
 
@@ -539,4 +639,18 @@ class RegionController extends Controller
 
         return redirect()->back()->with('success', 'Region Deleted');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Manufacturer  $manufacturer
+     * @return \Illuminate\Http\Response
+     */
+    public function regionDealershipsApi($id)
+    {
+        $region = Region::find($id);
+
+        return $region->dealerships;
+    }
+
 }

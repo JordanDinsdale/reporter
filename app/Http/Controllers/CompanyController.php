@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Manufacturer;
 use App\Country;
+use App\Region;
 use App\Dealership;
 use App\Event;
 use Illuminate\Http\Request;
 use DateTime;
 use Carbon\Carbon;
+use DB;
 
 class CompanyController extends Controller
 {
@@ -257,6 +259,8 @@ class CompanyController extends Controller
 
             foreach($company->manufacturers as $manufacturer) {
 
+                $company->manufacturer = $manufacturer;
+
                 foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
 
                     $company->data_count += $manufacturerEvent->pivot->data_count;
@@ -283,9 +287,13 @@ class CompanyController extends Controller
 
         if($level == 'Country') {
 
+            $company->country = Country::find($request->country_id);
+
             $company->manufacturers = Manufacturer::where('id',$request->manufacturer_id)->get();
 
             foreach($company->manufacturers as $manufacturer) {
+
+                $company->manufacturer = $manufacturer;
 
                 foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
 
@@ -317,9 +325,13 @@ class CompanyController extends Controller
 
         if($level == 'Region') {
 
+            $company->region = Region::find($request->region_id);
+
             $company->manufacturers = Manufacturer::where('id',$request->manufacturer_id)->get();
 
             foreach($company->manufacturers as $manufacturer) {
+
+                $company->manufacturer = $manufacturer;
 
                 foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
 
@@ -345,6 +357,59 @@ class CompanyController extends Controller
 
                         }
 
+                        $country = $region->country; 
+
+                        $event_ids = [];
+
+                        foreach($country->dealerships as $dealership) {
+
+                            foreach($dealership->events as $dealershipEvent) {
+
+                                foreach($dealershipEvent->manufacturers as $dealershipEventManufacturer) {
+
+                                    if($dealershipEventManufacturer->id == $manufacturer->id) {
+
+                                        $event_ids[] = $dealershipEvent->id;
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                        $country->events = Event::whereIn('id',$event_ids)->get();
+
+                        $manufacturer->country = $region->country;
+                        $manufacturer->country->data_count = 0;
+                        $manufacturer->country->appointments = 0;
+                        $manufacturer->country->new = 0;
+                        $manufacturer->country->used = 0;
+                        $manufacturer->country->demo = 0;
+                        $manufacturer->country->zero_km = 0;
+                        $manufacturer->country->inprogress = 0;
+
+                        foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
+
+                            foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                                if($countryEventManufacturer->id == $manufacturer->id) {
+
+                                    $manufacturer->country->data_count += $countryEventManufacturer->pivot->data_count;
+                                    $manufacturer->country->appointments += $countryEventManufacturer->pivot->appointments;
+                                    $manufacturer->country->new += $countryEventManufacturer->pivot->new;
+                                    $manufacturer->country->used += $countryEventManufacturer->pivot->used;
+                                    $manufacturer->country->demo += $countryEventManufacturer->pivot->demo;
+                                    $manufacturer->country->zero_km += $countryEventManufacturer->pivot->zero_km;
+                                    $manufacturer->country->inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                                }
+
+                            }
+
+                        }
+
                     }
 
                 }
@@ -355,7 +420,26 @@ class CompanyController extends Controller
 
         if($level == 'Dealership') {
 
+            $company->dealership = Dealership::find($request->dealership_id);
+
+            $manufacturer_ids = [];
+
             foreach($company->manufacturers as $manufacturer) {
+
+                $region_id = DB::table('dealership_manufacturer')->where('dealership_id',$company->dealership->id)->where('manufacturer_id',$manufacturer->id)->value('region_id');
+
+                if(isset($region_id)) {
+
+                    $manufacturer->region = Region::find($region_id);   
+                    $manufacturer->region->data_count = 0;
+                    $manufacturer->region->appointments = 0;
+                    $manufacturer->region->new = 0;
+                    $manufacturer->region->used = 0;
+                    $manufacturer->region->demo = 0;
+                    $manufacturer->region->zero_km = 0;
+                    $manufacturer->region->inprogress = 0; 
+
+                }
 
                 foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
 
@@ -376,6 +460,93 @@ class CompanyController extends Controller
                         $manufacturer->demo += $manufacturerEvent->pivot->demo;
                         $manufacturer->zero_km += $manufacturerEvent->pivot->zero_km;
                         $manufacturer->inprogress += $manufacturerEvent->pivot->inprogress;
+
+                        $manufacturer_ids[] = $manufacturer->id;
+
+                    }
+
+                    if(isset($region_id)) {
+
+                        foreach($manufacturer->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $manufacturerEvent) {
+
+                            foreach($manufacturerEvent->manufacturers as $manufacturerEventManufacturer) {
+
+                                if($manufacturerEventManufacturer->id == $manufacturer->id) { 
+
+                                    foreach($manufacturerEvent->dealership->regions as $manufacturerEventDealershipRegion) {
+
+                                        if($manufacturerEventDealershipRegion->id == $manufacturer->region->id) {
+
+                                            $manufacturer->region->data_count += $manufacturerEventManufacturer->pivot->data_count;
+                                            $manufacturer->region->appointments += $manufacturerEventManufacturer->pivot->appointments;
+                                            $manufacturer->region->new += $manufacturerEventManufacturer->pivot->new;
+                                            $manufacturer->region->used += $manufacturerEventManufacturer->pivot->used;
+                                            $manufacturer->region->demo += $manufacturerEventManufacturer->pivot->demo;
+                                            $manufacturer->region->zero_km += $manufacturerEventManufacturer->pivot->zero_km;
+                                            $manufacturer->region->inprogress += $manufacturerEventManufacturer->pivot->inprogress;
+
+                                        }
+
+                                    }                                
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    $country = $company->dealership->country; 
+
+                    $event_ids = [];
+
+                    foreach($country->dealerships as $dealership) {
+
+                        foreach($dealership->events as $dealershipEvent) {
+
+                            foreach($dealershipEvent->manufacturers as $dealershipEventManufacturer) {
+
+                                if($dealershipEventManufacturer->id == $manufacturer->id) {
+
+                                    $event_ids[] = $dealershipEvent->id;
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    $country->events = Event::whereIn('id',$event_ids)->get();
+
+                    $manufacturer->country = $company->dealership->country;
+                    $manufacturer->country->data_count = 0;
+                    $manufacturer->country->appointments = 0;
+                    $manufacturer->country->new = 0;
+                    $manufacturer->country->used = 0;
+                    $manufacturer->country->demo = 0;
+                    $manufacturer->country->zero_km = 0;
+                    $manufacturer->country->inprogress = 0;
+
+                    foreach($country->events->where('start_date','<=',$end_date)->where('end_date','>=',$start_date) as $countryEvent) {
+
+                        foreach($countryEvent->manufacturers as $countryEventManufacturer) {
+
+                            if($countryEventManufacturer->id == $manufacturer->id) {
+
+                                $manufacturer->country->data_count += $countryEventManufacturer->pivot->data_count;
+                                $manufacturer->country->appointments += $countryEventManufacturer->pivot->appointments;
+                                $manufacturer->country->new += $countryEventManufacturer->pivot->new;
+                                $manufacturer->country->used += $countryEventManufacturer->pivot->used;
+                                $manufacturer->country->demo += $countryEventManufacturer->pivot->demo;
+                                $manufacturer->country->zero_km += $countryEventManufacturer->pivot->zero_km;
+                                $manufacturer->country->inprogress += $countryEventManufacturer->pivot->inprogress;
+
+                            }
+
+                        }
 
                     }
 
@@ -399,7 +570,7 @@ class CompanyController extends Controller
 
         $events = Event::whereIn('id',$event_ids)->get();
 
-        return view('companies.reportsdate',compact('company','events'));
+        return view('companies.reportsdate',compact('company','events','level'));
 
     }
 

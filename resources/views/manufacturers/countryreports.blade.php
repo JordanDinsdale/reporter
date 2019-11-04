@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <i class="fas fa-chart-pie"></i>Your Reports
+    <h1><i class="fas fa-chart-pie"></i>Your Reports</h1>
     
 @endsection
 
@@ -25,15 +25,15 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()" style="display: none;">Choose Report</button>
                         
-                        <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
+                        <button id="cancel" type="button" class="cancel" onclick="closeForm()"><i class="fas fa-times"></i></button>
 
                         <div class="clear"></div>
 
                     </div>
 
-                    <div class="report-dropdown">
+                    <div class="report-dropdown" style="display:block;">
 
                         <div class="form-popup" id="reportForm">
 
@@ -67,12 +67,49 @@
 
                                                     @csrf
 
-                                                    <div class="from-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" />
-                                                    </div>
+                                                    <div class="row">
 
-                                                    <div class="to-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" />
+                                                        <div class="col-md-6">
+                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" required />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" required />
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <select id="levels" class="form-control" name="level" required>
+                                                                <option value="">Select Level</option>
+                                                                <option value="Country">{{ $country->name }}</option>
+                                                                <option value="Region">Region</option>
+                                                                <option value="Dealership">Dealership</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <select class="form-control d-none" name="manufacturer_id" id="manufacturers">
+                                                            <option value="{{ $country->manufacturer->id }}" selected>{{ $country->manufacturer->name }}</option>
+                                                        </select>
+                                                        
+                                                        <select class="form-control d-none" name="country_id" id="countries">
+                                                            <option value="{{ $country->id }}" selected>{{ $country->name }}</option>
+                                                        </select>
+
+                                                        <div id="regionContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="region_id" id="regions">
+                                                                <option value="">Select Region</option>
+                                                                @foreach($country->regions as $region)
+                                                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="dealershipContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="dealership_id" id="dealerships">
+                                                                <option value="">Select Dealership</option>
+                                                                <option disabled="true" value="">No dealerships currently available</option>
+                                                            </select>
+                                                        </div>
+
                                                     </div>
 
                                                     <button type="submit" class="btn">REPORT</button>
@@ -101,7 +138,7 @@
 
     </div>
 
-    <div id="main-content-container" class="container-fluid bg-custom">
+    <div id="main-content-container" class="container-fluid bg-custom" style="opacity:0.5;">
 
         <div class="container main-content-container">
 
@@ -198,5 +235,9 @@
     });
 
 </script>
+
+<script src="/js/select-reporting-level.js"></script>
+<script src="/js/country-manufacturer-regions.js"></script> 
+<script src="/js/manufacturer-country-dealerships.js"></script> 
 
 @endsection

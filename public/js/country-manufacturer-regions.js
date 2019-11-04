@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $('select#countries, select#manufacturers').on('change', function() {
+    $('select#levels, select#countries, select#manufacturers').on('change', function() {
 
         let country_id = $('select#countries').val();
         let manufacturer_id = $('select#manufacturers').val();

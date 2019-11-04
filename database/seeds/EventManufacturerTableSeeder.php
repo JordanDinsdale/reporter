@@ -595,7 +595,7 @@ class EventManufacturerTableSeeder extends Seeder
 	            'inprogress' => 11
 	        ],
 
-	        // MC Motors VIP Event
+	        // MC Motors Avignon VIP Event
 
         	[
 	            'event_id' => 37,
@@ -609,7 +609,7 @@ class EventManufacturerTableSeeder extends Seeder
 	            'inprogress' => 0
 	        ],
 
-	        // L.Warsemann Auto 37 VIP Event
+	        // L.Warsemann Auto 37 Tours VIP Event
 
         	[
 	            'event_id' => 38,
@@ -623,7 +623,7 @@ class EventManufacturerTableSeeder extends Seeder
 	            'inprogress' => 0
 	        ],
 
-	        // Nouvelle Excel Auto VIP Event
+	        // Nouvelle Excel Auto Rennes VIP Event
 
         	[
 	            'event_id' => 39,
@@ -637,49 +637,49 @@ class EventManufacturerTableSeeder extends Seeder
 	            'inprogress' => 0
 	        ],
 
-	        // Espace 3000 VIP Event
+	        // Espace 3000 Besançon VIP Event
 
         	[
 	            'event_id' => 40,
 	            'manufacturer_id' => 27,
 	            'data_count' => 1984,
 	            'appointments' => 36,
-	            'new' => 7,
+	            'new' => 6,
 	            'used' => 0,
 	            'zero_km' => 0,
-	            'demo' => 0,
+	            'demo' => 1,
 	            'inprogress' => 0
 	        ],
 
-	        // Europe Garage Services VIP Event
+	        // Europe Garage Services Bourg en Bresse VIP Event
 
         	[
 	            'event_id' => 41,
 	            'manufacturer_id' => 27,
 	            'data_count' => 1210,
 	            'appointments' => 29,
-	            'new' => 7,
-	            'used' => 8,
+	            'new' => 8,
+	            'used' => 0,
 	            'zero_km' => 0,
-	            'demo' => 0,
+	            'demo' => 8,
 	            'inprogress' => 0
 	        ],
 
-	        // Skoda Paris Est VIP Event
+	        // Skoda Paris Est Villemonble VIP Event
 
         	[
 	            'event_id' => 42,
 	            'manufacturer_id' => 27,
 	            'data_count' => 5166,
 	            'appointments' => 28,
-	            'new' => 4,
-	            'used' => 4,
+	            'new' => 9,
+	            'used' => 0,
 	            'zero_km' => 0,
 	            'demo' => 0,
 	            'inprogress' => 0
 	        ],
 
-	        // NDS City Car VIP Event
+	        // NDS City Car Saint-Ouen l'Aumone VIP Event
 
         	[
 	            'event_id' => 43,
@@ -687,41 +687,41 @@ class EventManufacturerTableSeeder extends Seeder
 	            'data_count' => 1283,
 	            'appointments' => 26,
 	            'new' => 14,
-	            'used' => 3,
+	            'used' => 4,
 	            'zero_km' => 0,
 	            'demo' => 0,
 	            'inprogress' => 0
 	        ],
 
-	        // Excel Motors VIP Event
+	        // Excel Motors Nancy VIP Event
 
         	[
 	            'event_id' => 44,
 	            'manufacturer_id' => 27,
 	            'data_count' => 1093,
 	            'appointments' => 28,
-	            'new' => 11,
+	            'new' => 15,
 	            'used' => 0,
 	            'zero_km' => 0,
 	            'demo' => 0,
 	            'inprogress' => 0
 	        ],
 
-	        // Premium Picardie VIP Event
+	        // Premium Picardie Amiens VIP Event
 
         	[
 	            'event_id' => 45,
 	            'manufacturer_id' => 27,
 	            'data_count' => 1671,
 	            'appointments' => 21,
-	            'new' => 17,
+	            'new' => 19,
 	            'used' => 0,
 	            'zero_km' => 0,
 	            'demo' => 0,
 	            'inprogress' => 0
 	        ],
 
-	        // WelcomCar VIP Event
+	        // WelcomCar Orléans VIP Event
 
         	[
 	            'event_id' => 46,
@@ -735,7 +735,7 @@ class EventManufacturerTableSeeder extends Seeder
 	            'inprogress' => 0
 	        ],
 
-	        // Carlier Automobiles VIP Event
+	        // Carlier Automobiles Douai VIP Event
 
         	[
 	            'event_id' => 47,
@@ -749,41 +749,13 @@ class EventManufacturerTableSeeder extends Seeder
 	            'inprogress' => 0
 	        ],
 
-	        // Nice Car SA VIP Event
+	        // Nice Car SA Nice VIP Event
 
         	[
 	            'event_id' => 48,
 	            'manufacturer_id' => 27,
 	            'data_count' => 2379,
 	            'appointments' => 16,
-	            'new' => 22,
-	            'used' => 0,
-	            'zero_km' => 0,
-	            'demo' => 0,
-	            'inprogress' => 0
-	        ],
-
-	        // Riviera Technic VIP Event
-
-        	[
-	            'event_id' => 49,
-	            'manufacturer_id' => 27,
-	            'data_count' => 1998,
-	            'appointments' => 18,
-	            'new' => 13,
-	            'used' => 0,
-	            'zero_km' => 0,
-	            'demo' => 0,
-	            'inprogress' => 0
-	        ],
-
-	        // Peyo Automobiles VIP Event
-
-        	[
-	            'event_id' => 50,
-	            'manufacturer_id' => 27,
-	            'data_count' => 1282,
-	            'appointments' => 19,
 	            'new' => 12,
 	            'used' => 0,
 	            'zero_km' => 0,
@@ -791,7 +763,35 @@ class EventManufacturerTableSeeder extends Seeder
 	            'inprogress' => 0
 	        ],
 
-	        // L.G.A. VIP Event
+	        // Riviera Technic Cannes VIP Event
+
+        	[
+	            'event_id' => 49,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1998,
+	            'appointments' => 18,
+	            'new' => 23,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // Peyo Automobiles Bayonne VIP Event
+
+        	[
+	            'event_id' => 50,
+	            'manufacturer_id' => 27,
+	            'data_count' => 1282,
+	            'appointments' => 19,
+	            'new' => 17,
+	            'used' => 0,
+	            'zero_km' => 0,
+	            'demo' => 0,
+	            'inprogress' => 0
+	        ],
+
+	        // L.G.A. La Rochelle VIP Event
 
         	[
 	            'event_id' => 51,
@@ -805,7 +805,7 @@ class EventManufacturerTableSeeder extends Seeder
 	            'inprogress' => 0
 	        ],
 
-	        // Saphir Automobiles VIP Event
+	        // Saphir Automobiles Montpellier VIP Event
 
         	[
 	            'event_id' => 52,
@@ -819,21 +819,21 @@ class EventManufacturerTableSeeder extends Seeder
 	            'inprogress' => 0
 	        ],
 
-	        // Vega Automobile VIP Event
+	        // Vega Automobile Brétigny sur Orge VIP Event
 
         	[
 	            'event_id' => 53,
 	            'manufacturer_id' => 27,
 	            'data_count' => 1493,
 	            'appointments' => 56,
-	            'new' => 5,
+	            'new' => 7,
 	            'used' => 0,
 	            'zero_km' => 0,
-	            'demo' => 18,
+	            'demo' => 16,
 	            'inprogress' => 0
 	        ],
 
-	        // Espace Automobiles Nîmois VIP Event
+	        // Espace Automobiles Nîmois Nîmes VIP Event
 
         	[
 	            'event_id' => 54,

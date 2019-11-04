@@ -58,7 +58,8 @@ class UserController extends Controller
                 $request->validate([
                     'firstname' => 'required',
                     'surname' => 'required',
-                    'email' => 'required|email',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required|confirmed|min:6',
                     'level' => 'required'
                 ]);
 
@@ -69,7 +70,8 @@ class UserController extends Controller
                 $request->validate([
                     'firstname' => 'required',
                     'surname' => 'required',
-                    'email' => 'required|email',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required|confirmed|min:6',
                     'level' => 'required',
                     'company_id' => 'required'
                 ]);
@@ -81,7 +83,8 @@ class UserController extends Controller
                 $request->validate([
                     'firstname' => 'required',
                     'surname' => 'required',
-                    'email' => 'required|email',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required|confirmed|min:6',
                     'level' => 'required',
                     'manufacturer_id' => 'required'
                 ]);
@@ -93,7 +96,8 @@ class UserController extends Controller
                 $request->validate([
                     'firstname' => 'required',
                     'surname' => 'required',
-                    'email' => 'required|email',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required|confirmed|min:6',
                     'level' => 'required',
                     'manufacturer_id' => 'required',
                     'country_id' => 'required'
@@ -106,7 +110,8 @@ class UserController extends Controller
                 $request->validate([
                     'firstname' => 'required',
                     'surname' => 'required',
-                    'email' => 'required|email',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required|confirmed|min:6',
                     'level' => 'required',
                     'manufacturer_id' => 'required',
                     'country_id' => 'required',
@@ -120,19 +125,21 @@ class UserController extends Controller
                 $request->validate([
                     'firstname' => 'required',
                     'surname' => 'required',
-                    'email' => 'required|email',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required|confirmed|min:6',
                     'level' => 'required',
                     'group_id' => 'required'
                 ]);
 
             break;
             
-            case 'Group':
+            case 'Dealership':
 
                 $request->validate([
                     'firstname' => 'required',
                     'surname' => 'required',
-                    'email' => 'required|email',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required|confirmed|min:6',
                     'level' => 'required',
                     'dealership_id' => 'required'
                 ]);
@@ -144,7 +151,8 @@ class UserController extends Controller
                 $request->validate([
                     'firstname' => 'required',
                     'surname' => 'required',
-                    'email' => 'required|email',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required|confirmed|min:6',
                     'level' => 'required'
                 ]);
         } 
@@ -184,7 +192,7 @@ class UserController extends Controller
             'surname' => $request->get('surname'),
             'email' => $request->get('email'),
             'level' => $request->get('level'),
-            'password' => bcrypt('secret'),
+            'password' => bcrypt($request->get('password')),
             'company_id' => $company_id,
             'manufacturer_id' => $manufacturer_id,
             'country_id' => $country_id,
