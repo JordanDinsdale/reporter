@@ -9,6 +9,7 @@
 @section('content')
 
 <div class="reports">
+    
     <div class="container-fluid">
 
         <div class="row">
@@ -26,15 +27,15 @@
                             @switch($level)
 
                                 @case('Region')
-                                    Region | {{ $country->manufacturer->name }} {{ $country->name }} {{ $country->region->name }} | 
+                                    Region | {{ $region->manufacturer->name }} {{ $region->country->name }} {{ $region->name }} | 
                                     @break
 
                                 @case('Dealership')
-                                    Dealership | {{ $country->dealership->name }} | 
+                                    Dealership | {{ $region->dealership->name }} | 
                                     @break
 
                                 @default
-                                    Country | {{ $country->manufacturer->name }} {{ $country->name }} | 
+                                    Region | {{ $region->manufacturer->name }} {{ $region->country->name }} {{ $region->name }} |
 
                             @endswitch
 

@@ -81,7 +81,7 @@
 
                                             <div class="date-picker-form">
 
-                                                <form method="post" action="{{ route('dealershipEvents', [$dealership->id]) }}">
+                                                <form method="post" action="{{ route('dealershipReports', [$dealership->id]) }}">
 
                                                     @csrf
 

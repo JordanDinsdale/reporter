@@ -76,16 +76,67 @@
 
                                             <div class="date-picker-form">
 
-                                                <form method="post" action="{{ route('companyReportDates', [$company->id]) }}">
+                                                <form method="post" action="{{ route('companyReportDates',$company->id) }}">
 
                                                     @csrf
 
-                                                    <div class="from-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" required />
-                                                    </div>
+                                                    <div class="row">
 
-                                                    <div class="to-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" required />
+                                                        <div class="col-md-6">
+                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" required />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" required />
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <select id="levels" class="form-control" name="level" required>
+                                                                <option value="">Select Level</option>
+                                                                <option value="Company">{{ $company->name }}</option>
+                                                                <option value="Manufacturer">Manufacturer</option>
+                                                                <option value="Country">Country</option>
+                                                                <option value="Region">Region</option>
+                                                                <option value="Dealership">Dealership</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="companyContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="company_id" id="companies">
+                                                                <option value="{{ $company->id }}" selected>{{ $company->name }}</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="manufacturerContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="manufacturer_id" id="manufacturers">
+                                                                <option value="">Select Manufacturer</option>
+                                                                @foreach($company->manufacturers as $manufacturer)
+                                                                    <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="countryContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="country_id" id="countries">
+                                                                <option value="">Select Country</option>
+                                                                <option disabled="true" value="">No countries currently available</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="regionContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="region_id" id="regions">
+                                                                <option value="">Select Region</option>
+                                                                <option disabled="true" value="">No regions currently available</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div id="dealershipContainer" class="col-md-12 d-none">
+                                                            <select class="form-control" name="dealership_id" id="dealerships">
+                                                                <option value="">Select Dealership</option>
+                                                                <option disabled="true" value="">No dealerships currently available</option>
+                                                            </select>
+                                                        </div>
+
                                                     </div>
 
                                                     <button type="submit" class="btn">REPORT</button>
@@ -1162,6 +1213,12 @@ var chart = new Chart(ctx, {
     @endforeach
 
 @endforeach
+
+<script src="/js/select-reporting-level.js"></script>
+<script src="/js/manufacturer-countries.js"></script> 
+<script src="/js/country-manufacturer-regions.js"></script> 
+<script src="/js/company-countries.js"></script> 
+<script src="/js/company-country-dealerships.js"></script> 
 
 @endsection
 
