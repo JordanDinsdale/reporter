@@ -9,6 +9,7 @@ use App\Manufacturer;
 use App\Company;
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -19,7 +20,11 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $dealerships = Dealership::all();
+        $manufacturers = Manufacturer::all();
+        $events = Event::all();
+
+        return view('events.index',compact('events','dealerships','manufacturers'));
     }
 
     /**
@@ -47,10 +52,16 @@ class EventController extends Controller
             'manufacturer_ids' => 'required'
         ]);
 
+        $start_date = Carbon::createFromFormat('d/m/Y',$request->start_date);
+        $start_date = $start_date->format('Y-m-d');
+
+        $end_date = Carbon::createFromFormat('d/m/Y',$request->end_date);
+        $end_date = $end_date->format('Y-m-d');
+
         $event = new Event([
             'name' => $request->get('name'),
-            'start_date' => $request->get('start_date'),
-            'end_date' => $request->get('end_date'),
+            'start_date' => $start_date,
+            'end_date' => $end_date,
             'dealership_id' => $request->get('dealership_id')
         ]);
 

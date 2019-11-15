@@ -87,6 +87,7 @@ Route::get('/dealerships/{id}/{start_date}/{end_date}/download', 'DealershipCont
 Route::get('/dealerships/{dealership_id}/manufacturer/{manufacturer_id}/{start_date}/{end_date}/download', 'DealershipController@downloadManufacturer')->name('dealershipDownloadManufacturer');
 Route::get('/dealerships/{dealership_id}/company/{company_id}/{start_date}/{end_date}/download', 'DealershipController@downloadCompany')->name('dealershipDownloadCompany');
 
+Route::get('/events', 'EventController@index')->name('events');
 Route::get('/events/{id}', 'EventController@show')->name('event');
 Route::get('/events/{id}/edit', 'EventController@edit')->name('eventEdit');
 Route::get('/events/{event_id}/company/{company_id}', 'EventController@company')->name('eventCompany');
