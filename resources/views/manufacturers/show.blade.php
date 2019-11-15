@@ -2,9 +2,9 @@
 
 @section('page_title')
 
-    <h1>Dashboard</h1>
+    <h1>{{ __('Dashboard') }}</h1>
 
-    <p>Year-to-Date Results</p>
+    <p>{{ __('Year-to-Date Results') }}</p>
     
 @endsection
 
@@ -26,15 +26,15 @@
 
                             <div class="donut1-content">
 
-                                <h3>Response Rate</h3>
+                                <h3>{{ __('Response Rate') }}</h3>
 
                                 @if($manufacturer->data_count > 0)
 
                                     <canvas id="responseRate" class="responseRate" width="180" height="180"></canvas>
                                     
-                                    <p>{{ $manufacturer->data_count }} Invites</p>
+                                    <p>{{ $manufacturer->data_count }} {{ __('Invites') }}</p>
 
-                                    <p>{{ $manufacturer->appointments }} Appointments</p>
+                                    <p>{{ $manufacturer->appointments }} {{ __('Appointments') }}</p>
 
                                     <p>{{ number_format($manufacturer->appointments/$manufacturer->data_count * 100, 1, '.', ',') }}%</p>
 
@@ -52,21 +52,21 @@
 
                             <div class="donut2-content">
 
-                                <h3>Conversion Rate</h3>
+                                <h3>{{ __('Conversion Rate') }}</h3>
 
                                 @if($manufacturer->appointments > 0)
 
                                     <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     
-                                    <p>{{ $manufacturer->appointments }} appointments</p>
+                                    <p>{{ $manufacturer->appointments }} {{ __('Appointments') }}</p>
 
-                                    <p>{{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km }} Sales</p>
+                                    <p>{{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km }} {{ __('Sales') }}</p>
                                     
                                     <p>{{ number_format(($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km)/$manufacturer->appointments * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
-                                    <p>No information to display</p>
+                                    <p>{{ __('No information to display') }}</p>
 
                                 @endif
 
@@ -76,7 +76,7 @@
 
                         <div class="col-md-4">
 
-                            <h3>Sales breakdown</h3>
+                            <h3>{{ __('Sales Breakdown') }}</h3>
 
                             @if($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress > 0)
 
@@ -87,35 +87,35 @@
                                     @if(number_format($manufacturer->new/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-1"></div>
-                                            {{ number_format($manufacturer->new/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}% New
+                                            {{ number_format($manufacturer->new/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}% {{ __('New') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($manufacturer->used/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-2"></div>
-                                            {{ number_format($manufacturer->used/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}% Used
+                                            {{ number_format($manufacturer->used/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}% {{ __('Used') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($manufacturer->demo/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-3"></div>
-                                            {{ number_format($manufacturer->demo/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}% Demo
+                                            {{ number_format($manufacturer->demo/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}% {{ __('Demo') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($manufacturer->zero_km/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-4"></div>
-                                            {{ number_format($manufacturer->zero_km/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}% 0KM
+                                            {{ number_format($manufacturer->zero_km/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}% {{ __('0km') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($manufacturer->inprogress/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice final">
                                             <div class="circle circle-5"></div>
-                                            {{ number_format($manufacturer->inprogress/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}% In progress
+                                            {{ number_format($manufacturer->inprogress/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',')}}% {{ __('In Progress') }}
                                         </div>
                                     @endif
 
@@ -125,7 +125,7 @@
 
                                 <div class="row results cardc">
 
-                                    <p>No information to display</p>
+                                    <p>{{ __('No information to display') }}</p>
 
                                 </div>
 
@@ -170,8 +170,8 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            "Appointments",
-            "No Appointment Made"
+            "{{ __('Appointments') }}",
+            "{{ __('No Appointment Made') }}"
         ]
     },
 
@@ -207,8 +207,8 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            "Sales",
-            "No Sale Made"
+            "{{ __('Sales') }}",
+            "{{ __('No Sale Made') }}"
         ]
     },
 
@@ -251,11 +251,11 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            @if($manufacturer->new > 0)"New",@endif 
-            @if($manufacturer->used > 0)"Used",@endif 
-            @if($manufacturer->demo > 0)"Demo",@endif 
-            @if($manufacturer->zero_km > 0)"0km",@endif 
-            @if($manufacturer->inprogress > 0)"In Progress"@endif 
+            @if($manufacturer->new > 0)"{{ __('New') }}",@endif 
+            @if($manufacturer->used > 0)"{{ __('Used') }}",@endif 
+            @if($manufacturer->demo > 0)"{{ __('Demo') }}",@endif 
+            @if($manufacturer->zero_km > 0)"{{ __('0km') }}",@endif 
+            @if($manufacturer->inprogress > 0)"{{ __('In Progress') }}"@endif 
         ]
     },
 

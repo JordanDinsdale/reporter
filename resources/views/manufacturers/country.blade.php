@@ -2,9 +2,9 @@
 
 @section('page_title')
 
-    <h1>Dashboard</h1>
+    <h1>{{ __('Dashboard') }}</h1>
 
-    <p>Year-to-Date Results</p>
+    <p>{{ __('Year-to-Date Results') }}</p>
     
 @endsection
 
@@ -26,19 +26,19 @@
 
                             <div class="donut1-content">
 
-                                <h3>Response Rate</h3>
+                                <h3>{{ __('Response Rate') }}</h3>
 
                                 @if($country->data_count > 0)
 
                                     <canvas id="responseRate" class="responseRate" width="180" height="180"></canvas>
                                     
-                                    <p>{{ $country->data_count }} Invites</p>
-                                    <p>{{ $country->appointments }} Appointments</p>
+                                    <p>{{ $country->data_count }} {{ __('Invites') }}</p>
+                                    <p>{{ $country->appointments }} {{ __('Appointments') }}</p>
                                     <p>{{ number_format($country->appointments/$country->data_count * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
-                                    <p>No information to display</p>
+                                    <p>{{ __('No information to display') }}</p>
 
                                 @endif
 
@@ -50,7 +50,7 @@
 
                             <div class="donut2-content">
 
-                                <h3>Conversion Rate</h3>
+                                <h3>{{ __('Conversion Rate') }}</h3>
 
                                 @if($country->appointments > 0)
 

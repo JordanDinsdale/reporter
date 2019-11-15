@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <h1>Events</h1>
+    <h1>{{ __('Events') }}</h1>
     
 @endsection
 
@@ -20,7 +20,7 @@
 
                     <div class="col-md-12  add-events">
 
-                        <h2>Missing Event data</h2>
+                        <h2>{{ __('Missing Event Data') }}</h2>
 
                         @foreach($dealership->events as $event)
 
@@ -30,7 +30,7 @@
 
                                     <div class="event-name">
 
-                                        <i class="fas fa-chart-line"></i><p>{{ $event->name }}</p>
+                                        <i class="fas fa-chart-line"></i><p>{{ __($event->name) }}</p>
                                         
                                     </div>
 
@@ -48,7 +48,7 @@
 
                                     </div>
 
-                                    <a href="{{ route('eventEdit', $event->id) }}" class="btn">Add Data</a>
+                                    <a href="{{ route('eventEdit', $event->id) }}" class="btn">{{ __('Add Data') }}</a>
 
                                 </div>
 
@@ -64,7 +64,7 @@
 
                     <div class="col-md-12  past-events">
 
-                        <h2>Past Event data</h2>
+                        <h2>{{ __('Past Event Data') }}</h2>
 
                         @foreach($dealership->events as $event)
 
@@ -75,7 +75,7 @@
                                     <a href="{{ route('event', $event->id) }}">
 
                                         <div class="event-name">
-                                            <i class="fas fa-chart-line"></i><p>{{ $event->name }}</p>
+                                            <i class="fas fa-chart-line"></i><p>{{ __($event->name) }}</p>
                                         </div>
 
                                         <div class="dates">
@@ -92,7 +92,7 @@
 
                                         </div>
 
-                                        <a href="{{ route('eventEdit', $event->id) }}" class="btn">Edit</a>
+                                        <a href="{{ route('eventEdit', $event->id) }}" class="btn">{{ __('Edit') }}</a>
 
                                     </a>
                                     

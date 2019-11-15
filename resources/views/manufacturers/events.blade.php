@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <h1>Events</h1>
+    <h1>{{ __('Events') }}</h1>
     
 @endsection
 
@@ -20,7 +20,7 @@
 
                     <div class="col-md-12  add-events">
 
-                        <h2>Missing Event data</h2>
+                        <h2>{{ __('Missing Event Data') }}</h2>
 
                         @foreach($manufacturer->events as $event)
 
@@ -62,7 +62,7 @@
 
                     <div class="col-md-12  past-events">
 
-                        <h2>Past Event data</h2>
+                        <h2>{{ __('Past Event Data') }}</h2>
 
                         @foreach($manufacturer->events as $event)
 

@@ -46,7 +46,7 @@
                                                 <div class="alert alert-danger">
                                                     <ul>
                                                         @foreach ($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
+                                                            <li>{{ __($error) }}</li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -62,7 +62,7 @@
 
                                             <select>
 
-                                                <option>Edit a Brand</option>
+                                                <option>{{ __('Edit a Brand') }}</option>
 
                                                 @foreach($event->manufacturers->sortBy('name') as $manufacturer)
 
@@ -80,7 +80,7 @@
 
                                 @foreach($event->manufacturers->sortBy('name') as $manufacturer)
 
-                                    <form method="post" action="{{ route('eventUpdateSync', [$event->id, $manufacturer->id]) }}" class="{{ str_replace(' ','-',strtolower($manufacturer->name)) }} box col-md-10">
+                                    <form method="post" action="{{ route('eventUpdateSync', [$event->id, $manufacturer->id]) }}" class="{{ str_replace(' ','-',strtolower($manufacturer->name)) }} box col-md-10" @if(count($event->manufacturers) > 1) style="display:none;" @endif>
 
                                         @csrf
 
@@ -88,29 +88,29 @@
 
                                             <div class="col-md-12 brand-name">
 
-                                                <img src="/images/logos/{{ $manufacturer->url }}.png" alt=""> <h2>{{ $manufacturer->name }} Event Data </h2>
+                                                <img src="/images/logos/{{ $manufacturer->url }}.png" alt=""> <h2>{{ $manufacturer->name }} {{ __('Event Data') }}</h2>
 
                                             </div>
 
                                             <div class="col-md-6">
 
                                                 <div class="form-input">
-                                                    <label for="data_count">Data Count</label>
+                                                    <label for="data_count">{{ __('Data Count') }}</label>
                                                     <input id="data_count" type="number" name="data_count" step="1" value="{{ $manufacturer->pivot->data_count }}">
                                                 </div>
 
                                                 <div class="form-input">
-                                                    <label for="appointments">Appointments</label>
+                                                    <label for="appointments">{{ __('Appointments') }}</label>
                                                     <input id="appointments" type="number" name="appointments" step="1" value="{{ $manufacturer->pivot->appointments }}">
                                                 </div>
 
                                                 <div class="form-input">
-                                                    <label for="new">New Vehicle Sales</label>
+                                                    <label for="new">{{ __('New Vehicle Sales') }}</label>
                                                     <input id="new" type="number" name="new" step="1" value="{{ $manufacturer->pivot->new }}">
                                                 </div>
 
                                                 <div class="form-input">
-                                                    <label for="used">Used Vehicle Sales</label>
+                                                    <label for="used">{{ __('Used Vehicle Sales') }}</label>
                                                     <input id="used" type="number" name="used" step="1" value="{{ $manufacturer->pivot->used }}">
                                                 </div>
 
@@ -119,21 +119,21 @@
                                             <div class="col-md-6">
 
                                                 <div class="form-input">
-                                                    <label for="demo">Demo Vehicle Sales</label>
+                                                    <label for="demo">{{ __('Demo Vehicle Sales') }}</label>
                                                     <input id="demo" type="number" name="demo" step="1" value="{{ $manufacturer->pivot->demo }}">
                                                 </div>
 
                                                 <div class="form-input">
-                                                    <label for="zero_km">OKM Vehicle Sales</label>
+                                                    <label for="zero_km">{{ __('Okm Vehicle Sales') }}</label>
                                                     <input id="zero_km" type="number" name="zero_km" step="1" value="{{ $manufacturer->pivot->zero_km }}">
                                                 </div>
 
                                                 <div class="form-input">
-                                                    <label for="inprogress">In Progress Vehicle Sales</label>
+                                                    <label for="inprogress">{{ __('In Progress Vehicle Sales') }}</label>
                                                     <input id="inprogress" type="number" name="inprogress" step="1" value="{{ $manufacturer->pivot->inprogress }}">
                                                 </div>
 
-                                                <button type="submit" name="button" class="btn">CONFIRM</button>
+                                                <button type="submit" name="button" class="btn">{{ __('CONFIRM') }}</button>
 
                                             </div>
 
@@ -186,7 +186,7 @@
 
             });
 
-        }).change();
+        });
 
     });
 

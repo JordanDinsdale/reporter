@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <h1>Events</h1>
+    <h1>{{ __('Events') }}</h1>
     
 @endsection
 
@@ -18,9 +18,9 @@
 
                 @if($events_without_data > 0)
 
-                    <div class="col-md-12  add-events">
+                    <div class="col-md-12 add-events">
 
-                        <h2>Missing Event data</h2>
+                        <h2>{{ __('Missing Event Data') }}</h2>
 
                         @foreach($company->events as $event)
 
@@ -30,7 +30,7 @@
 
                                     <div class="event-name">
 
-                                        <i class="fas fa-chart-line"></i><p>{{ $event->name }}</p>
+                                        <i class="fas fa-chart-line"></i><p>{{ __($event->name) }}</p>
                                         
                                     </div>
 
@@ -62,7 +62,7 @@
 
                     <div class="col-md-12  past-events">
 
-                        <h2>Past Event data</h2>
+                        <h2>{{ __('Past Event Data') }}</h2>
 
                         @foreach($company->events as $event)
 
@@ -73,7 +73,7 @@
                                     <a href="{{ route('eventCompany', [$event->id,$company->id]) }}">
 
                                         <div class="event-name">
-                                            <i class="fas fa-chart-line"></i><p>{{ $event->name }}</p>
+                                            <i class="fas fa-chart-line"></i><p>{{ __($event->name) }}</p>
                                         </div>
 
                                         <div class="dates">

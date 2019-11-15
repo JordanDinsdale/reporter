@@ -1,11 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
+
     <div class="row justify-content-center">
+
         <div class="col-md-12">
+
             <div class="card">
-                <div class="card-header">Dashboard</div>
+
+                <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
 
@@ -21,7 +26,7 @@
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                                    <li>{{ __($error) }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -37,7 +42,7 @@
 
                     @if($regions)
 
-                        <h2>Regions</h2>
+                        <h2>{{ __('Regions') }}</h2>
 
                         <ul>
 
@@ -55,7 +60,7 @@
                                                 <a href="{{ route('region',$region->id) }}">{{ $region->name }}</a> | <a href="{{ route('regionEdit',$region->id) }}">Edit</a> |
                                                 <form action="{{ route('regionDestroy', $region->id)}}" method="post">
                                                     @csrf
-                                                    <button type="submit">Delete</button>
+                                                    <button type="submit">{{ __('Delete') }}</button>
                                                 </form>
                                             </li>
 
@@ -72,8 +77,13 @@
                     @endif
 
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
+
 @endsection

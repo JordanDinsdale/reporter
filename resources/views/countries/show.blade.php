@@ -1,11 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
+
     <div class="row justify-content-center">
+
         <div class="col-md-12">
+
             <div class="card">
-                <div class="card-header">Dashboard</div>
+
+                <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
 
@@ -15,13 +20,11 @@
                         </div>
                     @endif
 
-                    <p>You are logged in!</p>
-
-                    <h1>{{ $country->name }}</h1>
+                    <h1>{{ __($country->name) }}</h1>
 
                     @if(count($country->regions) > 0)
 
-                        <h2><a href="{{ route('regions') }}">Regions</a></h2>
+                        <h2><a href="{{ route('regions') }}">{{ __('Regions') }}</a></h2>
 
                         <ul>
 
@@ -29,7 +32,7 @@
 
                                 <li>
 
-                                    <a href="{{ route('region', $region->id) }}">{{ $region->name }}</a>
+                                    <a href="{{ route('region', $region->id) }}">{{ __($region->name) }}</a>
 
                                 </li>
 
@@ -41,7 +44,7 @@
 
                     @if(count($groups) > 0)
 
-                        <h2><a href="{{ route('groups') }}">Groups</a></h2>
+                        <h2><a href="{{ route('groups') }}">{{ __('Groups') }}</a></h2>
 
                         <ul>
 
@@ -49,7 +52,7 @@
 
                                 <li>
 
-                                    <a href="{{ route('group', $group->id) }}">{{ $group->name }}</a>
+                                    <a href="{{ route('group', $group->id) }}">{{ __($group->name) }}</a>
 
                                     <ul>
 
@@ -57,7 +60,7 @@
 
                                             @if(isset($dealership->group) && $dealership->group->id == $group->id)
 
-                                                <li><a href="{{ route('dealership', $dealership->id) }}">{{ $dealership->name }}</a></li>
+                                                <li><a href="{{ route('dealership', $dealership->id) }}">{{ __($dealership->name) }}</a></li>
 
                                             @endif
 
@@ -75,7 +78,7 @@
 
                     @if(count($users) > 0)
 
-                        <h2><a href="{{ route('users') }}">Users</a></h2>
+                        <h2><a href="{{ route('users') }}">{{ __('Users') }}</a></h2>
 
                         <ul>
 
@@ -90,8 +93,13 @@
                     @endif
 
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
+
 @endsection

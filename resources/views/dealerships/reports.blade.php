@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <h1><i class="fas fa-chart-pie"></i>Your Reports</h1>
+    <h1><i class="fas fa-chart-pie"></i>{{ __('Your Reports') }}</h1>
     
 @endsection
 
@@ -22,7 +22,7 @@
 
                         <div class="current-results">
 
-                            Showing results for event - {{ $event->name }} 
+                            {{ __('Showing results for Event') }} | {{ __($event->name) }} | 
 
                             @if(\Carbon\Carbon::parse($event->start_date)->format('M') == \Carbon\Carbon::parse($event->end_date)->format('M'))
 
@@ -38,7 +38,7 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()">{{ __('Choose Report') }}</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
 
@@ -58,12 +58,12 @@
 
                                         <div class="col-md-5" >
 
-                                            <h4>Report By Event</h4>
+                                            <h4>{{ __('Report By Event') }}</h4>
 
                                             <div class="event-list-container">
                                                 <ul>
                                                     @foreach($dealership->events as $dealershipEvent)
-                                                        <li class="event-listing"><a href="{{ route('event',$dealershipEvent->id) }}">{{ $dealershipEvent->name }}</a></li>
+                                                        <li class="event-listing"><a href="{{ route('event',$dealershipEvent->id) }}">{{ __($dealershipEvent->name) }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -72,7 +72,7 @@
 
                                         <div class="col-md-7">
 
-                                            <h4>Report By Date</h4>
+                                            <h4>{{ __('Report By Date') }}</h4>
 
                                             <div class="date-picker-form">
 
@@ -81,14 +81,14 @@
                                                     @csrf
 
                                                     <div class="from-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" required />
+                                                        <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  {{ __('From date') }}" required />
                                                     </div>
 
                                                     <div class="to-date">
-                                                        <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" required />
+                                                        <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  {{ __('To date') }}" required />
                                                     </div>
 
-                                                    <button type="submit" class="btn">REPORT</button>
+                                                    <button type="submit" class="btn">{{ __('REPORT') }}</button>
 
                                                 </form>
 
@@ -124,25 +124,25 @@
 
                     <div class="sidebar-inner">
 
-                        <h3>Filter results</h3>
+                        <h3>{{ __('Filter Results') }}</h3>
 
                         <div class="filter-group">
 
-                            <h4>Brands</h4>
+                            <h4>{{ __('Brands') }}</h4>
 
                             <form id="brandSelect">
 
                                 @if(count($event->manufacturers) > 1)
                                     <div class="checkbox">
                                         <input id="all" type="radio" name="brand" checked />
-                                        <label for="all">All</label>
+                                        <label for="all">{{ __('All') }}</label>
                                     </div>
                                 @endif
 
                                 @foreach($event->manufacturers as $manufacturer)
                                     <div class="checkbox">
                                         <input id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" type="radio" name="brand"  @if(count($event->manufacturers) == 1) checked @endif/>
-                                        <label for="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}">{{ $manufacturer->name }}</label>
+                                        <label for="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}">{{ __($manufacturer->name) }}</label>
                                     </div>
                                 @endforeach
 
@@ -165,11 +165,11 @@
                             <select name="brand-mobile">
 
                                 @if(count($dealership->manufacturers) > 1)
-                                    <option value="all" selected>All</option>
+                                    <option value="all" selected>{{ __('All') }}</option>
                                 @endif
 
                                 @foreach($event->manufacturers as $manufacturer)
-                                    <option value="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" @if(count($event->manufacturers) == 1) selected @endif>{{ $manufacturer->name }}</option>
+                                    <option value="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" @if(count($event->manufacturers) == 1) selected @endif>{{ __($manufacturer->name) }}</option>
                                 @endforeach
 
                             </select>
@@ -188,13 +188,13 @@
 
                                     <div class="col-md-4 donut-1">
 
-                                        <h3>Response Rate</h3>
+                                        <h3>{{ __('Response Rate') }}</h3>
 
                                         <canvas id="responseRate" class="responseRate" width="180" height="180"></canvas>
 
-                                        <p>{{ $dealership->data_count }} Invites</p>
+                                        <p>{{ $dealership->data_count }} {{ __('Invites') }}</p>
 
-                                        <p>{{ $dealership->appointments }} Appointments</p>
+                                        <p>{{ $dealership->appointments }} {{ __('Appointments') }}</p>
                                         
                                         <p>{{ number_format($dealership->appointments/$dealership->data_count * 100, 1, '.', ',') }}%</p>
 
@@ -202,21 +202,21 @@
 
                                     <div class="col-md-4 donut-2">
 
-                                        <h3>Conversion Rate</h3>
+                                        <h3>{{ __('Conversion Rate') }}</h3>
 
                                         @if($dealership->appointments > 0)
 
                                             <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
 
-                                            <p>{{ $dealership->appointments }} appointments</p>
+                                            <p>{{ $dealership->appointments }} {{ __('Appointments') }}</p>
 
-                                            <p>{{ $dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km }} Sales</p>
+                                            <p>{{ $dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km }} {{ __('Sales') }}</p>
 
                                             <p>{{ number_format(($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km)/$dealership->appointments * 100, 1, '.', ',') }}%</p>
 
                                         @else
 
-                                            <p>No information to display</p>
+                                            <p>{{ __('No information to display') }}</p>
 
                                         @endif
 
@@ -224,7 +224,7 @@
 
                                     <div class="col-md-4">
 
-                                        <h3>Sales breakdown</h3>
+                                        <h3>{{ __('Sales Breakdown') }}</h3>
 
                                         @if($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress > 0)
 
@@ -236,7 +236,7 @@
                                                     <div class="camembert-slice">
                                                         <div class="circle circle-1">
                                                         </div>
-                                                        {{ number_format($dealership->new/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% New
+                                                        {{ number_format($dealership->new/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% {{ __('New') }}
                                                     </div>
                                                 @endif
 
@@ -244,7 +244,7 @@
                                                     <div class="camembert-slice">
                                                         <div class="circle circle-2">
                                                         </div>
-                                                        {{ number_format($dealership->used/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% Used
+                                                        {{ number_format($dealership->used/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% {{ __('Used') }}
                                                     </div>
                                                 @endif
 
@@ -252,7 +252,7 @@
                                                     <div class="camembert-slice">
                                                         <div class="circle circle-3">
                                                         </div>
-                                                        {{ number_format($dealership->demo/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% Demo
+                                                        {{ number_format($dealership->demo/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% {{ __('Demo') }}
                                                     </div>
                                                 @endif
 
@@ -260,7 +260,7 @@
                                                     <div class="camembert-slice">
                                                         <div class="circle circle-4">
                                                         </div>
-                                                        {{ number_format($dealership->zero_km/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% 0KM
+                                                        {{ number_format($dealership->zero_km/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% {{ __('0km') }}
                                                     </div>
                                                 @endif
 
@@ -268,7 +268,7 @@
                                                     <div class="camembert-slice final">
                                                         <div class="circle circle-5">
                                                         </div>
-                                                        {{ number_format($dealership->inprogress/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% In progress
+                                                        {{ number_format($dealership->inprogress/($dealership->new + $dealership->used + $dealership->demo + $dealership->zero_km + $dealership->inprogress) * 100, 1, '.', ',')}}% {{ __('In Progress') }}
                                                     </div>
                                                 @endif
 
@@ -276,7 +276,7 @@
 
                                         @else
 
-                                            <p>No information to display</p>
+                                            <p>{{ __('No information to display') }}</p>
 
                                         @endif
 
@@ -289,12 +289,12 @@
                                     <div class="col-md-12 sales-breakdown-table">
                                         <div class="row">
                                             <div class="col-md-12 results-title">
-                                                <h3>Breakdown of results</h3>
+                                                <h3>{{ __('Breakdown of Results') }}</h3>
                                             </div>
                                             <div class="col-md-6 table-content ">
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Data Count
+                                                        {{ __('Data Count') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $dealership->data_count }}
@@ -302,7 +302,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Appointments
+                                                        {{ __('Appointments') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $dealership->appointments }}
@@ -310,7 +310,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        New Vehicles
+                                                        {{ __('New Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $dealership->new }}
@@ -318,7 +318,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Used Vehicles
+                                                        {{ __('Used Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $dealership->used }}
@@ -328,7 +328,7 @@
                                             <div class="col-md-6 table-content">
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Demo Vehicles
+                                                        {{ __('Demo Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $dealership->demo }}
@@ -336,7 +336,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        0km Vehicles
+                                                        {{ __('0km Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $dealership->zero_km }}
@@ -344,7 +344,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        In Progress
+                                                        {{ __('In Progress') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $dealership->inprogress }}
@@ -354,7 +354,7 @@
                                             </div>
                                             
                                             <div class="col-md-12 download-table-btn">
-                                                <a href="{{ route('eventDownload', $event->id) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                <a href="{{ route('eventDownload', $event->id) }}" class="btn btn-sm"><i class="fas fa-download"></i>{{ __('DOWNLOAD AS CSV') }}</a>
                                             </div>
 
                                         </div>
@@ -366,9 +366,9 @@
 
                                 <div class="row results cardc">
 
-                                    <p>No information to display</p>
+                                    <p>{{ __('No information to display') }}</p>
 
-                                    <a href="{{ route('eventEdit', $event->id) }}" class="btn">Add Data</a>
+                                    <a href="{{ route('eventEdit', $event->id) }}" class="btn">{{ __('Add Data') }}</a>
 
                                 </div>
 
@@ -388,13 +388,13 @@
 
                                     <div class="col-md-4 donut-1">
 
-                                        <h3>Response Rate</h3>
+                                        <h3>{{ __('Response Rate') }}</h3>
 
                                         <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-responseRate" class="responseRate" width="180" height="180"></canvas>
 
-                                        <p>{{ $manufacturer->pivot->data_count }} Invites</p>
+                                        <p>{{ $manufacturer->pivot->data_count }} {{ __('Invites') }}</p>
 
-                                        <p>{{ $manufacturer->pivot->appointments }} Appointments</p>
+                                        <p>{{ $manufacturer->pivot->appointments }} {{ __('Appointments') }}</p>
                                     
                                         <p>{{ number_format($manufacturer->pivot->appointments/$manufacturer->pivot->data_count * 100, 1, '.', ',') }}%</p>
 
@@ -406,9 +406,9 @@
 
                                         <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
 
-                                        <p>{{ $manufacturer->pivot->appointments }} appointments</p>
+                                        <p>{{ $manufacturer->pivot->appointments }} {{ __('Appointments') }}</p>
 
-                                        <p>{{ $manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress }} Sales</p>
+                                        <p>{{ $manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress }} {{ __('Sales') }}</p>
 
                                         <p>{{ number_format(($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km)/$manufacturer->pivot->appointments * 100, 1, '.', ',') }}%</p>
 
@@ -416,7 +416,7 @@
 
                                     <div class="col-md-4">
 
-                                        <h3>Sales breakdown</h3>
+                                        <h3>{{ __('Sales Breakdown') }}</h3>
 
                                         <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-salesBreakdown" class="salesBreakdown" width="180" height="180"></canvas>
 
@@ -426,7 +426,7 @@
                                                 <div class="camembert-slice">
                                                     <div class="circle circle-1">
                                                     </div>
-                                                    {{ number_format($manufacturer->pivot->new/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% New
+                                                    {{ number_format($manufacturer->pivot->new/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% {{ __('New') }}
                                                 </div>
                                             @endif
 
@@ -434,7 +434,7 @@
                                                 <div class="camembert-slice">
                                                     <div class="circle circle-2">
                                                     </div>
-                                                    {{ number_format($manufacturer->pivot->used/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% Used
+                                                    {{ number_format($manufacturer->pivot->used/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% {{ __('Used') }}
                                                 </div>
                                             @endif
 
@@ -442,7 +442,7 @@
                                                 <div class="camembert-slice">
                                                     <div class="circle circle-3">
                                                     </div>
-                                                    {{ number_format($manufacturer->pivot->demo/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% Demo
+                                                    {{ number_format($manufacturer->pivot->demo/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% {{ __('Demo') }}
                                                 </div>
                                             @endif
 
@@ -450,7 +450,7 @@
                                                 <div class="camembert-slice">
                                                     <div class="circle circle-4">
                                                     </div>
-                                                    {{ number_format($manufacturer->pivot->zero_km/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% 0KM
+                                                    {{ number_format($manufacturer->pivot->zero_km/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% {{ __('0km') }}
                                                 </div>
                                             @endif
 
@@ -458,7 +458,7 @@
                                                 <div class="camembert-slice final">
                                                     <div class="circle circle-5">
                                                     </div>
-                                                    {{ number_format($manufacturer->pivot->inprogress/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% In progress
+                                                    {{ number_format($manufacturer->pivot->inprogress/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',') }}% {{ __('In Progress') }}
                                                 </div>
                                             @endif
 
@@ -501,12 +501,12 @@
                                     <div class="col-md-12 sales-breakdown-table">
                                         <div class="row">
                                             <div class="col-md-12 results-title">
-                                                <h3>Breakdown of results</h3>
+                                                <h3>{{ __('Breakdown of Results') }}</h3>
                                             </div>
                                             <div class="col-md-6 table-content ">
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Data Count
+                                                        {{ __('Data Count') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->pivot->data_count }}
@@ -514,7 +514,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Appointments
+                                                        {{ __('Appointments') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->pivot->appointments }}
@@ -522,7 +522,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        New Vehicles
+                                                        {{ __('New Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->pivot->new }}
@@ -530,7 +530,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Used Vehicles
+                                                        {{ __('Used Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->pivot->used }}
@@ -540,7 +540,7 @@
                                             <div class="col-md-6 table-content">
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Demo Vehicles
+                                                        {{ __('Demo Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->pivot->demo }}
@@ -548,7 +548,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        0km Vehicles
+                                                        {{ __('0km Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->pivot->zero_km }}
@@ -556,7 +556,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        In Progress
+                                                        {{ __('In Progress') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->pivot->inprogress }}
@@ -566,7 +566,7 @@
                                             </div>
                                             
                                             <div class="col-md-12 download-table-btn">
-                                                <a href="{{ route('eventManufacturerDownload', [$event->id,$manufacturer->id]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                <a href="{{ route('eventManufacturerDownload', [$event->id,$manufacturer->id]) }}" class="btn btn-sm"><i class="fas fa-download"></i>{{ __('DOWNLOAD AS CSV') }}</a>
                                             </div>
 
                                         </div>
@@ -578,9 +578,9 @@
 
                                 <div class="row results cardc">
 
-                                    <p>No information to display</p>
+                                    <p>{{ __('No information to display') }}</p>
 
-                                    <a href="{{ route('eventEdit', $event->id) }}" class="btn">Add Data</a>
+                                    <a href="{{ route('eventEdit', $event->id) }}" class="btn">{{ __('Add Data') }}</a>
 
                                 </div>
 
@@ -676,8 +676,8 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            "Appointments",
-            "No Appointment Made"
+            "{{ __('Appointments') }}",
+            "{{ __('No Appointment Made') }}"
         ]
     },
 
@@ -714,8 +714,8 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            "Sales",
-            "No Sale Made"
+            "{{ __('Sales') }}",
+            "{{ __('No Sale Made') }}"
         ]
     },
 
@@ -758,11 +758,11 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            @if($dealership->new > 0)"New",@endif 
-            @if($dealership->used > 0)"Used",@endif 
-            @if($dealership->demo > 0)"Demo",@endif 
-            @if($dealership->zero_km > 0)"0km",@endif 
-            @if($dealership->inprogress > 0)"In Progress"@endif 
+            @if($dealership->new > 0)"{{ __('New') }}",@endif 
+            @if($dealership->used > 0)"{{ __('Used') }}",@endif 
+            @if($dealership->demo > 0)"{{ __('Demo') }}",@endif 
+            @if($dealership->zero_km > 0)"{{ __('0km') }}",@endif 
+            @if($dealership->inprogress > 0)"{{ __('In Progress') }}"@endif 
         ]
     },
 
@@ -803,8 +803,8 @@ var chart = new Chart(ctx, {
                     ]
                 }],
                 labels: [
-                    "Appointments",
-                    "No Appointment Made"
+                    "{{ __('Appointments') }}",
+                    "{{ __('No Appointment Made') }}"
                 ]
             },
 
@@ -840,8 +840,8 @@ var chart = new Chart(ctx, {
                     ]
                 }],
                 labels: [
-                    "Sales",
-                    "No Sale Made"
+                    "{{ __('Sales') }}",
+                    "{{ __('No Sale Made') }}"
                 ]
             },
 
@@ -884,11 +884,11 @@ var chart = new Chart(ctx, {
                     ]
                 }],
                 labels: [
-                    @if($manufacturer->pivot->new > 0)"New",@endif 
-                    @if($manufacturer->pivot->used > 0)"Used",@endif 
-                    @if($manufacturer->pivot->demo > 0)"Demo",@endif 
-                    @if($manufacturer->pivot->zero_km > 0)"0km",@endif 
-                    @if($manufacturer->pivot->inprogress > 0)"In Progress"@endif 
+                    @if($manufacturer->pivot->new > 0)"{{ __('New') }}",@endif 
+                    @if($manufacturer->pivot->used > 0)"{{ __('Used') }}",@endif 
+                    @if($manufacturer->pivot->demo > 0)"{{ __('Demo') }}",@endif 
+                    @if($manufacturer->pivot->zero_km > 0)"{{ __('0km') }}",@endif 
+                    @if($manufacturer->pivot->inprogress > 0)"{{ __('In Progress') }}"@endif 
                 ]
             },
 
@@ -911,12 +911,12 @@ var chart = new Chart(ctx, {
             type: 'bar',
 
             data: {
-                labels: ["Response"],
+                labels: ["{{ __('Response') }}"],
                 datasets: [
 
                     @if($manufacturer->region_appointments > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 {{ number_format($manufacturer->region_appointments/$manufacturer->region_data_count * 100, 1, '.', ',') }}
@@ -925,14 +925,14 @@ var chart = new Chart(ctx, {
                     @endif
 
                     {
-                        label: "Country",
+                        label: "{{ __('Country') }}",
                         backgroundColor: "#6D497F",
                         data: [
                             {{ number_format($manufacturer->country_appointments/$manufacturer->country_data_count * 100, 1, '.', ',') }}
                         ]
                     }, 
                     {
-                        label: "You",
+                        label: "{{ __('You') }}",
                         backgroundColor: "#BA97CC",
                         data: [
                             {{ number_format($manufacturer->pivot->appointments/$manufacturer->pivot->data_count * 100, 1, '.', ',') }}
@@ -944,7 +944,7 @@ var chart = new Chart(ctx, {
             options: {
                 title: {
                     display: true,
-                    text: 'Response Rate %'
+                    text: "{{ __('Response Rate %') }}"
                 },
                 scales: {
                     yAxes: [{
@@ -982,12 +982,12 @@ var chart = new Chart(ctx, {
             type: 'bar',
 
             data: {
-                labels: ["Conversion"],
+                labels: ["{{ __('Conversion') }}"],
                 datasets: [
 
                     @if($manufacturer->region_appointments > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 {{ number_format(($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress)/$manufacturer->region_appointments * 100, 1, '.', ',') }}
@@ -996,14 +996,14 @@ var chart = new Chart(ctx, {
                     @endif
 
                     {
-                        label: "Country",
+                        label: "{{ __('Country') }}",
                         backgroundColor: "#6D497F",
                         data: [
                             {{ number_format(($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress)/$manufacturer->country_appointments * 100, 1, '.', ',') }}
                         ]
                     }, 
                     {
-                        label: "You",
+                        label: "{{ __('You') }}",
                         backgroundColor: "#BA97CC",
                         data: [
                             {{ number_format(($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress)/$manufacturer->pivot->appointments * 100, 1, '.', ',') }}
@@ -1015,7 +1015,7 @@ var chart = new Chart(ctx, {
             options: {
                 title: {
                     display: true,
-                    text: 'Conversion Rate %'
+                    text: "{{ __('Conversion Rate %') }}"
                 },
                 scales: {
                     yAxes: [{
@@ -1053,11 +1053,11 @@ var chart = new Chart(ctx, {
             type: 'bar',
 
             data: {
-                labels: ["New", "Used", "Demo", "0KM", "In Progress"],
+                labels: ["{{ __('New') }}", "{{ __('Used') }}", "{{ __('Demo') }}", "{{ __('0km') }}", "{{ __('In Progress') }}"],
                 datasets: [
                     @if($manufacturer->region_data_count > 0)
                     {
-                        label: "Region",
+                        label: "{{ __('Region') }}",
                         backgroundColor: "#333C42",
                         data: [
                             @if($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress > 0)
@@ -1071,7 +1071,7 @@ var chart = new Chart(ctx, {
                     }, 
                     @endif
                     {
-                        label: "Country",
+                        label: "{{ __('Country') }}",
                         backgroundColor: "#6D497F",
                         data: [
                             {{ number_format($manufacturer->country_new/($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress) * 100, 1, '.', ',')}},
@@ -1082,7 +1082,7 @@ var chart = new Chart(ctx, {
                         ]
                     }, 
                     {
-                        label: "You",
+                        label: "{{ __('You') }}",
                         backgroundColor: "#BA97CC",
                         data: [
                             {{ number_format($manufacturer->pivot->new/($manufacturer->pivot->new + $manufacturer->pivot->used + $manufacturer->pivot->demo + $manufacturer->pivot->zero_km + $manufacturer->pivot->inprogress) * 100, 1, '.', ',')}},
@@ -1098,7 +1098,7 @@ var chart = new Chart(ctx, {
             options: {
                 title: {
                     display: true,
-                    text: 'Sales Breakdown %'
+                    text: "{{ __('Sales Breakdown %') }}"
                 },
                 scales: {
                     yAxes: [{

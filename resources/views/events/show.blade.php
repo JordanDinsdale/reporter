@@ -21,7 +21,7 @@
 
                         <div class="current-results">
 
-                            Showing results for event - {{ $event->name }} 
+                            Showing results for Event | {{ $event->name }} | 
 
                             @if(\Carbon\Carbon::parse($event->start_date)->format('M') == \Carbon\Carbon::parse($event->end_date)->format('M'))
 

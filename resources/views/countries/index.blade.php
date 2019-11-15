@@ -1,11 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
+
     <div class="row justify-content-center">
+
         <div class="col-md-12">
+
             <div class="card">
-                <div class="card-header">Dashboard</div>
+
+                <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
 
@@ -15,13 +20,11 @@
                         </div>
                     @endif
 
-                    <p>You are logged in!</p>
-
                     @if($errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                                    <li>{{ __($error) }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -38,25 +41,25 @@
                     <form method="post" action="{{ route('countryStore') }}">
                         @csrf
                         <div class="form-group">    
-                            <label for="country">Add Country</label>
+                            <label for="country">{{ ('Add Country') }}</label>
                             <input type="text" class="form-control" name="country"/>
                         </div>   
-                        <button type="submit" class="btn btn-primary">Add Country</button>
+                        <button type="submit" class="btn btn-primary">{{ ('Add Country') }}</button>
                     </form>
 
                     @if($countries)
 
-                        <h2>Countries</h2>
+                        <h2>{{ ('Countries') }}</h2>
 
                         <ul>
 
                             @foreach($countries as $country)
 
                                 <li>
-                                    <a href="{{ route('country',$country->id) }}">{{ $country->name }}</a> | <a href="{{ route('countryEdit',$country->id) }}">Edit</a> |
+                                    <a href="{{ route('country',$country->id) }}">{{ __($country->name) }}</a> | <a href="{{ route('countryEdit',$country->id) }}">{{ __('Edit') }}</a> |
                                     <form action="{{ route('countryDestroy', $country->id)}}" method="post">
                                         @csrf
-                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                        <button class="btn btn-danger" type="submit">{{ __('Delete') }}</button>
                                     </form>
                                 </li>
 
@@ -67,8 +70,13 @@
                     @endif
 
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
+
 @endsection

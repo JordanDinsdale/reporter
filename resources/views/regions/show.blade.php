@@ -2,9 +2,9 @@
 
 @section('page_title')
 
-    <h1>Dashboard</h1>
+    <h1>{{ __('Dashboard') }}</h1>
 
-    <p>Year-to-Date Results</p>
+    <p>{{ __('Year-to-Date Results') }}</p>
     
 @endsection
 
@@ -26,14 +26,14 @@
 
                             <div class="donut1-content">
 
-                                <h3>Response Rate</h3>
+                                <h3>{{ __('Response Rate') }}</h3>
 
                                 @if($region->data_count > 0)
 
                                     <canvas id="responseRate" class="responseRate" width="180" height="180"></canvas>
                                     
-                                    <p>{{ $region->data_count }} Invites</p>
-                                    <p>{{ $region->appointments }} Appointments</p>
+                                    <p>{{ $region->data_count }} {{ __('Invites') }}</p>
+                                    <p>{{ $region->appointments }} {{ __('Appointments') }}</p>
                                     <p>{{ number_format($region->appointments/$region->data_count * 100, 1, '.', ',') }}%</p>
 
                                 @else
@@ -56,13 +56,13 @@
 
                                     <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     
-                                    <p>{{ $region->appointments }} appointments</p>
-                                    <p>{{ $region->new + $region->used + $region->demo + $region->zero_km }} Sales</p>
+                                    <p>{{ $region->appointments }} {{ __('Appointments') }}</p>
+                                    <p>{{ $region->new + $region->used + $region->demo + $region->zero_km }} {{ __('Sales') }}</p>
                                     <p>{{ number_format(($region->new + $region->used + $region->demo + $region->zero_km)/$region->appointments * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
-                                    <p>No information to display</p>
+                                    <p>{{ __('No information to display') }}</p>
 
                                 @endif
 
@@ -83,35 +83,35 @@
                                     @if(number_format($region->new/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-1"></div>
-                                            {{ number_format($region->new/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}% New
+                                            {{ number_format($region->new/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}% {{ __('New') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($region->used/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-2"></div>
-                                            {{ number_format($region->used/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}% Used
+                                            {{ number_format($region->used/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}% {{ __('Used') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($region->demo/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-3"></div>
-                                            {{ number_format($region->demo/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}% Demo
+                                            {{ number_format($region->demo/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}% {{ __('Demo') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($region->zero_km/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-4"></div>
-                                            {{ number_format($region->zero_km/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}% 0KM
+                                            {{ number_format($region->zero_km/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}% {{ __('0km') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($region->inprogress/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice final">
                                             <div class="circle circle-5"></div>
-                                            {{ number_format($region->inprogress/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}% In progress
+                                            {{ number_format($region->inprogress/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',')}}% {{ __('In Progress') }}
                                         </div>
                                     @endif
 
@@ -119,7 +119,7 @@
 
                             @else
 
-                                <p>No information to display</p>
+                                <p>{{ __('No information to display') }}</p>
 
                             @endif
 
@@ -162,8 +162,8 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            "Appointments",
-            "No Appointment Made"
+            "{{ __('Appointments') }}",
+            "{{ __('No Appointment Made') }}"
         ]
     },
 
@@ -199,8 +199,8 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            "Sales",
-            "No Sale Made"
+            "{{ __('Sales') }}",
+            "{{ __('No Sale Made') }}"
         ]
     },
 
@@ -243,11 +243,11 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            @if($region->new > 0)"New",@endif 
-            @if($region->used > 0)"Used",@endif 
-            @if($region->demo > 0)"Demo",@endif 
-            @if($region->zero_km > 0)"0km",@endif 
-            @if($region->inprogress > 0)"In Progress"@endif 
+            @if($region->new > 0)"{{ __('New') }}",@endif 
+            @if($region->used > 0)"{{ __('Used') }}",@endif 
+            @if($region->demo > 0)"{{ __('Demo') }}",@endif 
+            @if($region->zero_km > 0)"{{ __('0km') }}",@endif 
+            @if($region->inprogress > 0)"{{ __('In Progress') }}"@endif 
         ]
     },
 

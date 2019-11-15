@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <h1><i class="fas fa-chart-pie"></i>Your Reports</h1>
+    <h1><i class="fas fa-chart-pie"></i>{{ __('Your Reports') }}</h1>
     
 @endsection
 
@@ -27,27 +27,27 @@
                             @switch($level)
 
                                 @case('Company')
-                                    Company | {{ $company->name }} | 
+                                    Company | {{ __($company->name) }} | 
                                     @break
 
                                 @case('Manufacturer')
-                                    Manufacturer | {{ $company->manufacturer->name }} | 
+                                    Manufacturer | {{ __($company->manufacturer->name) }} | 
                                     @break
 
                                 @case('Country')
-                                    Country | {{ $company->manufacturer->name }} {{ $company->country->name }} | 
+                                    Country | {{ __($company->manufacturer->name) }} {{ __($company->country->name) }} | 
                                     @break
 
                                 @case('Region')
-                                    Region | {{ $company->manufacturer->name }} {{ $company->region->country->name }} {{ $company->region->name }} | 
+                                    Region | {{ __($company->manufacturer->name) }} {{ __($company->region->country->nam) }} {{ __($company->region->name) }} | 
                                     @break
 
                                 @case('Dealership')
-                                    Dealership | {{ $company->dealership->name }} | 
+                                    Dealership | {{ __($company->dealership->name) }} | 
                                     @break
 
                                 @default
-                                    Company | {{ $company->name }} | 
+                                    Company | {{ __($company->name) }} | 
 
                             @endswitch
 
@@ -71,7 +71,7 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()">{{ __('Choose Report') }}</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
 
@@ -91,12 +91,12 @@
 
                                         <div class="col-md-5" >
 
-                                            <h4>Report By Event</h4>
+                                            <h4>{{ __('Report By Event') }}</h4>
 
                                             <div class="event-list-container">
                                                 <ul>
                                                     @foreach($events as $companyEvent)
-                                                        <li class="event-listing"><a href="{{ route('eventCompany',[$companyEvent->id,$company->id]) }}">{{ $companyEvent->name }}</a></li>
+                                                        <li class="event-listing"><a href="{{ route('eventCompany',[$companyEvent->id,$company->id]) }}">{{ __($companyEvent->name) }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -105,7 +105,7 @@
 
                                         <div class="col-md-7">
 
-                                            <h4>Report By Date</h4>
+                                            <h4>{{ __('Report By Date') }}</h4>
 
                                             <div class="date-picker-form">
 
@@ -116,63 +116,63 @@
                                                     <div class="row">
 
                                                         <div class="col-md-6">
-                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" required />
+                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  {{ __('From date') }}" required />
                                                         </div>
 
                                                         <div class="col-md-6">
-                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" required />
+                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  {{ __('To date') }}" required />
                                                         </div>
 
                                                         <div class="col-md-12">
                                                             <select id="levels" class="form-control" name="level" required>
-                                                                <option value="">Select Level</option>
-                                                                <option value="Company">{{ $company->name }}</option>
-                                                                <option value="Manufacturer">Manufacturer</option>
-                                                                <option value="Country">Country</option>
-                                                                <option value="Region">Region</option>
-                                                                <option value="Dealership">Dealership</option>
+                                                                <option value="">{{ __('Select Level') }}</option>
+                                                                <option value="Company">{{ __($company->name) }}</option>
+                                                                <option value="Manufacturer">{{ __('Manufacturer') }}</option>
+                                                                <option value="Country">{{ __('Country') }}</option>
+                                                                <option value="Region">{{ __('Region') }}</option>
+                                                                <option value="Dealership">{{ __('Dealership') }}</option>
                                                             </select>
                                                         </div>
 
                                                         <div id="companyContainer" class="col-md-12 d-none">
                                                             <select class="form-control" name="company_id" id="companies">
-                                                                <option value="{{ $company->id }}" selected>{{ $company->name }}</option>
+                                                                <option value="{{ $company->id }}" selected>{{ __($company->name) }}</option>
                                                             </select>
                                                         </div>
 
                                                         <div id="manufacturerContainer" class="col-md-12 d-none">
                                                             <select class="form-control" name="manufacturer_id" id="manufacturers">
-                                                                <option value="">Select Manufacturer</option>
+                                                                <option value="">{{ __('Select Manufacturer') }}</option>
                                                                 @foreach($company->manufacturers as $manufacturer)
-                                                                    <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
+                                                                    <option value="{{ $manufacturer->id }}">{{ __($manufacturer->name) }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
 
                                                         <div id="countryContainer" class="col-md-12 d-none">
                                                             <select class="form-control" name="country_id" id="countries">
-                                                                <option value="">Select Country</option>
-                                                                <option disabled="true" value="">No countries currently available</option>
+                                                                <option value="">{{ __('Select Country') }}</option>
+                                                                <option disabled="true" value="">{{ __('No countries currently available') }}</option>
                                                             </select>
                                                         </div>
 
                                                         <div id="regionContainer" class="col-md-12 d-none">
                                                             <select class="form-control" name="region_id" id="regions">
-                                                                <option value="">Select Region</option>
-                                                                <option disabled="true" value="">No regions currently available</option>
+                                                                <option value="">{{ __('Select Region') }}</option>
+                                                                <option disabled="true" value="">{{ __('No regions currently available') }}</option>
                                                             </select>
                                                         </div>
 
                                                         <div id="dealershipContainer" class="col-md-12 d-none">
                                                             <select class="form-control" name="dealership_id" id="dealerships">
-                                                                <option value="">Select Dealership</option>
-                                                                <option disabled="true" value="">No dealerships currently available</option>
+                                                                <option value="">{{ __('Select Dealership') }}</option>
+                                                                <option disabled="true" value="">{{ ('No dealerships currently available') }}</option>
                                                             </select>
                                                         </div>
 
                                                     </div>
 
-                                                    <button type="submit" class="btn">REPORT</button>
+                                                    <button type="submit" class="btn">{{ __('REPORT') }}</button>
 
                                                 </form>
 
@@ -208,11 +208,11 @@
 
                     <div class="sidebar-inner">
 
-                        <h3>Filter results</h3>
+                        <h3>{{ __('Filter Results') }}</h3>
 
                         <div class="filter-group">
 
-                            <h4>Brands</h4>
+                            <h4>{{ __('Brands') }}</h4>
 
                             <form id="brandSelect">
 
@@ -235,7 +235,7 @@
                                     @if((count($company->manufacturers) > 1 && $level !== 'Dealership') || ($level == 'Dealership' && count($eventManufacturer_ids) > 1))
                                         <div class="checkbox">
                                             <input id="all" type="radio" name="brand" checked />
-                                            <label for="all">All</label>
+                                            <label for="all">{{ __('All') }}</label>
                                         </div>                                    
                                     @endif
 
@@ -243,7 +243,7 @@
                                         @if(in_array($manufacturer->id,$eventManufacturer_ids))
                                             <div class="checkbox">
                                                 <input id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" type="radio" name="brand"  @if(count($eventManufacturer_ids) == 1) checked @endif/>
-                                                <label for="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}">{{ $manufacturer->name }}</label>
+                                                <label for="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}">{{ __($manufacturer->name) }}</label>
                                             </div>
                                         @endif
                                     @endforeach
@@ -253,14 +253,14 @@
                                     @if(count($company->manufacturers) > 1)
                                         <div class="checkbox">
                                             <input id="all" type="radio" name="brand" checked />
-                                            <label for="all">All</label>
+                                            <label for="all">{{ __('All') }}</label>
                                         </div>
                                     @endif
 
                                     @foreach($company->manufacturers as $manufacturer)
                                         <div class="checkbox">
                                             <input id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" type="radio" name="brand"  @if(count($company->manufacturers) == 1) checked @endif/>
-                                            <label for="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}">{{ $manufacturer->name }}</label>
+                                            <label for="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}">{{ __($manufacturer->name) }}</label>
                                         </div>
                                     @endforeach
 
@@ -280,16 +280,16 @@
 
                         <div class="col-md-12 filter-mobile">
 
-                            Filter results
+                            {{ ('Filter Results') }}
 
                             <select name="brand-mobile">
 
                                 @if(count($company->manufacturers) > 1)
-                                    <option value="all" selected>All</option>
+                                    <option value="all" selected>{{ __('All') }}</option>
                                 @endif
 
                                 @foreach($company->manufacturers as $manufacturer)
-                                    <option value="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" @if(count($company->manufacturers) == 1) selected @endif>{{ $manufacturer->name }}</option>
+                                    <option value="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}" @if(count($company->manufacturers) == 1) selected @endif>{{ __($manufacturer->name) }}</option>
                                 @endforeach
 
                             </select>
@@ -306,13 +306,13 @@
 
                                 <div class="col-md-4 donut-1">
 
-                                    <h3>Response Rate</h3>
+                                    <h3>{{ __('Response Rate') }}</h3>
 
                                     <canvas id="responseRate" class="responseRate" width="180" height="180"></canvas>
 
-                                    <p>{{ $company->data_count }} Invites</p>
+                                    <p>{{ $company->data_count }} {{ __('Invites') }}</p>
 
-                                    <p>{{ $company->appointments }} Appointments</p>
+                                    <p>{{ $company->appointments }} {{ __('Appointments') }}</p>
 
                                     @if($company->data_count > 0)
 
@@ -324,13 +324,13 @@
 
                                 <div class="col-md-4 donut-2">
 
-                                    <h3>Conversion Rate</h3>
+                                    <h3>{{ __('Conversion Rate') }}</h3>
 
                                     <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
 
-                                    <p>{{ $company->appointments }} appointments</p>
+                                    <p>{{ $company->appointments }} {{ __('Appointments') }}</p>
 
-                                    <p>{{ $company->new + $company->used + $company->demo + $company->zero_km }} Sales</p>
+                                    <p>{{ $company->new + $company->used + $company->demo + $company->zero_km }} {{ __('Sales') }}</p>
 
                                     @if($company->appointments > 0)
 
@@ -342,7 +342,7 @@
 
                                 <div class="col-md-4">
 
-                                    <h3>Sales breakdown</h3>
+                                    <h3>{{ __('Sales Breakdown') }}</h3>
 
                                     <canvas id="salesBreakdown" class="salesBreakdown" width="180" height="180"></canvas>
 
@@ -351,35 +351,35 @@
                                         @if(number_format($company->new/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
                                                 <div class="circle circle-1"></div>
-                                                {{ number_format($company->new/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% New
+                                                {{ number_format($company->new/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% {{ __('New') }}
                                             </div>
                                         @endif
 
                                         @if(number_format($company->used/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
                                                 <div class="circle circle-2"></div>
-                                                {{ number_format($company->used/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% Used
+                                                {{ number_format($company->used/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% {{ __('Used') }}
                                             </div>
                                         @endif
 
                                         @if(number_format($company->demo/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
                                                 <div class="circle circle-3"></div>
-                                                {{ number_format($company->demo/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% Demo
+                                                {{ number_format($company->demo/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% {{ __('Demo') }}
                                             </div>
                                         @endif
 
                                         @if(number_format($company->zero_km/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice">
                                                 <div class="circle circle-4"></div>
-                                                {{ number_format($company->zero_km/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% 0KM
+                                                {{ number_format($company->zero_km/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% {{ __('0km') }}
                                             </div>
                                         @endif
 
                                         @if(number_format($company->inprogress/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',') > 0)
                                             <div class="camembert-slice final">
                                                 <div class="circle circle-5"></div>
-                                                {{ number_format($company->inprogress/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% In progress
+                                                {{ number_format($company->inprogress/($company->new + $company->used + $company->demo + $company->zero_km + $company->inprogress) * 100, 1, '.', ',')}}% {{ __('In Progress') }}
                                             </div>
                                         @endif
 
@@ -394,12 +394,12 @@
                                 <div class="col-md-12 sales-breakdown-table">
                                     <div class="row">
                                         <div class="col-md-12 results-title">
-                                            <h3>Breakdown of results</h3>
+                                            <h3>{{ __('Breakdown of Results') }}</h3>
                                         </div>
                                         <div class="col-md-6 table-content ">
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    Data Count
+                                                    {{ __('Data Count') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $company->data_count }}
@@ -407,7 +407,7 @@
                                             </div>
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    Appointments
+                                                    {{ __('Appointments') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $company->appointments }}
@@ -415,7 +415,7 @@
                                             </div>
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    New Vehicles
+                                                    {{ __('New Vehicles') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $company->new }}
@@ -423,7 +423,7 @@
                                             </div>
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    Used Vehicles
+                                                    {{ __('Used Vehicles') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $company->used }}
@@ -433,7 +433,7 @@
                                         <div class="col-md-6 table-content">
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    Demo Vehicles
+                                                    {{ __('Demo Vehicles') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $company->demo }}
@@ -441,7 +441,7 @@
                                             </div>
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    0km Vehicles
+                                                    {{ __('0km Vehicles') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $company->zero_km }}
@@ -449,7 +449,7 @@
                                             </div>
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    In Progress
+                                                    {{ __('In Progress') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $company->inprogress }}
@@ -461,13 +461,13 @@
                                         @if($level == 'Company')
                                             
                                             <div class="col-md-12 download-table-btn">
-                                                <a href="{{ route('companyReportDatesDownload', [$company->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                <a href="{{ route('companyReportDatesDownload', [$company->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>{{ __('DOWNLOAD AS CSV') }}</a>
                                             </div>
 
                                         @elseif($level == 'Dealership')
                                             
                                             <div class="col-md-12 download-table-btn">
-                                                <a href="{{ route('dealershipDownloadCompany', [$company->dealership->id,$company->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                <a href="{{ route('dealershipDownloadCompany', [$company->dealership->id,$company->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>{{ __('DOWNLOAD AS CSV') }}</a>
                                             </div>
 
                                         @endif
@@ -490,10 +490,10 @@
                                 <div class="row results cardc">
 
                                     <div class="col-md-4 donut-1">
-                                        <h3>Response Rate</h3>
+                                        <h3>{{ __('Response Rate') }}</h3>
                                         <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-responseRate" class="responseRate" width="180" height="180"></canvas>
-                                        <p>{{ $manufacturer->data_count }} Invites</p>
-                                        <p>{{ $manufacturer->appointments }} Appointments</p>
+                                        <p>{{ $manufacturer->data_count }} {{ __('Invites') }}</p>
+                                        <p>{{ $manufacturer->appointments }} {{ __('Appointments') }}</p>
 
                                         @if($company->data_count > 0)
 
@@ -506,8 +506,8 @@
                                     <div class="col-md-4 donut-2">
                                         <h3>Conversion Rate</h3>
                                         <canvas id="{{ str_replace(' ','-',strtolower($manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
-                                        <p>{{ $manufacturer->appointments }} appointments</p>
-                                        <p>{{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km }} Sales</p>
+                                        <p>{{ $manufacturer->appointments }} {{ __('Appointments') }}</p>
+                                        <p>{{ $manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km }} {{ __('Sales') }}</p>
 
                                         @if($company->appointments > 0)
 
@@ -526,7 +526,7 @@
                                                 <div class="camembert-slice">
                                                     <div class="circle circle-1">
                                                     </div>
-                                                    {{ number_format($manufacturer->new/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') }}% New
+                                                    {{ number_format($manufacturer->new/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') }}% {{ __('New') }}
                                                 </div>
                                             @endif
 
@@ -534,7 +534,7 @@
                                                 <div class="camembert-slice">
                                                     <div class="circle circle-2">
                                                     </div>
-                                                    {{ number_format($manufacturer->used/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') }}% Used
+                                                    {{ number_format($manufacturer->used/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') }}% {{ __('Used') }}
                                                 </div>
                                             @endif
 
@@ -542,7 +542,7 @@
                                                 <div class="camembert-slice">
                                                     <div class="circle circle-3">
                                                     </div>
-                                                    {{ number_format($manufacturer->demo/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') }}% Demo
+                                                    {{ number_format($manufacturer->demo/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') }}% {{ __('Demo') }}
                                                 </div>
                                             @endif
 
@@ -550,7 +550,7 @@
                                                 <div class="camembert-slice">
                                                     <div class="circle circle-4">
                                                     </div>
-                                                    {{ number_format($manufacturer->zero_km/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') }}% 0KM
+                                                    {{ number_format($manufacturer->zero_km/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') }}% {{ __('0km') }}
                                                 </div>
                                             @endif
 
@@ -558,7 +558,7 @@
                                                 <div class="camembert-slice final">
                                                     <div class="circle circle-5">
                                                     </div>
-                                                    {{ number_format($manufacturer->inprogress/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') }}% In progress
+                                                    {{ number_format($manufacturer->inprogress/($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress) * 100, 1, '.', ',') }}% {{ __('In Progress') }}
                                                 </div>
                                             @endif
 
@@ -604,12 +604,12 @@
                                     <div class="col-md-12 sales-breakdown-table">
                                         <div class="row">
                                             <div class="col-md-12 results-title">
-                                                <h3>Breakdown of results</h3>
+                                                <h3>{{ __('Breakdown of Results') }}</h3>
                                             </div>
                                             <div class="col-md-6 table-content ">
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Data Count
+                                                        {{ __('Data Count') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->data_count }}
@@ -617,7 +617,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Appointments
+                                                        {{ __('Appointments') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->appointments }}
@@ -625,7 +625,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        New Vehicles
+                                                        {{ __('New Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->new }}
@@ -633,7 +633,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Used Vehicles
+                                                        {{ __('Used Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->used }}
@@ -643,7 +643,7 @@
                                             <div class="col-md-6 table-content">
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        Demo Vehicles
+                                                        {{ __('Demo Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->demo }}
@@ -651,7 +651,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        0km Vehicles
+                                                        {{ __('0km Vehicles') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->zero_km }}
@@ -659,7 +659,7 @@
                                                 </div>
                                                 <div class="data-line">
                                                     <div class="data-type">
-                                                        In Progress
+                                                        {{ __('In Progress') }}
                                                     </div>
                                                     <div class="data-count">
                                                         {{ $manufacturer->inprogress }}
@@ -671,25 +671,25 @@
                                             @if($level == 'Manufacturer')
                                             
                                                 <div class="col-md-12 download-table-btn">
-                                                    <a href="{{ route('manufacturerReportDatesDownload', [$manufacturer->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                    <a href="{{ route('manufacturerReportDatesDownload', [$manufacturer->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>{{ __('DOWNLOAD AS CSV') }}</a>
                                                 </div>
 
                                             @elseif($level == 'Country')
                                             
                                                 <div class="col-md-12 download-table-btn">
-                                                    <a href="{{ route('manufacturerCountryReportDatesDownload', [$manufacturer->id,$company->country->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                    <a href="{{ route('manufacturerCountryReportDatesDownload', [$manufacturer->id,$company->country->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>{{ __('DOWNLOAD AS CSV') }}</a>
                                                 </div>
 
                                             @elseif($level == 'Region')
                                             
                                                 <div class="col-md-12 download-table-btn">
-                                                    <a href="{{ route('regionDownload', [$company->region->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                    <a href="{{ route('regionDownload', [$company->region->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>{{ __('DOWNLOAD AS CSV') }}</a>
                                                 </div>
 
                                             @elseif($level == 'Dealership')
                                         
                                                 <div class="col-md-12 download-table-btn">
-                                                    <a href="{{ route('dealershipDownloadManufacturer', [$company->dealership->id,$manufacturer->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                    <a href="{{ route('dealershipDownloadManufacturer', [$company->dealership->id,$manufacturer->id,$company->start_date,$company->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>{{ __('DOWNLOAD AS CSV') }}</a>
                                                 </div>
 
                                             @endif
@@ -703,7 +703,7 @@
 
                                 <div class="row results cardc">
 
-                                    <p>No information to display</p>
+                                    <p>{{ __('No information to display') }}</p>
 
                                 </div>
 
@@ -798,8 +798,8 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            "Appointments",
-            "No Appointment Made"
+            "{{ __('Appointments') }}",
+            "{{ __('No Appointment Made') }}"
         ]
     },
 
@@ -836,8 +836,8 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            "Sales",
-            "No Sale Made"
+            "{{ __('Sales') }}",
+            "{{ __('No Sale Made') }}"
         ]
     },
 
@@ -880,11 +880,11 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            @if($company->new > 0)"New",@endif 
-            @if($company->used > 0)"Used",@endif 
-            @if($company->demo > 0)"Demo",@endif 
-            @if($company->zero_km > 0)"0km",@endif 
-            @if($company->inprogress > 0)"In Progress"@endif 
+            @if($company->new > 0)"{{ __('New') }}",@endif 
+            @if($company->used > 0)"{{ __('Used') }}",@endif 
+            @if($company->demo > 0)"{{ __('Demo') }}",@endif 
+            @if($company->zero_km > 0)"{{ __('0km') }}",@endif 
+            @if($company->inprogress > 0)"{{ __('In Progress') }}"@endif 
         ]
     },
 
@@ -924,8 +924,8 @@ var chart = new Chart(ctx, {
                     ]
                 }],
                 labels: [
-                    "Appointments",
-                    "No Appointment Made"
+                    "{{ __('Appointments') }}",
+                    "{{ __('No Appointment Made') }}"
                 ]
             },
 
@@ -961,8 +961,8 @@ var chart = new Chart(ctx, {
                     ]
                 }],
                 labels: [
-                    "Sales",
-                    "No Sale Made"
+                    "{{ __('Sales') }}",
+                    "{{ __('No Sale Made') }}"
                 ]
             },
 
@@ -1005,11 +1005,11 @@ var chart = new Chart(ctx, {
                     ]
                 }],
                 labels: [
-                    @if($manufacturer->new > 0)"New",@endif 
-                    @if($manufacturer->used > 0)"Used",@endif 
-                    @if($manufacturer->demo > 0)"Demo",@endif 
-                    @if($manufacturer->zero_km > 0)"0km",@endif 
-                    @if($manufacturer->inprogress > 0)"In Progress"@endif 
+                    @if($manufacturer->new > 0)"{{ __('New') }}",@endif 
+                    @if($manufacturer->used > 0)"{{ __('Used') }}",@endif 
+                    @if($manufacturer->demo > 0)"{{ __('Demo') }}",@endif 
+                    @if($manufacturer->zero_km > 0)"{{ __('0km') }}",@endif 
+                    @if($manufacturer->inprogress > 0)"{{ __('In Progress') }}"@endif 
                 ]
             },
 
@@ -1035,12 +1035,12 @@ var chart = new Chart(ctx, {
             type: 'bar',
 
             data: {
-                labels: ["Response"],
+                labels: ["{{ __('Response') }}"],
                 datasets: [
 
                     @if($manufacturer->data_count > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 {{ number_format($manufacturer->appointments/$manufacturer->data_count * 100, 1, '.', ',') }}
@@ -1050,7 +1050,7 @@ var chart = new Chart(ctx, {
 
                     @if($manufacturer->country->data_count > 0)
                         {
-                            label: "Country",
+                            label: "{{ __('Country') }}",
                             backgroundColor: "#6D497F",
                             data: [
                                 {{ number_format($manufacturer->country->appointments/$manufacturer->country->data_count * 100, 1, '.', ',') }}
@@ -1064,7 +1064,7 @@ var chart = new Chart(ctx, {
             options: {
                 title: {
                     display: true,
-                    text: 'Response Rate %'
+                    text: "{{ __('Response Rate %') }}"
                 },
                 scales: {
                     yAxes: [{
@@ -1102,12 +1102,12 @@ var chart = new Chart(ctx, {
             type: 'bar',
 
             data: {
-                labels: ["Conversion"],
+                labels: ["{{ __('Conversion') }}"],
                 datasets: [
 
                     @if($manufacturer->appointments > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 {{ number_format(($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km)/$manufacturer->appointments * 100, 1, '.', ',') }}
@@ -1117,7 +1117,7 @@ var chart = new Chart(ctx, {
 
                     @if($manufacturer->country->appointments > 0)
                         {
-                            label: "Country",
+                            label: "{{ __('Country') }}",
                             backgroundColor: "#6D497F",
                             data: [
                                 {{ number_format(($manufacturer->country->new + $manufacturer->country->used + $manufacturer->country->demo + $manufacturer->country->zero_km)/$manufacturer->country->appointments * 100, 1, '.', ',') }}
@@ -1130,7 +1130,7 @@ var chart = new Chart(ctx, {
             options: {
                 title: {
                     display: true,
-                    text: 'Conversion Rate %'
+                    text: "{{ __('Conversion Rate %') }}"
                 },
                 scales: {
                     yAxes: [{
@@ -1168,12 +1168,12 @@ var chart = new Chart(ctx, {
             type: 'bar',
 
             data: {
-                labels: ["New", "Used", "Demo", "0KM", "In Progress"],
+                labels: ["{{ __('New') }}", "{{ __('Used') }}", "{{ __('Demo') }}", "{{ __('0km') }}", "{{ __('In Progress') }}"],
                 datasets: [
 
                     @if($manufacturer->data_count > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 @if($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress > 0)
@@ -1189,7 +1189,7 @@ var chart = new Chart(ctx, {
 
                     @if($manufacturer->country->new + $manufacturer->country->used + $manufacturer->country->demo + $manufacturer->country->zero_km + $manufacturer->country->inprogress > 0)
                         {
-                            label: "Country",
+                            label: "{{ __('Country') }}",
                             backgroundColor: "#6D497F",
                             data: [
                                 {{ number_format($manufacturer->country->new/($manufacturer->country->new + $manufacturer->country->used + $manufacturer->country->demo + $manufacturer->country->zero_km + $manufacturer->country->inprogress) * 100, 1, '.', ',')}},
@@ -1206,7 +1206,7 @@ var chart = new Chart(ctx, {
             options: {
                 title: {
                     display: true,
-                    text: 'Sales Breakdown %'
+                    text: "{{ __('Sales Breakdown %') }}"
                 },
                 scales: {
                     yAxes: [{
@@ -1246,12 +1246,12 @@ var chart = new Chart(ctx, {
                 type: 'bar',
 
                 data: {
-                    labels: ["Response"],
+                    labels: ["{{ __('Response') }}"],
                     datasets: [
 
                         @if($manufacturer->country->data_count > 0)
                             {
-                                label: "Country",
+                                label: "{{ __('Country') }}",
                                 backgroundColor: "#6D497F",
                                 data: [
                                     {{ number_format($manufacturer->country->appointments/$manufacturer->country->data_count * 100, 1, '.', ',') }}
@@ -1261,7 +1261,7 @@ var chart = new Chart(ctx, {
 
                         @if($manufacturer->data_count > 0)
                             {
-                                label: "Dealership",
+                                label: "{{ __('Dealership') }}",
                                 backgroundColor: "#BA97CC",
                                 data: [
                                     {{ number_format($manufacturer->appointments/$manufacturer->data_count * 100, 1, '.', ',') }}
@@ -1273,7 +1273,7 @@ var chart = new Chart(ctx, {
 
                             @if($manufacturer->region->data_count > 0)
                                 {
-                                    label: "Region",
+                                    label: "{{ __('Region') }}",
                                     backgroundColor: "#333C42",
                                     data: [
                                         {{ number_format($manufacturer->region->appointments/$manufacturer->region->data_count * 100, 1, '.', ',') }}
@@ -1289,7 +1289,7 @@ var chart = new Chart(ctx, {
                 options: {
                     title: {
                         display: true,
-                        text: 'Response Rate %'
+                        text: "{{ __('Response Rate %') }}"
                     },
                     scales: {
                         yAxes: [{
@@ -1327,12 +1327,12 @@ var chart = new Chart(ctx, {
                 type: 'bar',
 
                 data: {
-                    labels: ["Conversion"],
+                    labels: ["{{ __('Conversion') }}"],
                     datasets: [
 
                         @if($manufacturer->country->appointments > 0)
                             {
-                                label: "Country",
+                                label: "{{ __('Country') }}",
                                 backgroundColor: "#6D497F",
                                 data: [
                                     {{ number_format(($manufacturer->country->new + $manufacturer->country->used + $manufacturer->country->demo + $manufacturer->country->zero_km)/$manufacturer->country->appointments * 100, 1, '.', ',') }}
@@ -1342,7 +1342,7 @@ var chart = new Chart(ctx, {
 
                         @if($manufacturer->appointments > 0)
                             {
-                                label: "Dealership",
+                                label: "{{ __('Dealership') }}",
                                 backgroundColor: "#BA97CC",
                                 data: [
                                     {{ number_format(($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km)/$manufacturer->appointments * 100, 1, '.', ',') }}
@@ -1354,7 +1354,7 @@ var chart = new Chart(ctx, {
 
                             @if($manufacturer->region->appointments > 0)
                                 {
-                                    label: "Region",
+                                    label: "{{ __('Region') }}",
                                     backgroundColor: "#333C42",
                                     data: [
                                         {{ number_format(($manufacturer->region->new + $manufacturer->region->used + $manufacturer->region->demo + $manufacturer->region->zero_km)/$manufacturer->region->appointments * 100, 1, '.', ',') }}
@@ -1370,7 +1370,7 @@ var chart = new Chart(ctx, {
                 options: {
                     title: {
                         display: true,
-                        text: 'Conversion Rate %'
+                        text: "{{ __('Conversion Rate %') }}"
                     },
                     scales: {
                         yAxes: [{
@@ -1408,12 +1408,12 @@ var chart = new Chart(ctx, {
                 type: 'bar',
 
                 data: {
-                    labels: ["New", "Used", "Demo", "0KM", "In Progress"],
+                    labels: ["{{ __('New') }}", "{{ __('Used') }}", "{{ __('Demo') }}", "{{ __('0km') }}", "{{ __('In Progress') }}"],
                     datasets: [
 
                         @if($manufacturer->country->new + $manufacturer->country->used + $manufacturer->country->demo + $manufacturer->country->zero_km + $manufacturer->country->inprogress > 0)
                             {
-                                label: "Country",
+                                label: "{{ __('Country') }}",
                                 backgroundColor: "#6D497F",
                                 data: [
                                     {{ number_format($manufacturer->country->new/($manufacturer->country->new + $manufacturer->country->used + $manufacturer->country->demo + $manufacturer->country->zero_km + $manufacturer->country->inprogress) * 100, 1, '.', ',')}},
@@ -1427,7 +1427,7 @@ var chart = new Chart(ctx, {
 
                         @if($manufacturer->data_count > 0)
                             {
-                                label: "Dealership",
+                                label: "{{ __('Dealership') }}",
                                 backgroundColor: "#BA97CC",
                                 data: [
                                     @if($manufacturer->new + $manufacturer->used + $manufacturer->demo + $manufacturer->zero_km + $manufacturer->inprogress > 0)
@@ -1445,7 +1445,7 @@ var chart = new Chart(ctx, {
 
                             @if($manufacturer->region->data_count > 0)
                                 {
-                                    label: "Region",
+                                    label: "{{ __('Region') }}",
                                     backgroundColor: "#333C42",
                                     data: [
                                         @if($manufacturer->region->new + $manufacturer->region->used + $manufacturer->region->demo + $manufacturer->region->zero_km + $manufacturer->region->inprogress > 0)
@@ -1467,7 +1467,7 @@ var chart = new Chart(ctx, {
                 options: {
                     title: {
                         display: true,
-                        text: 'Sales Breakdown %'
+                        text: "{{ __('Sales Breakdown %') }}"
                     },
                     scales: {
                         yAxes: [{

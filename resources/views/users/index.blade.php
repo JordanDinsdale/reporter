@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
 
@@ -15,13 +15,11 @@
                         </div>
                     @endif
 
-                    <p>You are logged in!</p>
-
                     @if($errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                                    <li>{{ __($error) }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -40,49 +38,49 @@
                     <form method="post" action="{{ route('userStore') }}">
                         @csrf
                         <div class="form-group">    
-                            <label for="firstname">First name</label>
+                            <label for="firstname">{{ __('First Name') }}</label>
                             <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required />
                         </div>   
                         <div class="form-group">    
-                            <label for="surname">Surname</label>
+                            <label for="surname">{{ __('Surname') }}</label>
                             <input type="text" class="form-control" name="surname" value="{{ old('surname') }}" required />
                         </div>   
                         <div class="form-group">    
-                            <label for="email">Email</label>
+                            <label for="email">{{ __('Email') }}</label>
                             <input type="email" class="form-control" name="email" value="{{ old('email') }}" required />
                         </div>    
                         <div class="form-group">    
-                            <label for="password">Password</label>
+                            <label for="password">{{ __('Password') }}</label>
                             <input type="password" class="form-control" name="password" value="" required />
                         </div>   
                         <div class="form-group">    
-                            <label for="password_confirmation">Confirm Password</label>
+                            <label for="password_confirmation">{{ __('Confirm Password') }}</label>
                             <input type="password" class="form-control" name="password_confirmation" value="" required />
                         </div>  
                         <div class="form-group">    
-                            <label for="level">Level</label>
+                            <label for="level">{{ __('Level') }}</label>
                             <select id="levels" class="form-control" name="level" required>
-                                <option value="">Level</option>
-                                <option value="Admin" @if(old('level') == 'Admin') selected @endif>Admin</option>
-                                <option value="Company" @if(old('level') == 'Company') selected @endif>Company</option>
-                                <option value="Manufacturer" @if(old('level') == 'Manufacturer') selected @endif>Manufacturer</option>
-                                <option value="Country" @if(old('level') == 'Country') selected @endif>Country</option>
-                                <option value="Region" @if(old('level') == 'Region') selected @endif>Region</option>
-                                <option value="Group" @if(old('level') == 'Group') selected @endif>Group</option>
-                                <option value="Dealership" @if(old('level') == 'Dealership') selected @endif>Dealership</option>
+                                <option value="">{{ __('Level') }}</option>
+                                <option value="Admin" @if(old('level') == 'Admin') selected @endif>{{ __('Admin') }}</option>
+                                <option value="Company" @if(old('level') == 'Company') selected @endif>{{ __('Company') }}</option>
+                                <option value="Manufacturer" @if(old('level') == 'Manufacturer') selected @endif>{{ __('Manufacturer') }}</option>
+                                <option value="Country" @if(old('level') == 'Country') selected @endif>{{ __('Country') }}</option>
+                                <option value="Region" @if(old('level') == 'Region') selected @endif>{{ __('Region') }}</option>
+                                <option value="Group" @if(old('level') == 'Group') selected @endif>{{ __('Group') }}</option>
+                                <option value="Dealership" @if(old('level') == 'Dealership') selected @endif>{{ __('Dealership') }}</option>
                             </select>
                         </div>  
                         <div id="companyContainer" class="form-group d-none">    
-                            <label for="company_id">Company</label>
+                            <label for="company_id">{{ __('Company') }}</label>
                             <select class="form-control" name="company_id" id="companies">
-                                <option value="">Select Company</option>
+                                <option value="">{{ __('Select Company') }}</option>
                                 @foreach($companies as $company)
                                     <option value="{{ $company->id}}" @if(old('company_id') == $company->id) selected @endif>{{ $company->name }}</option>
                                 @endforeach
                             </select>
                         </div> 
                         <div id="manufacturerContainer" class="form-group d-none">    
-                            <label for="manufacturer_id">Manufacturer</label>
+                            <label for="manufacturer_id">{{ __('Manufacturer') }}</label>
                             <select class="form-control" name="manufacturer_id" id="manufacturers">
                                 <option value="">Select Manufacturer</option>
                                 @foreach($manufacturers as $manufacturer)
@@ -91,41 +89,41 @@
                             </select>
                         </div> 
                         <div id="countryContainer" class="form-group d-none">    
-                            <label for="country_id">Country</label>
+                            <label for="country_id">{{ __('Country') }}</label>
                             <select class="form-control" name="country_id" id="countries">
-                                <option value="">Select Country</option>
+                                <option value="">{{ __('Select Country') }}</option>
                                 @foreach($countries as $country)
-                                    <option value="{{ $country->id}}" @if(old('country_id') == $country->id) selected @endif>{{ $country->name }}</option>
+                                    <option value="{{ $country->id}}" @if(old('country_id') == $country->id) selected @endif>{{ __($country->name) }}</option>
                                 @endforeach
                             </select>
                         </div>   
                         <div id="regionContainer" class="form-group d-none">    
-                            <label for="region_id">Region</label>
+                            <label for="region_id">{{ __('Region') }}</label>
                             <select class="form-control" name="region_id" id="regions">
-                                <option value="" @if(isset($region) && old('region_id') == $region->id) selected @endif>Select Region</option>
-                                <option disabled="true" value="">No regions currently available</option>
+                                <option value="" @if(isset($region) && old('region_id') == $region->id) selected @endif>{{ __('Select Region') }}</option>
+                                <option disabled="true" value="">{{ __('No regions currently available') }}</option>
                             </select>
                         </div>  
                         <div id="groupContainer" class="form-group d-none">    
-                            <label for="group_id">Group</label>
+                            <label for="group_id">{{ __('Group') }}</label>
                             <select class="form-control" name="group_id" id="groups">
                                 <option value="">Select Group</option>
                                 <option disabled="true" value="">No groups currently available</option>
                             </select>
                         </div>  
                         <div id="dealershipContainer" class="form-group d-none">    
-                            <label for="dealership_id">Dealership</label>
+                            <label for="dealership_id">{{ __('Dealership') }}</label>
                             <select class="form-control" name="dealership_id" id="dealerships">
-                                <option value="">Select Dealership</option>
-                                <option disabled="true" value="">No dealerships currently available</option>
+                                <option value="">{{ __('Select Dealership') }}</option>
+                                <option disabled="true" value="">{{ __('No dealerships currently available') }}</option>
                             </select>
                         </div>  
-                        <button type="submit" class="btn btn-primary">Add User</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Add User') }}</button>
                     </form>
 
                     @if(count($users) > 0)
 
-                        <h2>Users</h2>
+                        <h2>{{ __('Users') }}</h2>
 
                         <ul>
 

@@ -15,13 +15,11 @@
                         </div>
                     @endif
 
-                    <p>You are logged in!</p>
-
                     @if($errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                                    <li>{{ __($error) }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -38,15 +36,15 @@
                     <form method="post" action="{{ route('companyStore') }}">
                         @csrf
                         <div class="form-group">    
-                            <label for="company">Add Company</label>
+                            <label for="company">{{ __('Add Company') }}</label>
                             <input type="text" class="form-control" name="company"/>
                         </div>   
-                        <button type="submit" class="btn btn-primary">Add Company</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Add Company') }}</button>
                     </form>
 
                     @if(count($companies) > 0)
 
-                        <h2>Companies</h2>
+                        <h2>{{ __('Companies') }}</h2>
 
                         <ul>
 
@@ -54,7 +52,7 @@
 
                                 <li>
 
-                                    <h3><a href="{{ route('company',$company->id) }}">{{ $company->name }}</a></h3>
+                                    <h3><a href="{{ route('company',$company->id) }}">{{ __($company->name) }}</a></h3>
 
                                     @if(count($company->manufacturers) > 0)
 
@@ -64,7 +62,7 @@
 
                                                 <li>
 
-                                                    <a href="{{ route('manufacturer',$manufacturer->id) }}">{{ $manufacturer->name }}</a>
+                                                    <a href="{{ route('manufacturer',$manufacturer->id) }}">{{ __($manufacturer->name) }}</a>
 
                                                 </li>
 

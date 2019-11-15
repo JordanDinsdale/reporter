@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <h1><i class="fas fa-chart-pie"></i>Your Reports</h1>
+    <h1><i class="fas fa-chart-pie"></i>{{ __('Your Reports') }}</h1>
     
 @endsection
 
@@ -21,11 +21,11 @@
 
                         <div class="current-results">
 
-                            Please select the results you would like to display
+                            {{ __('Please select the results you would like to display') }}
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()" style="display: none;">Choose Report</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()" style="display: none;">{{ __('Choose Report') }}</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()"><i class="fas fa-times"></i></button>
 
@@ -45,7 +45,7 @@
 
                                         <div class="col-md-5" >
 
-                                            <h4>Report By Event</h4>
+                                            <h4>{{ __('Report By Event') }}</h4>
 
                                             <div class="event-list-container">
                                                 <ul>
@@ -59,7 +59,7 @@
 
                                         <div class="col-md-7">
 
-                                            <h4>Report By Date</h4>
+                                            <h4>{{ __('Report By Date') }}</h4>
 
                                             <div class="date-picker-form">
 
@@ -70,19 +70,19 @@
                                                     <div class="row">
 
                                                         <div class="col-md-6">
-                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" required />
+                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  {{ __('From date') }}" required />
                                                         </div>
 
                                                         <div class="col-md-6">
-                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" required />
+                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  {{ __('To date') }}" required />
                                                         </div>
 
                                                         <div class="col-md-12">
                                                             <select id="levels" class="form-control" name="level" required>
-                                                                <option value="">Select Level</option>
-                                                                <option value="Country">{{ $country->name }}</option>
-                                                                <option value="Region">Region</option>
-                                                                <option value="Dealership">Dealership</option>
+                                                                <option value="">{{ __('Select Level') }}</option>
+                                                                <option value="Country">{{ __($country->name) }}</option>
+                                                                <option value="Region">{{ __('Region') }}</option>
+                                                                <option value="Dealership">{{ __('Dealership') }}</option>
                                                             </select>
                                                         </div>
 
@@ -96,7 +96,7 @@
 
                                                         <div id="regionContainer" class="col-md-12 d-none">
                                                             <select class="form-control" name="region_id" id="regions">
-                                                                <option value="">Select Region</option>
+                                                                <option value="">{{ __('Select Region') }}</option>
                                                                 @foreach($country->regions as $region)
                                                                     <option value="{{ $region->id }}">{{ $region->name }}</option>
                                                                 @endforeach
@@ -105,14 +105,14 @@
 
                                                         <div id="dealershipContainer" class="col-md-12 d-none">
                                                             <select class="form-control" name="dealership_id" id="dealerships">
-                                                                <option value="">Select Dealership</option>
-                                                                <option disabled="true" value="">No dealerships currently available</option>
+                                                                <option value="">{{ __('Select Dealership') }}</option>
+                                                                <option disabled="true" value="">{{ __('No dealerships currently available') }}</option>
                                                             </select>
                                                         </div>
 
                                                     </div>
 
-                                                    <button type="submit" class="btn">REPORT</button>
+                                                    <button type="submit" class="btn">{{ __('REPORT') }}</button>
 
                                                 </form>
 
@@ -150,7 +150,7 @@
 
                         <div class="col-md-12 filter-mobile">
 
-                            Filter results
+                            {{ __('Filter Results') }}
 
                             <select name="brand-mobile">
 
@@ -166,7 +166,7 @@
 
                         <div class="row results cardc">
 
-                            <p>No information to display</p>
+                            <p>{{ __('No information to display') }}</p>
 
                         </div>
 

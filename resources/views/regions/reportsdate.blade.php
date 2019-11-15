@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <h1><i class="fas fa-chart-pie"></i>Your Reports</h1>
+    <h1><i class="fas fa-chart-pie"></i>{{ __('Your Reports') }}</h1>
     
 @endsection
 
@@ -22,20 +22,20 @@
 
                         <div class="current-results">
 
-                            Showing results for 
+                            {{ __('Showing results for') }} 
 
                             @switch($level)
 
                                 @case('Region')
-                                    Region | {{ $region->manufacturer->name }} {{ $region->country->name }} {{ $region->name }} | 
+                                    {{ __('Region') }} | {{ $region->manufacturer->name }} {{ $region->country->name }} {{ $region->name }} | 
                                     @break
 
                                 @case('Dealership')
-                                    Dealership | {{ $region->dealership->name }} | 
+                                    {{ __('Dealership') }} | {{ $region->dealership->name }} | 
                                     @break
 
                                 @default
-                                    Region | {{ $region->manufacturer->name }} {{ $region->country->name }} {{ $region->name }} |
+                                    {{ __('Region') }} | {{ $region->manufacturer->name }} {{ __($region->country->name) }} {{ $region->name }} |
 
                             @endswitch
 
@@ -59,7 +59,7 @@
 
                         </div>
 
-                        <button id="hideBtn" class="open-button btn" onclick="openForm()">Choose Report</button>
+                        <button id="hideBtn" class="open-button btn" onclick="openForm()">{{ __('Choose Report') }}</button>
                         
                         <button id="cancel" type="button" class="cancel" onclick="closeForm()" style="display: none;"><i class="fas fa-times"></i></button>
 
@@ -79,7 +79,7 @@
 
                                         <div class="col-md-5" >
 
-                                            <h4>Report By Event</h4>
+                                            <h4>{{ __('Report By Event') }}</h4>
 
                                             <div class="event-list-container">
                                                 <ul>
@@ -93,7 +93,7 @@
 
                                         <div class="col-md-7">
 
-                                            <h4>Report By Date</h4>
+                                            <h4>{{ __('Report By Date') }}</h4>
 
                                             <div class="date-picker-form">
 
@@ -104,18 +104,18 @@
                                                     <div class="row">
 
                                                         <div class="col-md-6">
-                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  From date" required />
+                                                            <input type='text' class='datepicker-here' data-language='en' name="start_date" placeholder="&#xF073;  {{ __('From date') }}" required />
                                                         </div>
 
                                                         <div class="col-md-6">
-                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  To date" required />
+                                                            <input type='text' class='datepicker-here' data-language='en' name="end_date" placeholder="&#xF073;  {{ __('To date') }}" required />
                                                         </div>
 
                                                         <div class="col-md-12">
                                                             <select id="levels" class="form-control" name="level" required>
-                                                                <option value="">Select Level</option>
+                                                                <option value="">{{ __('Select Level') }}</option>
                                                                 <option value="Region">{{ $region->name }}</option>
-                                                                <option value="Dealership">Dealership</option>
+                                                                <option value="Dealership">{{ __('Dealership') }}</option>
                                                             </select>
                                                         </div>
 
@@ -124,7 +124,7 @@
                                                         </select>
                                                         
                                                         <select class="form-control d-none" name="country_id" id="countries">
-                                                            <option value="{{ $region->country->id }}" selected>{{ $region->country->name }}</option>
+                                                            <option value="{{ $region->country->id }}" selected>{{ __($region->country->name) }}</option>
                                                         </select>
 
                                                         <select class="form-control d-none" name="region_id" id="regions">
@@ -133,14 +133,14 @@
 
                                                         <div id="dealershipContainer" class="col-md-12 d-none">
                                                             <select class="form-control" name="dealership_id" id="dealerships">
-                                                                <option value="">Select Dealership</option>
-                                                                <option disabled="true" value="">No dealerships currently available</option>
+                                                                <option value="">{{ __('Select Dealership') }}</option>
+                                                                <option disabled="true" value="">{{ __('No dealerships currently available') }}</option>
                                                             </select>
                                                         </div>
 
                                                     </div>
 
-                                                    <button type="submit" class="btn">REPORT</button>
+                                                    <button type="submit" class="btn">{{ __('REPORT') }}</button>
 
                                                 </form>
 
@@ -178,7 +178,7 @@
 
                         <div class="col-md-12 filter-mobile">
 
-                            Filter results
+                            {{ __('Filter Results') }}
 
                             <select name="brand-mobile">
 
@@ -197,10 +197,10 @@
                             <div class="row results cardc">
 
                                 <div class="col-md-4 donut-1">
-                                    <h3>Response Rate</h3>
+                                    <h3>{{ __('Response Rate') }}</h3>
                                     <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-responseRate" class="responseRate" width="180" height="180"></canvas>
-                                    <p>{{ $region->data_count }} Invites</p>
-                                    <p>{{ $region->appointments }} Appointments</p>
+                                    <p>{{ $region->data_count }} {{ __('Invites') }}</p>
+                                    <p>{{ $region->appointments }} {{ __('Appointments') }}</p>
 
                                     @if($region->data_count > 0)
 
@@ -213,8 +213,8 @@
                                 <div class="col-md-4 donut-2">
                                     <h3>Conversion Rate</h3>
                                     <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
-                                    <p>{{ $region->appointments }} Appointments</p>
-                                    <p>{{ $region->new + $region->used + $region->demo + $region->zero_km }} Sales</p>
+                                    <p>{{ $region->appointments }} {{ __('Appointments') }}</p>
+                                    <p>{{ $region->new + $region->used + $region->demo + $region->zero_km }} {{ __('Sales') }}</p>
 
                                     @if($region->appointments > 0)
 
@@ -225,7 +225,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <h3>Sales breakdown</h3>
+                                    <h3>{{ __('Sales Breakdown') }}</h3>
                                     <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-salesBreakdown" class="salesBreakdown" width="180" height="180"></canvas>
                                     <div class="camembert-slice-container">
 
@@ -233,7 +233,7 @@
                                             <div class="camembert-slice">
                                                 <div class="circle circle-1">
                                                 </div>
-                                                {{ number_format($region->new/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% New
+                                                {{ number_format($region->new/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% {{ __('New') }}
                                             </div>
                                         @endif
 
@@ -241,7 +241,7 @@
                                             <div class="camembert-slice">
                                                 <div class="circle circle-2">
                                                 </div>
-                                                {{ number_format($region->used/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% Used
+                                                {{ number_format($region->used/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% {{ __('Used') }}
                                             </div>
                                         @endif
 
@@ -249,7 +249,7 @@
                                             <div class="camembert-slice">
                                                 <div class="circle circle-3">
                                                 </div>
-                                                {{ number_format($region->demo/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% Demo
+                                                {{ number_format($region->demo/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% {{ __('Demo') }}
                                             </div>
                                         @endif
 
@@ -257,7 +257,7 @@
                                             <div class="camembert-slice">
                                                 <div class="circle circle-4">
                                                 </div>
-                                                {{ number_format($region->zero_km/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% 0KM
+                                                {{ number_format($region->zero_km/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% {{ __('0km') }}
                                             </div>
                                         @endif
 
@@ -265,7 +265,7 @@
                                             <div class="camembert-slice final">
                                                 <div class="circle circle-5">
                                                 </div>
-                                                {{ number_format($region->inprogress/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% In progress
+                                                {{ number_format($region->inprogress/($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress) * 100, 1, '.', ',') }}% {{ __('In Progress') }}
                                             </div>
                                         @endif
 
@@ -307,12 +307,12 @@
                                 <div class="col-md-12 sales-breakdown-table">
                                     <div class="row">
                                         <div class="col-md-12 results-title">
-                                            <h3>Breakdown of results</h3>
+                                            <h3>{{ __('Breakdown of Results') }}</h3>
                                         </div>
                                         <div class="col-md-6 table-content ">
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    Data Count
+                                                    {{ __('Data Count') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $region->data_count }}
@@ -320,7 +320,7 @@
                                             </div>
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    Appointments
+                                                    {{ __('Appointments') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $region->appointments }}
@@ -328,7 +328,7 @@
                                             </div>
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    New Vehicles
+                                                    {{ __('New Vehicles') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $region->new }}
@@ -336,7 +336,7 @@
                                             </div>
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    Used Vehicles
+                                                    {{ __('Used Vehicles') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $region->used }}
@@ -346,7 +346,7 @@
                                         <div class="col-md-6 table-content">
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    Demo Vehicles
+                                                    {{ __('Demo Vehicles') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $region->demo }}
@@ -354,7 +354,7 @@
                                             </div>
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    0km Vehicles
+                                                    {{ __('0km Vehicles') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $region->zero_km }}
@@ -362,7 +362,7 @@
                                             </div>
                                             <div class="data-line">
                                                 <div class="data-type">
-                                                    In Progress
+                                                    {{ __('In Progress') }}
                                                 </div>
                                                 <div class="data-count">
                                                     {{ $region->inprogress }}
@@ -374,13 +374,13 @@
                                         @if($level == 'Region')
                                             
                                             <div class="col-md-12 download-table-btn">
-                                                <a href="{{ route('regionDownload', [$region->id,$region->start_date,$region->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                <a href="{{ route('regionDownload', [$region->id,$region->start_date,$region->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>{{ __('DOWNLOAD AS CSV') }}</a>
                                             </div>
 
                                         @elseif($level == 'Dealership')
                                             
                                             <div class="col-md-12 download-table-btn">
-                                                <a href="{{ route('dealershipDownloadManufacturer', [$region->dealership->id,$region->manufacturer->id,$region->start_date,$region->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>DOWNLOAD AS CSV</a>
+                                                <a href="{{ route('dealershipDownloadManufacturer', [$region->dealership->id,$region->manufacturer->id,$region->start_date,$region->end_date]) }}" class="btn btn-sm"><i class="fas fa-download"></i>{{ __('DOWNLOAD AS CSV') }}</a>
                                             </div>
 
                                         @endif
@@ -394,7 +394,7 @@
 
                             <div class="row results cardc">
 
-                                <p>No information to display</p>
+                                <p>{{ __('No information to display') }}</p>
 
                             </div>
 
@@ -491,8 +491,8 @@
                 ]
             }],
             labels: [
-                "Appointments",
-                "No Appointment Made"
+                "{{ __('Appointments') }}",
+                "{{ __('No Appointment Made') }}"
             ]
         },
 
@@ -529,8 +529,8 @@
                 ]
             }],
             labels: [
-                "Sales",
-                "No Sale Made"
+                "{{ __('Sales') }}",
+                "{{ __('No Sale Made') }}"
             ]
         },
 
@@ -573,11 +573,11 @@
                 ]
             }],
             labels: [
-                @if($region->new > 0)"New",@endif 
-                @if($region->used > 0)"Used",@endif 
-                @if($region->demo > 0)"Demo",@endif 
-                @if($region->zero_km > 0)"0km",@endif 
-                @if($region->inprogress > 0)"In Progress"@endif 
+                @if($region->new > 0)"{{ __('New') }}",@endif 
+                @if($region->used > 0)"{{ __('Used') }}",@endif 
+                @if($region->demo > 0)"{{ __('Demo') }}",@endif 
+                @if($region->zero_km > 0)"{{ __('0km') }}",@endif 
+                @if($region->inprogress > 0)"{{ __('In Progress') }}"@endif 
             ]
         },
 
@@ -603,12 +603,12 @@
             type: 'bar',
 
             data: {
-                labels: ["Response"],
+                labels: ["{{ __('Response') }}"],
                 datasets: [
 
                     @if($region->data_count > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 {{ number_format($region->appointments/$region->data_count * 100, 1, '.', ',') }}
@@ -618,7 +618,7 @@
 
                     @if($region->country->data_count > 0)
                         {
-                            label: "Country",
+                            label: "{{ __('Country') }}",
                             backgroundColor: "#6D497F",
                             data: [
                                 {{ number_format($region->country->appointments/$region->country->data_count * 100, 1, '.', ',') }}
@@ -632,7 +632,7 @@
             options: {
                 title: {
                     display: true,
-                    text: 'Response Rate %'
+                    text: "{{ __('Response Rate %') }}"
                 },
                 scales: {
                     yAxes: [{
@@ -670,12 +670,12 @@
             type: 'bar',
 
             data: {
-                labels: ["Conversion"],
+                labels: ["{{ __('Conversion') }}"],
                 datasets: [
 
                     @if($region->appointments > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 {{ number_format(($region->new + $region->used + $region->demo + $region->zero_km)/$region->appointments * 100, 1, '.', ',') }}
@@ -685,7 +685,7 @@
 
                     @if($region->country->appointments > 0)
                         {
-                            label: "Country",
+                            label: "{{ __('Country') }}",
                             backgroundColor: "#6D497F",
                             data: [
                                 {{ number_format(($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km)/$region->country->appointments * 100, 1, '.', ',') }}
@@ -698,7 +698,7 @@
             options: {
                 title: {
                     display: true,
-                    text: 'Conversion Rate %'
+                    text: "{{ __('Conversion Rate %') }}"
                 },
                 scales: {
                     yAxes: [{
@@ -736,12 +736,12 @@
             type: 'bar',
 
             data: {
-                labels: ["New", "Used", "Demo", "0KM", "In Progress"],
+                labels: ["{{ __('New') }}", "{{ __('Used') }}", "{{ __('Demo') }}", "{{ __('0km') }}", "{{ __('In Progress') }}"],
                 datasets: [
 
                     @if($region->data_count > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 @if($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress > 0)
@@ -757,7 +757,7 @@
 
                     @if($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress > 0)
                         {
-                            label: "Country",
+                            label: "{{ __('Country') }}",
                             backgroundColor: "#6D497F",
                             data: [
                                 {{ number_format($region->country->new/($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress) * 100, 1, '.', ',')}},
@@ -774,7 +774,7 @@
             options: {
                 title: {
                     display: true,
-                    text: 'Sales Breakdown %'
+                    text: "{{ __('Sales Breakdown %') }}"
                 },
                 scales: {
                     yAxes: [{
@@ -814,12 +814,12 @@
             type: 'bar',
 
             data: {
-                labels: ["Response"],
+                labels: ["{{ __('Response') }}"],
                 datasets: [
 
                     @if($region->country->data_count > 0)
                         {
-                            label: "Country",
+                            label: "{{ __('Country') }}",
                             backgroundColor: "#6D497F",
                             data: [
                                 {{ number_format($region->country->appointments/$region->country->data_count * 100, 1, '.', ',') }}
@@ -829,7 +829,7 @@
 
                     @if($region->data_count > 0)
                         {
-                            label: "Dealership",
+                            label: "{{ __('Dealership') }}",
                             backgroundColor: "#BA97CC",
                             data: [
                                 {{ number_format($region->appointments/$region->data_count * 100, 1, '.', ',') }}
@@ -839,7 +839,7 @@
 
                     @if($region->region->data_count > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 {{ number_format($region->region->appointments/$region->region->data_count * 100, 1, '.', ',') }}
@@ -853,7 +853,7 @@
             options: {
                 title: {
                     display: true,
-                    text: 'Response Rate %'
+                    text: "{{ __('Response Rate %') }}"
                 },
                 scales: {
                     yAxes: [{
@@ -891,12 +891,12 @@
             type: 'bar',
 
             data: {
-                labels: ["Conversion"],
+                labels: ["{{ __('Conversion') }}"],
                 datasets: [
 
                     @if($region->country->appointments > 0)
                         {
-                            label: "Country",
+                            label: "{{ __('Country') }}",
                             backgroundColor: "#6D497F",
                             data: [
                                 {{ number_format(($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km)/$region->country->appointments * 100, 1, '.', ',') }}
@@ -906,7 +906,7 @@
 
                     @if($region->appointments > 0)
                         {
-                            label: "Dealership",
+                            label: "{{ __('Dealership') }}",
                             backgroundColor: "#BA97CC",
                             data: [
                                 {{ number_format(($region->new + $region->used + $region->demo + $region->zero_km)/$region->appointments * 100, 1, '.', ',') }}
@@ -916,7 +916,7 @@
 
                     @if($region->region->appointments > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 {{ number_format(($region->region->new + $region->region->used + $region->region->demo + $region->region->zero_km)/$region->region->appointments * 100, 1, '.', ',') }}
@@ -930,7 +930,7 @@
             options: {
                 title: {
                     display: true,
-                    text: 'Conversion Rate %'
+                    text: "{{ __('Conversion Rate %') }}"
                 },
                 scales: {
                     yAxes: [{
@@ -968,12 +968,12 @@
             type: 'bar',
 
             data: {
-                labels: ["New", "Used", "Demo", "0KM", "In Progress"],
+                labels: ["{{ __('New') }}", "{{ __('Used') }}", "{{ __('Demo') }}", "{{ __('0km') }}", "{{ __('In Progress') }}"],
                 datasets: [
 
                     @if($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress > 0)
                         {
-                            label: "Country",
+                            label: "{{ __('Country') }}",
                             backgroundColor: "#6D497F",
                             data: [
                                 {{ number_format($region->country->new/($region->country->new + $region->country->used + $region->country->demo + $region->country->zero_km + $region->country->inprogress) * 100, 1, '.', ',')}},
@@ -987,7 +987,7 @@
 
                     @if($region->data_count > 0)
                         {
-                            label: "Dealership",
+                            label: "{{ __('Dealership') }}",
                             backgroundColor: "#BA97CC",
                             data: [
                                 @if($region->new + $region->used + $region->demo + $region->zero_km + $region->inprogress > 0)
@@ -1003,7 +1003,7 @@
 
                     @if($region->region->data_count > 0)
                         {
-                            label: "Region",
+                            label: "{{ __('Region') }}",
                             backgroundColor: "#333C42",
                             data: [
                                 @if($region->region->new + $region->region->used + $region->region->demo + $region->region->zero_km + $region->region->inprogress > 0)
@@ -1023,7 +1023,7 @@
             options: {
                 title: {
                     display: true,
-                    text: 'Sales Breakdown %'
+                    text: "{{ __('Sales Breakdown %') }}"
                 },
                 scales: {
                     yAxes: [{
