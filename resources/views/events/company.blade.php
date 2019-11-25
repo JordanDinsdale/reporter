@@ -1074,6 +1074,7 @@ var chart = new Chart(ctx, {
                                 }, 
                             @endif
 
+                            @if($manufacturer->country_appointments > 0)
                             {
                                 label: "{{ __('Country') }}",
                                 backgroundColor: "#6D497F",
@@ -1081,6 +1082,9 @@ var chart = new Chart(ctx, {
                                     {{ number_format(($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km)/$manufacturer->country_appointments * 100, 1, '.', ',') }}
                                 ]
                             }, 
+                            @endif
+
+                            @if($eventManufacturer->pivot->appointments > 0)
                             {
                                 label: "{{ __('You') }}",
                                 backgroundColor: "#BA97CC",
@@ -1088,6 +1092,8 @@ var chart = new Chart(ctx, {
                                     {{ number_format(($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km)/$eventManufacturer->pivot->appointments * 100, 1, '.', ',') }}
                                 ]
                             }
+                            @endif
+                            
                         ]
                     },
 
