@@ -1134,7 +1134,7 @@ var chart = new Chart(ctx, {
                     data: {
                         labels: ["{{ __('New') }}", "{{ __('Used') }}", "{{ __('Demo') }}", "{{ __('0km') }}", "{{ __('In Progress') }}"],
                         datasets: [
-                            @if($manufacturer->region)
+                            @if($manufacturer->region_new + $manufacturer->region_used + $manufacturer->region_demo + $manufacturer->region_zero_km + $manufacturer->region_inprogress > 0)
                             {
                                 label: "{{ __('Region') }}",
                                 backgroundColor: "#333C42",
@@ -1149,6 +1149,8 @@ var chart = new Chart(ctx, {
                                 ]
                             }, 
                             @endif
+
+                            @if($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress > 0)
                             {
                                 label: "{{ __('Country') }}",
                                 backgroundColor: "#6D497F",
@@ -1160,6 +1162,9 @@ var chart = new Chart(ctx, {
                                     {{ number_format($manufacturer->country_inprogress/($manufacturer->country_new + $manufacturer->country_used + $manufacturer->country_demo + $manufacturer->country_zero_km + $manufacturer->country_inprogress) * 100, 1, '.', ',')}}
                                 ]
                             }, 
+                            @endif
+
+                            @if($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress > 0)
                             {
                                 label: "{{ __('You') }}",
                                 backgroundColor: "#BA97CC",
