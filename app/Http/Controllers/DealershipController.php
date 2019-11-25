@@ -454,8 +454,8 @@ class DealershipController extends Controller
         $dealership = Dealership::find($id);
 
         $manufacturers = Manufacturer::orderBy('name')->get();
-        
-        return view('dealerships.edit', compact('dealership'));
+
+        return view('dealerships.edit', compact('dealership','manufacturers'));
     }
 
     /**
