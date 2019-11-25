@@ -7,6 +7,7 @@ use App\Region;
 use App\Manufacturer;
 use App\Event;
 use App\Company;
+use App\Country;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
@@ -27,7 +28,9 @@ class DealershipController extends Controller
      */
     public function index()
     {
-        //
+        $countries = Country::orderBy('name')->get();
+
+        return view('dealerships.index',compact('countries'));
     }
 
     /**

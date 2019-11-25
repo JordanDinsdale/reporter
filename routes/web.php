@@ -72,6 +72,7 @@ Route::post('/groups/store', 'GroupController@store')->name('groupStore');
 Route::post('/groups/update/{id}', 'GroupController@update')->name('groupUpdate');
 Route::post('/groups/destroy/{id}', 'GroupController@destroy')->name('groupDestroy');
 
+Route::get('/dealerships', 'DealershipController@index')->name('dealerships');
 Route::get('/dealerships/{id}', 'DealershipController@show')->name('dealership');
 Route::get('/dealerships/edit/{id}', 'DealershipController@edit')->name('dealershipEdit');
 Route::post('/dealerships/store', 'DealershipController@store')->name('dealershipStore');
