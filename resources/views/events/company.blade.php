@@ -1176,6 +1176,7 @@ var chart = new Chart(ctx, {
                                     {{ number_format($eventManufacturer->pivot->inprogress/($eventManufacturer->pivot->new + $eventManufacturer->pivot->used + $eventManufacturer->pivot->demo + $eventManufacturer->pivot->zero_km + $eventManufacturer->pivot->inprogress) * 100, 1, '.', ',')}}
                                 ]
                             }
+                            @endif
                         ]
                     },
 
