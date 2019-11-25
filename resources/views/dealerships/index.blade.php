@@ -26,7 +26,7 @@
                     @endif
 
                     @if(isset($success))
-                        {{ $success }}
+                        <p>{{ $success }}</p>
                     @endif
 
                     <h3>Add Dealership</h3>
