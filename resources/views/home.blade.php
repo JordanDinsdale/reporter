@@ -802,11 +802,29 @@
 
                     -->
 
+                    <!-- DEALERSHIPS -->
+
+                    <h2><a href="{{ route('dealerships') }}">Dealerships</a></h2>
+
+                    @if(count($dealerships) > 0)
+
+                        <ul>
+
+                            @foreach($dealerships as $dealership)
+
+                                <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
+
+                            @endforeach
+
+                        </ul>
+
+                    @endif
+
                     <!-- USERS -->
 
-                    @if(count($users) > 0)
+                    <h2><a href="{{ route('users') }}">Users</a></h2>
 
-                        <h2><a href="{{ route('users') }}">Users</a></h2>
+                    @if(count($users) > 0)
 
                         <ul>
 

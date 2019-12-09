@@ -31,7 +31,7 @@ class HomeController extends Controller
             $countries = Country::orderBy('name')->get();
             $manufacturers = Manufacturer::orderBy('name')->get();
             $groups = Group::orderBy('name')->get();
-            $dealerships = Dealership::where('group_id',NULL)->orderBy('name')->get();
+            $dealerships = Dealership::orderBy('name')->get();
             $users = User::orderBy('surname')->get();
 
             switch (Auth::user()->level) {
