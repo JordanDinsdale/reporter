@@ -812,7 +812,11 @@
 
                             @foreach($dealerships as $dealership)
 
-                                <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a></li>
+                                <li><a href="{{ route('dealership',$dealership->id) }}">{{ $dealership->name }}</a> | <a href="{{ route('dealershipEdit',$dealership->id) }}">{{ $dealership->name }}</a> | 
+                                    <form action="{{ route('dealershipDestroy', $dealership->id)}}" method="post">
+                                        @csrf
+                                        <button class="btn btn-danger" type="submit">{{ __('Delete') }}</button>
+                                    </form></li>
 
                             @endforeach
 
