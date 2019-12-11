@@ -4,7 +4,7 @@
 
     <h1>{{ __('Dashboard') }}</h1>
 
-    <p>{{ __('Year-to-Date Results') }}</p>
+    <p>{{ __('YEAR-TO-DATE RESULTS') }}</p>
     
 @endsection
 
@@ -56,13 +56,13 @@
 
                                     <canvas id="conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     
-                                    <p>{{ $country->appointments }} appointments</p>
-                                    <p>{{ $country->new + $country->used + $country->demo + $country->zero_km }} Sales</p>
+                                    <p>{{ $country->appointments }} {{ __('Appointments') }}</p>
+                                    <p>{{ $country->new + $country->used + $country->demo + $country->zero_km }} {{ __('Sales') }}</p>
                                     <p>{{ number_format(($country->new + $country->used + $country->demo + $country->zero_km)/$country->appointments * 100, 1, '.', ',') }}%</p>
 
                                 @else
 
-                                    <p>No information to display</p>
+                                    <p>{{ __('No information to display') }}</p>
 
                                 @endif
 
@@ -72,7 +72,7 @@
 
                         <div class="col-md-4">
 
-                            <h3>Sales breakdown</h3>
+                            <h3>{{ __('Sales Breakdown') }}</h3>
 
                             @if($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress > 0)
 
@@ -83,35 +83,35 @@
                                     @if(number_format($country->new/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-1"></div>
-                                            {{ number_format($country->new/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}% New
+                                            {{ number_format($country->new/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}% {{ __('New') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($country->used/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-2"></div>
-                                            {{ number_format($country->used/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}% Used
+                                            {{ number_format($country->used/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}% {{ __('Used') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($country->demo/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-3"></div>
-                                            {{ number_format($country->demo/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}% Demo
+                                            {{ number_format($country->demo/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}% {{ __('Demo') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($country->zero_km/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice">
                                             <div class="circle circle-4"></div>
-                                            {{ number_format($country->zero_km/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}% 0KM
+                                            {{ number_format($country->zero_km/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}% {{ __('0km') }}
                                         </div>
                                     @endif
 
                                     @if(number_format($country->inprogress/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',') > 0)
                                         <div class="camembert-slice final">
                                             <div class="circle circle-5"></div>
-                                            {{ number_format($country->inprogress/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}% In progress
+                                            {{ number_format($country->inprogress/($country->new + $country->used + $country->demo + $country->zero_km + $country->inprogress) * 100, 1, '.', ',')}}% {{ __('In Progress') }}
                                         </div>
                                     @endif
 
@@ -121,7 +121,7 @@
 
                                 <div class="row results cardc">
 
-                                    <p>No information to display</p>
+                                    <p>{{ __('No information to display') }}</p>
 
                                 </div>
 
@@ -166,8 +166,8 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            "Appointments",
-            "No Appointment Made"
+            "{{ __('Appointments') }}",
+            "{{ __('No Appointment Made') }}"
         ]
     },
 
@@ -203,8 +203,8 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            "Sales",
-            "No Sale Made"
+            "{{ __('Sales') }}",
+            "{{ __('No Sale Made') }}"
         ]
     },
 
@@ -247,11 +247,11 @@ var chart = new Chart(ctx, {
             ]
         }],
         labels: [
-            @if($country->new > 0)"New",@endif 
-            @if($country->used > 0)"Used",@endif 
-            @if($country->demo > 0)"Demo",@endif 
-            @if($country->zero_km > 0)"0km",@endif 
-            @if($country->inprogress > 0)"In Progress"@endif 
+            @if($country->new > 0)"{{ __('New') }}",@endif 
+            @if($country->used > 0)"{{ __('Used') }}",@endif 
+            @if($country->demo > 0)"{{ __('Demo') }}",@endif 
+            @if($country->zero_km > 0)"{{ __('0km') }}",@endif 
+            @if($country->inprogress > 0)"{{ __('In Progress') }}"@endif 
         ]
     },
 

@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <h1><i class="fas fa-chart-pie"></i>{{ __('Your Reports') }}</h1>
+    <h1><i class="fas fa-chart-pie"></i>{{ __('YOUR REPORTS') }}</h1>
     
 @endsection
 

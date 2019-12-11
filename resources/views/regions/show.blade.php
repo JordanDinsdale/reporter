@@ -4,7 +4,7 @@
 
     <h1>{{ __('Dashboard') }}</h1>
 
-    <p>{{ __('Year-to-Date Results') }}</p>
+    <p>{{ __('YEAR-TO-DATE RESULTS') }}</p>
     
 @endsection
 

@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <h1><i class="fas fa-chart-pie"></i>{{ __('Your Reports') }}</h1>
+    <h1><i class="fas fa-chart-pie"></i>{{ __('YOUR REPORTS') }}</h1>
     
 @endsection
 
@@ -48,7 +48,7 @@
 
                             @else
 
-                                {{ \Carbon\Carbon::parse($country->start_date)->format('d M') }}
+                                {{ \Carbon\Carbon::parse($event->end_date)->format('d') }} {{ __(\Carbon\Carbon::parse($event->end_date)->format('M')) }}
 
                                 @if(\Carbon\Carbon::parse($country->start_date)->format('Y') !== \Carbon\Carbon::parse($country->end_date)->format('Y'))
 
@@ -58,7 +58,7 @@
 
                             @endif
 
-                                 - {{ \Carbon\Carbon::parse($country->end_date)->format('d M Y') }}
+                                 - {{ \Carbon\Carbon::parse($event->end_date)->format('d') }} {{ __(\Carbon\Carbon::parse($event->end_date)->format('M')) }} {{ \Carbon\Carbon::parse($event->end_date)->format('Y') }}
 
                         </div>
 

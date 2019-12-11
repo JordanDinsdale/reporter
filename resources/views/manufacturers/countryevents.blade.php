@@ -38,11 +38,11 @@
 
                                         @if(\Carbon\Carbon::parse($event->start_date)->format('M') == \Carbon\Carbon::parse($event->end_date)->format('M'))
 
-                                            <p>{{ \Carbon\Carbon::parse($event->start_date)->format('d') }} - {{ \Carbon\Carbon::parse($event->end_date)->format('d M Y') }}</p>
+                                            <p>{{ \Carbon\Carbon::parse($event->start_date)->format('d') }} - {{ \Carbon\Carbon::parse($event->end_date)->format('d') }} {{ __(\Carbon\Carbon::parse($event->end_date)->format('M')) }} {{ \Carbon\Carbon::parse($event->end_date)->format('Y') }}</p>
 
                                         @else
 
-                                            <p>{{ \Carbon\Carbon::parse($event->start_date)->format('d M') }} - {{ \Carbon\Carbon::parse($event->end_date)->format('d M Y') }}</p>
+                                            <p>{{ \Carbon\Carbon::parse($event->start_date)->format('d') }} {{ __(\Carbon\Carbon::parse($event->end_date)->format('M')) }} - {{ \Carbon\Carbon::parse($event->end_date)->format('d') }} {{ __(\Carbon\Carbon::parse($event->end_date)->format('M')) }} {{ \Carbon\Carbon::parse($event->end_date)->format('Y') }}</p>
 
                                         @endif
 
@@ -80,11 +80,11 @@
 
                                             @if(\Carbon\Carbon::parse($event->start_date)->format('M') == \Carbon\Carbon::parse($event->end_date)->format('M'))
 
-                                                <p>{{ \Carbon\Carbon::parse($event->start_date)->format('d') }} - {{ \Carbon\Carbon::parse($event->end_date)->format('d M Y') }}</p>
+                                                <p>{{ \Carbon\Carbon::parse($event->start_date)->format('d') }} - {{ \Carbon\Carbon::parse($event->end_date)->format('d') }} {{ __(\Carbon\Carbon::parse($event->end_date)->format('M')) }} {{ \Carbon\Carbon::parse($event->end_date)->format('Y') }}</p>
 
                                             @else
 
-                                                <p>{{ \Carbon\Carbon::parse($event->start_date)->format('d M') }} - {{ \Carbon\Carbon::parse($event->end_date)->format('d M Y') }}</p>
+                                                <p>{{ \Carbon\Carbon::parse($event->start_date)->format('d') }} {{ __(\Carbon\Carbon::parse($event->end_date)->format('M')) }} - {{ \Carbon\Carbon::parse($event->end_date)->format('d') }} {{ __(\Carbon\Carbon::parse($event->end_date)->format('M')) }} {{ \Carbon\Carbon::parse($event->end_date)->format('Y') }}</p>
 
                                             @endif
 

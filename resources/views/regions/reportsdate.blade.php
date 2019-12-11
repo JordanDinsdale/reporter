@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-    <h1><i class="fas fa-chart-pie"></i>{{ __('Your Reports') }}</h1>
+    <h1><i class="fas fa-chart-pie"></i>{{ __('YOUR REPORTS') }}</h1>
     
 @endsection
 
@@ -211,7 +211,7 @@
                                 </div>
 
                                 <div class="col-md-4 donut-2">
-                                    <h3>Conversion Rate</h3>
+                                    <h3>{{ __('Conversion Rate') }}</h3>
                                     <canvas id="{{ str_replace(' ','-',strtolower($region->manufacturer->name)) }}-conversionRate" class="conversionRate" width="180" height="180"></canvas>
                                     <p>{{ $region->appointments }} {{ __('Appointments') }}</p>
                                     <p>{{ $region->new + $region->used + $region->demo + $region->zero_km }} {{ __('Sales') }}</p>
@@ -632,7 +632,7 @@
             options: {
                 title: {
                     display: true,
-                    text: "{{ __('Response Rate %') }}"
+                    text: "{{ __('Response Rate') }} %"
                 },
                 scales: {
                     yAxes: [{
@@ -698,7 +698,7 @@
             options: {
                 title: {
                     display: true,
-                    text: "{{ __('Conversion Rate %') }}"
+                    text: "{{ __('Conversion Rate') }} %"
                 },
                 scales: {
                     yAxes: [{
@@ -774,7 +774,7 @@
             options: {
                 title: {
                     display: true,
-                    text: "{{ __('Sales Breakdown %') }}"
+                    text: "{{ __('Sales Breakdown') }} %"
                 },
                 scales: {
                     yAxes: [{
@@ -1023,7 +1023,7 @@
             options: {
                 title: {
                     display: true,
-                    text: "{{ __('Sales Breakdown %') }}"
+                    text: "{{ __('Sales Breakdown') }} %"
                 },
                 scales: {
                     yAxes: [{
